@@ -36,4 +36,5 @@ peer channel create -o orderer.test.com:7050 \
 -c mychannel \
 -f hyperledger_data/channel.tx \
 --tls true \
+--outputBlock hyperledger_data/\mychannel.block \
 --cafile hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem

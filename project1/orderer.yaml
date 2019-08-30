@@ -31,11 +31,11 @@ General:
     TLS:
         Enabled: true
         # PrivateKey governs the file location of the private key of the TLS certificate.
-        PrivateKey: ./crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/server.key
+        PrivateKey: ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/server.key
         # Certificate governs the file location of the server TLS certificate.
-        Certificate: ./crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/server.crt
+        Certificate: ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/server.crt
         RootCAs:
-          - ./crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/ca.crt
+          - ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/ca.crt
         ClientAuthRequired: false
         ClientRootCAs:
     # Keepalive settings for the GRPC server.
@@ -93,12 +93,12 @@ General:
     # Genesis file: The file containing the genesis block to use when
     # initializing the orderer system channel and GenesisMethod is set to
     # "file". Ignored if GenesisMethod is set to "provisional".
-    GenesisFile: genesis_block.pb
+    GenesisFile: hyperledger_data/genesis_block.pb
 
     # LocalMSPDir is where to find the private crypto material needed by the
     # orderer. It is set relative here as a default for dev environments but
     # should be changed to the real location in production.
-    LocalMSPDir: /root/codes/temp/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp
+    LocalMSPDir: ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp
 
     # LocalMSPID is the identity to register the local MSP material with the MSP
     # manager. IMPORTANT: The local MSP ID of an orderer needs to match the MSP
@@ -154,7 +154,7 @@ FileLedger:
     # Location: The directory to store the blocks in.
     # NOTE: If this is unset, a new temporary location will be chosen every time
     # the orderer is restarted, using the prefix specified by Prefix.
-    Location: /root/codes/temp/orderer_ledger
+    Location: ./hyperledger_data/orderer_ledger
 
     # The prefix to use when generating a ledger directory in temporary space.
     # Otherwise, this value is ignored.

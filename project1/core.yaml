@@ -268,7 +268,7 @@ peer:
     # Path on the file system where peer will store data (eg ledger). This
     # location must be access control protected to prevent unintended
     # modification that might corrupt the peer operations.
-    fileSystemPath: /root/codes/temp/peer_ledger
+    fileSystemPath: ./hyperledger_data/peer_ledger
 
     # BCCSP (Blockchain crypto provider): Select which crypto implementation or
     # library to use
@@ -299,7 +299,7 @@ peer:
                 KeyStore:
 
     # Path on the file system where peer will find MSP local configurations
-    mspConfigPath: /root/codes/temp/crypto-config/peerOrganizations/org1.test.com/users/Admin@org1.test.com/msp
+    mspConfigPath: ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/users/Admin@org1.test.com/msp
 
 
     # Identifier of the local MSP

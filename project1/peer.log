@@ -1,0 +1,44 @@
+[34m2019-08-30 14:47:46.984 CST [nodeCmd] serve -> INFO 001[0m Starting peer:
+ Version: 1.4.2
+ Commit SHA: c6cc550
+ Go version: go1.11.5
+ OS/Arch: linux/amd64
+ Chaincode:
+  Base Image Version: 0.4.15
+  Base Docker Namespace: hyperledger
+  Base Docker Label: org.hyperledger.fabric
+  Docker Namespace: hyperledger
+[34m2019-08-30 14:47:46.985 CST [ledgermgmt] initialize -> INFO 002[0m Initializing ledger mgmt
+[34m2019-08-30 14:47:46.985 CST [kvledger] NewProvider -> INFO 003[0m Initializing ledger provider
+[34m2019-08-30 14:47:46.991 CST [kvledger] NewProvider -> INFO 004[0m ledger provider Initialized
+[34m2019-08-30 14:47:46.999 CST [ledgermgmt] initialize -> INFO 005[0m ledger mgmt initialized
+[34m2019-08-30 14:47:46.999 CST [peer] func1 -> INFO 006[0m Auto-detected peer address: 192.168.16.70:7051
+[34m2019-08-30 14:47:46.999 CST [peer] func1 -> INFO 007[0m Host is 0.0.0.0 , falling back to auto-detected address: 192.168.16.70:7051
+[34m2019-08-30 14:47:46.999 CST [peer] func1 -> INFO 008[0m Auto-detected peer address: 192.168.16.70:7051
+[34m2019-08-30 14:47:46.999 CST [peer] func1 -> INFO 009[0m Host is 0.0.0.0 , falling back to auto-detected address: 192.168.16.70:7051
+[34m2019-08-30 14:47:47.000 CST [nodeCmd] computeChaincodeEndpoint -> INFO 00a[0m Entering computeChaincodeEndpoint with peerHostname: 192.168.16.70
+[34m2019-08-30 14:47:47.001 CST [nodeCmd] computeChaincodeEndpoint -> INFO 00b[0m Exit with ccEndpoint: 192.168.16.70:7052
+[33m2019-08-30 14:47:47.001 CST [nodeCmd] createChaincodeServer -> WARN 00c[0m peer.chaincodeListenAddress is not set, using 192.168.16.70:7052
+[34m2019-08-30 14:47:47.001 CST [sccapi] registerSysCC -> INFO 00d[0m system chaincode lscc(github.com/hyperledger/fabric/core/scc/lscc) registered
+[34m2019-08-30 14:47:47.002 CST [sccapi] registerSysCC -> INFO 00e[0m system chaincode cscc(github.com/hyperledger/fabric/core/scc/cscc) registered
+[34m2019-08-30 14:47:47.002 CST [sccapi] registerSysCC -> INFO 00f[0m system chaincode qscc(github.com/hyperledger/fabric/core/scc/qscc) registered
+[34m2019-08-30 14:47:47.002 CST [sccapi] registerSysCC -> INFO 010[0m system chaincode (+lifecycle,github.com/hyperledger/fabric/core/chaincode/lifecycle,true) disabled
+[34m2019-08-30 14:47:47.003 CST [gossip.service] func1 -> INFO 011[0m Initialize gossip with endpoint 192.168.16.70:7051 and bootstrap set [127.0.0.1:7051]
+[34m2019-08-30 14:47:47.006 CST [gossip.gossip] NewGossipService -> INFO 012[0m Creating gossip service with self membership of Endpoint: , InternalEndpoint: 192.168.16.70:7051, PKI-ID: c5f252306cf50c4b4dc2f57d3d85bf502dc4455545e2ea80d661f2bef859f487, Metadata: 
+[33m2019-08-30 14:47:47.007 CST [gossip.gossip] NewGossipService -> WARN 013[0m External endpoint is empty, peer will not be accessible outside of its organization
+[34m2019-08-30 14:47:47.007 CST [gossip.gossip] start -> INFO 014[0m Gossip instance 192.168.16.70:7051 started
+[34m2019-08-30 14:47:47.007 CST [sccapi] deploySysCC -> INFO 015[0m system chaincode lscc/(github.com/hyperledger/fabric/core/scc/lscc) deployed
+[34m2019-08-30 14:47:47.008 CST [cscc] Init -> INFO 016[0m Init CSCC
+[34m2019-08-30 14:47:47.008 CST [sccapi] deploySysCC -> INFO 017[0m system chaincode cscc/(github.com/hyperledger/fabric/core/scc/cscc) deployed
+[34m2019-08-30 14:47:47.008 CST [qscc] Init -> INFO 018[0m Init QSCC
+[34m2019-08-30 14:47:47.008 CST [sccapi] deploySysCC -> INFO 019[0m system chaincode qscc/(github.com/hyperledger/fabric/core/scc/qscc) deployed
+[34m2019-08-30 14:47:47.008 CST [sccapi] deploySysCC -> INFO 01a[0m system chaincode (+lifecycle,github.com/hyperledger/fabric/core/chaincode/lifecycle) disabled
+[34m2019-08-30 14:47:47.008 CST [nodeCmd] serve -> INFO 01b[0m Deployed system chaincodes
+[34m2019-08-30 14:47:47.008 CST [discovery] NewService -> INFO 01c[0m Created with config TLS: false, authCacheMaxSize: 1000, authCachePurgeRatio: 0.750000
+[34m2019-08-30 14:47:47.009 CST [nodeCmd] registerDiscoveryService -> INFO 01d[0m Discovery service activated
+[34m2019-08-30 14:47:47.009 CST [nodeCmd] serve -> INFO 01e[0m Starting peer with ID=[name:"org1id" ], network ID=[dev], address=[192.168.16.70:7051]
+[34m2019-08-30 14:47:47.009 CST [nodeCmd] serve -> INFO 01f[0m Started peer with ID=[name:"org1id" ], network ID=[dev], address=[192.168.16.70:7051]
+[34m2019-08-30 14:47:47.009 CST [kvledger] LoadPreResetHeight -> INFO 020[0m Loading prereset height from path [/root/codes/temp/peer_ledger/ledgersData/chains]
+[34m2019-08-30 14:47:47.009 CST [fsblkstorage] LoadPreResetHeight -> INFO 021[0m Loading Pre-reset heights
+[34m2019-08-30 14:47:47.009 CST [fsblkstorage] preRestHtFiles -> INFO 022[0m Dir [/root/codes/temp/peer_ledger/ledgersData/chains/chains] missing... exiting
+[34m2019-08-30 14:47:47.009 CST [fsblkstorage] LoadPreResetHeight -> INFO 023[0m Pre-reset heights loaded

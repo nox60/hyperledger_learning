@@ -33,8 +33,8 @@ peer chaincode instantiate  \
 -v 0 \
 -o orderer.test.com:7050 \
 --cafile ./hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem \
--c '{"Args":["a","100","b","200"]}' \
--P "OR ('Org1MSP.member')"
+-c '{"Args":["a","10"]}' \
+-P "OR ('Org1MSP.admin')"
 ```
 
 peer chaincode instantiate \

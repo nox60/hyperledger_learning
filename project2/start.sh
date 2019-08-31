@@ -12,11 +12,11 @@ cryptogen generate \
 echo 'Create genesis block'
 # 创世区块
 configtxgen -outputBlock hyperledger_data/genesis_block.pb \
--profile TwoOrgsOrdererGenesis 
+-profile OnlyOneOrgOrdererGenesis 
 
 echo 'Create tx'
 # tx
-configtxgen -profile TwoOrgsChannel \
+configtxgen -profile OnlyOneOrgChannel \
 -outputCreateChannelTx hyperledger_data/channel.tx \
 -channelID mychannel
 

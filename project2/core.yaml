@@ -11,7 +11,7 @@
 peer:
 
     # The Peer id is used for identifying this Peer instance.
-    id: org1id
+    id: Org1MSP
 
     # The networkId allows for logical seperation of networks
     networkId: dev

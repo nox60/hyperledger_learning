@@ -33,9 +33,19 @@ peer chaincode instantiate  \
 -v 0 \
 -o orderer.test.com:7050 \
 --cafile ./hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem \
--c '{"Args":["init","a","100","b","200"]}' \
--P "AND ('Org1MSP.peer','Org2MSP.peer')"
+-c '{"Args":["a","100","b","200"]}' \
+-P "OR ('Org1MSP.member')"
 ```
+
+peer chaincode instantiate \
+-o  orderer.dams.com:7050  \
+-C ca \
+-n insurencebussiness \
+-v 1.0 -c '{"Args":[]}' \
+-P "OR ('Ia3MSP.member')"  \
+--tls true \
+--cafile tlsca.dams.com-cert.pem
+
 
 
 列出已经安装的智能合约

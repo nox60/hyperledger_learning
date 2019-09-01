@@ -37,7 +37,7 @@ General:
         Certificate: ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/server.crt
         RootCAs:
           - ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls/ca.crt
-        ClientAuthRequired: true
+        ClientAuthRequired: false
         ClientRootCAs:
     # Keepalive settings for the GRPC server.
     Keepalive:

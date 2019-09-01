@@ -25,6 +25,8 @@ Organizations:
         ID: Orderer
 
         # MSPDir is the filesystem path which contains the MSP configuration
+        # 官方的例子里面是给的：crypto-config/ordererOrganizations/example.com/msp
+        # 说明该msp是指的orderer的msp
         MSPDir: hyperledger_data/crypto-config/ordererOrganizations/test.com/msp
 
         # Policies defines the set of policies at this level of the config tree
@@ -49,6 +51,8 @@ Organizations:
         # ID to load the MSP definition as
         ID: Org1
 
+        # 官方例子是：crypto-config/peerOrganizations/org1.example.com/msp
+        # 说明是org的MSP
         MSPDir: hyperledger_data/crypto-config/peerOrganizations/org1.test.com/msp
 
         # Policies defines the set of policies at this level of the config tree

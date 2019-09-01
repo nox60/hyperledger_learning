@@ -28,6 +28,7 @@ General:
     ListenPort: 7050
 
     # TLS: TLS settings for the GRPC server.
+    # 官方配置：ordererOrganizations/example.com/orderers/orderer.example.com/tls
     TLS:
         Enabled: true
         # PrivateKey governs the file location of the private key of the TLS certificate.
@@ -98,6 +99,8 @@ General:
     # LocalMSPDir is where to find the private crypto material needed by the
     # orderer. It is set relative here as a default for dev environments but
     # should be changed to the real location in production.
+
+    # 官方配置 crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp
     LocalMSPDir: ./hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp
 
     # LocalMSPID is the identity to register the local MSP material with the MSP

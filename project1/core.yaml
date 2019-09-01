@@ -236,6 +236,7 @@ peer:
         # fail to connect to the peer.
         clientAuthRequired: true
         # X.509 certificate used for TLS server
+        # 官方路径：                  crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls
         cert:
             file: ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls/server.crt
         # Private key used for TLS server (and client if clientAuthEnabled
@@ -299,9 +300,8 @@ peer:
                 KeyStore:
 
     # Path on the file system where peer will find MSP local configurations
+    # 官方MSP路径                     /crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp
     mspConfigPath: ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/msp
-                 # ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/users/Admin@org1.test.com/msp
-                 # ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls
  
 
     # Identifier of the local MSP

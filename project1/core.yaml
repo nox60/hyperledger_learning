@@ -299,8 +299,8 @@ peer:
                 KeyStore:
 
     # Path on the file system where peer will find MSP local configurations
-    mspConfigPath: ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/users/Admin@org1.test.com/msp
-
+    mspConfigPath: ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/msp
+                 # ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/users/Admin@org1.test.com/msp
                  # ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls
     # Identifier of the local MSP
     # ----!!!!IMPORTANT!!!-!!!IMPORTANT!!!-!!!IMPORTANT!!!!----

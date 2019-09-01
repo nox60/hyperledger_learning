@@ -234,7 +234,7 @@ peer:
         # Require client certificates / mutual TLS.
         # Note that clients that are not configured to use a certificate will
         # fail to connect to the peer.
-        clientAuthRequired: false
+        clientAuthRequired: true
         # X.509 certificate used for TLS server
         cert:
             file: ./hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls/server.crt

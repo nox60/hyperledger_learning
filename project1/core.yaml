@@ -234,7 +234,7 @@ peer:
         # Require client certificates / mutual TLS.
         # Note that clients that are not configured to use a certificate will
         # fail to connect to the peer.
-        clientAuthRequired: true
+        clientAuthRequired: false
         # X.509 certificate used for TLS server
         # 官方路径：                  crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls
         cert:

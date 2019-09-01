@@ -307,7 +307,7 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *OrdererOrg
+                - *Orderer
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:

@@ -22,4 +22,3 @@ configtxgen -profile TwoOrgsChannel \
 echo 'start orderer'
 # start orderer
 nohup orderer > hyperledger_data/orderer.log   2>&1 &
-

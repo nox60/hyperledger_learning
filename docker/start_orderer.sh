@@ -1,9 +1,8 @@
 #!/bin/bash
 
   docker run -it -d \
-  --name ="nginx-lb"
-    image: hyperledger/fabric-orderer:$IMAGE_TAG
-      -e username="ritchie"  FABRIC_LOGGING_SPEC="INFO" \
+  --name orderer_container \
+      -e username="ritchie"  \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
@@ -20,7 +19,3 @@
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
       hyperledger/fabric-orderer:1.4.2
-
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: orderer
-

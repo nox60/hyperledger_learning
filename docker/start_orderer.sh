@@ -19,6 +19,7 @@
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt " \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
+      hyperledger/fabric-orderer:1.4.2
 
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: orderer

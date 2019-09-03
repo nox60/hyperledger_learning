@@ -31,6 +31,7 @@ docker run -it -d \
 docker rm -f org1_peer_0
 
 docker run -it -d \
+  --name org1_peer_0 \
       -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="net_byfn" \
       -e FABRIC_LOGGING_SPEC="INFO" \
@@ -48,8 +49,12 @@ docker run -it -d \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.example.com:8051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.org1.example.com:7051" \
-      -e CORE_PEER_LOCALMSPID="Org1MSP" \
+      -e CORE_PEER_LOCALMSPID="Org1" \
       -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production \
+      hyperledger/fabric-peer:1.4.2       
+ 
 

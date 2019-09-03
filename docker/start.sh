@@ -25,15 +25,13 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls:/var/hyperledger/orderer/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production/orderer \
-      hyperledger/fabric-orderer:1.4.2
+      hyperledger/fabric-orderer:1.4.3
 
 
 docker rm -f org1_peer_0
 
 docker run -it -d \
   --name org1_peer_0 \
-      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
-      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="net_byfn" \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
@@ -42,19 +40,16 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.org1.example.com" \
-      -e CORE_PEER_ADDRESS="peer0.org1.example.com:7051" \
+      -e CORE_PEER_ID="peer0.org1.test.com" \
+      -e CORE_PEER_ADDRESS="peer0.org1.test.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.org1.example.com:7052" \
+      -e CORE_PEER_CHAINCODEADDRESS="peer0.org1.test.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.example.com:8051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.org1.example.com:7051" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.test.com:8051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.org1.test.com:7051" \
       -e CORE_PEER_LOCALMSPID="Org1" \
-      -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production \
-      hyperledger/fabric-peer:1.4.2       
- 
-
+      hyperledger/fabric-peer:1.4.3       

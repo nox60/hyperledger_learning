@@ -1,50 +1,55 @@
 #!/bin/bash
 
-rm -rf hyperledger_data
 
-ps -ef | grep orderer | grep -v grep | awk '{print $2}' | xargs kill -9
-ps -ef | grep peer | grep -v grep | awk '{print $2}' | xargs kill -9
+docker rm -f orderer_container
 
-# 生成各种秘钥文件
-cryptogen generate \
---config=./crypto-config.yaml \
---output="hyperledger_data/crypto-config"
+docker run -it -d \
+  --name orderer_container \
+      -e username="ritchie"  \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
+      -e ORDERER_GENERAL_GENESISMETHOD="file" \
+      -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
+      -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
+      -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
+      -e ORDERER_GENERAL_TLS_ENABLED="true" \
+      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
+      -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
+      -e ORDERER_GENERAL_TLS_ROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
+      -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
+      -e ORDERER_KAFKA_VERBOSE="true" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
+      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp:/var/hyperledger/orderer/msp \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls:/var/hyperledger/orderer/tls \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production/orderer \
+      hyperledger/fabric-orderer:1.4.2
 
-# 创建创世区块
-configtxgen -outputBlock hyperledger_data/genesis_block.pb \
--profile TwoOrgsOrdererGenesis 
 
-# 创建通道transaction
-configtxgen -profile TwoOrgsChannel \
--outputCreateChannelTx hyperledger_data/channel.tx \
--channelID mychannel
+docker rm -f org1_peer_0
 
-# start orderer
-nohup orderer > hyperledger_data/orderer.log   2>&1 &
+docker run -it -d \
+      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
+      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="net_byfn" \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e CORE_PEER_TLS_ENABLED="true" \
+      -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
+      -e CORE_PEER_GOSSIP_ORGLEADER="false" \
+      -e CORE_PEER_PROFILE_ENABLED="true" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
+      -e CORE_PEER_ID="peer0.org1.example.com" \
+      -e CORE_PEER_ADDRESS="peer0.org1.example.com:7051" \
+      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
+      -e CORE_PEER_CHAINCODEADDRESS="peer0.org1.example.com:7052" \
+      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.example.com:8051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.org1.example.com:7051" \
+      -e CORE_PEER_LOCALMSPID="Org1MSP" \
+      -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
 
-sleep 2
-echo 'start peer'
-nohup peer node start > hyperledger_data/peer.log 2>&1 &
 
-sleep 2
-echo 'create channel'
-
-# 官方例子中cafile 路径 ordererOrganizations/test.com/msp/tlscacerts/tlsca.test.com-cert.pem
-                    #  ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-# create channel
-peer channel create \
--o orderer.test.com:7050 \
--c mychannel \
--f hyperledger_data/channel.tx \
---tls  \
---outputBlock hyperledger_data/mychannel.block \
---cafile hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp/tlscacerts/tlsca.test.com-cert.pem/tlsca.test.com-cert.pem
-                                       
-
-# 官方例子
-peer channel create \
--o orderer.example.com:7050 \
--c $CHANNEL_NAME \
--f ./channel-artifacts/channel.tx \
---tls \
---cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem

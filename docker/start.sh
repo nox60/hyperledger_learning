@@ -52,4 +52,5 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production \
+      --link orderer_container:orderer.test.com \
       hyperledger/fabric-peer:1.4.3       

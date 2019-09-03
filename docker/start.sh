@@ -25,6 +25,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/tls:/var/hyperledger/orderer/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production/orderer \
+      -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 
 
@@ -53,4 +54,6 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.test.com/peers/peer0.org1.test.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production \
       --link orderer_container:orderer.test.com \
+      -p 7051:7051 \
+      -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       

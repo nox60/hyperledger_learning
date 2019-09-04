@@ -1,5 +1,27 @@
 #!/bin/bash
 
+docker rm -f cli
+
+docker run -it -d \
+  --name cli \
+      -e SYS_CHANNEL="byfn-sys-channel" \
+      -e GOPATH="/opt/gopath" \
+      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e CORE_PEER_ID="cli" \
+      -e CORE_PEER_ADDRESS="peer0.org1.example.com:7051" \
+      -e CORE_PEER_LOCALMSPID="Org1MSP" \
+      -e CORE_PEER_TLS_ENABLED="true"  \
+      -e CORE_PEER_TLS_CERT_FILE="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt" \
+      -e CORE_PEER_TLS_KEY_FILE="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
+      -e CORE_PEER_MSPCONFIGPATH="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp" \
+      -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/go/bin:/opt/gopath/bin" \
+      -e GOROOT="/opt/go" \
+      -e GOCACHE="off" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -v :/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto \
+
 
 docker rm -f orderer_container
 

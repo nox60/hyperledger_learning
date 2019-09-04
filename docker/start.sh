@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 docker rm -f orderer_container
 
 docker run -it -d \
@@ -57,6 +58,36 @@ docker run -it -d \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       
 
+docker rm -f org1_peer_1
+
+docker run -it -d \
+  --name org1_peer_1 \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e CORE_PEER_TLS_ENABLED="true" \
+      -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
+      -e CORE_PEER_GOSSIP_ORGLEADER="false" \
+      -e CORE_PEER_PROFILE_ENABLED="true" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
+      -e CORE_PEER_ID="peer1.org1.example.com" \
+      -e CORE_PEER_ADDRESS="peer1.org1.example.com:8051" \
+      -e CORE_PEER_LISTENADDRESS="0.0.0.0:8051" \
+      -e CORE_PEER_CHAINCODEADDRESS="peer1.org1.example.com:8052" \
+      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:8052" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.org1.example.com:7051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer1.org1.example.com:8051" \
+      -e CORE_PEER_LOCALMSPID="Org1" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production \
+      --link orderer_container:orderer.example.com \
+      -p 8051:8051 \
+      -p 8052:8052 \
+      hyperledger/fabric-peer:1.4.3       
+
+
 docker rm -f cli
 
 docker run -it -d \
@@ -64,7 +95,7 @@ docker run -it -d \
       -e SYS_CHANNEL="byfn-sys-channel" \
       -e GOPATH="/opt/gopath" \
       -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
-      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e FABRIC_LOGGING_SPEC="DEBUG" \
       -e CORE_PEER_ID="cli" \
       -e CORE_PEER_ADDRESS="peer0.org1.example.com:7051" \
       -e CORE_PEER_LOCALMSPID="Org1MSP" \
@@ -81,4 +112,5 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
       --link orderer_container:orderer.example.com \
       --link org1_peer_0:peer0.org1.example.com \
+      --link org1_peer_1:peer1.org1.example.com \
       hyperledger/fabric-tools:1.4.3

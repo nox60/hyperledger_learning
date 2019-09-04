@@ -9,7 +9,7 @@ cryptogen generate \
 echo 'Create genesis block'
 # 创世区块
 configtxgen -outputBlock hyperledger_data/orderer.genesis.block \
--profile TwoOrgsOrdererGenesis 
+-profile TwoOrgsOrdererGenesis
 
 echo 'Create tx'
 # tx

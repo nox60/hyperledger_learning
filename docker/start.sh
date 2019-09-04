@@ -1,33 +1,5 @@
 #!/bin/bash
 
-docker rm -f cli
-
-docker run -it -d \
-  --name cli \
-      -e SYS_CHANNEL="byfn-sys-channel" \
-      -e GOPATH="/opt/gopath" \
-      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_ID="cli" \
-      -e CORE_PEER_ADDRESS="peer0.org1.example.com:7051" \
-      -e CORE_PEER_LOCALMSPID="Org1MSP" \
-      -e CORE_PEER_TLS_ENABLED="true"  \
-      -e CORE_PEER_TLS_CERT_FILE="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
-      -e CORE_PEER_MSPCONFIGPATH="/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp" \
-      -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/go/bin:/opt/gopath/bin" \
-      -e GOROOT="/opt/go" \
-      -e GOCACHE="off" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/root/codes/fabric-samples/first-network/channel-artifacts \
-      --link orderer_container:orderer.test.com \
-      --link orderer_container:orderer.test.com \
-      hyperledger/fabric-tools:1.4.3
-      
-
-
 docker rm -f orderer_container
 
 docker run -it -d \
@@ -85,11 +57,6 @@ docker run -it -d \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       
 
-
-
-
-
-
 docker rm -f cli
 
 docker run -it -d \
@@ -113,7 +80,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/root/codes/fabric-samples/first-network/channel-artifacts \
       --link orderer_container:orderer.test.com \
-      --link orderer_container:orderer.test.com \
+      --link org1_peer_0:peer0.org1.test.com \
       hyperledger/fabric-tools:1.4.3
       
 

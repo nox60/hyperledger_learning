@@ -158,9 +158,6 @@ docker run -it -d \
 
 
 
-
-
-
 docker rm -f cli
 docker run -it -d \
   --name cli \

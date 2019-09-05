@@ -1,2 +1,6 @@
 **/hyperledger_data/*
 **/*.block
+**/*.tx
+**/*.swp
+**/ca_data_dir/**
+**/ca_data_dir

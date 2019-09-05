@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-docker rm -f orderer_container
+docker rm -f orderer.example.com
 docker run -it -d \
-  --name orderer_container \
+  --name orderer.example.com \
       -e username="ritchie"  \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
@@ -24,6 +24,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls:/var/hyperledger/orderer/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production/orderer \
+      -v /etc/hosts:/etc/hosts \
       -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 
@@ -64,6 +65,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer:/var/hyperledger/production \
+      -v /etc/hosts:/etc/hosts \
       --link couchdb_org1:couchdb \
       -p 7051:7051 \
       -p 7052:7052 \
@@ -105,6 +107,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org2peer:/var/hyperledger/production \
+      -v /etc/hosts:/etc/hosts \
       --link couchdb_org2:couchdb \
       -p 7151:7051 \
       -p 7152:7052 \
@@ -146,6 +149,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org3peer:/var/hyperledger/production \
+      -v /etc/hosts:/etc/hosts \
       --link couchdb_org3:couchdb \
       -p 7251:7051 \
       -p 7252:7052 \
@@ -170,6 +174,7 @@ docker run -it -d \
       -e GOROOT="/opt/go" \
       -e GOCACHE="off" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -v /etc/hosts:/etc/hosts \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/crypto \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
       hyperledger/fabric-tools:1.4.3

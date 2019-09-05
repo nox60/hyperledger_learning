@@ -52,6 +52,22 @@ export CORE_PEER_ADDRESS=peer0.org3.example.com:7251
 peer channel join -b mychannel.block
 
 
+#Org2
+export CORE_PEER_LOCALMSPID=Org2MSP
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+export CORE_PEER_ADDRESS=peer0.org2.example.com:7151
+peer channel list
+
+#Org3
+export CORE_PEER_LOCALMSPID=Org3MSP
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp
+export CORE_PEER_ADDRESS=peer0.org3.example.com:7251
+peer channel list
+
+
+
 
 
 + res=0

@@ -4,3 +4,5 @@
 **/*.swp
 **/ca_data_dir/**
 **/ca_data_dir
+**/ca_client_data/**
+**/ca_client_data

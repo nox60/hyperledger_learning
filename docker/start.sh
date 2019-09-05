@@ -181,4 +181,6 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
       --link orderer_container:orderer.example.com \
       --link org1_peer_0:peer0.org1.example.com \
+      --link org2_peer_0:peer0.org2.example.com \
+      --link org3_peer_0:peer0.org3.example.com \
       hyperledger/fabric-tools:1.4.3

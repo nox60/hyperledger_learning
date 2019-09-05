@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 docker rm -f orderer.example.com
 docker run -it -d \
   --name orderer.example.com \

@@ -37,9 +37,9 @@ docker run -ti -d \
 -d hyperledger/fabric-couchdb  
 
 
-docker rm -f org1_peer_0
+docker rm -f peer0.org1.example.com
 docker run -it -d \
-  --name org1_peer_0 \
+  --name peer0.org1.example.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
@@ -64,12 +64,10 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer:/var/hyperledger/production \
-      --link orderer_container:orderer.example.com \
       --link couchdb_org1:couchdb \
       -p 7051:7051 \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       
-
 
 docker rm -f couchdb_org2
 docker run -ti -d \
@@ -80,9 +78,9 @@ docker run -ti -d \
 -d hyperledger/fabric-couchdb  
 
 
-docker rm -f org2_peer_0
+docker rm -f peer0.org2.example.com
 docker run -it -d \
-  --name org2_peer_0 \
+  --name peer0.org2.example.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
@@ -107,12 +105,10 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org2peer:/var/hyperledger/production \
-      --link orderer_container:orderer.example.com \
       --link couchdb_org2:couchdb \
       -p 7151:7051 \
       -p 7152:7052 \
       hyperledger/fabric-peer:1.4.3       
-
 
 
 docker rm -f couchdb_org3
@@ -123,9 +119,9 @@ docker run -ti -d \
 -v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org3/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
-docker rm -f org3_peer_0
+docker rm -f peer0.org3.example.com
 docker run -it -d \
-  --name org3_peer_0 \
+  --name peer0.org3.example.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
@@ -150,13 +146,10 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org3peer:/var/hyperledger/production \
-      --link orderer_container:orderer.example.com \
       --link couchdb_org3:couchdb \
       -p 7251:7051 \
       -p 7252:7052 \
       hyperledger/fabric-peer:1.4.3       
-
-
 
 docker rm -f cli
 docker run -it -d \
@@ -179,8 +172,4 @@ docker run -it -d \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/crypto \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
-      --link orderer_container:orderer.example.com \
-      --link org1_peer_0:peer0.org1.example.com \
-      --link org2_peer_0:peer0.org2.example.com \
-      --link org3_peer_0:peer0.org3.example.com \
       hyperledger/fabric-tools:1.4.3

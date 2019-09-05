@@ -31,7 +31,13 @@ Creating channel...
 ===================== Channel 'mychannel' created =====================
 
 Having all peers join the channel...
-+ peer channel join -b mychannel.block
+
+
+
+
+
+
+peer channel join -b mychannel.block
 + res=0
 + set +x
 2019-09-04 06:03:14.314 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized

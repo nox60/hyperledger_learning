@@ -24,6 +24,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production/orderer \
       -v /etc/hosts:/etc/hosts \
+      -v /var/run:/var/run \
       -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 
@@ -68,6 +69,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
+      -v /var/run:/var/run \
       --link couchdb_org1:couchdb \
       -p 7051:7051 \
       -p 7052:7052 \
@@ -110,6 +112,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org2peer:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
+      -v /var/run:/var/run \
       --link couchdb_org2:couchdb \
       -p 7151:7051 \
       -p 7152:7052 \
@@ -152,6 +155,7 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp:/etc/hyperledger/fabric/msp \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/org3peer:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
+      -v /var/run:/var/run \
       --link couchdb_org3:couchdb \
       -p 7251:7051 \
       -p 7252:7052 \
@@ -180,4 +184,6 @@ docker run -it -d \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/crypto \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
       -v /root/codes/fabric-samples/chaincode:/opt/gopath/src/github.com/chaincode \
+      -v /var/run:/host/var/run \
+      -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3

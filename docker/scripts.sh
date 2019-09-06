@@ -67,6 +67,18 @@ export CORE_PEER_ADDRESS=peer0.org3.example.com:7251
 peer channel list
 
 
+export CORE_PEER_LOCALMSPID=Org1MSP
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
+
+
+
+peer chaincode instantiate -o orderer.example.com:7050 \
+--tls true --cafile /opt/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
+-C mychannel -n mycc -l golang -v 1.0 \
+-c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'
 
 
 
@@ -114,7 +126,8 @@ Updating anchor peers for org2...
 ===================== Anchor peers updated for org 'Org2MSP' on channel 'mychannel' =====================
 
 Installing chaincode on peer0.org1...
-+ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ 
+peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
 + res=0
 + set +x
 2019-09-04 06:03:32.701 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc

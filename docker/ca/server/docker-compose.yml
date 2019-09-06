@@ -1,5 +1,5 @@
 fabric-ca-server:
-  image: hyperledger/fabric-ca:x86_64-1.0.0-beta
+  image: hyperledger/fabric-ca:1.4.3
   container_name: fabric-ca-server
   ports:
     - "7054:7054"

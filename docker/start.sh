@@ -179,4 +179,5 @@ docker run -it -d \
       -v /etc/hosts:/etc/hosts \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/crypto \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
+      -v /root/codes/fabric-samples/chaincode:/opt/gopath/src/github.com/chaincode \
       hyperledger/fabric-tools:1.4.3

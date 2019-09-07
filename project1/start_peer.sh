@@ -11,7 +11,8 @@ sleep 2
 echo 'create channel'
 
 # create channel
-peer channel create -o orderer.test.com:7050 \
+peer channel create \
+-o orderer.test.com:7050 \
 -c mychannel \
 -f hyperledger_data/channel.tx \
 --tls true \

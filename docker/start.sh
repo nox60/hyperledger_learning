@@ -40,7 +40,6 @@ docker run -ti -d \
 
 
 
-
 docker rm -f peer0.org1.example.com
 docker run -it -d \
   --name peer0.org1.example.com \

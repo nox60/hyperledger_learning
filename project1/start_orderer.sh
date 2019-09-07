@@ -8,6 +8,7 @@ cryptogen generate \
 --config=./crypto-config.yaml \
 --output="hyperledger_data/crypto-config"
 
+
 echo 'Create genesis block'
 # 创世区块
 configtxgen -outputBlock hyperledger_data/genesis_block.pb \

@@ -27,6 +27,7 @@ General:
     # Listen port: The port on which to bind to listen.
     ListenPort: 7050
 
+
     # TLS: TLS settings for the GRPC server.
     # 官方配置：ordererOrganizations/example.com/orderers/orderer.example.com/tls
     TLS:

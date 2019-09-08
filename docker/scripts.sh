@@ -60,7 +60,6 @@ peer chaincode instantiate -o orderer.example.com:7050 \
 -C mychannel -n mycc -l golang -v 1.0 \
 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'
 
-
 # view installed chain codes of org1 peer0
 export CORE_PEER_LOCALMSPID=Org1MSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
@@ -70,10 +69,11 @@ peer chaincode list \
 -C mychannel \
 --installed
 
-
 # view installed chain codes of org1 peer1
 export CORE_PEER_LOCALMSPID=Org1MSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+export CORE_PEER_TLS_CERT_FILE=/opt/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
+export CORE_PEER_TLS_KEY_FILE=/opt/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=peer1.org1.example.com:7351
 peer chaincode list \

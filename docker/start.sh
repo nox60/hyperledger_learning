@@ -43,8 +43,8 @@ docker run -it -d \
   --name peer0.org1.example.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
+      -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
+      -e CORE_PEER_GOSSIP_ORGLEADER="false" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
@@ -54,7 +54,7 @@ docker run -it -d \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
       -e CORE_PEER_CHAINCODEADDRESS="peer0.org1.example.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.org1.example.com:7051" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.example.com:7351" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.org1.example.com:7051" \
       -e CORE_PEER_LOCALMSPID="Org1MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="couchdb" \
@@ -88,8 +88,8 @@ docker run -it -d \
   --name peer1.org1.example.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
+      -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
+      -e CORE_PEER_GOSSIP_ORGLEADER="false" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
@@ -99,7 +99,7 @@ docker run -it -d \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7351" \
       -e CORE_PEER_CHAINCODEADDRESS="peer1.org1.example.com:7352" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7352" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.example.com:7351" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.org1.example.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer1.org1.example.com:7351" \
       -e CORE_PEER_LOCALMSPID="Org1MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="couchdb" \

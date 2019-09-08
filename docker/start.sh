@@ -96,9 +96,9 @@ docker run -it -d \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_PEER_ID="peer1.org1.example.com" \
       -e CORE_PEER_ADDRESS="peer1.org1.example.com:7051" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7351" \
+      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
       -e CORE_PEER_CHAINCODEADDRESS="peer1.org1.example.com:7352" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7352" \
+      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.org1.example.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer1.org1.example.com:7351" \
       -e CORE_PEER_LOCALMSPID="Org1MSP" \

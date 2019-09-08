@@ -10,29 +10,6 @@ peer channel create -o orderer.example.com:7050 \
 --tls true --cafile \
 /opt/crypto/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
-TwoOrgsOrdererGenesis
-TwoOrgsChannel
-
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/crypto \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
-
-%s/crypto-config:hyperledger_data/crypto-config/g
-
-/etc/hyperledger/fabric
-
-
-Channel name : mychannel
-Creating channel...
-+ peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-+ res=0
-+ set +x
-2019-09-04 06:03:14.246 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:14.268 UTC [cli.common] readBlock -> INFO 002 Received block: 0
-===================== Channel 'mychannel' created =====================
-
-Having all peers join the channel...
-
-
 export CORE_PEER_LOCALMSPID=Org1MSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
@@ -50,7 +27,6 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org3.example.co
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp
 export CORE_PEER_ADDRESS=peer0.org3.example.com:7251
 peer channel join -b mychannel.block
-
 
 #Org2
 export CORE_PEER_LOCALMSPID=Org2MSP
@@ -72,8 +48,6 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org1.example.co
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
-
-
 
 peer chaincode instantiate -o orderer.example.com:7050 \
 --tls true --cafile /opt/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem \

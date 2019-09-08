@@ -29,15 +29,13 @@ docker run -it -d \
       hyperledger/fabric-orderer:1.4.3
 
 
-docker rm -f couchdb_org1
+docker rm -f couchdb_org1_peer0
 docker run -ti -d \
---name couchdb_org1 \
+--name couchdb_org1_peer0 \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org1/:/opt/couchdb/data  \
+-v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org1/peer0:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
-
-
 
 
 docker rm -f peer0.org1.example.com
@@ -66,13 +64,59 @@ docker run -it -d \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer:/var/hyperledger/production \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer0:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
-      --link couchdb_org1:couchdb \
+      --link couchdb_org1_peer0:couchdb \
       -p 7051:7051 \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       
+
+
+
+docker rm -f couchdb_org1_peer1
+docker run -ti -d \
+--name couchdb_org1_peer1 \
+-e COUCHDB_USER=admin \
+-e COUCHDB_PASSWORD=dev@2019  \
+-v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org1_peer1/:/opt/couchdb/data  \
+-d hyperledger/fabric-couchdb  
+
+
+docker rm -f peer1.org1.example.com
+docker run -it -d \
+  --name peer1.org1.example.com \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e CORE_PEER_TLS_ENABLED="true" \
+      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
+      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
+      -e CORE_PEER_PROFILE_ENABLED="true" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
+      -e CORE_PEER_ID="peer1.org1.example.com" \
+      -e CORE_PEER_ADDRESS="peer1.org1.example.com:7051" \
+      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7351" \
+      -e CORE_PEER_CHAINCODEADDRESS="peer1.org1.example.com:7352" \
+      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7352" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer1.org1.example.com:7351" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer1.org1.example.com:7351" \
+      -e CORE_PEER_LOCALMSPID="Org1MSP" \
+      -e CORE_LEDGER_STATE_STATEDATABASE="couchdb" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb:5984" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer1:/var/hyperledger/production \
+      -v /etc/hosts:/etc/hosts \
+      -v /var/run:/var/run \
+      --link couchdb_org1_peer1:couchdb \
+      -p 7351:7051 \
+      -p 7352:7052 \
+      hyperledger/fabric-peer:1.4.3       
+
 
 docker rm -f couchdb_org2
 docker run -ti -d \

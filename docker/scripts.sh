@@ -1,8 +1,3 @@
-/root/codes/fabric-samples/first-network
-
-
-/root/codes/fabric-samples/first-network/crypto-config.yaml
-/root/codes/fabric-samples/first-network/configtx.yaml
 
 peer channel create -o orderer.example.com:7050 \
 -c mychannel \

@@ -25,7 +25,7 @@ Organizations:
         ID: OrdererMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: hyperledger_data/crypto-config/ordererOrganizations/example.com/msp
+        MSPDir: hyperledger_data/crypto-config/ordererOrganizations/dams.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -41,15 +41,15 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-    - &Org1
+    - &cec
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org1MSP
+        Name: cecMSP
 
         # ID to load the MSP definition as
-        ID: Org1MSP
+        ID: cecMSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/org1.example.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -57,31 +57,31 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+                Rule: "OR('cecMSP.admin', 'cecMSP.peer', 'cecMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+                Rule: "OR('cecMSP.admin', 'cecMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin')"
+                Rule: "OR('cecMSP.admin')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org1.example.com
+            - Host: peer0.cec.dams.com
               Port: 7051
 
-    - &Org2
+    - &ia3
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org2MSP
+        Name: ia3MSP
 
         # ID to load the MSP definition as
-        ID: Org2MSP
+        ID: ia3MSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/org2.example.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -89,32 +89,32 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
+                Rule: "OR('ia3MSP.admin', 'ia3MSP.peer', 'ia3MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin', 'Org2MSP.client')"
+                Rule: "OR('ia3MSP.admin', 'ia3MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin')"
+                Rule: "OR('ia3MSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org2.example.com
+            - Host: peer0.ia3.dams.com
               Port: 7151
 
 
 
-    - &Org3
+    - &ic3
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org3MSP
+        Name: ic3MSP
 
         # ID to load the MSP definition as
-        ID: Org3MSP
+        ID: ic3MSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/org2.example.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -122,23 +122,54 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org3MSP.admin', 'Org3MSP.peer', 'Org3MSP.client')"
+                Rule: "OR('ic3MSP.admin', 'ic3MSP.peer', 'ic3MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org3MSP.admin', 'Org3MSP.client')"
+                Rule: "OR('ic3MSP.admin', 'ic3MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org3MSP.admin')"
+                Rule: "OR('ic3MSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org3.example.com
+            - Host: peer0.org3.dams.com
               Port: 7251
 
 
 
+
+    - &gov
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: govMSP
+
+        # ID to load the MSP definition as
+        ID: govMSP
+
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('govMSP.admin', 'govMSP.peer', 'govMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('govMSP.admin', 'govMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('govMSP.admin')"
+
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.gov.dams.com
+              Port: 7351
 
 
 
@@ -260,7 +291,7 @@ Orderer: &OrdererDefaults
     OrdererType: solo
 
     Addresses:
-        - orderer.example.com:7050
+        - orderer.dams.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -362,18 +393,20 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Org1
-                    - *Org2
-                    - *Org3
+                    - *cec
+                    - *ia3
+                    - *ic3
+                    - *gov
     TwoOrgsChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1
-                - *Org2
-                - *Org3
+                - *cec
+                - *ia3
+                - *ic3
+                - *gov
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -386,7 +419,7 @@ Profiles:
             OrdererType: kafka
             Kafka:
                 Brokers:
-                - kafka.example.com:9092
+                - kafka.dams.com:9092
 
             Organizations:
             - *OrdererOrg
@@ -399,9 +432,9 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                - *Org1
-                - *Org2
-                - *Org3
+                - *cec
+                - *ia3
+                - *ic3
 
     SampleMultiNodeEtcdRaft:
         <<: *ChannelDefaults
@@ -412,32 +445,32 @@ Profiles:
             OrdererType: etcdraft
             EtcdRaft:
                 Consenters:
-                - Host: orderer.example.com
+                - Host: orderer.dams.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-                - Host: orderer2.example.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
+                - Host: orderer2.dams.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
-                - Host: orderer3.example.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
+                - Host: orderer3.dams.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
-                - Host: orderer4.example.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
+                - Host: orderer4.dams.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/server.crt
-                - Host: orderer5.example.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer4.dams.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer4.dams.com/tls/server.crt
+                - Host: orderer5.dams.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/server.crt
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer5.dams.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer5.dams.com/tls/server.crt
             Addresses:
-                - orderer.example.com:7050
-                - orderer2.example.com:7050
-                - orderer3.example.com:7050
-                - orderer4.example.com:7050
-                - orderer5.example.com:7050
+                - orderer.dams.com:7050
+                - orderer2.dams.com:7050
+                - orderer3.dams.com:7050
+                - orderer4.dams.com:7050
+                - orderer5.dams.com:7050
 
             Organizations:
             - *OrdererOrg
@@ -450,5 +483,5 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                - *Org1
-                - *Org2
+                - *cec
+                - *ia3

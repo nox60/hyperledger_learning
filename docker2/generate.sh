@@ -18,14 +18,14 @@ configtxgen -profile TwoOrgsChannel \
 -outputCreateChannelTx hyperledger_data/channel.tx \
 -channelID mychannel
 
-echo 'Generating anchor peer update for Org1MSP '
+echo 'Generating anchor peer update for cecMSP '
 
 configtxgen -profile TwoOrgsChannel \
--outputAnchorPeersUpdate hyperledger_data/Org1MSPanchors.tx \
+-outputAnchorPeersUpdate hyperledger_data/CecMSPanchors.tx \
 -channelID mychannel \
--asOrg Org1MSP
+-asOrg cecMSP
 
 configtxgen -profile TwoOrgsChannel \
--outputAnchorPeersUpdate hyperledger_data/Org2MSPanchors.tx \
+-outputAnchorPeersUpdate hyperledger_data/ia3MSPanchors.tx \
 -channelID mychannel \
--asOrg Org2MSP
+-asOrg ia3MSP

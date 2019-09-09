@@ -211,7 +211,7 @@ docker run -it -d \
   --name cli \
       -e SYS_CHANNEL="byfn-sys-channel" \
       -e GOPATH="/opt/gopath" \
-      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker2.sock" \
+      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
       -e FABRIC_LOGGING_SPEC="DEBUG" \
       -e CORE_PEER_ID="cli" \
       -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \

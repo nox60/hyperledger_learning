@@ -21,7 +21,7 @@ configtxgen -profile TwoOrgsChannel \
 echo 'Generating anchor peer update for cecMSP '
 
 configtxgen -profile TwoOrgsChannel \
--outputAnchorPeersUpdate hyperledger_data/CecMSPanchors.tx \
+-outputAnchorPeersUpdate hyperledger_data/cecMSPanchors.tx \
 -channelID mychannel \
 -asOrg cecMSP
 

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
+docker2 rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
 
-docker rm -f orderer.dams.com
-docker run -it -d \
+docker2 rm -f orderer.dams.com
+docker2 run -it -d \
   --name orderer.dams.com \
       -e username="ritchie"  \
       -e FABRIC_LOGGING_SPEC="INFO" \
@@ -21,27 +21,27 @@ docker run -it -d \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp:/var/hyperledger/orderer/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls:/var/hyperledger/orderer/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/var/hyperledger/production/orderer \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp:/var/hyperledger/orderer/msp \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls:/var/hyperledger/orderer/tls \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data:/var/hyperledger/production/orderer \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
       -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 
 
-docker rm -f couchdb_cec_peer0
-docker run -ti -d \
+docker2 rm -f couchdb_cec_peer0
+docker2 run -ti -d \
 --name couchdb_cec_peer0 \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
+-v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
-docker rm -f peer0.cec.dams.com
-docker run -it -d \
+docker2 rm -f peer0.cec.dams.com
+docker2 run -it -d \
   --name peer0.cec.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -64,9 +64,9 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/cecpeer0:/var/hyperledger/production \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
       --link couchdb_cec_peer0:couchdb \
@@ -76,17 +76,17 @@ docker run -it -d \
 
 
 
-docker rm -f couchdb_ia3_peer0
-docker run -ti -d \
+docker2 rm -f couchdb_ia3_peer0
+docker2 run -ti -d \
 --name couchdb_ia3_peer0 \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
+-v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
-docker rm -f peer0.ia3.dams.com
-docker run -it -d \
+docker2 rm -f peer0.ia3.dams.com
+docker2 run -it -d \
   --name peer0.ia3.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -109,9 +109,9 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/ia3peer0:/var/hyperledger/production \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/ia3peer0:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
       --link couchdb_ia3_peer0:couchdb \
@@ -120,17 +120,17 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3       
 
 
-docker rm -f couchdb_ic3
-docker run -ti -d \
+docker2 rm -f couchdb_ic3
+docker2 run -ti -d \
 --name couchdb_ic3 \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
+-v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
-docker rm -f peer0.ic3.dams.com
-docker run -it -d \
+docker2 rm -f peer0.ic3.dams.com
+docker2 run -it -d \
   --name peer0.ic3.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -153,9 +153,9 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/ic3peer:/var/hyperledger/production \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/ic3peer:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
       --link couchdb_ic3:couchdb \
@@ -164,16 +164,16 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3       
 
 
-docker rm -f couchdb_gov
-docker run -ti -d \
+docker2 rm -f couchdb_gov
+docker2 run -ti -d \
 --name couchdb_gov \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
+-v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
-docker rm -f peer0.gov.dams.com
-docker run -it -d \
+docker2 rm -f peer0.gov.dams.com
+docker2 run -it -d \
   --name peer0.gov.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -196,9 +196,9 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/govpeer:/var/hyperledger/production \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/govpeer:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
       --link couchdb_gov:couchdb \
@@ -206,12 +206,12 @@ docker run -it -d \
       -p 7352:7052 \
       hyperledger/fabric-peer:1.4.3       
 
-docker rm -f cli
-docker run -it -d \
+docker2 rm -f cli
+docker2 run -it -d \
   --name cli \
       -e SYS_CHANNEL="byfn-sys-channel" \
       -e GOPATH="/opt/gopath" \
-      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
+      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker2.sock" \
       -e FABRIC_LOGGING_SPEC="DEBUG" \
       -e CORE_PEER_ID="cli" \
       -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \
@@ -226,8 +226,8 @@ docker run -it -d \
       -e GOCACHE="off" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /etc/hosts:/etc/hosts \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config:/opt/crypto \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data:/opt/channel-artifacts \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config:/opt/crypto \
+      -v /root/codes/hyperledger_learning/docker2/hyperledger_data:/opt/channel-artifacts \
       -v /root/codes/chaincodes/authority:/opt/gopath/src/authority \
       -v /var/run:/host/var/run \
       -v /var/run:/var/run \

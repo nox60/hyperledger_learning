@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker2 rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
+docker rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
 
-docker2 rm -f orderer.dams.com
-docker2 run -it -d \
+docker rm -f orderer.dams.com
+docker run -it -d \
   --name orderer.dams.com \
       -e username="ritchie"  \
       -e FABRIC_LOGGING_SPEC="INFO" \
@@ -31,17 +31,17 @@ docker2 run -it -d \
       hyperledger/fabric-orderer:1.4.3
 
 
-docker2 rm -f couchdb_cec_peer0
-docker2 run -ti -d \
---name couchdb_cec_peer0 \
+docker rm -f couchdb_cec
+docker run -ti -d \
+--name couchdb_cec \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
-docker2 rm -f peer0.cec.dams.com
-docker2 run -it -d \
+docker rm -f peer0.cec.dams.com
+docker run -it -d \
   --name peer0.cec.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -69,24 +69,24 @@ docker2 run -it -d \
       -v /root/codes/hyperledger_learning/docker2/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
-      --link couchdb_cec_peer0:couchdb \
+      --link couchdb_cec:couchdb \
       -p 7051:7051 \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       
 
 
 
-docker2 rm -f couchdb_ia3_peer0
-docker2 run -ti -d \
---name couchdb_ia3_peer0 \
+docker rm -f couchdb_ia3
+docker run -ti -d \
+--name couchdb_ia3 \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
-docker2 rm -f peer0.ia3.dams.com
-docker2 run -it -d \
+docker rm -f peer0.ia3.dams.com
+docker run -it -d \
   --name peer0.ia3.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -114,14 +114,14 @@ docker2 run -it -d \
       -v /root/codes/hyperledger_learning/docker2/hyperledger_data/ia3peer0:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
-      --link couchdb_ia3_peer0:couchdb \
+      --link couchdb_ia3:couchdb \
       -p 7151:7051 \
       -p 7152:7052 \
       hyperledger/fabric-peer:1.4.3       
 
 
-docker2 rm -f couchdb_ic3
-docker2 run -ti -d \
+docker rm -f couchdb_ic3
+docker run -ti -d \
 --name couchdb_ic3 \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
@@ -129,8 +129,8 @@ docker2 run -ti -d \
 -d hyperledger/fabric-couchdb  
 
 
-docker2 rm -f peer0.ic3.dams.com
-docker2 run -it -d \
+docker rm -f peer0.ic3.dams.com
+docker run -it -d \
   --name peer0.ic3.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -164,16 +164,16 @@ docker2 run -it -d \
       hyperledger/fabric-peer:1.4.3       
 
 
-docker2 rm -f couchdb_gov
-docker2 run -ti -d \
+docker rm -f couchdb_gov
+docker run -ti -d \
 --name couchdb_gov \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /root/codes/hyperledger_learning/docker2/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
-docker2 rm -f peer0.gov.dams.com
-docker2 run -it -d \
+docker rm -f peer0.gov.dams.com
+docker run -it -d \
   --name peer0.gov.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -206,8 +206,8 @@ docker2 run -it -d \
       -p 7352:7052 \
       hyperledger/fabric-peer:1.4.3       
 
-docker2 rm -f cli
-docker2 run -it -d \
+docker rm -f cli
+docker run -it -d \
   --name cli \
       -e SYS_CHANNEL="byfn-sys-channel" \
       -e GOPATH="/opt/gopath" \

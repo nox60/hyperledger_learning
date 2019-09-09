@@ -89,7 +89,7 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/pe
 export CORE_PEER_TLS_CERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt
 export CORE_PEER_TLS_KEY_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7351
+export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode list \
 -C mychannel \
 --installed
@@ -102,6 +102,15 @@ export CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151
 peer chaincode list \
 -C mychannel \
 --installed
+
+#-----
+export CORE_PEER_LOCALMSPID=cecMSP
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
+export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
+peer chaincode query -C mychannel \
+-n authority \
+-c '{"Args":["query","a"]}'
 
 + res=0
 + set +x

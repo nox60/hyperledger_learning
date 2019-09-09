@@ -202,7 +202,14 @@ Attempting to Query peer0.cec ...3 secs
 100
 ===================== Query successful on peer0.cec on channel 'mychannel' =====================
 Sending invoke transaction on peer0.cec peer0.ia3...
-+ peer chaincode invoke -o orderer.dams.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem -C mychannel -n mycc --peerAddresses peer0.cec.dams.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt --peerAddresses peer0.ia3.dams.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
++ peer chaincode invoke -o orderer.dams.com:7050 --tls true 
+--cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem 
+-C mychannel -n mycc 
+--peerAddresses peer0.cec.dams.com:7051 
+--tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt 
+--peerAddresses peer0.ia3.dams.com:9051 
+--tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt 
+-c '{"Args":["invoke","a","b","10"]}'
 2019-09-04 06:04:00.550 UTC [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 001 Chaincode invoke successful. result: status:200
 + res=0
 + set +x

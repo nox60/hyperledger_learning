@@ -133,7 +133,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode invoke -C mychannel \
 -n authority \
--c '{"Args":["invoke","a","b","10"]}'
+-c '{"Args":["add","add","b","10"]}'
 
 
 

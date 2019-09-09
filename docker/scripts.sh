@@ -57,12 +57,12 @@ peer chaincode install \
 -n authority \
 -v 1.0 \
 -l golang \
--p github.com/chaincode/chaincode_example02/go/
+-p authority
 
 peer chaincode instantiate -o orderer.example.com:7050 \
 --tls true --cafile /opt/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 -C mychannel \
--n mycc \
+-n /opt/gopath/src/authority \
 -l golang \
 -v 1.0 \
 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'

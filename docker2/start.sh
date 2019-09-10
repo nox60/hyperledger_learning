@@ -228,7 +228,7 @@ docker run -it -d \
       -v /etc/hosts:/etc/hosts \
       -v /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config:/opt/crypto \
       -v /root/codes/hyperledger_learning/docker2/hyperledger_data:/opt/channel-artifacts \
-      -v /root/codes/chaincodes/authority:/opt/gopath/src/authority \
+      -v /opt/local/codes/docker2/chaincode/mychaincode:/opt/gopath/src/mychaincode \
       -v /var/run:/host/var/run \
       -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3

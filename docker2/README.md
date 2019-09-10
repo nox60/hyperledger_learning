@@ -291,8 +291,8 @@ cryptogen:
 
 ## 下载代码
 
-通过git 拉取代码： 
 
+<<<<<<< HEAD
 ```gitclone
 git clone https://github.com/nox60/hyperledger_learning.git
 ```
@@ -320,39 +320,22 @@ ln -s /root/codes/hyperledger_learning/docker2 /opt/local/codes/docker2
 ## 生成相关证书文件
 
 执行同级目录下的：
+=======
+>>>>>>> fa56e4c7330b88b5ee6fe7597bbc1c8ea699c70d
 
+### 首先需要执行同级目录下的：
 ```aa
-./generate.sh
+generate.sh
 ```
 脚本文件。
 
-然后执行下面的命令拉起相关容器：
+### 然后执行：
 ```bb
 start.sh
 ```
+拉起所有容器。
 
-执行完之后运行
-```
-docker ps -a
-```
-
-如果有下面的输出并没有出错容器，表示容器拉起正常
-
-```ee
-CONTAINER ID        IMAGE                              COMMAND                  CREATED              STATUS              PORTS                                            NAMES
-7adc7b028921        hyperledger/fabric-tools:1.4.3     "/bin/bash"              15 seconds ago       Up 6 seconds                                                         cli
-426710603c80        hyperledger/fabric-peer:1.4.3      "peer node start"        22 seconds ago       Up 14 seconds       0.0.0.0:7351->7051/tcp, 0.0.0.0:7352->7052/tcp   peer0.gov.dams.com
-38b257ff5cec        hyperledger/fabric-couchdb         "tini -- /docker-ent…"   40 seconds ago       Up 22 seconds       4369/tcp, 5984/tcp, 9100/tcp                     couchdb_gov
-ffe29e323cac        hyperledger/fabric-peer:1.4.3      "peer node start"        About a minute ago   Up 39 seconds       0.0.0.0:7251->7051/tcp, 0.0.0.0:7252->7052/tcp   peer0.ic3.dams.com
-f0eecbf45ab6        hyperledger/fabric-couchdb         "tini -- /docker-ent…"   About a minute ago   Up About a minute   4369/tcp, 5984/tcp, 9100/tcp                     couchdb_ic3
-e0196a2f9556        hyperledger/fabric-peer:1.4.3      "peer node start"        About a minute ago   Up About a minute   0.0.0.0:7151->7051/tcp, 0.0.0.0:7152->7052/tcp   peer0.ia3.dams.com
-a5c846641dc6        hyperledger/fabric-couchdb         "tini -- /docker-ent…"   About a minute ago   Up About a minute   4369/tcp, 5984/tcp, 9100/tcp                     couchdb_ia3
-4973bc2a8eb6        hyperledger/fabric-peer:1.4.3      "peer node start"        About a minute ago   Up About a minute   0.0.0.0:7051-7052->7051-7052/tcp                 peer0.cec.dams.com
-ed7b5de48e0d        hyperledger/fabric-couchdb         "tini -- /docker-ent…"   About a minute ago   Up About a minute   4369/tcp, 5984/tcp, 9100/tcp                     couchdb_cec
-e88fab837bb0        hyperledger/fabric-orderer:1.4.3   "orderer"                About a minute ago   Up About a minute   0.0.0.0:7050->7050/tcp                           orderer.dams.com
-```
-
-进入cli容器执行下面的所有命令（注: 这种方式目前并不是最好的方式，最好的是应该在宿主机上执行docker命令，后续会优化）
+### 进入cli容器执行下面的所有命令（注意，这种方式目前并不是最好的方式，最好的是应该在宿主机上执行docker命令，后续会优化）
 
 ```
 docker exec -it cli /bin/bash

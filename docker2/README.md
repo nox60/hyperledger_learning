@@ -1,3 +1,4 @@
+创建通道
 ```aa
 peer channel create -o orderer.dams.com:7050 \
 -c mychannel \
@@ -6,6 +7,7 @@ peer channel create -o orderer.dams.com:7050 \
 /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
 
+加入通道
 ```k
 export CORE_PEER_LOCALMSPID=cecMSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt

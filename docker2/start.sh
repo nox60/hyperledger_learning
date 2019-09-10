@@ -1,5 +1,7 @@
 #!/bin/bash
 
+docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
+
 docker rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
 
 docker rm -f orderer.dams.com

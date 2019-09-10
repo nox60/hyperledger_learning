@@ -84,7 +84,6 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 	fmt.Println("function：" + function)
 	fmt.Println("args    : " + args)
-	shim.Printf
 
 	if function == "add" {
 		// Make payment of X units from A to B

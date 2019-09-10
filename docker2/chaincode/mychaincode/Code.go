@@ -110,6 +110,9 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 //添加记录
 
 func (t *authorityRecord) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+
+
+	/*
 	timeLayout := "2006-01-02 15:04:05"
 	//go诞生时间
 
@@ -235,12 +238,13 @@ func (t *authorityRecord) add(stub shim.ChaincodeStubInterface, args []string) p
 	////存入复合键
 	//stub.PutState(authUsageKey, value)
 	//
-	err = stub.PutState(txId, []byte(string(strIns)))
+	*/
+	err = stub.PutState(arg[1], []byte(string(arg[2])))
 	if err != nil {
 		return shim.Error(err.Error())
 	}
-	fmt.Println("交易的id是" + txId)
-	return shim.Success([]byte(string(txId)))
+	fmt.Println("交易的id是" + arg[1])
+	return shim.Success([]byte(string(arg[1])))
 }
 func (t *authorityRecord) queryByBussinessTxId(stub shim.ChaincodeStubInterface, bussinessTxId string) (*authorityRecord, error) {
 	fmt.Println("开始调用selector")

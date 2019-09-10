@@ -1,3 +1,16 @@
+首先需要执行同级目录下的：
+```aa
+generate.sh
+```
+脚本文件。
+
+然后执行：
+```bb
+start.sh
+```
+拉起所有容器。
+
+
 创建通道
 ```aa
 peer channel create -o orderer.dams.com:7050 \

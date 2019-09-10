@@ -16,7 +16,6 @@ start.sh
 docker exec -it cli /bin/bash
 ```
 
-
 创建通道
 ```aa
 peer channel create -o orderer.dams.com:7050 \
@@ -25,8 +24,6 @@ peer channel create -o orderer.dams.com:7050 \
 --tls true --cafile \
 /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
-
-
 
 加入通道
 ```k

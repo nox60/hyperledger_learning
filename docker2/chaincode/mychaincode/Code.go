@@ -103,7 +103,7 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return t.getDataByDay(stub, args)
 	}
 
-	return shim.Error( "Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
+	return shim.Error( "function: "+ function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
 	//return shim.Error( "function：" + function )
 }
 

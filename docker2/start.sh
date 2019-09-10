@@ -141,7 +141,7 @@ docker run -it -d \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_PEER_ID="peer0.ic3.dams.com" \
-      -e CORE_PEER_ADDRESS="peer0.ic3.dams.com:7151" \
+      -e CORE_PEER_ADDRESS="peer0.ic3.dams.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
       -e CORE_PEER_CHAINCODEADDRESS="peer0.ic3.dams.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
@@ -184,7 +184,7 @@ docker run -it -d \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_PEER_ID="peer0.gov.dams.com" \
-      -e CORE_PEER_ADDRESS="peer0.gov.dams.com:7151" \
+      -e CORE_PEER_ADDRESS="peer0.gov.dams.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
       -e CORE_PEER_CHAINCODEADDRESS="peer0.gov.dams.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \

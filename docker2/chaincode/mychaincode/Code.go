@@ -239,7 +239,7 @@ func (t *authorityRecord) add(stub shim.ChaincodeStubInterface, args []string) p
 	//stub.PutState(authUsageKey, value)
 	//
 	*/
-	err = stub.PutState(arg[1], []byte(string(arg[2])))
+	err := stub.PutState(arg[1], []byte(string(arg[2])))
 	if err != nil {
 		return shim.Error(err.Error())
 	}

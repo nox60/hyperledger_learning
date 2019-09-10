@@ -56,7 +56,7 @@ docker run -it -d \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
       -e CORE_PEER_CHAINCODEADDRESS="peer0.cec.dams.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.dams.com:7351" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.dams.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.dams.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="couchdb" \

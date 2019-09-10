@@ -81,6 +81,10 @@ func (t *authorityRecord) Init(stub shim.ChaincodeStubInterface) pb.Response {
 func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("进入授权记录的智能合约")
 	function, args := stub.GetFunctionAndParameters()
+
+	fmt.Println("function：" + function)
+	fmt.Println("args    : " + args)
+
 	if function == "add" {
 		// Make payment of X units from A to B
 		return t.add(stub, args)

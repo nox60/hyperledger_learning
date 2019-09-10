@@ -484,8 +484,7 @@ peer chaincode list \
 
 
 ```dd
-Sending invoke transaction on peer0.cec peer0.ia3...
-+ peer chaincode invoke -o orderer.dams.com:7050 --tls true 
+peer chaincode invoke -o orderer.dams.com:7050 --tls true 
 --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem 
 -C mychannel -n mycc 
 --peerAddresses peer0.cec.dams.com:7051 
@@ -504,7 +503,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode invoke -C mychannel \
 -n mychaincode \
--c '{"Args":["add","add","b","10"]}'
+-c '{"Args":["invoke","add","a","10"]}'
 ```
 
 ```dd

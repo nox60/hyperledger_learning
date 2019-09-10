@@ -2,9 +2,6 @@ package main
 
 import (
 	"bytes"
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	//"github.com/hyperledger/fabric/common/util"
@@ -12,7 +9,6 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 	"strconv"
 	"strings"
-	"time"
 )
 
 //authorityChainCode   结构体
@@ -239,12 +235,12 @@ func (t *authorityRecord) add(stub shim.ChaincodeStubInterface, args []string) p
 	//stub.PutState(authUsageKey, value)
 	//
 	*/
-	err := stub.PutState(arg[1], []byte(string(arg[2])))
+	err := stub.PutState(args[1], []byte(string(args[2])))
 	if err != nil {
 		return shim.Error(err.Error())
 	}
-	fmt.Println("交易的id是" + arg[1])
-	return shim.Success([]byte(string(arg[1])))
+	fmt.Println("交易的id是" + args[1])
+	return shim.Success([]byte(string(args[1])))
 }
 func (t *authorityRecord) queryByBussinessTxId(stub shim.ChaincodeStubInterface, bussinessTxId string) (*authorityRecord, error) {
 	fmt.Println("开始调用selector")

@@ -82,6 +82,9 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("进入授权记录的智能合约")
 	function, args := stub.GetFunctionAndParameters()
 
+	fmt.Println("function："+function)
+	fmt.Println("args[0] : "+args[0])
+	fmt.Println("args[1] : "+args[1])
 
 	if function == "add" {
 		// Make payment of X units from A to B
@@ -100,7 +103,7 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return t.getDataByDay(stub, args)
 	}
 
-	return shim.Error( "function：" + function +  ", args    : " + args +", Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
+	return shim.Error( "Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
 	//return shim.Error( "function：" + function )
 }
 

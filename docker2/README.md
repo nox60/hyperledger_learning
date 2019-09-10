@@ -49,16 +49,21 @@ curl -L -O https://github.com/docker/compose/releases/download/1.24.1/docker-com
 将下载下来的docker-compose文件更名为：docker-compose，然后赋予777 级别的权限
 
 ```mv
-# mv docker-compose-Linux-x86_64 docker-compose
-# chmod 777 docker-compose
+mv docker-compose-Linux-x86_64 docker-compose
+chmod 777 docker-compose
 ```
 
 将docker-compose文件和上面的docker二进制文件放在一起，并将整个目录放在一个妥善的位置，比如 /opt/local/docker 这样的目录结构
 
+```mvdocker
+mv docker /opt/local/bin/
+mv docker-compose /opt/local/bin/docker/ 
+```
+
 编辑下面的文件，文件名为docker.service, 注意这两行，要和上面的路径对应：
 
-Environment="PATH=/root/bin/docker:/bin:/sbin:/usr/bin:/usr/sbin"
-ExecStart=/opt/local/docker/dockerd --log-level=error
+Environment="PATH=/opt/local/bin/docker:/bin:/sbin:/usr/bin:/usr/sbin"
+ExecStart=/opt/local/bin/docker/dockerd --log-level=error
 
 vi docker.service
 
@@ -68,8 +73,8 @@ Description=Docker Application Container Engine
 Documentation=http://docs.docker.io
 
 [Service]
-Environment="PATH=/opt/local/docker:/bin:/sbin:/usr/bin:/usr/sbin"
-ExecStart=/opt/local/docker/dockerd --log-level=error
+Environment="PATH=/opt/local/bin/docker:/bin:/sbin:/usr/bin:/usr/sbin"
+ExecStart=/opt/local/bin/docker/dockerd --log-level=error
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=on-failure
 RestartSec=5
@@ -102,7 +107,7 @@ mv docker.service /etc/systemd/system/
 
 增加环境变量
 
-export PATH=/opt/local/docker:$PATH
+export PATH=/opt/local/bin/docker:$PATH
 
 然后生效
 
@@ -133,7 +138,11 @@ systemctl start docker
 检查docker 版本是否正确
 
 ```dockerversion
-# docker version
+docker version
+```
+
+如果有下面输出表示docker服务正常
+```ss
 Client: Docker Engine - Community
  Version:           18.09.8
  API version:       1.39
@@ -156,7 +165,11 @@ Server: Docker Engine - Community
 
 检查docker-compose 版本看看是否正确
 ```dockercompose
-# docker-compose version
+docker-compose version
+```
+
+如果有下面输出表示docker-compose正常
+```aaa
 docker-compose version 1.21.2, build a133471
 docker-py version: 3.3.0
 CPython version: 3.6.5
@@ -251,6 +264,34 @@ GOPATH是指项目根目录的位置, 使用go get拉下来的代码和编译出
 GOBIN是指项目目录中bin目录所在的位置
 
 # 区块链环境准备
+
+## 安装各种二进制程序和容器
+
+执行下面的命令，会下载hyperledger-fabric相关代码进行编译，构建二进制可执行程序和构建容器镜像
+
+```images
+curl -sSL  http://bit.ly/2ysbOFE | bash -s
+```
+
+安装完成之后，通过下面的命令验证是否安装正常：
+
+```gene
+cryptogen version
+```
+
+如果出现下面的结果，说明安装正常：
+
+```version
+cryptogen:
+ Version: 1.4.3
+ Commit SHA: b8c4a6a
+ Go version: go1.11.5
+ OS/Arch: linux/amd64
+```
+
+## 下载代码
+
+
 
 ### 首先需要执行同级目录下的：
 ```aa

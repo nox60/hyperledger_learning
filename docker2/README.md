@@ -292,7 +292,6 @@ cryptogen:
 ## 下载代码
 
 
-<<<<<<< HEAD
 ```gitclone
 git clone https://github.com/nox60/hyperledger_learning.git
 ```
@@ -320,8 +319,6 @@ ln -s /root/codes/hyperledger_learning/docker2 /opt/local/codes/docker2
 ## 生成相关证书文件
 
 执行同级目录下的：
-=======
->>>>>>> fa56e4c7330b88b5ee6fe7597bbc1c8ea699c70d
 
 ### 首先需要执行同级目录下的：
 ```aa

@@ -1,14 +1,20 @@
-首先需要执行同级目录下的：
+### 首先需要执行同级目录下的：
 ```aa
 generate.sh
 ```
 脚本文件。
 
-然后执行：
+### 然后执行：
 ```bb
 start.sh
 ```
 拉起所有容器。
+
+### 进入cli容器执行下面的所有命令（注意，这种方式目前并不是最好的方式，最好的是应该在宿主机上执行docker命令，后续会优化）
+
+```
+docker exec -it cli /bin/bash
+```
 
 
 创建通道
@@ -19,6 +25,8 @@ peer channel create -o orderer.dams.com:7050 \
 --tls true --cafile \
 /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
+
+
 
 加入通道
 ```k

@@ -419,17 +419,17 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/pe
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode install \
--n authority \
+-n mychaincode \
 -v 1.0 \
 -l golang \
--p authority
+-p mychaincode
 ```
 
 ```ddd
 peer chaincode instantiate -o orderer.dams.com:7050 \
 --tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
 -C mychannel \
--n authority \
+-n mychaincode \
 -l golang \
 -v 1.0 \
 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''cecMSP.peer'\'','\''ia3MSP.peer'\'')'
@@ -503,7 +503,7 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/pe
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode invoke -C mychannel \
--n authority \
+-n mychaincode \
 -c '{"Args":["add","add","b","10"]}'
 ```
 
@@ -514,6 +514,6 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/pe
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode query -C mychannel \
--n authority \
+-n mychaincode \
 -c '{"Args":["query","b"]}'
 ```

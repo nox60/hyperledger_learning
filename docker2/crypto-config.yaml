@@ -44,7 +44,6 @@ PeerOrgs:
     Users:
       Count: 1
 
-
   - Name: ic3
     Domain: ic3.dams.com
     EnableNodeOUs: true

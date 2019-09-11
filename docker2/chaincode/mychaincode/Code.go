@@ -7,14 +7,33 @@ import (
 	//"github.com/hyperledger/fabric/common/util"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
-	"strconv"
-	"strings"
 )
 
 type MsgInAuth struct {
 	Status bool   `json:"Status"`
 	Code   int    `json:"Code"`
 	Result string `json:"Result"`
+}
+
+
+//authorityChainCode   结构体
+type authorityRecord struct {
+	//授权记录的transaction id
+	TxId string `json:"TxId"`
+	//记录类型
+	RecordType string `json:"RecordType"`
+	//业务记录id
+	BussinessTxId string `json:"BussinessTxId"`
+	//授权时间
+	AuthTime string `validate:"datetime",json:"AuthTime"`
+	//监管机构id（授权经办机构）
+	SupervisionInstitutionId string `json:"SupervisionInstitutionId"`
+	//监管机构名（授权经办机构）
+	SupervisionInstitutionName string `json:"SupervisionInstitutionName"`
+	//授权人信息签名（智能合约生成）=授权人姓名+身份证的签名
+	AthorInfoSin string `json:"AthorSin"`
+	//授权信息签名
+	AuthInfoSin string `json:"AuthInfoSin"`
 }
 
 func (t *authorityRecord) Init(stub shim.ChaincodeStubInterface) pb.Response {

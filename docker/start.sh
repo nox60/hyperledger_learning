@@ -38,8 +38,6 @@ docker run -ti -d \
 -d hyperledger/fabric-couchdb  
 
 
-
-
 docker rm -f peer0.org1.example.com
 docker run -it -d \
   --name peer0.org1.example.com \

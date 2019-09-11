@@ -4,43 +4,27 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	//"github.com/hyperledger/fabric/common/util"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
+	"strings"
 )
 
-type MsgInAuth struct {
-	Status bool   `json:"Status"`
-	Code   int    `json:"Code"`
-	Result string `json:"Result"`
+type User struct {
+	id   int    `json:"id"`
+	name string `json:"name"`
 }
-
 
 //authorityChainCode   结构体
-type authorityRecord struct {
-	//授权记录的transaction id
-	TxId string `json:"TxId"`
-	//记录类型
-	RecordType string `json:"RecordType"`
-	//业务记录id
-	BussinessTxId string `json:"BussinessTxId"`
-	//授权时间
-	AuthTime string `validate:"datetime",json:"AuthTime"`
-	//监管机构id（授权经办机构）
-	SupervisionInstitutionId string `json:"SupervisionInstitutionId"`
-	//监管机构名（授权经办机构）
-	SupervisionInstitutionName string `json:"SupervisionInstitutionName"`
-	//授权人信息签名（智能合约生成）=授权人姓名+身份证的签名
-	AthorInfoSin string `json:"AthorSin"`
-	//授权信息签名
-	AuthInfoSin string `json:"AuthInfoSin"`
+type SmartContract struct {
+
 }
 
-func (t *authorityRecord) Init(stub shim.ChaincodeStubInterface) pb.Response {
+
+func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("初始化授权记录的智能合约")
 	return shim.Success(nil)
 }
-func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("进入授权记录的智能合约")
 	function, args := stub.GetFunctionAndParameters()
 
@@ -57,13 +41,7 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	} else if function == "query" {
 		// the old "Query" is now implemtned in invoke
 		return t.query(stub, args)
-	} else if function == "getRecordPageByBookMark" {
-		// the old "Query" is now implemtned in invoke
-		return t.getRecordPageByBookMark(stub, args)
-	} else if function == "getDataByDay" {
-		// the old "Query" is now implemtned in invoke
-		return t.getDataByDay(stub, args)
-	}
+	} 
 
 	return shim.Error( "function: "+ function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
 	//return shim.Error( "function：" + function )
@@ -71,17 +49,23 @@ func (t *authorityRecord) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 //添加记录
 
-func (t *authorityRecord) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	err := stub.PutState(args[1], []byte(string(args[2])))
+	var user = User{id: args[1], name: args[2]}
+
+	userAsBytes, _ := json.Marshal(user)
+	err := stub.PutState(args[0], userAsBytes)
+
 	if err != nil {
 		return shim.Error(err.Error())
 	}
-	fmt.Println("交易的id是" + args[1])
-	return shim.Success([]byte(string(args[1])))
+
+	fmt.Println("插入的id是" + args[0])
+
+	return shim.Success([]byte(string(args[0])))
 }
 
-func (t *authorityRecord) delete(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
@@ -97,7 +81,7 @@ func (t *authorityRecord) delete(stub shim.ChaincodeStubInterface, args []string
 	return shim.Success(nil)
 }
 
-func (t *authorityRecord) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
@@ -122,7 +106,7 @@ func (t *authorityRecord) query(stub shim.ChaincodeStubInterface, args []string)
 
 func main() {
 	//fmt.Println("hello world")
-	err := shim.Start(new(authorityRecord))
+	err := shim.Start(new(SmartContract))
 	if err != nil {
 		fmt.Printf("Error starting Simple chaincode: %s", err)
 	}

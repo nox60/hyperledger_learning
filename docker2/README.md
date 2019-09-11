@@ -494,6 +494,7 @@ peer chaincode invoke -o orderer.dams.com:7050 --tls true
 
 ```dd
 #-----
+export FABRIC_LOGGING_SPEC="INFO" 
 export CORE_PEER_LOCALMSPID=cecMSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp

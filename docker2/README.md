@@ -500,7 +500,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode invoke -C mychannel \
 -n mychaincode \
--c '{"Args":["invoke","add","a","10"]}'
+-c '{"Args":["add","a","10"]}'
 ```
 
 ```dd
@@ -511,5 +511,5 @@ export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer chaincode query -C mychannel \
 -n mychaincode \
--c '{"Args":["query","b"]}'
+-c '{"Args":["query","a"]}'
 ```

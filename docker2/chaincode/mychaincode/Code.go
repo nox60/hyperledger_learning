@@ -8,8 +8,8 @@ import (
 )
 
 type User struct {
-	id   int    `json:"id"`
-	name string `json:"name"`
+	id   string    `json:"id"`
+	name string    `json:"name"`
 }
 
 //authorityChainCode   结构体

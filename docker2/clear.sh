@@ -15,4 +15,3 @@ docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
 docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
 
-

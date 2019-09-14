@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 docker rm -f orderer.dams.com
 docker rm -f peer0.cec.dams.com
 docker rm -f peer0.ia3.dams.com

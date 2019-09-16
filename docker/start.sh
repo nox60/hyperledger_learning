@@ -29,6 +29,7 @@ docker run -it -d \
       hyperledger/fabric-orderer:1.4.3
 
 
+
 docker rm -f couchdb_org1_peer0
 docker run -ti -d \
 --name couchdb_org1_peer0 \

@@ -11,3 +11,5 @@ docker rm -f couchdb_org1_peer1
 docker rm -f couchdb_org2
 docker rm -f couchdb_org3
 docker rm -f cli
+
+

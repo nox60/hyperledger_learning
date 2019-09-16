@@ -161,7 +161,6 @@ docker run -it -d \
       -p 7152:7052 \
       hyperledger/fabric-peer:1.4.3       
 
-
 docker rm -f couchdb_org3
 docker run -ti -d \
 --name couchdb_org3 \

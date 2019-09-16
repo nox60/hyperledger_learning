@@ -28,6 +28,8 @@ docker run -it -d \
       -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 
+#couchdb节点目前是link的方式和peer关联。
+
 docker rm -f couchdb_org1_peer0
 docker run -ti -d \
 --name couchdb_org1_peer0 \
@@ -70,7 +72,6 @@ docker run -it -d \
       -p 7051:7051 \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3       
-
 
 
 docker rm -f couchdb_org1_peer1

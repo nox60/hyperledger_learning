@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 docker rm -f orderer.example.com
 docker rm -f peer0.org1.example.com
 docker rm -f peer1.org1.example.com

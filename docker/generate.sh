@@ -29,3 +29,4 @@ configtxgen -profile TwoOrgsChannel \
 -channelID mychannel \
 -asOrg Org2MSP
 
+

@@ -7,7 +7,6 @@ docker rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
 docker rm -f orderer.dams.com
 docker run -it -d \
   --name orderer.dams.com \
-      -e username="ritchie"  \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
@@ -17,14 +16,12 @@ docker run -it -d \
       -e ORDERER_GENERAL_TLS_ENABLED="true" \
       -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
-      -e ORDERER_GENERAL_TLS_CLIENTAUTHREQUIRED="true" \
-      -e ORDERER_GENERAL_TLS_CLIENTROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
+      -e ORDERER_GENERAL_TLS_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
       -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
       -e ORDERER_KAFKA_VERBOSE="true" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
-      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
+      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp:/var/hyperledger/orderer/msp \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls:/var/hyperledger/orderer/tls \
       -v /opt/local/codes/docker2/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
@@ -55,10 +52,6 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENAUTHREQUIRED="true" \
-      -e CORE_PEER_TLS_CLIENTROOTCAS_FILES="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENTKEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_CLIENTCERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_ID="peer0.cec.dams.com" \
       -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
@@ -72,10 +65,6 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
-      -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -109,10 +98,6 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENAUTHREQUIRED="true" \
-      -e CORE_PEER_TLS_CLIENTROOTCAS_FILES="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENTKEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_CLIENTCERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_ID="peer0.ia3.dams.com" \
       -e CORE_PEER_ADDRESS="peer0.ia3.dams.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
@@ -126,10 +111,6 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
-      -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -162,10 +143,6 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENAUTHREQUIRED="true" \
-      -e CORE_PEER_TLS_CLIENTROOTCAS_FILES="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENTKEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_CLIENTCERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_ID="peer0.ic3.dams.com" \
       -e CORE_PEER_ADDRESS="peer0.ic3.dams.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
@@ -179,10 +156,6 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
-      -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -214,10 +187,6 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENAUTHREQUIRED="true" \
-      -e CORE_PEER_TLS_CLIENTROOTCAS_FILES="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENTKEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_CLIENTCERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_ID="peer0.gov.dams.com" \
       -e CORE_PEER_ADDRESS="peer0.gov.dams.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
@@ -231,10 +200,6 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
-      -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -260,10 +225,6 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENAUTHREQUIRED="true" \
-      -e CORE_PEER_TLS_CLIENTROOTCAS_FILES="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_TLS_CLIENTKEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_CLIENTCERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_MSPCONFIGPATH="/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp" \
       -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/go/bin:/opt/gopath/bin" \
       -e GOROOT="/opt/go" \

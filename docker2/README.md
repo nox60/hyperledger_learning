@@ -480,17 +480,6 @@ peer chaincode list \
 ```
 
 
-```dd
-peer chaincode invoke -o orderer.dams.com:7050 --tls true 
---cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem 
--C mychannel -n mycc 
---peerAddresses peer0.cec.dams.com:7051 
---tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt 
---peerAddresses peer0.ia3.dams.com:9051 
---tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt 
--c '{"Args":["invoke","a","b","10"]}'
-```
-
 
 ```dd
 #-----

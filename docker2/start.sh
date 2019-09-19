@@ -14,7 +14,7 @@ docker run -it -d \
       -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
       -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
       -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
-      -e ORDERER_GENERAL_TLS_ENABLED="false" \
+      -e ORDERER_GENERAL_TLS_ENABLED="true" \
       -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_TLS_ROOTCAS="/var/hyperledger/orderer/tls/ca.crt" \
@@ -46,7 +46,7 @@ docker rm -f peer0.cec.dams.com
 docker run -it -d \
   --name peer0.cec.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="false" \
+      -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
       -e CORE_PEER_GOSSIP_ORGLEADER="false" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
@@ -66,7 +66,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="false" \
+      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
       -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
@@ -96,7 +96,7 @@ docker rm -f peer0.ia3.dams.com
 docker run -it -d \
   --name peer0.ia3.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="false" \
+      -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="true" \
       -e CORE_PEER_GOSSIP_ORGLEADER="false" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
@@ -116,7 +116,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="false" \
+      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
       -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
@@ -145,7 +145,7 @@ docker rm -f peer0.ic3.dams.com
 docker run -it -d \
   --name peer0.ic3.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="false" \
+      -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
@@ -165,7 +165,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="false" \
+      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
       -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
@@ -193,7 +193,7 @@ docker rm -f peer0.gov.dams.com
 docker run -it -d \
   --name peer0.gov.dams.com \
       -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="false" \
+      -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
@@ -213,7 +213,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_TLS_ENABLED="false" \
+      -e CORE_VM_DOCKER_TLS_ENABLED="true" \
       -e CORE_VM_DOCKER_TLS_CA="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_VM_DOCKER_TLS_CERT="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_VM_DOCKER_TLS_KEY="/etc/hyperledger/fabric/tls/server.key" \
@@ -238,7 +238,7 @@ docker run -it -d \
       -e CORE_PEER_ID="cli" \
       -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
-      -e CORE_PEER_TLS_ENABLED="false"  \
+      -e CORE_PEER_TLS_ENABLED="true"  \
       -e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt" \

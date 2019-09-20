@@ -29,3 +29,13 @@ configtxgen -profile TwoOrgsChannel \
 -outputAnchorPeersUpdate hyperledger_data/ia3MSPanchors.tx \
 -channelID mychannel \
 -asOrg ia3MSP
+
+configtxgen -profile TwoOrgsChannel \
+-outputAnchorPeersUpdate hyperledger_data/ic3MSPanchors.tx \
+-channelID mychannel \
+-asOrg ic3MSP
+
+configtxgen -profile TwoOrgsChannel \
+-outputAnchorPeersUpdate hyperledger_data/govMSPanchors.tx \
+-channelID mychannel \
+-asOrg govMSP

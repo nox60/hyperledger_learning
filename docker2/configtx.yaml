@@ -114,7 +114,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: ic3MSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -134,7 +134,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org3.dams.com
+            - Host: peer0.ic3.dams.com
               Port: 7251
 
 

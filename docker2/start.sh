@@ -71,6 +71,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
+      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -115,6 +116,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
+      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -158,6 +160,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
+      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -200,6 +203,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
+      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
@@ -233,6 +237,3 @@ docker run -it -d \
       -v /var/run:/host/var/run \
       -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3
-
-
-

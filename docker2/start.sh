@@ -161,7 +161,7 @@ docker run -it -d \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/ic3peer:/var/hyperledger/production \
+      -v /opt/local/codes/docker2/hyperledger_data/ic3peer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -203,7 +203,7 @@ docker run -it -d \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/govpeer:/var/hyperledger/production \
+      -v /opt/local/codes/docker2/hyperledger_data/govpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 

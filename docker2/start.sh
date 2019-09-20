@@ -13,7 +13,7 @@ docker rm -f orderer.dams.com
 docker run -it -d  \
   --name orderer.dams.com \
       --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e FABRIC_LOGGING_SPEC="DEBUG" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
       -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
@@ -217,7 +217,7 @@ docker run -it -d \
       --network bc-net \
       -e SYS_CHANNEL="byfn-sys-channel" \
       -e GOPATH="/opt/gopath" \
-      -e CORE_VM_ENDPOINT="unix:///host/var/run/docker.sock" \
+      -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_ID="cli" \
       -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \
@@ -234,6 +234,5 @@ docker run -it -d \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config:/opt/crypto \
       -v /opt/local/codes/docker2/hyperledger_data:/opt/channel-artifacts \
       -v /opt/local/codes/docker2/chaincode/mychaincode:/opt/gopath/src/mychaincode \
-      -v /var/run:/host/var/run \
       -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3

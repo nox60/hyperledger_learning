@@ -481,7 +481,6 @@ peer chaincode list \
 ```
 
 
-
 ```dd
 #-----
 export FABRIC_LOGGING_SPEC="INFO" 

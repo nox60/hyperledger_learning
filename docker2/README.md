@@ -338,7 +338,6 @@ start.sh
 docker exec -it cli /bin/bash
 ```
 
-
 创建通道
 ```aa
 peer channel create -o orderer.dams.com:7050 \
@@ -372,6 +371,7 @@ export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ic3.dams.com/users/
 export CORE_PEER_ADDRESS=peer0.ic3.dams.com:7251
 peer channel join -b mychannel.block
 ```
+
 
 ```d
 export CORE_PEER_LOCALMSPID=govMSP
@@ -484,7 +484,7 @@ peer chaincode list \
 
 ```ddkk
 #-----
-export FABRIC_LOGGING_SPEC="INFO" 
+export FABRIC_LOGGING_SPEC="INFO"
 export CORE_PEER_LOCALMSPID=cecMSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
@@ -504,3 +504,4 @@ peer chaincode query -C mychannel \
 -n mychaincode \
 -c '{"Args":["query","a"]}'
 ```
+

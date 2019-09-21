@@ -338,7 +338,6 @@ start.sh
 docker exec -it cli /bin/bash
 ```
 
-
 创建通道
 ```aa
 peer channel create -o orderer.dams.com:7050 \

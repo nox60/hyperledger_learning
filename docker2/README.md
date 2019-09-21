@@ -424,13 +424,23 @@ peer chaincode install \
 ```
 
 ```ddd
+# peer chaincode instantiate -o orderer.dams.com:7050 \
+# --tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
+# -C mychannel \
+# -n mychaincode \
+# -l golang \
+# -v 1.0 \
+# -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'','\''ia3MSP.peer'\'')'
+```
+
+```ddd
 peer chaincode instantiate -o orderer.dams.com:7050 \
 --tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
 -C mychannel \
 -n mychaincode \
 -l golang \
 -v 1.0 \
--c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''cecMSP.peer'\'','\''ia3MSP.peer'\'')'
+-c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
 ```
 
 ```dd

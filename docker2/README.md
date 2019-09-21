@@ -515,3 +515,17 @@ peer chaincode query -C mychannel \
 -c '{"Args":["query","a"]}'
 ```
 
+
+
+export FABRIC_LOGGING_SPEC="INFO" 
+export CORE_PEER_LOCALMSPID=cecMSP
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
+export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
+peer chaincode invoke \
+ -o orderer.dams.com:7050 \
+-C mychannel \
+-n mychaincode \
+-c '{"Args":["add","a","10"]}' \
+--tls true \
+--cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem

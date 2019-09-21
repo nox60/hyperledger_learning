@@ -37,6 +37,7 @@ curl -O https://download.docker.com/linux/static/stable/x86_64/docker-18.09.8.tg
 tar -xzvf docker-18.09.8.tgz
 ```
 
+
 docker-compose 安装
 
 到：https://github.com/docker/compose/releases/ 下载需要的版本的docker compose

@@ -411,7 +411,7 @@ export CORE_PEER_ADDRESS=peer0.ic3.dams.com:7251
 peer channel list
 ```
 
-```dd
+```dd2
 export CORE_PEER_LOCALMSPID=cecMSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
@@ -444,7 +444,7 @@ peer chaincode list \
 --installed
 ```
 
-```dd
+```dd44
 # view instantiated chain codes of cec peer0
 export CORE_PEER_LOCALMSPID=cecMSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
@@ -482,7 +482,7 @@ peer chaincode list \
 
 
 
-```dd
+```ddkk
 #-----
 export FABRIC_LOGGING_SPEC="INFO" 
 export CORE_PEER_LOCALMSPID=cecMSP

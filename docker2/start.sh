@@ -13,7 +13,7 @@ docker rm -f orderer.dams.com
 docker run -it -d  \
   --name orderer.dams.com \
       --network bc-net \
-      -e FABRIC_LOGGING_SPEC="DEBUG" \
+      -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
       -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \

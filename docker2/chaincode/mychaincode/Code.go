@@ -53,6 +53,11 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	var user = User{id: args[0], name: args[1]}
 
 	userAsBytes, _ := json.Marshal(user)
+	fmt.Println("======")
+
+	fmt.Println(userAsBytes)
+	fmt.Println("======")
+
 	err := stub.PutState(args[0], userAsBytes)
 
 	if err != nil {

@@ -22,7 +22,6 @@ func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
 }
 
 func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("进入授权记录的智能合约")
 	function, args := stub.GetFunctionAndParameters()
 
 	fmt.Println("function：" + function)
@@ -49,12 +48,11 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 //添加记录
 func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-
+	fmt.Println("进入 add 方法")
 	var user = User{id: args[0], name: args[1]}
 
 	userAsBytes, _ := json.Marshal(user)
 	fmt.Println("======")
-
 	fmt.Println(userAsBytes)
 	fmt.Println("======")
 
@@ -86,14 +84,18 @@ func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) 
 }
 
 func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	fmt.Println("进入 query 方法")
+
 	if len(args) != 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 	var A string
 	A = args[0]
-
+	fmt.Println("the first arg : " + A)
 	// Delete the key from the state in ledger
 	Avalbytes, err := stub.GetState(A)
+	fmt.Println("the result    : " + Avalbytes)
+
 	if err != nil {
 		return shim.Error("Failed to query state")
 	}

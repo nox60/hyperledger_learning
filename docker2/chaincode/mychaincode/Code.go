@@ -8,27 +8,26 @@ import (
 )
 
 type User struct {
-	id   string    `json:"id"`
-	name string    `json:"name"`
+	id   string `json:"id"`
+	name string `json:"name"`
 }
 
 //authorityChainCode   结构体
 type SmartContract struct {
-
 }
-
 
 func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("初始化授权记录的智能合约")
 	return shim.Success(nil)
 }
+
 func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("进入授权记录的智能合约")
 	function, args := stub.GetFunctionAndParameters()
 
-	fmt.Println("function："+function)
-	fmt.Println("args[0] : "+args[0])
-	fmt.Println("args[1] : "+args[1])
+	fmt.Println("function：" + function)
+	fmt.Println("args[0] : " + args[0])
+	fmt.Println("args[1] : " + args[1])
 
 	if function == "add" {
 		// Make payment of X units from A to B
@@ -39,18 +38,18 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	} else if function == "query" {
 		// the old "Query" is now implemtned in invoke
 		return t.query(stub, args)
-	} 
+	}
 
-	return shim.Error( "function: "+ function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
+	return shim.Error("function: " + function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
 	//return shim.Error( "function：" + function )
 }
 
 //添加记录
-
 func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	fmt.Println("- args[0] : "+args[0])
-	fmt.Println("- args[1] : "+args[1])
+	fmt.Println("- args[0] : " + args[0])
+
+	fmt.Println("- args[1] : " + args[1])
 
 	var user = User{id: args[0], name: args[1]}
 
@@ -104,7 +103,6 @@ func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) p
 	return shim.Success(Avalbytes)
 }
 
-
 func main() {
 	//fmt.Println("hello world")
 	err := shim.Start(new(SmartContract))
@@ -113,4 +111,3 @@ func main() {
 	}
 
 }
-

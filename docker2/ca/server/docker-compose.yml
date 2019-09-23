@@ -8,3 +8,4 @@ fabric-ca-server:
   volumes:
     - "./ca_data_dir:/etc/hyperledger/fabric-ca-server"
   command: sh -c 'fabric-ca-server start -b admin:adminpw'
+

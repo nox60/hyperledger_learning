@@ -27,7 +27,10 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 	fmt.Println("function：" + function)
 	fmt.Println("args[0] : " + args[0])
-	fmt.Println("args[1] : " + args[1])
+
+	if len(args) > 2 {
+		fmt.Println("args[1] : " + args[1])
+	}
 
 	if function == "add" {
 		// Make payment of X units from A to B
@@ -46,10 +49,6 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 //添加记录
 func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-
-	fmt.Println("- args[0] : " + args[0])
-
-	fmt.Println("- args[1] : " + args[1])
 
 	var user = User{id: args[0], name: args[1]}
 

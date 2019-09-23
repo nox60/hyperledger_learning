@@ -94,7 +94,7 @@ func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) p
 	fmt.Println("the first arg : " + A)
 	// Delete the key from the state in ledger
 	Avalbytes, err := stub.GetState(A)
-	fmt.Println("the result    : " + Avalbytes)
+	fmt.Println("the result    : " + string(Avalbytes))
 
 	if err != nil {
 		return shim.Error("Failed to query state")

@@ -2,7 +2,7 @@
 
 docker network rm bc-net
 
-docker network create bc-net
+docker network create --subnet=172.18.0.0/16 bc-net
 
 docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
 
@@ -67,7 +67,7 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.dams.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.dams.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="couchdb_cec" \
+      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_cec:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
@@ -113,7 +113,7 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.ia3.dams.com:7151" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.ia3.dams.com:7151" \
       -e CORE_PEER_LOCALMSPID="ia3MSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="couchdb_ia3" \
+      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_ia3:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
@@ -157,7 +157,7 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.ic3.dams.com:7251" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.ic3.dams.com:7251" \
       -e CORE_PEER_LOCALMSPID="ic3MSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="couchdb_ic3" \
+      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_ic3:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
@@ -200,7 +200,7 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.gov.dams.com:7351" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.gov.dams.com:7351" \
       -e CORE_PEER_LOCALMSPID="govMSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="couchdb_gov" \
+      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_gov:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
@@ -237,5 +237,6 @@ docker run -it -d \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config:/opt/crypto \
       -v /opt/local/codes/docker2/hyperledger_data:/opt/channel-artifacts \
       -v /opt/local/codes/docker2/chaincode/mychaincode:/opt/gopath/src/mychaincode \
+      -v /root/codes/hyperledger_learning/docker2/chaincode/example_code:/opt/gopath/src/example_code \
       -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3

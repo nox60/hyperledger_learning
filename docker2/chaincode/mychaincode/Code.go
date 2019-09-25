@@ -50,8 +50,8 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	fmt.Println("进入 add 方法")
 	var user = User{id: args[0], name: args[1]}
 
-	userAsBytes, err := json.Marshal(user)
-	fmt.Println(err)
+	userAsBytes, err1 := json.Marshal(user)
+	fmt.Println(err1)
 	fmt.Println("======")
 	fmt.Println(userAsBytes)
 	fmt.Println(string(userAsBytes))

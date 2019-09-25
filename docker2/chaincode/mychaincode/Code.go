@@ -48,7 +48,11 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 //添加记录
 func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	fmt.Println("进入 add 方法")
-	var user = User{id: args[0], name: args[1]}
+	//var user = User{id: args[0], name: args[1]}
+
+	user := new(User)
+	user.id = args[0]
+	user.name = args[1]
 
 	userAsBytes, err1 := json.Marshal(user)
 	fmt.Println(err1)

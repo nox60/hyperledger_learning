@@ -39,6 +39,7 @@ docker run -it -d  \
 docker rm -f couchdb_cec
 docker run -it -d  \
 --name couchdb_cec \
+--network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /opt/local/codes/docker2/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
@@ -78,7 +79,6 @@ docker run -it -d \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker2/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
-      --link couchdb_cec:couchdb_cec \
       hyperledger/fabric-peer:1.4.3       
 
 
@@ -87,6 +87,7 @@ docker run -it -d \
 docker rm -f couchdb_ia3
 docker run -ti -d \
 --name couchdb_ia3 \
+--network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /opt/local/codes/docker2/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
@@ -124,13 +125,13 @@ docker run -it -d \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker2/hyperledger_data/ia3peer0:/var/hyperledger/production \
       -v /var/run:/var/run \
-      --link couchdb_ia3:couchdb_ia3 \
       hyperledger/fabric-peer:1.4.3       
 
 
 docker rm -f couchdb_ic3
 docker run -ti -d \
 --name couchdb_ic3 \
+--network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /opt/local/codes/docker2/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
@@ -168,13 +169,13 @@ docker run -it -d \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker2/hyperledger_data/ic3peer0:/var/hyperledger/production \
       -v /var/run:/var/run \
-      --link couchdb_ic3:couchdb_ic3 \
       hyperledger/fabric-peer:1.4.3       
 
 
 docker rm -f couchdb_gov
 docker run -ti -d \
 --name couchdb_gov \
+--network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
 -v /opt/local/codes/docker2/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
@@ -211,7 +212,6 @@ docker run -it -d \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker2/hyperledger_data/govpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
-      --link couchdb_gov:couchdb_gov \
       hyperledger/fabric-peer:1.4.3       
 
 docker rm -f cli

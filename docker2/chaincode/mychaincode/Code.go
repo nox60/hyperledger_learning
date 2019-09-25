@@ -69,7 +69,7 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	//err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
 	//err = stub.PutState(txId, []byte(string(strIns)))
 
-	err := stub.PutState(args[0], []byte(string(userAsBytes)))
+	err := stub.PutState(args[0], user)
 
 	if err != nil {
 		return shim.Error(err.Error())

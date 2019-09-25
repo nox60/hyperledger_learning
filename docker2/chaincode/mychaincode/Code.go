@@ -7,7 +7,7 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-type User struct {
+type userRecord struct {
 	id   string `json:"id"`
 	name string `json:"name"`
 }
@@ -50,7 +50,7 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	fmt.Println("进入 add 方法")
 	//var user = User{id: args[0], name: args[1]}
 
-	user := new(User)
+	user := new(userRecord)
 	user.id = args[0]
 	user.name = args[1]
 

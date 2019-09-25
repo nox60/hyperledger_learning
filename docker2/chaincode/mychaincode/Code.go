@@ -43,7 +43,6 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	}
 
 	return shim.Error("function: " + function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
-	//return shim.Error( "function：" + function )
 }
 
 //添加记录
@@ -56,7 +55,10 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	fmt.Println(userAsBytes)
 	fmt.Println("======")
 
-	err := stub.PutState(args[0], userAsBytes)
+	//err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
+	//err = stub.PutState(txId, []byte(string(strIns)))
+
+	err := stub.PutState(args[0], []byte(string(userAsBytes)))
 
 	if err != nil {
 		return shim.Error(err.Error())

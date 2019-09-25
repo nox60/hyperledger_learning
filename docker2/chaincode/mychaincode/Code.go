@@ -8,8 +8,8 @@ import (
 )
 
 type userRecord struct {
-	id   string `json:"id"`
-	name string `json:"name"`
+	Id   string `json:"id"`
+	Name string `json:"name"`
 }
 
 //authorityChainCode   结构体
@@ -69,7 +69,7 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	//err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
 	//err = stub.PutState(txId, []byte(string(strIns)))
 
-	err := stub.PutState(args[0], user)
+	err := stub.PutState(args[0], []byte(string(userAsBytes)))
 
 	if err != nil {
 		return shim.Error(err.Error())

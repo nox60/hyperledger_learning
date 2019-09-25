@@ -55,6 +55,7 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 	user.name = args[1]
 
 	userAsBytes, err1 := json.Marshal(user)
+	fmt.Println(user)
 	fmt.Println(err1)
 	fmt.Println("======")
 	fmt.Println(userAsBytes)

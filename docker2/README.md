@@ -31,6 +31,7 @@ docker安装有多种方式，有使用apt-get或者yum工具进行安装，此�
 curl -O https://download.docker.com/linux/static/stable/x86_64/docker-18.09.8.tgz
 ```
 
+
 解压
 
 ```unzip

@@ -333,15 +333,12 @@ start.sh
 ```
 拉起所有容器。
 
-### 进入cli容器执行下面的所有命令（注意，这种方式目前并不是最好的方式，最好的是应该在宿主机上执行docker命令，后续会优化）
+### 进入cli容器执行下面的所有命令（正在优化废弃）
 
-```
-docker exec -it cli /bin/bash
-```
 
 创建通道
 ```aa
-docker exec -it 
+docker exec -it cli \
 peer channel create -o orderer.dams.com:7050 \
 -c mychannel \
 -f /opt/channel-artifacts/channel.tx \
@@ -511,24 +508,9 @@ peer chaincode invoke \
 --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
 
+
+
 ```dd
-#-----
-export FABRIC_LOGGING_SPEC="INFO" 
-export CORE_PEER_LOCALMSPID=cecMSP 
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt 
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp 
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 
-peer chaincode invoke \
--o orderer.dams.com:7050 \
--C mychannel \
--n mychaincode \
--c '{"Args":["query","a"]}' \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-
-```
-
-
 docker exec -it cli \
 peer chaincode invoke \
 -o orderer.dams.com:7050 \
@@ -537,4 +519,4 @@ peer chaincode invoke \
 -c '{"Args":["query","a"]}' \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-
+```

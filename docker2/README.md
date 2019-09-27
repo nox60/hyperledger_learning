@@ -357,6 +357,8 @@ peer channel join -b mychannel.block
 
 docker exec -it cli /bin/bash -c "CORE_PEER_LOCALMSPID=cecMSP"
 
+
+
 ```dd
 export CORE_PEER_LOCALMSPID=ia3MSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt

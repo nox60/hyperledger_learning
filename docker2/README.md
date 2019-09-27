@@ -341,6 +341,7 @@ docker exec -it cli /bin/bash
 
 创建通道
 ```aa
+docker exec -it 
 peer channel create -o orderer.dams.com:7050 \
 -c mychannel \
 -f /opt/channel-artifacts/channel.tx \
@@ -528,4 +529,12 @@ peer chaincode invoke \
 ```
 
 
+docker exec -it cli \
+peer chaincode invoke \
+-o orderer.dams.com:7050 \
+-C mychannel \
+-n mychaincode \
+-c '{"Args":["query","a"]}' \
+--tls true \
+--cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 

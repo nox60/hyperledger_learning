@@ -405,26 +405,32 @@ peer channel update \
 ```
 
 ```2
-export CORE_PEER_LOCALMSPID=ia3MSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=ia3MSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151 \
+cli \
 peer channel list
 ```
 
 ```dd
-export CORE_PEER_LOCALMSPID=ic3MSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ic3.dams.com/users/Admin@ic3.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.ic3.dams.com:7251
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=ic3MSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ic3.dams.com/users/Admin@ic3.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.ic3.dams.com:7251 \
+cli \
 peer channel list
 ```
 
 ```dd2
-export CORE_PEER_LOCALMSPID=cecMSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+cli \
 peer chaincode install \
 -n mychaincode \
 -v 1.0 \
@@ -433,16 +439,8 @@ peer chaincode install \
 ```
 
 ```ddd
-# peer chaincode instantiate -o orderer.dams.com:7050 \
-# --tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
-# -C mychannel \
-# -n mychaincode \
-# -l golang \
-# -v 1.0 \
-# -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'','\''ia3MSP.peer'\'')'
-```
-
-```ddd
+docker exec -it \
+cli \
 peer chaincode instantiate -o orderer.dams.com:7050 \
 --tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
 -C mychannel \

@@ -333,10 +333,7 @@ start.sh
 ```
 拉起所有容器。
 
-### 进入cli容器执行下面的所有命令（正在优化废弃）
-
-
-
+### 通过cli容器执行下列命令
 ```aa
 # 创建通道
 docker exec -it cli \
@@ -346,7 +343,6 @@ peer channel create -o orderer.dams.com:7050 \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
-
 
 ```k
 # 加入通道
@@ -358,7 +354,6 @@ docker exec -it \
 cli \
 peer channel join -b mychannel.block
 ```
-
 
 ```dd
 docker exec -it \
@@ -379,7 +374,6 @@ docker exec -it \
 cli \
 peer channel join -b mychannel.block
 ```
-
 
 ```d
 docker exec -it \
@@ -478,7 +472,6 @@ peer chaincode list \
 --instantiated
 ```
 
-
 ```kk
 # view installed chain codes of cec peer0
 docker exec -it \
@@ -523,7 +516,6 @@ peer chaincode invoke \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
-
 
 ```dd
 docker exec -it cli \

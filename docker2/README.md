@@ -355,7 +355,7 @@ export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer channel join -b mychannel.block
 ```
 
-docker exec -i CONTAINER_ID /bin/bash -c "export VAR1=VAL1 && export VAR2=VAL2 && your_cmd"
+docker exec -it cli /bin/bash -c "CORE_PEER_LOCALMSPID=cecMSP"
 
 ```dd
 export CORE_PEER_LOCALMSPID=ia3MSP

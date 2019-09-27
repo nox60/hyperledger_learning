@@ -348,12 +348,14 @@ peer channel create -o orderer.dams.com:7050 \
 
 加入通道
 ```k
-export CORE_PEER_LOCALMSPID=cecMSP
+docker exec -it cli export CORE_PEER_LOCALMSPID=cecMSP
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
 export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
 peer channel join -b mychannel.block
 ```
+
+docker exec -i CONTAINER_ID /bin/bash -c "export VAR1=VAL1 && export VAR2=VAL2 && your_cmd"
 
 ```dd
 export CORE_PEER_LOCALMSPID=ia3MSP

@@ -336,8 +336,9 @@ start.sh
 ### 进入cli容器执行下面的所有命令（正在优化废弃）
 
 
-创建通道
+
 ```aa
+# 创建通道
 docker exec -it cli \
 peer channel create -o orderer.dams.com:7050 \
 -c mychannel \
@@ -346,8 +347,9 @@ peer channel create -o orderer.dams.com:7050 \
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
 
-加入通道
+
 ```k
+# 加入通道
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \

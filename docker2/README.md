@@ -452,10 +452,12 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 ```dd
 # view installed chain codes of cec peer0
-export CORE_PEER_LOCALMSPID=cecMSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+cli \
 peer chaincode list \
 -C mychannel \
 --installed
@@ -463,10 +465,12 @@ peer chaincode list \
 
 ```dd44
 # view instantiated chain codes of cec peer0
-export CORE_PEER_LOCALMSPID=cecMSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+cli \
 peer chaincode list \
 -C mychannel \
 --instantiated
@@ -475,12 +479,14 @@ peer chaincode list \
 
 ```kk
 # view installed chain codes of cec peer0
-export CORE_PEER_LOCALMSPID=cecMSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt
-export CORE_PEER_TLS_CERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt
-export CORE_PEER_TLS_KEY_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_TLS_CERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt \
+-e CORE_PEER_TLS_KEY_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+cli \
 peer chaincode list \
 -C mychannel \
 --installed
@@ -488,25 +494,25 @@ peer chaincode list \
 
 ```ss
 # view installed chain codes
-export CORE_PEER_LOCALMSPID=ia3MSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp
-export CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=ia3MSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151 \
+cli \
 peer chaincode list \
 -C mychannel \
 --installed
 ```
 
-
-
 ```ddkk
-#-----
-
-export FABRIC_LOGGING_SPEC="INFO" 
-export CORE_PEER_LOCALMSPID=cecMSP 
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt 
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp 
-export CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 
+docker exec -it \
+-e FABRIC_LOGGING_SPEC="INFO" \
+-e CORE_PEER_LOCALMSPID=cecMSP  \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+cli \
 peer chaincode invoke \
 -o orderer.dams.com:7050 \
 -C mychannel \
@@ -515,7 +521,6 @@ peer chaincode invoke \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
-
 
 
 ```dd

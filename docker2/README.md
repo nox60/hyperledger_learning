@@ -389,6 +389,7 @@ peer channel join -b mychannel.block
 ```
 
 ```d
+# 锚节点
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \

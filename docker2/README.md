@@ -345,7 +345,7 @@ peer channel create -o orderer.dams.com:7050 \
 ```
 
 ```k
-# 加入通道
+# cec组织加入通道
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
@@ -356,6 +356,7 @@ peer channel join -b mychannel.block
 ```
 
 ```dd
+# ia3组织加入通道
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=ia3MSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
@@ -366,6 +367,7 @@ peer channel join -b mychannel.block
 ```
 
 ```ss
+# ic3组织加入通道
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=ic3MSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls/ca.crt \

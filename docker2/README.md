@@ -378,6 +378,7 @@ peer channel join -b mychannel.block
 ```
 
 ```d
+# gov组织加入通道
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=govMSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls/ca.crt \

@@ -305,18 +305,6 @@ git clone https://github.com/nox60/hyperledger_learning.git
 ln -s /root/codes/hyperledger_learning/docker2 /opt/local/codes/docker2
 ```
 
-## 修改hosts文件
-
-在 /etc/hosts 中加入以下映射关系，其中地址根据当前机器而定
-
-```hosts
-172.17.0.1 orderer.dams.com
-172.17.0.1 peer0.cec.dams.com
-172.17.0.1 peer0.ia3.dams.com
-172.17.0.1 peer0.ic3.dams.com
-172.17.0.1 peer0.gov.dams.com
-```
-
 ## 生成相关证书文件
 
 执行同级目录下的：

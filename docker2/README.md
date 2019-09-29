@@ -441,7 +441,7 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 ```
 
 ```dd
-# 查看
+# 查看已经安装的智能合约
 # view installed chain codes of cec peer0
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
@@ -455,7 +455,7 @@ peer chaincode list \
 ```
 
 ```dd44
-# view instantiated chain codes of cec peer0
+# 查看已经实例化的智能合约
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \

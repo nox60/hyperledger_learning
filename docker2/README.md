@@ -413,6 +413,7 @@ peer channel list
 ```
 
 ```dd2
+# 安装合约
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
@@ -427,6 +428,7 @@ peer chaincode install \
 ```
 
 ```ddd
+# 初始化合约
 docker exec -it \
 cli \
 peer chaincode instantiate -o orderer.dams.com:7050 \
@@ -439,6 +441,7 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 ```
 
 ```dd
+# 查看
 # view installed chain codes of cec peer0
 docker exec -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \

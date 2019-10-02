@@ -138,8 +138,6 @@ Organizations:
               Port: 7251
 
 
-
-
     - &gov
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment

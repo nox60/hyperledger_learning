@@ -94,6 +94,7 @@ docker run -ti -d \
 -d hyperledger/fabric-couchdb  
 
 
+
 docker rm -f peer0.ia3.dams.com
 docker run -it -d \
   --name peer0.ia3.dams.com \

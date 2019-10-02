@@ -8,3 +8,6 @@ docker run -it -d  \
       -e FABRIC_CA_HOME="/opt/serverhome" \
       -v /root/codes/hyperledger_learning/docker2/ca2/ca_server:/opt/serverhome \
       hyperledger/fabric-ca:1.4.3
+
+
+

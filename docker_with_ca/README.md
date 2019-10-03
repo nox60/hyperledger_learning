@@ -30,3 +30,7 @@ cacerts 目录内的信息一致，也可以确定cacerts里面的内容，是�
 ```cassandraql
 openssl x509 -in  ca.cec.dams.com-cert.pem -noout -text
 ```
+
+keystore 目录应该是该peer的私钥
+signcerts 目录是该peer的公钥
+tlscacerts 则是？

@@ -32,8 +32,10 @@ openssl x509 -in  ca.cec.dams.com-cert.pem -noout -text
 ```
 
 keystore 目录应该是该peer的私钥
-通过对比可以发现
-
+通过对比peer1的对应文件可以发现是有差异的
+```cassandraql
+diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/keystore/* /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp/keystore/*
+```
 
 signcerts 目录是该peer的公钥
 

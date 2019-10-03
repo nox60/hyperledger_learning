@@ -32,5 +32,14 @@ openssl x509 -in  ca.cec.dams.com-cert.pem -noout -text
 ```
 
 keystore 目录应该是该peer的私钥
+通过对比可以发现
+
+
 signcerts 目录是该peer的公钥
-tlscacerts 则是？
+
+tlscacerts 则是用于tls通信的公钥？
+通过对比可以发现，两个peer的这个公钥文件是一致的：
+
+```cassandraql
+diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/tlscacerts/*pem /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp/tlscacerts/*pem
+```

@@ -11,3 +11,10 @@
 通过openssl工具可以生成对应的公私秘钥对
 
 
+# msp目录数据分析
+
+该目录是该 peer 所对应的 org 的 ca 信息
+/root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca
+
+如果自己启动一个ca，可以用该公私钥对来启动ca
+

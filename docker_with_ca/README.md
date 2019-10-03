@@ -18,3 +18,15 @@
 
 如果自己启动一个ca，可以用该公私钥对来启动ca
 
+
+然后关注目录：
+
+/root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp
+/root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp
+
+进行对比发现：
+cacerts 目录内的信息一致，也可以确定cacerts里面的内容，是该org所对应的ca的公钥
+可以用命令进行分析
+```cassandraql
+openssl x509 -in  ca.cec.dams.com-cert.pem -noout -text
+```

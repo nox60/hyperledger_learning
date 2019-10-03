@@ -50,3 +50,7 @@ tlscacerts 则是用于tls通信的公钥？
 ```cassandraql
 diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/tlscacerts/*pem /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp/tlscacerts/*pem
 ```
+
+
+至此，可以了解到msp目录中的结构如下图所示：
+

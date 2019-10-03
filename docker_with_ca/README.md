@@ -38,6 +38,11 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 ```
 
 signcerts 目录是该peer的公钥
+通过对比peer1的对应文件可以发现
+
+```cgo
+diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/signcerts/*pem /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/signcerts/*pem
+```
 
 tlscacerts 则是用于tls通信的公钥？
 通过对比可以发现，两个peer的这个公钥文件是一致的：

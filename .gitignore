@@ -9,3 +9,4 @@
 /.idea
 .idea/
 **/tomcat_docker_data/**
+**/nginx_data/**

@@ -52,5 +52,8 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 ```
 
 
+
+
+
 至此，可以了解到msp目录中的结构如下图所示：
 

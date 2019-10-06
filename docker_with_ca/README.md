@@ -59,7 +59,9 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/ca.crt
 ```
 
-而生成工具所生成的下面两个文件是不一致的，说明
+而生成工具所生成的下面两个文件是不一致的，说明这两个私钥，第一个是用于XXX
+
+第二个则是用于建立tls连接时，peer的tls私钥
 
 ```cgo
 /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/keystore/4174565b5e7d72f524ac8d2297a982cf24e658f125e1b84617cf9dbe58595181_sk 

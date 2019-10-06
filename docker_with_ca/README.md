@@ -44,11 +44,19 @@ signcerts 目录是该peer的公钥
 diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/signcerts/*pem /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp/signcerts/*pem
 ```
 
+
 tlscacerts 则是用于tls通信的公钥？
 通过对比可以发现，两个peer的这个公钥文件是一致的：
 
 ```cassandraql
 diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/tlscacerts/*pem /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp/tlscacerts/*pem
+```
+
+生成工具所生成的两个文件是一致的：
+
+```cgo
+/opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem 
+/opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/ca.crt
 ```
 
 

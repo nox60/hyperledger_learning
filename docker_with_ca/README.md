@@ -52,14 +52,19 @@ tlscacerts 则是用于tls通信的公钥？
 diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp/tlscacerts/*pem /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer1.cec.dams.com/msp/tlscacerts/*pem
 ```
 
-生成工具所生成的两个文件是一致的：
+生成工具所生成的两个文件是一致的，因为同一个org使用同一个ca：
 
 ```cgo
 /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem 
 /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/ca.crt
 ```
 
+而生成工具所生成的下面两个文件是不一致的，说明
 
+```cgo
+/opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/keystore/4174565b5e7d72f524ac8d2297a982cf24e658f125e1b84617cf9dbe58595181_sk 
+/opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.key
+```
 
 
 

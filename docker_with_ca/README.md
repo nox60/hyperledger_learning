@@ -68,7 +68,14 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.key
 ```
 
+从上面可以推测出，节点有自己身份的公私钥，也有用于tls的公私钥，如果把tls的公私钥配置成节点身份的公私钥，其实也是行得通的，下面的试验证明：
 
 
 至此，可以了解到msp目录中的结构如下图所示：
+
+
+
+实验内容：
+
+用准备好的公私钥启动CA，然后通过该CA注册账号，然后enroll账号，查看所获取到的cacert（CA公钥）是否和CA注册时候的一致。
 

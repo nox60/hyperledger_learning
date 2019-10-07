@@ -13,12 +13,14 @@ docker rm -f orderer.dams.com
 export CEC_CA1_PRIVATE_KEY=$(cd /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca && ls *_sk)
 
 echo $CEC_CA_PRIVATE_KEY
+
   #sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
 
 
 docker rm -f ca.cec.dams.com
 docker run \
   -it -d \
+  /bin/bash 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
   --name ca.cec.dams.com \
       --network bc-net \
       -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \

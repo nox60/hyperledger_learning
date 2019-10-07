@@ -8,9 +8,7 @@ docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
 
 docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
-docker rm -f orderer.dams.com
-
-export CEC_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca && ls *_sk)
+export CEC_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca && ls *_sk)
 
 echo $CEC_CA_PRIVATE_KEY
 
@@ -28,8 +26,8 @@ docker run \
       -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem" \
       -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY}" \
       -e FABRIC_CA_SERVER_PORT=7054 \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
-      -v /opt/local/codes/docker2/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
       -p 7054:7054 \
     hyperledger/fabric-ca:1.4.3
 
@@ -53,10 +51,10 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp:/var/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls:/var/hyperledger/orderer/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /opt/local/codes/docker2/hyperledger_data:/var/hyperledger/production/orderer \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp:/var/hyperledger/orderer/msp \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls:/var/hyperledger/orderer/tls \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data:/var/hyperledger/production/orderer \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
 
@@ -67,7 +65,7 @@ docker run -it -d  \
 --network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
 -p 5984:5984 \
 -p 9100:9100 \
 -d hyperledger/fabric-couchdb  
@@ -100,9 +98,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/cecpeer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -115,7 +113,7 @@ docker run -ti -d \
 --network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
@@ -147,9 +145,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/ia3peer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/ia3peer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -160,7 +158,7 @@ docker run -ti -d \
 --network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 
@@ -191,9 +189,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/ic3peer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/ic3peer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -204,7 +202,7 @@ docker run -ti -d \
 --network bc-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb  
 
 docker rm -f peer0.gov.dams.com
@@ -234,9 +232,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/govpeer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/govpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -260,9 +258,9 @@ docker run -it -d \
       -e GOROOT="/opt/go" \
       -e GOCACHE="off" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config:/opt/crypto \
-      -v /opt/local/codes/docker2/hyperledger_data:/opt/channel-artifacts \
-      -v /opt/local/codes/docker2/chaincode/mychaincode:/opt/gopath/src/mychaincode \
-      -v /opt/local/codes/docker2/chaincode/example_code:/opt/gopath/src/example_code \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+      -v /opt/local/codes/docker_with_ca/chaincode/mychaincode:/opt/gopath/src/mychaincode \
+      -v /opt/local/codes/docker_with_ca/chaincode/example_code:/opt/gopath/src/example_code \
       -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3

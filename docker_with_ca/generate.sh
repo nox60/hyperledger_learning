@@ -8,6 +8,7 @@ cryptogen generate \
 
 echo 'Create genesis block'
 
+
 # 创世区块
 configtxgen -outputBlock hyperledger_data/orderer.genesis.block \
 -channelID byfn-sys-channel \

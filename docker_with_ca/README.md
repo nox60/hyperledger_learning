@@ -74,7 +74,6 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 至此，可以了解到msp目录中的结构如下图所示：
 
 
-
 实验内容：
 
 1. 生成创世区块。

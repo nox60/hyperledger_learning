@@ -81,6 +81,8 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 
 -- 登录到ca的容器里面生成
 
+-- 利用ca-client容器生成
+
 
 用准备好的公私钥启动CA，然后通过该CA注册账号，然后enroll账号，查看所获取到的cacert（CA公钥）是否和CA注册时候的一致。
 

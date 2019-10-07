@@ -11,6 +11,7 @@
 通过openssl工具可以生成对应的公私秘钥对
 
 
+
 # msp目录数据分析
 
 该目录是该 peer 所对应的 org 的 ca 信息
@@ -72,7 +73,6 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 
 
 至此，可以了解到msp目录中的结构如下图所示：
-
 
 
 实验内容：

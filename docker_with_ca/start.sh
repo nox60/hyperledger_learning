@@ -12,31 +12,22 @@ docker rm -f orderer.dams.com
 
 export CEC_CA1_PRIVATE_KEY=$(cd /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca && ls *_sk)
 
-echo $CEC_CA1_PRIVATE_KEY
+echo $CEC_CA_PRIVATE_KEY
 
 docker run -it -d \
   --name ca.cec.dams.com \
       --network bc-net \
+      -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \
+      -e FABRIC_CA_SERVER_CA_NAME="ca-cec" \
+      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
+      -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem" \
+      -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY}" \
+      -e FABRIC_CA_SERVER_PORT=7054 \
+      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
+      -p 7054:7054 \
+      sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${BYFN_CA1_PRIVATE_KEY} -b admin:adminpw -d' \
+    hyperledger/fabric-ca:1.4.3
 
-
-services:
-  ca0:
-    image: hyperledger/fabric-ca:$IMAGE_TAG
-    environment:
-      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-org1
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${BYFN_CA1_PRIVATE_KEY}
-      - FABRIC_CA_SERVER_PORT=7054
-    ports:
-      - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${BYFN_CA1_PRIVATE_KEY} -b admin:adminpw -d'
-    volumes:
-      - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerOrg1
-    networks:
-      - byfn
 
 
 

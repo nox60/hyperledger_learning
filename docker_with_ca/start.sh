@@ -29,6 +29,7 @@ docker run \
       -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY}" \
       -e FABRIC_CA_SERVER_PORT=7054 \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
+      -v /opt/local/codes/docker2/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
       -p 7054:7054 \
     hyperledger/fabric-ca:1.4.3
 

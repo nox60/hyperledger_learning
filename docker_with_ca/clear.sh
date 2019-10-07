@@ -1,4 +1,6 @@
 #!/bin/bash
+docker network rm bc-net
+
 
 docker rm -f ca.cec.dams.com
 docker rm -f orderer.dams.com

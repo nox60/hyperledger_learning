@@ -14,8 +14,6 @@ echo $CEC_CA_PRIVATE_KEY
 
   #sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
 
-
-
 docker rm -f ca.cec.dams.com
 docker run \
   -it -d \

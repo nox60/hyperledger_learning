@@ -96,3 +96,27 @@ fabric-ca-client enroll -u http://admin:adminpw@localhost:7054 \
 用准备好的公私钥启动CA，然后通过该CA注册账号，然后enroll账号，查看所获取到的cacert（CA公钥）是否和CA注册时候的一致。
 
 2. 使用API创建管理员用户 
+
+
+
+首先要用CA来注册管理员！！！！
+
+```aa
+
+
+docker run --rm -it \
+--name login.admin.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp:/etc/hyperledger/cec-ca/admin \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--home /etc/hyperledger/cec-ca/admin \
+--id.name admin2 \
+--id.affiliation cec.department1 \
+--id.attrs 'hf.Revoker=true,admin=true:ecert' \
+-u http://admin:adminpw@ca.cec.dams.com:7054 \
+-M /etc/hyperledger/cec-ca/admin
+
+```

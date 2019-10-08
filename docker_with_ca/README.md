@@ -83,21 +83,14 @@ diff /root/codes/hyperledger_learning/docker2/hyperledger_data/crypto-config/pee
 
 -- 利用ca-client容器生成
 
-docker exec -it ca.cec.dams.com  \
-fabric-ca-client enroll -u http://admin:adminpw@localhost:7054 \
--o orderer.dams.com:7050 \
--C mychannel \
--n mychaincode \
--c '{"Args":["query","a"]}' \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-
-
 用准备好的公私钥启动CA，然后通过该CA注册账号，然后enroll账号，查看所获取到的cacert（CA公钥）是否和CA注册时候的一致。
+
+
+1.enroll admin用户
 
 ```runad
 docker run --rm -it \
---name login.admin.ca.client \
+--name enroll.admin.ca.client \
 --network bc-net \
 -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
 -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
@@ -127,6 +120,39 @@ diff \
 ```
 
 证明是同一个文件
+
+2. 创建第二个admin用户，使用密码 admin2pw
+
+```runad
+docker run --rm -it \
+--name register.admin.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name admin2  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
+-u https://ca.cec.dams.com:7054
+```
+
+3. 将该admin用户(用户名admin2)的msp拉取到本地
+
+```cgo
+docker run --rm -it \
+--name enroll.admin2.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin2 \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2:/etc/hyperledger/cec-ca/admin2 \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+--home /etc/hyperledger/cec-ca/admin2 \
+-u https://admin2:admin2pw@ca.cec.dams.com:7054
+```
+
 
 
 

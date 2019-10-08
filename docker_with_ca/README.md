@@ -120,8 +120,11 @@ fabric-ca-client enroll \
 
 此时对比一下，
 
-diff /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin/msp/cacerts/ca-cec-dams-com-7054.pem \
+```shell
+diff \
+/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin/msp/cacerts/ca-cec-dams-com-7054.pem \
 /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca/ca.cec.dams.com-cert.pem
+```
 
 证明是同一个文件
 

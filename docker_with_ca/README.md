@@ -95,13 +95,6 @@ fabric-ca-client enroll -u http://admin:adminpw@localhost:7054 \
 
 用准备好的公私钥启动CA，然后通过该CA注册账号，然后enroll账号，查看所获取到的cacert（CA公钥）是否和CA注册时候的一致。
 
-
-下面的命令会拉起一个容器，名为login.admin.ca.client，该容器会执行enroll命令并且获取到admin的相关证书信息，执行完之后该容器自动销毁。
-获取到得证书文件等信息，在
-```dir
-/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin 
-```
-目录
 ```runad
 docker run --rm -it \
 --name login.admin.ca.client \
@@ -112,9 +105,26 @@ docker run --rm -it \
 -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
 hyperledger/fabric-ca:1.4.3 \
 fabric-ca-client enroll \
---home /opt/admin \
+--home /etc/hyperledger/cec-ca/admin \
 -u https://admin:adminpw@ca.cec.dams.com:7054
 ```
+
+上面的命令会拉起一个容器，名为login.admin.ca.client，该容器会执行enroll命令并且获取到admin的相关证书信息，执行完之后该容器自动销毁。
+获取到得证书文件等信息，在
+```dir
+/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin 
+```
+目录中。
+
+注意到之前提到过的 IssuerPublicKey
+
+此时对比一下，
+
+diff /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin/msp/cacerts/ca-cec-dams-com-7054.pem \
+/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca/ca.cec.dams.com-cert.pem
+
+证明是同一个文件
+
 
 
 2. 使用API创建管理员用户 

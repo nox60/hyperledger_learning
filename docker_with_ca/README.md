@@ -150,3 +150,20 @@ fabric-ca-client enroll \
 --home /opt/admin \
 -u https://admin:adminpw@ca.cec.dams.com:7054 
 ```
+
+
+
+
+```runad
+docker run --rm -it \
+--name login.admin.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+--home /opt/admin \
+-u https://admin:adminpw@ca.cec.dams.com:7054
+```

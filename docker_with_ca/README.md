@@ -143,4 +143,12 @@ fabric-ca-client enroll \
 ```
 
 
+```aa
+export FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem
 
+fabric-ca-client enroll \
+--home /opt/admin \
+-u https://admin:adminpw@ca.cec.dams.com:7054 
+
+
+```

@@ -120,3 +120,27 @@ fabric-ca-client register \
 -M /etc/hyperledger/cec-ca/admin
 
 ```
+
+
+
+```enroolroot
+
+export FABRIC_CA_CLIENT_HOME=/root/ca-client
+fabric-ca-client enroll -u http://admin:adminpw@localhost:7054
+
+rm -rf /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin
+docker run --rm -it \
+--name login.admin.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+--home /etc/hyperledger/cec-ca/admin \
+-u http://admin:adminpw@ca.cec.dams.com:7054 
+
+```
+
+
+

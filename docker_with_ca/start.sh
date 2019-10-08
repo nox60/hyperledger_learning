@@ -28,6 +28,7 @@ docker run \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
       -p 7054:7054 \
+      --entrypoint 
     hyperledger/fabric-ca:1.4.3
 
 

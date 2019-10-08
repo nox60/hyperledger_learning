@@ -159,61 +159,13 @@ fabric-ca-client enroll \
 
 
 
+4. 用admin2账户来进行通道创建操作
 
-2. 使用API创建管理员用户 
-
-
-
-首先要用CA来注册管理员！！！！
-
-```aa
-
-
-docker run --rm -it \
---name login.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp:/etc/hyperledger/cec-ca/admin \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---home /etc/hyperledger/cec-ca/admin \
---id.name admin2 \
---id.affiliation cec.department1 \
---id.attrs 'hf.Revoker=true,admin=true:ecert' \
--u http://admin:adminpw@ca.cec.dams.com:7054 \
--M /etc/hyperledger/cec-ca/admin
-
+```cgo
+docker exec -it cli \
+peer channel create -o orderer.dams.com:7050 \
+-c mychannel \
+-f /opt/channel-artifacts/channel.tx \
+--tls true \
+--cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
-
-
-
-```enroolroot
-
-export FABRIC_CA_CLIENT_HOME=/root/ca-client
-fabric-ca-client enroll -u http://admin:adminpw@localhost:7054
-
-rm -rf /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin
-docker run --rm -it \
---name login.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/cec-ca/admin \
--u http://admin:adminpw@ca.cec.dams.com:7054 
-
-```
-
-
-```aa
-export FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem
-
-fabric-ca-client enroll \
---home /opt/admin \
--u https://admin:adminpw@ca.cec.dams.com:7054 
-```
-
-

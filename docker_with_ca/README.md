@@ -123,6 +123,9 @@ diff \
 
 2. 创建第二个admin用户，使用密码 admin2pw
 
+参数相关文档：
+https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#reenrolling-an-identity
+
 ```runad
 docker run --rm -it \
 --name register.admin.ca.client \
@@ -133,9 +136,10 @@ docker run --rm -it \
 -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
 hyperledger/fabric-ca:1.4.3 \
 fabric-ca-client register \
---id.name admin2  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
+--id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
 -u https://ca.cec.dams.com:7054
 ```
+
 
 此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。
 
@@ -159,7 +163,7 @@ fabric-ca-client enroll \
 
 
 
-4. 用admin2账户来进行通道创建操作
+4. 通道创建操作
 
 ```cgo
 docker exec -it cli \
@@ -168,4 +172,51 @@ peer channel create -o orderer.dams.com:7050 \
 -f /opt/channel-artifacts/channel.tx \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
+
+
+
+docker run --rm -it \
+--name create.channel.client \
+--network bc-net \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
+-v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/hyperledger_data \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+-v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+hyperledger/fabric-tools:1.4.3 \
+peer channel create --outputBlock /opt/hyperledger_data/aaa.block -o orderer.dams.com:7050 \
+-c mychannel \
+-f /opt/channel-artifacts/channel.tx \
+--tls true \
+--cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
+
+
+
+```
+
+5. 
+
+```greenplum
+docker run --rm -it \
+--name join.channel.admin2.client \
+--network bc-net \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+-v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+hyperledger/fabric-tools:1.4.3 \
+peer channel join -b mychannel.block 
+
+
+
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+cli \
+peer channel join -b mychannel.block
 ```

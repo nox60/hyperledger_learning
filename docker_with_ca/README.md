@@ -166,15 +166,6 @@ cp /opt/local/config.yaml /root/codes/hyperledger_learning/docker_with_ca/hyperl
 4. 通道创建操作
 
 ```cgo
-docker exec -it cli \
-peer channel create -o orderer.dams.com:7050 \
--c mychannel \
--f /opt/channel-artifacts/channel.tx \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-
-
-
 docker run --rm -it \
 --name create.channel.client \
 --network bc-net \
@@ -215,13 +206,4 @@ peer channel join -b /opt/channel-artifacts/mychannel.block \
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 
 
-
-
-docker exec -it \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer channel join -b /opt/hyperledger_data/mychannel.block
 ```

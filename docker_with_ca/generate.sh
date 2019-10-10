@@ -2,11 +2,6 @@
 
 rm -rf hyperledger_data
 
-
-rm -rf /opt/local/codes/docker_with_ca
-ln -s /root/codes/hyperledger_learning/docker_with_ca /opt/local/codes/docker_with_ca
-
-
 cryptogen generate \
 --config=./crypto-config.yaml \
 --output="hyperledger_data/crypto-config"

@@ -20,19 +20,19 @@ start.sh 拉起相应的容器。
 
 ## 环境准备
 
-1. 运行clear.sh清理现场。
+### 1. 运行clear.sh清理现场。
 
 ```clearenv
 ./clear.sh
 ```
 
-2. 运行generate.sh生成必要证书文件。
+### 2. 运行generate.sh生成必要证书文件。
 
 ```greenplum
 ./generate.sh
 ```
 
-3. 创建软连接，该任务的目的是映射出一个/opt/local下面的目录，该目录在后续操作中会被硬编码指定，目前如果不使用docker-compose的配置方式的话，是不支持相对路径的，所以创建该软连接。
+### 3. 创建软连接，该任务的目的是映射出一个/opt/local下面的目录，该目录在后续操作中会被硬编码指定，目前如果不使用docker-compose的配置方式的话，是不支持相对路径的，所以创建该软连接。
 
 ```greenplum
 rm -rf /opt/local/codes/docker_with_ca
@@ -40,7 +40,7 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca /opt/local/codes/docker_wi
 
 ```
 
-4. 执行start.sh，拉起所需容器。
+### 4. 执行start.sh，拉起所需容器。
 
 ```greenplum
 ./start.sh
@@ -51,7 +51,7 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca /opt/local/codes/docker_wi
 
 
 ## 操作任务
-1.enroll admin用户，目前初始的admin用户相关信息是由cryptogen工具生成的。
+### 1. enroll admin用户，目前初始的admin用户相关信息是由cryptogen工具生成的。
 
 ```runad
 docker run --rm -it \
@@ -74,7 +74,7 @@ fabric-ca-client enroll \
 ```
 目录中。
 
-2. 创建第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
+### 2. 创建第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 
 参数相关文档：
 https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#reenrolling-an-identity
@@ -97,7 +97,7 @@ fabric-ca-client register \
 
 
 
-3. 将该admin用户(用户名admin2)的msp拉取到本地
+### 3. 将该admin用户(用户名admin2)的msp拉取到本地
 ```cgo
 docker run --rm -it \
 --name enroll.admin2.ca.client \
@@ -113,10 +113,10 @@ fabric-ca-client enroll \
 ```
 
 
-4. --此处有技术债务，需要拷贝一个config.yaml配置文件到新创建的admin用户的msp目录下，会在后续解释该配置文件。
+### 4. --此处有技术债务，需要拷贝一个config.yaml配置文件到新创建的admin用户的msp目录下，会在后续解释该配置文件。
 cp /opt/local/codes/docker_with_ca/config.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/
 
-5. 通道创建操作
+### 5. 通道创建操作
 ```cgo
 docker run --rm -it \
 --name create.channel.client \
@@ -134,7 +134,7 @@ peer channel create --outputBlock /opt/channel-artifacts/mychannel.block -o orde
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
 
-6. 加入通道操作
+### 6. 加入通道操作
 ```greenplum
 docker run --rm -it \
 --name join.channel.admin2.client \

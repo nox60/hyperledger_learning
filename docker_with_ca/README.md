@@ -252,7 +252,10 @@ fabric-ca-client enroll \
 ```
 
 ### 4. --此处有技术债务，需要拷贝一个config.yaml配置文件到新创建的admin用户的msp目录下，会在后续解释该配置文件。
-cp /opt/local/codes/docker_with_ca/config.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/
+cp /opt/local/codes/docker_with_ca/config_cec.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/
+cp /opt/local/codes/docker_with_ca/config_ia3.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin2/msp/
+cp /opt/local/codes/docker_with_ca/config_ic3.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/users/admin2/msp/
+cp /opt/local/codes/docker_with_ca/config_gov.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin2/msp/
 
 ### 5. 通道创建操作
 ```cgo

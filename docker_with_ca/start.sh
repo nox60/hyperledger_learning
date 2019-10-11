@@ -9,6 +9,9 @@ docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
 docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
 export CEC_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca && ls *_sk)
+export IA3_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca && ls *_sk)
+export IC3_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/ca && ls *_sk)
+export GOV_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/ca && ls *_sk)
 
 echo $CEC_CA_PRIVATE_KEY
 
@@ -28,8 +31,53 @@ docker run \
       -e FABRIC_CA_SERVER_PORT=7054 \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
-      -p 7054:7054 \
-      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d 
+      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d
+
+docker rm -f ca.ia3.dams.com
+docker run \
+  -it -d \
+  --name ca.ia3.dams.com \
+      --network bc-net \
+      -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \
+      -e FABRIC_CA_SERVER_CA_NAME="ca-ia3" \
+      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
+      -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.ia3.dams.com-cert.pem" \
+      -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${IA3_CA_PRIVATE_KEY}" \
+      -e FABRIC_CA_SERVER_PORT=7054 \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/ia3-ca:/etc/hyperledger/ia3-ca \
+      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.ia3.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${IA3_CA_PRIVATE_KEY} -b admin:adminpw -d
+
+docker rm -f ca.ic3.dams.com
+docker run \
+  -it -d \
+  --name ca.ic3.dams.com \
+      --network bc-net \
+      -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \
+      -e FABRIC_CA_SERVER_CA_NAME="ca-ic3" \
+      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
+      -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.ic3.dams.com-cert.pem" \
+      -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${IC3_CA_PRIVATE_KEY}" \
+      -e FABRIC_CA_SERVER_PORT=7054 \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/ic3-ca:/etc/hyperledger/ic3-ca \
+      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.ic3.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${IC3_CA_PRIVATE_KEY} -b admin:adminpw -d
+
+docker rm -f ca.gov.dams.com
+docker run \
+  -it -d \
+  --name ca.gov.dams.com \
+      --network bc-net \
+      -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \
+      -e FABRIC_CA_SERVER_CA_NAME="ca-gov" \
+      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
+      -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.gov.dams.com-cert.pem" \
+      -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${GOV_CA_PRIVATE_KEY}" \
+      -e FABRIC_CA_SERVER_PORT=7054 \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/gov-ca:/etc/hyperledger/gov-ca \
+      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.gov.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${GOV_CA_PRIVATE_KEY} -b admin:adminpw -d
+
 
 
 

@@ -79,8 +79,6 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.gov.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${GOV_CA_PRIVATE_KEY} -b admin:adminpw -d
 
 
-
-
 docker rm -f orderer.dams.com
 docker run -it -d  \
   --name orderer.dams.com \

@@ -194,7 +194,7 @@ fabric-ca-client register \
 ### 3.1 将该cec组织的admin用户(用户名admin2)的msp拉取到本地
 ```cgo
 docker run --rm -it \
---name enroll.admin2.ca.client \
+--name enroll.cec.admin2.ca.client \
 --network bc-net \
 -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin2 \
 -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
@@ -206,6 +206,50 @@ fabric-ca-client enroll \
 -u https://admin2:admin2pw@ca.cec.dams.com:7054
 ```
 
+### 3.2 将该ia3组织的admin用户(用户名admin2)的msp拉取到本地
+```cgo
+docker run --rm -it \
+--name enroll.ia3.admin2.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ia3-ca/admin2 \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ia3-ca/fabric-ca-server-config/ca.ia3.dams.com-cert.pem \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin2:/etc/hyperledger/ia3-ca/admin2 \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca:/etc/hyperledger/ia3-ca/fabric-ca-server-config \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+--home /etc/hyperledger/ia3-ca/admin2 \
+-u https://admin2:admin2pw@ca.ia3.dams.com:7054
+```
+
+### 3.3 将该ic3组织的admin用户(用户名admin2)的msp拉取到本地
+```cgo
+docker run --rm -it \
+--name enroll.ic3.admin2.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ic3-ca/admin2 \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ic3-ca/fabric-ca-server-config/ca.ic3.dams.com-cert.pem \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/users/admin2:/etc/hyperledger/ic3-ca/admin2 \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/ca:/etc/hyperledger/ic3-ca/fabric-ca-server-config \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+--home /etc/hyperledger/ic3-ca/admin2 \
+-u https://admin2:admin2pw@ca.ic3.dams.com:7054
+```
+
+### 3.4 将该gov组织的admin用户(用户名admin2)的msp拉取到本地
+```cgo
+docker run --rm -it \
+--name enroll.gov.admin2.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/gov-ca/admin2 \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/gov-ca/fabric-ca-server-config/ca.gov.dams.com-cert.pem \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin2:/etc/hyperledger/gov-ca/admin2 \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/ca:/etc/hyperledger/gov-ca/fabric-ca-server-config \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+--home /etc/hyperledger/gov-ca/admin2 \
+-u https://admin2:admin2pw@ca.gov.dams.com:7054
+```
 
 ### 4. --此处有技术债务，需要拷贝一个config.yaml配置文件到新创建的admin用户的msp目录下，会在后续解释该配置文件。
 cp /opt/local/codes/docker_with_ca/config.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/

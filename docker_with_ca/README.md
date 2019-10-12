@@ -357,3 +357,15 @@ peer channel join -b /opt/channel-artifacts/mychannel.block \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
+
+### 7 列出cec节点加入的通道
+
+```greenplum
+docker exec -it \
+-e CORE_PEER_LOCALMSPID=ia3MSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp \
+-e CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151 \
+cli \
+peer channel list
+```

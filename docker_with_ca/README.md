@@ -156,7 +156,7 @@ docker run --rm -it \
 hyperledger/fabric-ca:1.4.3 \
 fabric-ca-client register \
 --id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
--u https://ca.cec.dams.com:7054
+-u https://ca.ia3.dams.com:7054
 ```
 
 ### 2.3 创建ic3的第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
@@ -172,7 +172,7 @@ docker run --rm -it \
 hyperledger/fabric-ca:1.4.3 \
 fabric-ca-client register \
 --id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
--u https://ca.cec.dams.com:7054
+-u https://ca.ic3.dams.com:7054
 ```
 
 ### 2.4 创建gov的第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
@@ -252,10 +252,13 @@ fabric-ca-client enroll \
 ```
 
 ### 4. --此处有技术债务，需要拷贝一个config.yaml配置文件到新创建的admin用户的msp目录下，会在后续解释该配置文件。
-cp /opt/local/codes/docker_with_ca/config_cec.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/
-cp /opt/local/codes/docker_with_ca/config_ia3.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin2/msp/
-cp /opt/local/codes/docker_with_ca/config_ic3.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/users/admin2/msp/
-cp /opt/local/codes/docker_with_ca/config_gov.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin2/msp/
+```greenplum
+cp /opt/local/codes/docker_with_ca/config_cec.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/config.yaml
+cp /opt/local/codes/docker_with_ca/config_ia3.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin2/msp/config.yaml
+cp /opt/local/codes/docker_with_ca/config_ic3.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/users/admin2/msp/config.yaml
+cp /opt/local/codes/docker_with_ca/config_gov.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin2/msp/config.yaml
+
+```
 
 ### 5. 通道创建操作
 ```cgo

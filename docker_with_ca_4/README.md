@@ -1,5 +1,7 @@
 # 基于自建ca的docker
 
+https://hyperledger-fabric-ca.readthedocs.io/en/latest/operations_guide.html#setup-peers
+
 本文不单独阐述依赖的环境搭建。假设读者已经安装好docker, golang等相关程序了。
 
 本文的最终目的是使用自建的CA来维护hyperledger网络中所有的证书信息，而不是使用cryptogen工具。需要说明的是，本过程是迭代的，所以一开始会用cryptogen来生成一些最早的证书信息。

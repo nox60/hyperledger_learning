@@ -1,96 +1,131 @@
-/*
- * Copyright IBM Corp All Rights Reserved
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
-	"github.com/hyperledger/fabric/protos/peer"
+	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-// SimpleAsset implements a simple chaincode to manage an asset
-type SimpleAsset struct {
+type userRecord struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
 }
 
-// Init is called during chaincode instantiation to initialize any
-// data. Note that chaincode upgrade also calls this function to reset
-// or to migrate data.
-func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
-	// Get the args from the transaction proposal
-	args := stub.GetStringArgs()
-	if len(args) != 2 {
-		return shim.Error("Incorrect arguments. Expecting a key and a value")
-	}
+//authorityChainCode   结构体
+type SmartContract struct {
+}
 
-	// Set up any variables or assets here by calling stub.PutState()
-
-	// We store the key and the value on the ledger
-	err := stub.PutState(args[0], []byte(args[1]))
-	if err != nil {
-		return shim.Error(fmt.Sprintf("Failed to create asset: %s", args[0]))
-	}
+func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
+	fmt.Println("初始化授权记录的智能合约")
 	return shim.Success(nil)
 }
 
-// Invoke is called per transaction on the chaincode. Each transaction is
-// either a 'get' or a 'set' on the asset created by Init function. The Set
-// method may create a new asset by specifying a new key-value pair.
-func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
-	// Extract the function and args from the transaction proposal
-	fn, args := stub.GetFunctionAndParameters()
+func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	function, args := stub.GetFunctionAndParameters()
 
-	var result string
-	var err error
-	if fn == "set" {
-		result, err = set(stub, args)
-	} else { // assume 'get' even if fn is nil
-		result, err = get(stub, args)
+	fmt.Println("function：" + function)
+	fmt.Println("args[0] : " + args[0])
+
+	if len(args) > 2 {
+		fmt.Println("args[1] : " + args[1])
 	}
+
+	if function == "add" {
+		// Make payment of X units from A to B
+		return t.add(stub, args)
+	} else if function == "delete" {
+		// Deletes an entity from its state
+		return t.delete(stub, args)
+	} else if function == "query" {
+		// the old "Query" is now implemtned in invoke
+		return t.query(stub, args)
+	}
+
+	return shim.Error("function: " + function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
+}
+
+//添加记录
+func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	fmt.Println("进入 add 方法")
+	//var user = User{id: args[0], name: args[1]}
+
+	//user := new(userRecord)
+
+	user := userRecord{args[0], args[1]}
+
+	//user.id = args[0]
+	//user.name = args[1]
+
+	userAsBytes, err1 := json.Marshal(user)
+
+	fmt.Println("======")
+	fmt.Println(user)
+	fmt.Println(err1)
+	fmt.Println(userAsBytes)
+	fmt.Println(string(userAsBytes))
+	fmt.Println("======")
+
+	//err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
+	//err = stub.PutState(txId, []byte(string(strIns)))
+
+	err := stub.PutState(args[0], []byte(string(userAsBytes)))
+
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	// Return the result as success payload
-	return shim.Success([]byte(result))
+	fmt.Println("插入的id是" + args[0])
+
+	return shim.Success([]byte(string(args[0])))
 }
 
-// Set stores the asset (both key and value) on the ledger. If the key exists,
-// it will override the value with the new one
-func set(stub shim.ChaincodeStubInterface, args []string) (string, error) {
-	if len(args) != 2 {
-		return "", fmt.Errorf("Incorrect arguments. Expecting a key and a value")
-	}
-
-	err := stub.PutState(args[0], []byte(args[1]))
-	if err != nil {
-		return "", fmt.Errorf("Failed to set asset: %s", args[0])
-	}
-	return args[1], nil
-}
-
-// Get returns the value of the specified asset key
-func get(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 1 {
-		return "", fmt.Errorf("Incorrect arguments. Expecting a key")
+		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
-	value, err := stub.GetState(args[0])
+	A := args[0]
+
+	// Delete the key from the state in ledger
+	err := stub.DelState(A)
 	if err != nil {
-		return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
+		return shim.Error("Failed to delete state")
 	}
-	if value == nil {
-		return "", fmt.Errorf("Asset not found: %s", args[0])
-	}
-	return string(value), nil
+
+	return shim.Success(nil)
 }
 
-// main function starts up the chaincode in the container during instantiate
+func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	fmt.Println("进入 query 方法")
+
+	if len(args) != 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
+	var A string
+	A = args[0]
+	fmt.Println("the first arg : " + A)
+	// Delete the key from the state in ledger
+	Avalbytes, err := stub.GetState(A)
+	fmt.Println("the result    : " + string(Avalbytes))
+
+	if err != nil {
+		return shim.Error("Failed to query state")
+	}
+	if Avalbytes == nil {
+		jsonResp := "{\"Error\":\"Nil amount for " + A + "\"}"
+		return shim.Error(jsonResp)
+	}
+
+	jsonResp := string(Avalbytes)
+	fmt.Printf("Query Response:%s\n", jsonResp)
+	return shim.Success(Avalbytes)
+}
+
 func main() {
-	if err := shim.Start(new(SimpleAsset)); err != nil {
-		fmt.Printf("Error starting SimpleAsset chaincode: %s", err)
+	//fmt.Println("hello world")
+	err := shim.Start(new(SmartContract))
+	if err != nil {
+		fmt.Printf("Error starting Simple chaincode: %s", err)
 	}
 }

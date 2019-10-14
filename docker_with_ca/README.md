@@ -390,7 +390,7 @@ docker run --rm -it \
 -e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
 -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
 -v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
--v /opt/local/codes/docker_with_ca/chaincode/chaincode:/opt/gopath/src/mychaincode \
+-v /opt/local/codes/docker_with_ca/chaincode:/opt/gopath/src/mychaincode \
 -v /opt/local/codes/docker_with_ca/chaincode/example_code:/opt/gopath/src/example_code \
 hyperledger/fabric-tools:1.4.3 \
 peer chaincode install \
@@ -398,21 +398,30 @@ peer chaincode install \
 -v 1.0 \
 -l golang \
 -p mychaincode
+```
 
 
 
-
-
-
-docker exec -it \
+### 9 实例化智能合约
+```greenplum
+docker run --rm -it \
+--name cec.instantiate.chaincode.admin2.client \
+--network bc-net \
 -e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ENABLED="true"  \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
+-e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt" \
+-e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key" \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
 -e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer chaincode install \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+-v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+hyperledger/fabric-tools:1.4.3 \
+peer chaincode instantiate -o orderer.dams.com:7050 \
+--tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
+-C mychannel \
 -n mychaincode \
--v 1.0 \
 -l golang \
--p mychaincode
+-v 1.0 \
+-c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
 ```

@@ -192,18 +192,3 @@ fabric-ca-client register \
 --id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
 -u https://ca.gov.dams.com:7054
 ```
-
-### 3.1 将该cec组织的admin用户(用户名admin2)的msp拉取到本地
-```cgo
-docker run --rm -it \
---name enroll.cec.admin2.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin2 \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2:/etc/hyperledger/cec-ca/admin2 \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/cec-ca/admin2 \
--u https://admin2:admin2pw@ca.cec.dams.com:7054
-```

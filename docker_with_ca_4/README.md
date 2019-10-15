@@ -261,21 +261,3 @@ cp /opt/local/codes/docker_with_ca/config_ic3.yaml /opt/local/codes/docker_with_
 cp /opt/local/codes/docker_with_ca/config_gov.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin2/msp/config.yaml
 
 ```
-
-### 5. 通道创建操作
-```cgo
-docker run --rm -it \
---name create.channel.client \
---network bc-net \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
--v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
-hyperledger/fabric-tools:1.4.3 \
-peer channel create --outputBlock /opt/channel-artifacts/mychannel.block -o orderer.dams.com:7050 \
--c mychannel \
--f /opt/channel-artifacts/channel.tx \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```

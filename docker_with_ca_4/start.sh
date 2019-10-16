@@ -41,6 +41,7 @@ docker run --rm -it \
       fabric-ca-client enroll \
       -u https://tls-ca-admin:tls-ca-adminpw@ca.tls:7052
 
+# register orderer
 ```createorderer
 docker run --rm -it \
     --name register.orderer \
@@ -54,7 +55,7 @@ docker run --rm -it \
         -u https://ca.tls:7052
 ```
 
-
+# register peer
 ```runad
 docker run --rm -it \
     --name register.cec.peer0.ca \
@@ -67,6 +68,25 @@ docker run --rm -it \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.tls:7052
 ```
+
+# create orderer ca
+```startordererca
+docker run \
+  -it -d \
+  --name ca.tls \
+      --network bc-net \
+      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/tls-ca-home \
+      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
+      -e FABRIC_CA_SERVER_CSR_CN=ca.tls \
+      -e FABRIC_CA_SERVER_CSR_HOSTS=ca.tls \
+      -e FABRIC_CA_SERVER_DEBUG=false \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/tls-ca-home:/etc/hyperledger/cec-ca/tls-ca-home \
+      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
+      start -d -b \
+      tls-ca-admin:tls-ca-adminpw --port 7052
+
+```
+
 
 
 

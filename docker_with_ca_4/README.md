@@ -1,14 +1,10 @@
 # 基于自建ca的docker
 
-https://hyperledger-fabric-ca.readthedocs.io/en/latest/operations_guide.html#setup-peers
+https://hyperledger-fabric-ca.readthedocs.io/en/latest/operations_guide.html
 
-本文不单独阐述依赖的环境搭建。假设读者已经安装好docker, golang等相关程序了。
+本文不单独阐述依赖的环境搭建。假设读者已经安装好docker, golang等相关程序。
 
-本文的最终目的是使用自建的CA来维护hyperledger网络中所有的证书信息，而不是使用cryptogen工具。需要说明的是，本过程是迭代的，所以一开始会用cryptogen来生成一些最早的证书信息。
-
-本文重要的参考文档地址是：
-
-https://hyperledger-fabric-ca.readthedocs.io/en/release-1.4/users-guide.html
+本文的最终目的是使用自建的CA来维护hyperledger网络中所有的证书信息，而不是使用cryptogen工具。
 
 首先分析一下docker_with_ca目录下的几个脚本文件作用：
 
@@ -37,8 +33,8 @@ start.sh 拉起相应的容器。
 ### 3. 创建软连接，该任务的目的是映射出一个/opt/local下面的目录，该目录在后续操作中会被硬编码指定，目前如果不使用docker-compose的配置方式的话，是不支持相对路径的，所以创建该软连接。
 
 ```greenplum
-rm -rf /opt/local/codes/docker_with_ca
-ln -s /root/codes/hyperledger_learning/docker_with_ca /opt/local/codes/docker_with_ca
+rm -rf /opt/local/codes/docker_with_ca_4
+ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_with_ca_4
 
 ```
 
@@ -53,94 +49,19 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca /opt/local/codes/docker_wi
 
 
 ## 操作任务
-### 1.1. enroll cec的admin用户，目前初始的cec admin用户相关信息是由cryptogen工具生成的。
+### 1.1. 拉起tls-ca服务。
 
 ```runad
 docker run --rm -it \
---name enroll.cec.admin.ca.client \
+--name start.tls.ca \
 --network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
+-e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/tls-ca-admin \
+-e FABRIC_CA_SERVER_TLS_ENABLED=true \
+-e FABRIC_CA_SERVER_CSR_CN=ca-tls \
+-e FABRIC_CA_SERVER_CSR_HOSTS=0.0.0.0 \
+-e FABRIC_CA_SERVER_DEBUG=true \
+-v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto:/etc/hyperledger/cec-ca/tls-ca-admin \
 hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/cec-ca/admin \
--u https://admin:adminpw@ca.cec.dams.com:7054
+fabric-ca-server start -d -b \
+tls-ca-admin:tls-ca-adminpw --port 7052
 ```
-
-### 1.2. enroll ia3的admin用户，目前初始的ia3 admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.ia3.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ia3-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ia3-ca/fabric-ca-server-config/ca.ia3.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin:/etc/hyperledger/ia3-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca:/etc/hyperledger/ia3-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/ia3-ca/admin \
--u https://admin:adminpw@ca.ia3.dams.com:7054
-```
-
-### 1.3. enroll ic3的admin用户，目前初始的ic3 admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.ic3.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ic3-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ic3-ca/fabric-ca-server-config/ca.ic3.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/users/admin:/etc/hyperledger/ic3-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/ca:/etc/hyperledger/ic3-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/ic3-ca/admin \
--u https://admin:adminpw@ca.ic3.dams.com:7054
-```
-
-### 1.4. enroll gov的admin用户，目前初始的gov admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.gov.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/gov-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/gov-ca/fabric-ca-server-config/ca.gov.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin:/etc/hyperledger/gov-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/ca:/etc/hyperledger/gov-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/gov-ca/admin \
--u https://admin:adminpw@ca.gov.dams.com:7054
-```
-
-上面的命令会拉起一个容器，比如名为enroll.cec.admin.ca.client，该容器会执行enroll命令并且获取到admin的相关证书信息，执行完之后该容器自动销毁。
-获取到得证书文件等信息，在
-```dir
-/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin 
-```
-目录中。
-
-### 2.1 创建cec的第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
-
-参数相关文档：
-https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#reenrolling-an-identity
-
-```runad
-docker run --rm -it \
---name register.cec.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
--u https://ca.cec.dams.com:7054
-```
-
-此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。

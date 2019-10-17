@@ -19,24 +19,24 @@ docker run \
   -it -d \
   --name ca.tls \
       --network bc-net \
-      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/tls-ca-home \
+      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/ca.tls/ca.home \
       -e FABRIC_CA_SERVER_TLS_ENABLED=true \
       -e FABRIC_CA_SERVER_CSR_CN=ca.tls \
       -e FABRIC_CA_SERVER_CSR_HOSTS=ca.tls \
       -e FABRIC_CA_SERVER_DEBUG=false \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/tls-ca-home:/etc/hyperledger/cec-ca/tls-ca-home \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
       start -d -b \
-      tls-ca-admin:tls-ca-adminpw --port 7052
+      ca-tls-admin:ca-tls-adminpw --port 7052
 
 
 # enroll tls.ca admin
 docker run --rm -it \
   --name enroll.tls.ca.admin \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/tls-ca-home/tls-ca-home-admin \
-      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/tls-ca-home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/tls-ca-home:/etc/hyperledger/cec-ca/tls-ca-home \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.tls/admin.home \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -u https://tls-ca-admin:tls-ca-adminpw@ca.tls:7052
@@ -71,22 +71,52 @@ docker run --rm -it \
 
 # create orderer ca
 ```startordererca
+docker rm -f ca.orderer
 docker run \
   -it -d \
-  --name ca.tls \
+  --name ca.orderer \
       --network bc-net \
-      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/tls-ca-home \
+      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/orderer-ca-home \
       -e FABRIC_CA_SERVER_TLS_ENABLED=true \
-      -e FABRIC_CA_SERVER_CSR_CN=ca.tls \
-      -e FABRIC_CA_SERVER_CSR_HOSTS=ca.tls \
+      -e FABRIC_CA_SERVER_CSR_CN=ca.orderer \
+      -e FABRIC_CA_SERVER_CSR_HOSTS=ca.orderer \
       -e FABRIC_CA_SERVER_DEBUG=false \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/tls-ca-home:/etc/hyperledger/cec-ca/tls-ca-home \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer-ca-home:/etc/hyperledger/cec-ca/orderer-ca-home \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
       start -d -b \
-      tls-ca-admin:tls-ca-adminpw --port 7052
-
+      orderer-ca-admin:orderer-ca-adminpw --port 7053
 ```
 
+# enroll orderer ca admin
+docker run --rm -it \
+  --name enroll.ca.orderer.admin \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/orderer-ca-home/orderer-ca-admin-home \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/orderer-ca-home/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer-ca-home:/etc/hyperledger/cec-ca/orderer-ca-home \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -u https://orderer-ca-admin:orderer-ca-adminpw@ca.orderer:7053
+
+
+# register orderre?
+# register orderer admin?
+
+# create cec org ca
+docker rm -f ca.cec
+docker run \
+  -it -d \
+  --name ca.cec \
+      --network bc-net \
+      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/cec-ca-home \
+      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
+      -e FABRIC_CA_SERVER_CSR_CN=ca.cec \
+      -e FABRIC_CA_SERVER_CSR_HOSTS=ca.cec \
+      -e FABRIC_CA_SERVER_DEBUG=false \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer-ca-home:/etc/hyperledger/cec-ca/orderer-ca-home \
+      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
+      start -d -b \
+      orderer-ca-admin:orderer-ca-adminpw --port 7054
 
 
 

@@ -174,6 +174,7 @@ docker run -it -d  \
         -d hyperledger/fabric-couchdb
 
 
+export CEC_PEER0_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/keystore && ls *_sk)
 
 docker rm -f peer0.cec.com
 docker run -it -d \
@@ -184,9 +185,9 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/peer0.home/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/peer0.home/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/peer0.home/tls/msp/signcerts/cert.pem" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/peer0.home/tls/msp/keystore/${CEC_PEER0_TLS_PRIVATE_KEY}" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/cec/peer0.home/tls/msp/cacerts/ca-tls-7052.pem" \
       -e CORE_PEER_ID="peer0.cec.com" \
       -e CORE_PEER_ADDRESS="peer0.cec.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \

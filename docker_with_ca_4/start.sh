@@ -227,22 +227,6 @@ fabric-ca-client register -d --id.name peer1-org1 --id.secret peer1PW --id.type 
 
 
 
-
-docker rm -f ca.ic3.dams.com
-docker run \
-  -it -d \
-  --name ca.ic3.dams.com \
-      --network bc-net \
-      -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \
-      -e FABRIC_CA_SERVER_CA_NAME="ca-ic3" \
-      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
-      -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.ic3.dams.com-cert.pem" \
-      -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${IC3_CA_PRIVATE_KEY}" \
-      -e FABRIC_CA_SERVER_PORT=7054 \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/ic3-ca:/etc/hyperledger/ic3-ca \
-      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.ic3.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${IC3_CA_PRIVATE_KEY} -b admin:adminpw -d
-
 docker rm -f ca.gov.dams.com
 docker run \
   -it -d \

@@ -184,8 +184,8 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/peer0.home/tls/server.crt" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/peer0.home/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_PEER_ID="peer0.cec.com" \
       -e CORE_PEER_ADDRESS="peer0.cec.com:7051" \
@@ -193,7 +193,7 @@ docker run -it -d \
       -e CORE_PEER_CHAINCODEADDRESS="peer0.cec.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.com:7051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.dams.com:7051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_cec:5984" \
@@ -201,10 +201,9 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/cecpeer0:/var/hyperledger/production \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/cec/peer0.home" \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
 

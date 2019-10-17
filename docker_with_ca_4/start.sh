@@ -136,16 +136,32 @@ docker run --rm -it \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.cec:7054
 
+# enroll peer0 tls information
+docker run --rm -it \
+  --name enroll.cec.peer0 \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec/peer0.home/tls \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -u https://peer0-cec:peer0cecpw@ca.tls:7052
+
+
 # enroll peer0 information
 docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.peer.home \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec/peer0.home/msp \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -u https://peer0-cec:peer0cecpw@ca.cec:7054
+
+# lunch peer0
 
 
 export FABRIC_CA_CLIENT_TLS_CERTFILES=/tmp/hyperledger/org1/ca/crypto/ca-cert.pem

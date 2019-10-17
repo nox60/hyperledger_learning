@@ -30,7 +30,7 @@ docker run \
 
 
 # enroll tls.ca admin
-docker run --rm -it \
+docker run --rm -it -d\
   --name enroll.tls.ca.admin \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.tls/ca.admin.home \
@@ -118,23 +118,34 @@ docker run --rm -it \
   --name enroll.ca.cec.admin \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.admin.home \
-      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca-cert.pem \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      -u https://ca-cec-admin:ca-cec-adminpw@ca.orderer:7054
+      -u https://ca-cec-admin:ca-cec-adminpw@ca.cec:7054
 
 # register peer0
 docker run --rm -it \
     --name register.cec.peer0 \
         --network bc-net \
         -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.admin.home \
-        -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca-cert.pem \
+        -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
         -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
         hyperledger/fabric-ca:1.4.3 \
         fabric-ca-client register \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.cec:7054
+
+# enroll peer0 information
+docker run --rm -it \
+  --name enroll.cec.peer0 \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.peer.home \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -u https://peer0-cec:peer0cecpw@ca.cec:7054
 
 
 export FABRIC_CA_CLIENT_TLS_CERTFILES=/tmp/hyperledger/org1/ca/crypto/ca-cert.pem

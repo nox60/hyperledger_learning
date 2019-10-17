@@ -13,7 +13,6 @@ docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
 rm -rf /root/codes/hyperledger_learning/docker_with_ca_4/hyperledger_data/*
 
-
 docker rm -f ca.tls
 docker run \
   -it -d \
@@ -42,7 +41,6 @@ docker run --rm -it \
       -u https://ca-tls-admin:ca-tls-adminpw@ca.tls:7052
 
 # register orderer
-```createorderer
 docker run --rm -it \
     --name register.orderer \
         --network bc-net \
@@ -53,10 +51,9 @@ docker run --rm -it \
         fabric-ca-client register \
         -d --id.name orderer --id.secret ordererpw --id.type orderer  \
         -u https://ca.tls:7052
-```
+
 
 # register peer
-```runad
 docker run --rm -it \
     --name register.cec.peer0.ca \
         --network bc-net \
@@ -67,10 +64,9 @@ docker run --rm -it \
         fabric-ca-client register \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.tls:7052
-```
+
 
 # create orderer ca
-```startordererca
 docker rm -f ca.orderer
 docker run \
   -it -d \
@@ -85,14 +81,13 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
       start -d -b \
       ca-order-admin:ca-order-adminpw --port 7053
-```
 
 # enroll orderer ca admin
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.order/ca.admin.home \
-      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca-cert.pem \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.order:/etc/hyperledger/ca.order \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
@@ -118,7 +113,40 @@ docker run \
       start -d -b \
       ca-cec-admin:ca-cec-adminpw --port 7054
 
+# enroll cec admin
+docker run --rm -it \
+  --name enroll.ca.cec.admin \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.admin.home \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -u https://ca-cec-admin:ca-cec-adminpw@ca.orderer:7054
 
+# register peer0
+docker run --rm -it \
+    --name register.cec.peer0 \
+        --network bc-net \
+        -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.admin.home \
+        -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca-cert.pem \
+        -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
+        hyperledger/fabric-ca:1.4.3 \
+        fabric-ca-client register \
+        -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
+        -u https://ca.cec:7054
+
+
+export FABRIC_CA_CLIENT_TLS_CERTFILES=/tmp/hyperledger/org1/ca/crypto/ca-cert.pem
+export FABRIC_CA_CLIENT_HOME=/tmp/hyperledger/org1/ca/admin
+fabric-ca-client enroll -d -u https://rca-org1-admin:rca-org1-adminpw@0.0.0.0:7054
+fabric-ca-client register -d --id.name peer1-org1 --id.secret peer1PW --id.type peer -u https://0.0.0.0:7054
+
+
+# register cec peer0
+
+
+# create peer?
 
 
 

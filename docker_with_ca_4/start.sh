@@ -150,17 +150,15 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-c
 
 # configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block
 docker run --rm -it \
-  --name enroll.ca.orderer.admin \
+  --name configtxgen.generate.files \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/order/msp \
-      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/order \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.order \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
-      configtxgen -profile OrgsOrdererGenesis -outputBlock \
-      /tmp/hyperledger/org0/orderer/genesis.block
+      configtxgen -profile TwoOrgsOrdererGenesis \
+      -configPath /etc/hyperledger/configtx.yaml \
+      -outputBlock /etc/hyperledger/hyperledger_data/genesis.block
 
 # lunch orderer container
 

@@ -41,40 +41,6 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
 
-  - &cec
-    # DefaultOrg defines the organization which is used in the sampleconfig
-    # of the fabric.git development environment
-    Name: cecMSP
-
-    # ID to load the MSP definition as
-    ID: cecMSP
-
-    MSPDir: /etc/hyperledger/hyperledger_data/crypto/generatedir/orderer/msp
-
-    # Policies defines the set of policies at this level of the config tree
-    # For organization policies, their canonical path is usually
-    #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('cecMSP.admin', 'cecMSP.peer', 'cecMSP.client')"
-      Writers:
-        Type: Signature
-        Rule: "OR('cecMSP.admin', 'cecMSP.client')"
-      Admins:
-        Type: Signature
-        Rule: "OR('cecMSP.admin')"
-
-    # leave this flag set to true.
-    AnchorPeers:
-      # AnchorPeers defines the location of peers which can be used
-      # for cross org gossip communication.  Note, this value is only
-      # encoded in the genesis block in the Application section context
-      - Host: peer0.cec.dams.com
-        Port: 7051
-
-
-
 ################################################################################
 #
 #   SECTION: Capabilities
@@ -191,7 +157,7 @@ Orderer: &OrdererDefaults
   OrdererType: solo
 
   Addresses:
-    - orderer.dams.com:7050
+    - orderer.com:7050
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout: 2s
@@ -290,91 +256,3 @@ Profiles:
         - *orderer
       Capabilities:
         <<: *OrdererCapabilities
-    Consortiums:
-      SampleConsortium:
-        Organizations:
-          - *cec
-
-  TwoOrgsChannel:
-    Consortium: SampleConsortium
-    <<: *ChannelDefaults
-    Application:
-      <<: *ApplicationDefaults
-      Organizations:
-        - *cec
-
-      Capabilities:
-        <<: *ApplicationCapabilities
-
-    SampleDevModeKafka:
-      <<: *ChannelDefaults
-      Capabilities:
-        <<: *ChannelCapabilities
-      Orderer:
-        <<: *OrdererDefaults
-        OrdererType: kafka
-        Kafka:
-          Brokers:
-            - kafka.dams.com:9092
-
-        Organizations:
-          - *orderer
-        Capabilities:
-          <<: *OrdererCapabilities
-      Application:
-        <<: *ApplicationDefaults
-        Organizations:
-          - <<: *orderer
-      Consortiums:
-        SampleConsortium:
-          Organizations:
-            - *cec
-
-    SampleMultiNodeEtcdRaft:
-      <<: *ChannelDefaults
-      Capabilities:
-        <<: *ChannelCapabilities
-      Orderer:
-        <<: *OrdererDefaults
-        OrdererType: etcdraft
-        EtcdRaft:
-          Consenters:
-            - Host: orderer.dams.com
-              Port: 7050
-              ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
-              ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
-            - Host: orderer2.dams.com
-              Port: 7050
-              ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
-              ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
-            - Host: orderer3.dams.com
-              Port: 7050
-              ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
-              ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
-            - Host: orderer4.dams.com
-              Port: 7050
-              ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer4.dams.com/tls/server.crt
-              ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer4.dams.com/tls/server.crt
-            - Host: orderer5.dams.com
-              Port: 7050
-              ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer5.dams.com/tls/server.crt
-              ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer5.dams.com/tls/server.crt
-        Addresses:
-          - orderer.dams.com:7050
-          - orderer2.dams.com:7050
-          - orderer3.dams.com:7050
-          - orderer4.dams.com:7050
-          - orderer5.dams.com:7050
-
-        Organizations:
-          - *orderer
-        Capabilities:
-          <<: *OrdererCapabilities
-      Application:
-        <<: *ApplicationDefaults
-        Organizations:
-          - <<: *orderer
-      Consortiums:
-        SampleConsortium:
-          Organizations:
-            - *cec

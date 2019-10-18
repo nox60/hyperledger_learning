@@ -146,6 +146,8 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
+cp /opt/local/codes/docker_with_ca_4/configt.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
+
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
 # configtxgen -outputBlock hyperledger_data/orderer.genesis.block -channelID byfn-sys-channel -profile TwoOrgsOrdererGenesis
 # configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block

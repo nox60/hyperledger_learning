@@ -176,6 +176,7 @@ docker run -it -d  \
 
 export CEC_PEER0_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/keystore && ls *_sk)
 
+# lunch cec-peer0
 docker rm -f peer0.cec.com
 docker run -it -d \
   --name peer0.cec.com \
@@ -208,6 +209,10 @@ docker run -it -d \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
+
+# Join cec-peer0 to channel
+
+
 
 
 

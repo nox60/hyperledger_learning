@@ -147,7 +147,7 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-c
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
-
+# configtxgen -outputBlock hyperledger_data/orderer.genesis.block -channelID byfn-sys-channel -profile TwoOrgsOrdererGenesis
 # configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block
 docker run --rm -it \
   --name configtxgen.generate.files \
@@ -156,7 +156,9 @@ docker run --rm -it \
       -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
-      configtxgen -profile TwoOrgsOrdererGenesis \
+      configtxgen \
+      -profile TwoOrgsOrdererGenesis \
+      -channelID byfn-sys-channel \
       -configPath /etc/hyperledger/configtx.yaml \
       -outputBlock /etc/hyperledger/hyperledger_data/genesis.block
 

@@ -118,7 +118,11 @@ docker run --rm -it \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
+      --enrollment.profile tls --csr.hosts orderer.com \
       -u https://orderer:ordererpw@ca.tls:7052
+
+
+# fabric-ca-client enroll -d -u https://orderer-org0:ordererPW@0.0.0.0:7052 --enrollment.profile tls --csr.hosts orderer1-org0
 
 # enroll orderer msp
 docker run --rm -it \
@@ -132,7 +136,8 @@ docker run --rm -it \
       fabric-ca-client enroll \
       -u https://orderer:ordererpw@ca.orderer:7053
 
-# start orderer ca
+# lunch orderer container
+
 
 
 # create cec org ca

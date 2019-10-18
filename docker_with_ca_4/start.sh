@@ -154,19 +154,21 @@ cp /opt/local/codes/docker_with_ca_4/configt.yaml /opt/local/codes/docker_with_c
 docker run --rm -it \
   --name configtxgen.generate.files \
       --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
       configtxgen \
-      -profile TwoOrgsOrdererGenesis \
+      -outputBlock /etc/hyperledger/hyperledger_data/genesis.block \
       -channelID byfn-sys-channel \
-      -configPath /etc/hyperledger/configtx.yaml \
-      -outputBlock /etc/hyperledger/hyperledger_data/genesis.block
+      -profile TwoOrgsOrdererGenesis
 
 # lunch orderer container
 
-
+configtxgen -outputBlock hyperledger_data/orderer.genesis.block \
+-channelID byfn-sys-channel \
+-profile TwoOrgsOrdererGenesis
 
 # create cec org ca
 docker rm -f ca.cec

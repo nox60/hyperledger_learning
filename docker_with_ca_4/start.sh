@@ -127,7 +127,7 @@ docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/orderer/msp \
-      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.orderer/ca.home/ca-cert.pem \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/orderer \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
       hyperledger/fabric-ca:1.4.3 \
@@ -146,6 +146,8 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
+# cp /opt/local/codes/docker_with_ca_4/configtx.yaml
+
 # configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
@@ -154,6 +156,8 @@ docker run --rm -it \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/order \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.order \
+      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
       configtxgen -profile OrgsOrdererGenesis -outputBlock \
       /tmp/hyperledger/org0/orderer/genesis.block

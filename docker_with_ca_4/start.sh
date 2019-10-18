@@ -40,9 +40,10 @@ docker run --rm -it -d\
       fabric-ca-client enroll \
       -u https://ca-tls-admin:ca-tls-adminpw@ca.tls:7052
 
-# register orderer
+# register orderer tls
+# fabric-ca-client register -d --id.name orderer1-org0 --id.secret ordererPW --id.type orderer -u https://0.0.0.0:7052
 docker run --rm -it \
-    --name register.orderer \
+    --name register.orderer.tls \
         --network bc-net \
         -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.tls/ca.admin.home \
         -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
@@ -62,19 +63,6 @@ docker run --rm -it \
         hyperledger/fabric-ca:1.4.3 \
         fabric-ca-client register \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
-        -u https://ca.tls:7052
-
-# register orderer tls
-# fabric-ca-client register -d --id.name orderer1-org0 --id.secret ordererPW --id.type orderer -u https://0.0.0.0:7052
-docker run --rm -it \
-    --name register.orderer.tls \
-        --network bc-net \
-        -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.tls/ca.admin.home \
-        -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
-        -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
-        hyperledger/fabric-ca:1.4.3 \
-        fabric-ca-client register \
-        -d --id.name orderer --id.secret ordererpw --id.type orderer  \
         -u https://ca.tls:7052
 
 # create orderer ca

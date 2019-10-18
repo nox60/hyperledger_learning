@@ -28,7 +28,6 @@ docker run \
       start -d -b \
       ca-tls-admin:ca-tls-adminpw --port 7052
 
-
 # enroll tls.ca admin
 docker run --rm -it -d\
   --name enroll.tls.ca.admin \
@@ -71,12 +70,12 @@ docker run \
   -it -d \
   --name ca.orderer \
       --network bc-net \
-      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/ca.order/ca.home \
+      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/ca.orderer/ca.home \
       -e FABRIC_CA_SERVER_TLS_ENABLED=true \
       -e FABRIC_CA_SERVER_CSR_CN=ca.orderer \
       -e FABRIC_CA_SERVER_CSR_HOSTS=ca.orderer \
       -e FABRIC_CA_SERVER_DEBUG=false \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.order:/etc/hyperledger/ca.order \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
       start -d -b \
       ca-order-admin:ca-order-adminpw --port 7053
@@ -85,9 +84,9 @@ docker run \
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.order/ca.admin.home \
-      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.order:/etc/hyperledger/ca.order \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.orderer/ca.admin.home \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.orderer/ca.home/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -u https://ca-order-admin:ca-order-adminpw@ca.orderer:7053
@@ -97,9 +96,9 @@ docker run --rm -it \
 docker run --rm -it \
     --name register.orderer.ca \
         --network bc-net \
-        -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.order/ca.admin.home \
-        -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
-        -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.order:/etc/hyperledger/ca.order \
+        -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.orderer/ca.admin.home \
+        -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.orderer/ca.home/ca-cert.pem \
+        -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
         hyperledger/fabric-ca:1.4.3 \
         fabric-ca-client register \
         -d --id.name orderer --id.secret ordererpw --id.type orderer  \
@@ -109,12 +108,13 @@ docker run --rm -it \
 
 # setup orderer
 # enroll orderer tls
+# fabric-ca-client enroll -d -u https://orderer-org0:ordererPW@0.0.0.0:7052 --enrollment.profile tls --csr.hosts orderer1-org0
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/order/tls \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/orderer/tls \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/order:/etc/hyperledger/order \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/orderer \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
@@ -122,19 +122,41 @@ docker run --rm -it \
       -u https://orderer:ordererpw@ca.tls:7052
 
 
-# fabric-ca-client enroll -d -u https://orderer-org0:ordererPW@0.0.0.0:7052 --enrollment.profile tls --csr.hosts orderer1-org0
-
 # enroll orderer msp
+docker run --rm -it \
+  --name enroll.ca.orderer.admin \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/orderer/msp \
+      -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/orderer \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -u https://orderer:ordererpw@ca.orderer:7053
+
+# Create Genesis Block and Channel Transaction
+# orderer msp 目录下面 ：admincerts  cacerts  config.yaml  tlscacerts
+mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts
+mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/admincerts
+mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts
+
+cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/ca-cert.pem \
+/opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts/order-ca-cert.pem
+
+cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-cert.pem \
+/opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
+
+# configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/order/msp \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.order/ca.home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/order:/etc/hyperledger/order \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.order:/etc/hyperledger/ca.order \
-      hyperledger/fabric-ca:1.4.3 \
-      fabric-ca-client enroll \
-      -u https://orderer:ordererpw@ca.orderer:7053
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/order \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.order \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen -profile OrgsOrdererGenesis -outputBlock \
+      /tmp/hyperledger/org0/orderer/genesis.block
 
 # lunch orderer container
 

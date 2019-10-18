@@ -1,19 +1,9 @@
 Organizations:
-  - &org0
-    Name: org0
-    ID: org0MSP
+  - &orderer
+    Name: ordererMSP
+    ID: ordererMSP
     MSPDir: /tmp/hyperledger/org0/msp
-  - &org1
-    Name: org1
-    ID: org1MSP
+  - &cec
+    Name: cecMSP
+    ID: cecMSP
     MSPDir: /tmp/hyperledger/org1/msp
-    AnchorPeers:
-      - Host: peer1-org1
-          Port: 7051
-  - &org2
-    Name: org2
-    ID: org2MSP
-    MSPDir: /tmp/hyperledger/org2/msp
-    AnchorPeers:
-      - Host: peer1-org2
-        Port: 7051

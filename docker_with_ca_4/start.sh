@@ -160,7 +160,7 @@ docker run --rm -it \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
       configtxgen \
-      -outputBlock /etc/hyperledger/hyperledger_data/genesis.block \
+      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
       -channelID byfn-sys-channel \
       -profile TwoOrgsOrdererGenesis
 
@@ -173,7 +173,7 @@ docker run -it -d  \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
-      -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
+      -e ORDERER_GENERAL_GENESISFILE="/etc/hyperledger/hyperledger_data/orderer.genesis.block" \
       -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
       -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
       -e ORDERER_GENERAL_TLS_ENABLED="true" \
@@ -187,8 +187,8 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp:/var/hyperledger/orderer/msp \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls:/var/hyperledger/orderer/tls \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data:/var/hyperledger/production/orderer \
+      -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
 

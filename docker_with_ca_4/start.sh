@@ -115,7 +115,7 @@ docker run --rm -it \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/orderer/tls \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer:/etc/hyperledger/orderer \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/tls:/etc/hyperledger/ca.tls \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts orderer.com \

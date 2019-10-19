@@ -166,9 +166,9 @@ docker run --rm -it \
 
 # lunch orderer container
 
-configtxgen -outputBlock hyperledger_data/orderer.genesis.block \
--channelID byfn-sys-channel \
--profile TwoOrgsOrdererGenesis
+
+
+
 
 # create cec org ca
 docker rm -f ca.cec

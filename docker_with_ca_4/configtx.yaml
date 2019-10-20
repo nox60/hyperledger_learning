@@ -285,3 +285,12 @@ Profiles:
         Organizations:
           - *cec
 
+    TwoOrgsChannel:
+      Consortium: SampleConsortium
+      <<: *ChannelDefaults
+      Application:
+        <<: *ApplicationDefaults
+        Organizations:
+          - *cec
+        Capabilities:
+          <<: *ApplicationCapabilities

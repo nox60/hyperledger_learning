@@ -148,9 +148,9 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-c
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
 # 这里忘记了生成generatedir的初衷了，后面如果想不起来就废弃掉，使用 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp 这个msp目录
-cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
+cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/config.yaml
 
-cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp
+cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp/config.yaml
 
 
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
@@ -265,7 +265,7 @@ docker run --rm -it \
       fabric-ca-client enroll \
       -u https://peer0-cec:peer0cecpw@ca.cec:7054
 
-
+cp /opt/local/codes/docker_with_ca_4/config_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp/config.yaml
 
 # lunch cec-peer0-couchdb
 docker rm -f couchdb_cec

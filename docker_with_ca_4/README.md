@@ -49,21 +49,22 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 
 
 ## 操作任务
-### 1.1. 拉起tls-ca服务。
+### 1.1. 创建通道。
 
 ```runad
 docker run --rm -it \
 --name create.channel.client \
 --network bc-net \
 -e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
--v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
+-e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+-v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
+-v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin.home/msp:/etc/hyperledger/admin/msp \
+-v /opt/local/codes/docker_with_ca_4/hyperledger_data/:/etc/hyperledger/ordererdata \
 hyperledger/fabric-tools:1.4.3 \
-peer channel create --outputBlock /opt/channel-artifacts/mychannel.block -o orderer.dams.com:7050 \
+peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
 -c mychannel \
 -f /opt/channel-artifacts/channel.tx \
 --tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
+--cafile /etc/hyperledger/ca.tls/ca.home/ca-cert.pem 
 ```

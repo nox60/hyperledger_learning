@@ -108,7 +108,7 @@ docker run --rm -it \
 # register orderer admin?
 
 # setup orderer
-# enroll orderer tls
+# enroll orderer tls from ca.tls
 # fabric-ca-client enroll -d -u https://orderer-org0:ordererPW@0.0.0.0:7052 --enrollment.profile tls --csr.hosts orderer1-org0
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
@@ -246,8 +246,8 @@ docker run --rm -it \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec/peer0.home/tls \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.cec.com \

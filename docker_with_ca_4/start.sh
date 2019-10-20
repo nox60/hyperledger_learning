@@ -279,10 +279,12 @@ docker run -it -d  \
         -p 9100:9100 \
         -d hyperledger/fabric-couchdb
 
+# lunch cec-peer0
 
 export CEC_PEER0_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/keystore && ls *_sk)
+export CEC_PEER0_MSP_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp/keystore && ls *_sk)
 
-# lunch cec-peer0
+
 docker rm -f peer0.cec.com
 docker run -it -d \
   --name peer0.cec.com \
@@ -292,9 +294,9 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/peer0.home/tls/msp/signcerts/cert.pem" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/peer0.home/tls/msp/keystore/${CEC_PEER0_TLS_PRIVATE_KEY}" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/cec/peer0.home/tls/msp/cacerts/ca-tls-7052.pem" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/peer0.home/tls/signcerts/cert.pem" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/peer0.home/tls/keystore/${CEC_PEER0_TLS_PRIVATE_KEY}" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/cec/peer0.home/tls/tlscacerts/tls-ca-tls-7052.pem" \
       -e CORE_PEER_ID="peer0.cec.com" \
       -e CORE_PEER_ADDRESS="peer0.cec.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
@@ -311,7 +313,8 @@ docker run -it -d \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/peer0.home/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp:/etc/hyperledger/cec/peer0.home/tls \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3

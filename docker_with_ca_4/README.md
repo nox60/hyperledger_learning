@@ -51,7 +51,14 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 ## 操作任务
 ### 1.1. 创建通道。
 
+
+
 ```runad
+
+cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin.home/msp/config.yaml
+
+
+
 docker run --rm -it \
 --name create.channel.client \
 --network bc-net \

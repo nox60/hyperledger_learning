@@ -170,7 +170,6 @@ docker run --rm -it \
       -profile TwoOrgsOrdererGenesis
 
 # lunch orderer container
-
 export ORDERER_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/keystore && ls *_sk)
 export ORDERER_MSP_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp/keystore && ls *_sk)
 

@@ -13,7 +13,6 @@ docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
 rm -rf /root/codes/hyperledger_learning/docker_with_ca_4/hyperledger_data/*
 
-
 docker rm -f ca.tls
 docker run \
   -it -d \
@@ -147,44 +146,13 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
-# 这里忘记了生成generatedir的初衷了，后面如果想不起来就废弃掉，使用 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp 这个msp目录
+# 生成generatedir的初衷是为了解决生成创世区块和channel.tx文件，后面如果想不起来就废弃掉，使用 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp 这个msp目录
 cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/config.yaml
 
 cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp/config.yaml
 
 
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
-# configtxgen -outputBlock hyperledger_data/orderer.genesis.block -channelID byfn-sys-channel -profile TwoOrgsOrdererGenesis
-# configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block
-docker run --rm -it \
-  --name configtxgen.generate.files \
-      --network bc-net \
-      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
-      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
-      -w /etc/hyperledger \
-      hyperledger/fabric-tools:1.4.3 \
-      configtxgen \
-      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
-      -channelID byfn-sys-channel \
-      -profile TwoOrgsOrdererGenesis
-
-# generate channel.tx file
-docker run --rm -it \
-  --name configtxgen.generate.files.channel.tx.file \
-      --network bc-net \
-      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
-      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
-      -w /etc/hyperledger \
-      hyperledger/fabric-tools:1.4.3 \
-      configtxgen \
-      -profile TwoOrgsChannel \
-      -outputCreateChannelTx  /etc/hyperledger/hyperledger_data/channel.tx \
-      -channelID mychannel
-
-
-
 
 
 # lunch orderer container
@@ -345,6 +313,39 @@ docker run -it -d \
 
 
 # create peer?
+
+
+# configtxgen -outputBlock hyperledger_data/orderer.genesis.block -channelID byfn-sys-channel -profile TwoOrgsOrdererGenesis
+# configtxgen -profile OrgsOrdererGenesis -outputBlock /tmp/hyperledger/org0/orderer/genesis.block
+docker run --rm -it \
+  --name configtxgen.generate.files \
+      --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
+      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/etc/hyperledger/orderer/msp \
+      -w /etc/hyperledger \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen \
+      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
+      -channelID byfn-sys-channel \
+      -profile TwoOrgsOrdererGenesis
+
+# generate channel.tx file
+docker run --rm -it \
+  --name configtxgen.generate.files.channel.tx.file \
+      --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
+      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/peer0/msp \
+      -w /etc/hyperledger \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen \
+      -profile TwoOrgsChannel \
+      -outputCreateChannelTx  /etc/hyperledger/hyperledger_data/channel.tx \
+      -channelID mychannel
+
 
 
 

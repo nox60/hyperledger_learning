@@ -169,6 +169,24 @@ docker run --rm -it \
       -channelID byfn-sys-channel \
       -profile TwoOrgsOrdererGenesis
 
+# generate channel.tx file
+docker run --rm -it \
+  --name configtxgen.generate.files \
+      --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
+      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -w /etc/hyperledger \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen \
+      -profile TwoOrgsChannel \
+      -outputCreateChannelTx  /etc/hyperledger/hyperledger_data/channel.tx \
+      -channelID mychannel
+
+
+
+
+
 # lunch orderer container
 export ORDERER_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/keystore && ls *_sk)
 export ORDERER_MSP_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp/keystore && ls *_sk)

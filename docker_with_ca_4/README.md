@@ -53,15 +53,17 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 
 ```runad
 docker run --rm -it \
---name start.tls.ca \
+--name create.channel.client \
 --network bc-net \
--e FABRIC_CA_SERVER_HOME=/etc/hyperledger/cec-ca/tls-ca-admin \
--e FABRIC_CA_SERVER_TLS_ENABLED=true \
--e FABRIC_CA_SERVER_CSR_CN=ca-tls \
--e FABRIC_CA_SERVER_CSR_HOSTS=0.0.0.0 \
--e FABRIC_CA_SERVER_DEBUG=true \
--v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto:/etc/hyperledger/cec-ca/tls-ca-admin \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-server start -d -b \
-tls-ca-admin:tls-ca-adminpw --port 7052
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+-v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+hyperledger/fabric-tools:1.4.3 \
+peer channel create --outputBlock /opt/channel-artifacts/mychannel.block -o orderer.dams.com:7050 \
+-c mychannel \
+-f /opt/channel-artifacts/channel.tx \
+--tls true \
+--cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```

@@ -168,7 +168,7 @@ docker run --rm -it \
 
 docker rm -f orderer.com
 docker run -it -d  \
-  --name orderer.dams.com \
+  --name orderer.com \
       --network bc-net \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
@@ -185,9 +185,8 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp:/var/hyperledger/orderer/msp
-       \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls:/var/hyperledger/orderer/tls \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp:/var/hyperledger/orderer/tls \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /var/run:/var/run \

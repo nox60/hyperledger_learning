@@ -139,6 +139,7 @@ docker run --rm -it \
 mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts
 mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/admincerts
 mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts
+mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/signcerts
 
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts/order-ca-cert.pem
@@ -146,7 +147,11 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
+# 这里忘记了生成generatedir的初衷了，后面如果想不起来就废弃掉，使用 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp 这个msp目录
 cp /opt/local/codes/docker_with_ca_4/config.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
+
+cp /opt/local/codes/docker_with_ca_4/config.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp
+
 
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
 # configtxgen -outputBlock hyperledger_data/orderer.genesis.block -channelID byfn-sys-channel -profile TwoOrgsOrdererGenesis
@@ -189,8 +194,8 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/signcerts/cert.pem" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp:/var/hyperledger/orderer/tls \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /var/run:/var/run \

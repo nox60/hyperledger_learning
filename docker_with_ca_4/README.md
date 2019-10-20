@@ -60,18 +60,18 @@ cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/code
 
 
 docker run --rm -it \
---name create.channel.client \
---network bc-net \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
--e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
--v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
--v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin.home/msp:/etc/hyperledger/admin/msp \
--v /opt/local/codes/docker_with_ca_4/hyperledger_data/:/etc/hyperledger/ordererdata \
-hyperledger/fabric-tools:1.4.3 \
-peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
--c mychannel \
--f /opt/channel-artifacts/channel.tx \
---tls true \
---cafile /etc/hyperledger/ca.tls/ca.home/ca-cert.pem 
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin.home/msp:/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/:/etc/hyperledger/ordererdata \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
+    -c mychannel \
+    -f /etc/hyperledger/ordererdata/channel.tx \
+    --tls true \
+    --cafile /etc/hyperledger/ca.tls/ca.home/ca-cert.pem 
 ```

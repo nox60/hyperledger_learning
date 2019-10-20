@@ -284,13 +284,12 @@ Profiles:
       SampleConsortium:
         Organizations:
           - *cec
-
-    TwoOrgsChannel:
-      Consortium: SampleConsortium
-      <<: *ChannelDefaults
-      Application:
-        <<: *ApplicationDefaults
-        Organizations:
-          - *cec
-        Capabilities:
-          <<: *ApplicationCapabilities
+  TwoOrgsChannel:
+    Consortium: SampleConsortium
+    <<: *ChannelDefaults
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *cec
+      Capabilities:
+        <<: *ApplicationCapabilities

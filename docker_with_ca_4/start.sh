@@ -171,7 +171,7 @@ docker run --rm -it \
 
 # generate channel.tx file
 docker run --rm -it \
-  --name configtxgen.generate.files \
+  --name configtxgen.generate.files.channel.tx.file \
       --network bc-net \
       -e FABRIC_CFG_PATH=/etc/hyperledger/ \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \

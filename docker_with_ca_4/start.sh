@@ -13,6 +13,7 @@ docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
 rm -rf /root/codes/hyperledger_learning/docker_with_ca_4/hyperledger_data/*
 
+
 docker rm -f ca.tls
 docker run \
   -it -d \
@@ -121,7 +122,6 @@ docker run --rm -it \
       --enrollment.profile tls --csr.hosts orderer.com \
       -u https://orderer:ordererpw@ca.tls:7052
 
-
 # enroll orderer msp
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
@@ -146,7 +146,7 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
-cp /opt/local/codes/docker_with_ca_4/configt.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
+cp /opt/local/codes/docker_with_ca_4/config.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
 
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
 # configtxgen -outputBlock hyperledger_data/orderer.genesis.block -channelID byfn-sys-channel -profile TwoOrgsOrdererGenesis
@@ -166,6 +166,10 @@ docker run --rm -it \
 
 # lunch orderer container
 
+export ORDERER_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/keystore && ls *_sk)
+export ORDERER_MSP_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp/keystore && ls *_sk)
+
+
 docker rm -f orderer.com
 docker run -it -d  \
   --name orderer.com \
@@ -177,14 +181,14 @@ docker run -it -d  \
       -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
       -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
       -e ORDERER_GENERAL_TLS_ENABLED="true" \
-      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
-      -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
+      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
+      -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/signcerts/cert.pem" \
+      -e ORDERER_GENERAL_TLS_ROOTCAS="[/var/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
       -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
       -e ORDERER_KAFKA_VERBOSE="true" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
-      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/signcerts/cert.pem" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
+      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp:/var/hyperledger/orderer/tls \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \

@@ -41,6 +41,30 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
 
+  - &cec
+    # DefaultOrg defines the organization which is used in the sampleconfig
+    # of the fabric.git development environment
+    Name: cecMSP
+
+    # ID to load the MSP definition as
+    ID: cecMSP
+
+    MSPDir: /etc/hyperledger/hyperledger_data/crypto/generatedir/orderer/msp
+
+    # Policies defines the set of policies at this level of the config tree
+    # For organization policies, their canonical path is usually
+    #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('cecMSP.admin', 'cecMSP.peer', 'cecMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('cecMSP.admin', 'cecMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('cecMSP.admin')"
+
 ################################################################################
 #
 #   SECTION: Capabilities
@@ -256,3 +280,7 @@ Profiles:
         - *orderer
       Capabilities:
         <<: *OrdererCapabilities
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - *cec

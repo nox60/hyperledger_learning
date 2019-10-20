@@ -135,10 +135,10 @@ docker run --rm -it \
 
 # Create Genesis Block and Channel Transaction
 # orderer msp 目录下面 ：admincerts  cacerts  config.yaml  tlscacerts
-mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts
-mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/admincerts
-mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts
-mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/signcerts
+# mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts
+# mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/admincerts
+# mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts
+# mkdir -p /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/signcerts
 
 cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home/ca-cert.pem \
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/cacerts/order-ca-cert.pem

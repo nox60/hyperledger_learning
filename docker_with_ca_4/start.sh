@@ -53,7 +53,7 @@ docker run --rm -it \
         -d --id.name orderer --id.secret ordererpw --id.type orderer  \
         -u https://ca.tls:7052
 
-# register peer
+# register peer0 of cec
 docker run --rm -it \
     --name register.cec.peer0.ca \
         --network bc-net \
@@ -92,7 +92,7 @@ docker run --rm -it \
       fabric-ca-client enroll \
       -u https://ca-order-admin:ca-order-adminpw@ca.orderer:7053
 
-# register orderer ca
+# register orderer in ca.orderer
 # fabric-ca-client register -d --id.name orderer1-org0 --id.secret ordererpw --id.type orderer -u https://0.0.0.0:7053
 docker run --rm -it \
     --name register.orderer.ca \
@@ -122,7 +122,7 @@ docker run --rm -it \
       --enrollment.profile tls --csr.hosts orderer.com \
       -u https://orderer:ordererpw@ca.tls:7052
 
-# enroll orderer msp
+# enroll orderer msp from ca.orderer
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
@@ -148,9 +148,9 @@ cp /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls/ca.home/ca-c
 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp/tlscacerts/order-tls-ca-cert.pem
 
 # 这里忘记了生成generatedir的初衷了，后面如果想不起来就废弃掉，使用 /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp 这个msp目录
-cp /opt/local/codes/docker_with_ca_4/config.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
+cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/generatedir/orderer/msp
 
-cp /opt/local/codes/docker_with_ca_4/config.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp
+cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp
 
 
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
@@ -173,7 +173,6 @@ docker run --rm -it \
 
 export ORDERER_TLS_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/keystore && ls *_sk)
 export ORDERER_MSP_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp/keystore && ls *_sk)
-
 
 docker rm -f orderer.com
 docker run -it -d  \
@@ -200,11 +199,6 @@ docker run -it -d  \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
-
-
-
-
-
 
 # create cec org ca
 docker rm -f ca.cec
@@ -233,7 +227,7 @@ docker run --rm -it \
       fabric-ca-client enroll \
       -u https://ca-cec-admin:ca-cec-adminpw@ca.cec:7054
 
-# register peer0
+# register peer0 in cec.ca
 docker run --rm -it \
     --name register.cec.peer0 \
         --network bc-net \
@@ -245,6 +239,7 @@ docker run --rm -it \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.cec:7054
 
+# setup peer0
 # enroll peer0 tls information
 docker run --rm -it \
   --name enroll.cec.peer0 \
@@ -255,20 +250,22 @@ docker run --rm -it \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
+      --enrollment.profile tls --csr.hosts peer0.cec.com \
       -u https://peer0-cec:peer0cecpw@ca.tls:7052
 
-
-# enroll peer0 information
+# enroll peer0 msp from ca.cec
 docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec/peer0.home/msp \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -u https://peer0-cec:peer0cecpw@ca.cec:7054
+
+
 
 # lunch cec-peer0-couchdb
 docker rm -f couchdb_cec

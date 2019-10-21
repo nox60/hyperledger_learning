@@ -1,14 +1,14 @@
 NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/peer0-cec-ca-cert.pem
+    Certificate: cacerts/ca-cec-7054.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/peer0-cec-ca-cert.pem
+    Certificate: cacerts/ca-cec-7054.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/peer0-cec-cert.pem
+    Certificate: cacerts/ca-cec-7054.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/peer0-cec-cert.pem
+    Certificate: cacerts/ca-cec-7054.pem
     OrganizationalUnitIdentifier: orderer

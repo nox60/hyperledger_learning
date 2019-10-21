@@ -113,15 +113,14 @@ docker run --rm -it \
     --name cec.list.channel.admin2.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \                                           
+    -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/msp/tlscacerts/tls-ca-tls-7052.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
-    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \                
+    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp:/etc/hyperledger/ca.cec/ca.tls/msp \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
     hyperledger/fabric-tools:1.4.3 \
-    peer channel list 
+    peer channel list
 ```
 
 ```greenplum

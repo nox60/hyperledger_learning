@@ -102,10 +102,11 @@ docker run --rm -it \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/:/etc/hyperledger/ordererdata \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home:/etc/hyperledger/ca.orderer/ca.home \
     hyperledger/fabric-tools:1.4.3 \
     peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
     -c mychannel \
     -f /etc/hyperledger/ordererdata/channel.tx \
     --tls true \
-    --cafile /etc/hyperledger/ca.tls/ca.home/ca-cert.pem 
+    --cafile /etc/hyperledger/ca.orderer/ca.home/ca-cert.pem 
 ```

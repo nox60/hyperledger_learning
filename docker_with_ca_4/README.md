@@ -52,6 +52,38 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 ### 1.1. 创建通道。
 
 
+# 创建第二个Admin账户
+
+```runad
+docker run --rm -it \
+--name register.cec.admin2.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.admin.home \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
+-v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
+-u https://ca.cec:7054
+```
+
+
+
+# 获取第二个Admin账户msp
+
+```runad
+docker run --rm -it \
+--name register.cec.admin2.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.cec/ca.admin.home \
+-e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
+-v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
+-u https://ca.cec:7054
+```
+
 
 ```runad
 
@@ -59,11 +91,13 @@ cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/code
 
 
 
+
+
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/admin/msp/cacerts/ca-cec-7054.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin.home/msp:/etc/hyperledger/admin/msp \

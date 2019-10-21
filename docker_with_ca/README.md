@@ -366,8 +366,6 @@ docker run --rm -it \
 -e CORE_PEER_LOCALMSPID=cecMSP \
 -e CORE_PEER_TLS_ENABLED="true"  \
 -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt" \
--e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key" \
 -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
 -e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
 -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \

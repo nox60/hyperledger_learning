@@ -83,30 +83,45 @@ docker run --rm -it \
       -u https://admin2:admin2pw@ca.cec:7054
 ```
 
-
+# 创建通道
 ```runad
-
-cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin.home/msp/config.yaml
-
-
 cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp/config.yaml
-
-
 
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/admin/msp/cacerts/ca-cec-7054.pem \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/:/etc/hyperledger/ordererdata \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/ordererdata \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer/ca.home:/etc/hyperledger/ca.orderer/ca.home \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
     hyperledger/fabric-tools:1.4.3 \
     peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
     -c mychannel \
     -f /etc/hyperledger/ordererdata/channel.tx \
     --tls true \
-    --cafile /etc/hyperledger/ca.orderer/ca.home/ca-cert.pem 
+    --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem
+```
+
+# 查询已经加入的通道
+```greenplum
+docker run --rm -it \
+    --name cec.list.channel.admin2.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ENABLED=true  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+    -e CORE_PEER_ADDRESS=peer0.cec.com:7052 \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel list \
+    --tls true \
+    --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem
 ```

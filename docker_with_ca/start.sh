@@ -15,6 +15,9 @@ export GOV_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/
 
 echo $CEC_CA_PRIVATE_KEY
 
+rm -rf /opt/local/codes/docker_with_ca
+ln -s `pwd` /opt/local/codes/docker_with_ca
+
 #sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
 #["sh","-c","java $JAVA_OPTS  -Dfile.encoding=utf-8 -jar /opt/*.jar"]
 

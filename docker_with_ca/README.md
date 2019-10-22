@@ -36,8 +36,7 @@ start.sh 拉起相应的容器。
 
 ```greenplum
 rm -rf /opt/local/codes/docker_with_ca
-ln -s /root/codes/hyperledger_learning/docker_with_ca /opt/local/codes/docker_with_ca
-
+ln -s `pwd` /opt/local/codes/docker_with_ca
 ```
 
 ### 4. 执行start.sh，拉起所需容器。

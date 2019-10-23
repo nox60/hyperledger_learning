@@ -28,7 +28,7 @@ docker run \
       start -d -b \
       ca-tls-admin:ca-tls-adminpw --port 7052
 
-# enroll tls.ca admin
+# enroll tls.ca admin 获取 ca.tls的管理员信息，用来后面注册 orderer, peer的tls等账户。
 docker run --rm -it -d\
   --name enroll.tls.ca.admin \
       --network bc-net \
@@ -39,7 +39,7 @@ docker run --rm -it -d\
       fabric-ca-client enroll \
       -u https://ca-tls-admin:ca-tls-adminpw@ca.tls:7052
 
-# register orderer tls
+# register orderer tls 给orderer注册tls证书，用于启动orderer节点时候的tls通信
 # fabric-ca-client register -d --id.name orderer1-org0 --id.secret ordererPW --id.type orderer -u https://0.0.0.0:7052
 docker run --rm -it \
     --name register.orderer.tls \
@@ -52,7 +52,7 @@ docker run --rm -it \
         -d --id.name orderer --id.secret ordererpw --id.type orderer  \
         -u https://ca.tls:7052
 
-# register peer0 of cec
+# register peer0 of cec 给cec.peer0注册tls账户，用于启动cec.peer0的tls通信
 docker run --rm -it \
     --name register.cec.peer0.ca \
         --network bc-net \
@@ -64,7 +64,7 @@ docker run --rm -it \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.tls:7052
 
-# create orderer ca
+# create orderer ca 创建 orderer的ca服务，该服务用于提供orderer的ca身份证书
 docker rm -f ca.orderer
 docker run \
   -it -d \
@@ -80,7 +80,7 @@ docker run \
       start -d -b \
       ca-order-admin:ca-order-adminpw --port 7053
 
-# enroll orderer ca admin
+# enroll orderer ca admin  获取 orderer ca 的 admin账户信息
 docker run --rm -it \
   --name enroll.ca.orderer.admin \
       --network bc-net \
@@ -91,7 +91,7 @@ docker run --rm -it \
       fabric-ca-client enroll \
       -u https://ca-order-admin:ca-order-adminpw@ca.orderer:7053
 
-# register orderer in ca.orderer
+# register orderer in ca.orderer  在 orderer ca 注册 orderer节点
 # fabric-ca-client register -d --id.name orderer1-org0 --id.secret ordererpw --id.type orderer -u https://0.0.0.0:7053
 docker run --rm -it \
     --name register.orderer.ca \
@@ -110,7 +110,7 @@ docker run --rm -it \
 # enroll orderer tls from ca.tls
 # fabric-ca-client enroll -d -u https://orderer-org0:ordererPW@0.0.0.0:7052 --enrollment.profile tls --csr.hosts orderer1-org0
 docker run --rm -it \
-  --name enroll.ca.orderer.admin \
+  --name enroll.orderer.tls \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/orderer/tls \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
@@ -123,7 +123,7 @@ docker run --rm -it \
 
 # enroll orderer msp from ca.orderer
 docker run --rm -it \
-  --name enroll.ca.orderer.admin \
+  --name enroll.orderer.ca \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/orderer/msp \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.orderer/ca.home/ca-cert.pem \
@@ -155,7 +155,7 @@ cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
 
 
-# create cec org ca
+# create cec org ca 创建 cec节点的 ca服务
 docker rm -f ca.cec
 docker run \
   -it -d \
@@ -197,7 +197,7 @@ docker run --rm -it \
 # setup peer0
 # enroll peer0 tls information
 docker run --rm -it \
-  --name enroll.cec.peer0 \
+  --name enroll.cec.peer0.tls \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec/peer0.home/tls \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.tls/ca.home/ca-cert.pem \
@@ -210,7 +210,7 @@ docker run --rm -it \
 
 # enroll peer0 msp from ca.cec
 docker run --rm -it \
-  --name enroll.cec.peer0 \
+  --name enroll.cec.peer0.msp \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec/peer0.home/msp \
       -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.cec/ca.home/ca-cert.pem \
@@ -249,9 +249,9 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \
       -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/peer0.home/tls/signcerts/cert.pem" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/peer0.home/tls/keystore/${CEC_PEER0_TLS_PRIVATE_KEY}" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/cec/peer0.home/tls/tlscacerts/tls-ca-tls-7052.pem" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/cec/tls/signcerts/cert.pem" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/cec/tls/keystore/${CEC_PEER0_TLS_PRIVATE_KEY}" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/cec/tls/tlscacerts/tls-ca-tls-7052.pem" \
       -e CORE_PEER_ID="peer0.cec.com" \
       -e CORE_PEER_ADDRESS="peer0.cec.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
@@ -260,16 +260,17 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
+      -e CORE_PEER_MSPCONFIGPATH="/etc/hyperledger/cec/msp" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_cec:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/cec" \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/peer0.home/msp \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp:/etc/hyperledger/cec/peer0.home/tls \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp:/etc/hyperledger/cec/tls \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3

@@ -339,7 +339,7 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp:/var/hyperledger/orderer/tls \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3

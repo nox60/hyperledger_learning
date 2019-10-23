@@ -68,7 +68,6 @@ fabric-ca-client register \
 ```
 
 
-
 # 获取第二个Admin账户msp
 
 ```runad
@@ -98,12 +97,16 @@ docker run --rm -it \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin2/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
     hyperledger/fabric-tools:1.4.3 \
     peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
     -c mychannel \
     -f /etc/hyperledger/ordererdata/channel.tx \
     --tls true \
     --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem
+    
+    
+    
 ```
 
 # 查询已经加入的通道

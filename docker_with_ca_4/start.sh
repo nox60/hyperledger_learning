@@ -267,7 +267,7 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/cec" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/msp \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp:/etc/hyperledger/cec/tls \

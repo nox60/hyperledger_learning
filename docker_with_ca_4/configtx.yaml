@@ -293,4 +293,3 @@ Profiles:
         - *cec
       Capabilities:
         <<: *ApplicationCapabilities
-

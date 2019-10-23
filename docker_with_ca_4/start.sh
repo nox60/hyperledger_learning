@@ -11,7 +11,6 @@ docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 #sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
 #["sh","-c","java $JAVA_OPTS  -Dfile.encoding=utf-8 -jar /opt/*.jar"]
 
-rm -rf /root/codes/hyperledger_learning/docker_with_ca_4/hyperledger_data/*
 
 docker rm -f ca.tls
 docker run \

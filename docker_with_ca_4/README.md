@@ -145,4 +145,49 @@ docker run --rm -it \
 ```
 
 
+# 安装智能合约
+```greenplum
+docker run --rm -it \
+    --name cec.install.chaincode.admin2.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode install \
+    -n mychaincode \
+    -v 1.0 \
+    -l golang \
+    -p mychaincode
+```
 
+
+
+# 实例化智能合约
+```greenplum
+docker run --rm -it \
+--name cec.instantiate.chaincode.admin2.client \
+--network bc-net \
+-e CORE_PEER_LOCALMSPID=cecMSP \
+-e CORE_PEER_TLS_ENABLED="true"  \
+-e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
+-e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt" \
+-e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key" \
+-e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
+-e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
+-v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+-v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+hyperledger/fabric-tools:1.4.3 \
+peer chaincode instantiate -o orderer.dams.com:7050 \
+--tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
+-C mychannel \
+-n mychaincode \
+-l golang \
+-v 1.0 \
+-c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
+```

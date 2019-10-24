@@ -190,8 +190,45 @@ docker run --rm -it \
     -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
 ```
 
-```ddkk
+# 查看已经安装的智能合约
+```greenplum
+docker run --rm -it \
+    --name cec.instantiate.chaincode.admin2.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode list \
+    -C mychannel \
+    --installed
+```
 
+# 查看已经实例化的智能合约
+```greenplum
+docker run --rm -it \
+    --name cec.instantiate.chaincode.admin2.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
+    -v /opt/local/codes/docker_with_ca_4/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode list \
+    -C mychannel \
+    --instantiated
+```
+
+```ddkk
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \
@@ -203,25 +240,14 @@ docker run --rm -it \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
     hyperledger/fabric-tools:1.4.3 \
-    peer chaincode instantiate -o orderer.com:7050 \
+    peer chaincode invoke -o orderer.com:7050 \
     --tls true --cafile /etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem  \
     -C mychannel \
     -n mychaincode \
-    -l golang \
-    -v 1.0 \
     -c '{"Args":["add","a","10"]}' 
 ```
 
 ```dd
-docker exec -it cli \
-    peer chaincode invoke \
-    -o orderer.dams.com:7050 \
-    -C mychannel \
-    -n mychaincode \
-    -c '{"Args":["query","a"]}' \
-    --tls true \
-    --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-
 
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
@@ -234,12 +260,10 @@ docker run --rm -it \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
     hyperledger/fabric-tools:1.4.3 \
-    peer chaincode instantiate -o orderer.com:7050 \
+    peer chaincode invoke -o orderer.com:7050 \
     --tls true --cafile /etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem  \
     -C mychannel \
     -n mychaincode \
-    -l golang \
-    -v 1.0 \
     -c '{"Args":["query","a"]}'
 
 

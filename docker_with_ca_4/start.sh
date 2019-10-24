@@ -322,7 +322,7 @@ docker rm -f orderer.com
 docker run -it -d  \
   --name orderer.com \
       --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e FABRIC_LOGGING_SPEC="DEBUG" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
       -e ORDERER_GENERAL_GENESISFILE="/etc/hyperledger/hyperledger_data/orderer.genesis.block" \

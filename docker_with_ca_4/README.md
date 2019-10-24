@@ -173,7 +173,7 @@ docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ENABLED=true  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
     -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \

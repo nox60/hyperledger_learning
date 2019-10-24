@@ -180,9 +180,9 @@ docker run --rm -it \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
     -v /opt/local/codes/docker_with_ca_4/chaincode:/opt/gopath/src/mychaincode \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode instantiate -o orderer.com:7050 \
-    --tls true --cafile /etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem  \
     -C mychannel \
     -n mychaincode \
     -l golang \

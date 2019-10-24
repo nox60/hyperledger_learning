@@ -187,7 +187,9 @@ docker run --rm -it \
     -n mychaincode \
     -l golang \
     -v 1.0 \
-    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
+    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')' \
+    --tls true \
+    --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem
 ```
 
 # 查看已经安装的智能合约

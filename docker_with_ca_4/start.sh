@@ -259,7 +259,7 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
-      -e CORE_PEER_MSPCONFIGPATH="/etc/hyperledger/cec/msp" \
+      -e CORE_PEER_MSPCONFIGPATH="/etc/hyperledger/fabric/msp" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_cec:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
@@ -268,7 +268,7 @@ docker run -it -d \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec:/etc/hyperledger/cec \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp:/etc/hyperledger/cec/tls \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \

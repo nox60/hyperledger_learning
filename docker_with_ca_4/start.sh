@@ -51,7 +51,7 @@ docker run --rm -it \
         -d --id.name orderer --id.secret ordererpw --id.type orderer  \
         -u https://ca.tls:7052
 
-# register peer0 of cec 给cec.peer0注册tls账户，用于启动cec.peer0的tls通信
+# register peer0.cec tls 给cec.peer0注册tls账户，用于启动cec.peer0的tls通信
 docker run --rm -it \
     --name register.cec.peer0.ca \
         --network bc-net \
@@ -63,7 +63,7 @@ docker run --rm -it \
         -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer  \
         -u https://ca.tls:7052
 
-# create orderer ca 创建 orderer的ca服务，该服务用于提供orderer的ca身份证书
+# create orderer ca 创建 orderer的ca服务，该服务用于提供orderer的ca身份证书, 这里没有tls相关的公私钥，有问题。
 docker rm -f ca.orderer
 docker run \
   -it -d \
@@ -73,6 +73,7 @@ docker run \
       -e FABRIC_CA_SERVER_TLS_ENABLED=true \
       -e FABRIC_CA_SERVER_CSR_CN=ca.orderer \
       -e FABRIC_CA_SERVER_CSR_HOSTS=ca.orderer \
+      -e FABRIC_CA_SERVER_CSR_NAMES='C: US,ST: "North Carolina",L:,O: tttt,OU: Fabric' \
       -e FABRIC_CA_SERVER_DEBUG=false \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \

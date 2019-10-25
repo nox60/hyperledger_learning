@@ -73,7 +73,7 @@ docker run \
       -e FABRIC_CA_SERVER_TLS_ENABLED=true \
       -e FABRIC_CA_SERVER_CSR_CN=ca.orderer \
       -e FABRIC_CA_SERVER_CSR_HOSTS=ca.orderer \
-      -e FABRIC_CA_SERVER_CSR_NAMES='C:US,ST:North Carolina,L:,O:tttt,OU:Fabric' \
+      -e FABRIC_CA_SERVER_CSR_NAMES=C:US,ST:North Carolina,L:,O:tttt,OU:Fabric \
       -e FABRIC_CA_SERVER_DEBUG=false \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \

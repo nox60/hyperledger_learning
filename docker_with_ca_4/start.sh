@@ -154,7 +154,7 @@ cp /opt/local/codes/docker_with_ca_4/config_orderer.yaml /opt/local/codes/docker
 # cp /opt/local/codes/docker_with_ca_4/configtx.yaml
 
 
-# create cec org ca 创建 cec节点的 ca服务
+# create cec org ca 创建 cec节点的 ca服务，这里似乎发现了坑。没有提供tls 相关证书。
 docker rm -f ca.cec
 docker run \
   -it -d \

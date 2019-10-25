@@ -327,19 +327,19 @@ docker run -it -d  \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
       -e ORDERER_GENERAL_GENESISFILE="/etc/hyperledger/hyperledger_data/orderer.genesis.block" \
       -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
-      -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
+      -e ORDERER_GENERAL_LOCALMSPDIR="/etc/hyperledger/orderer/msp" \
       -e ORDERER_GENERAL_TLS_ENABLED="true" \
-      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
-      -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/signcerts/cert.pem" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="[/var/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
+      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
+      -e ORDERER_GENERAL_TLS_CERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/cert.pem" \
+      -e ORDERER_GENERAL_TLS_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
       -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
       -e ORDERER_KAFKA_VERBOSE="true" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/signcerts/cert.pem" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
-      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp:/var/hyperledger/orderer/tls \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/orderer_data_dir:/var/hyperledger/production/orderer \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/cert.pem" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
+      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp:/etc/hyperledger/orderer/tls \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/etc/hyperledger/orderer/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/orderer_data_dir:/etc/hyperledger/production/orderer \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3

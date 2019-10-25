@@ -243,7 +243,7 @@ docker rm -f peer0.cec.com
 docker run -it -d \
   --name peer0.cec.com \
       --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e FABRIC_LOGGING_SPEC="DEBUG" \
       -e CORE_PEER_TLS_ENABLED="true" \
       -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
       -e CORE_PEER_GOSSIP_ORGLEADER="true" \

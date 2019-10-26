@@ -117,7 +117,7 @@ docker run --rm -it \
       -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      --enrollment.profile tls --csr.hosts orderer.com \
+      --enrollment.profile tls --csr.hosts orderer.com --csr.names 'C=CA,O=Org1,ST=SS,OU=EE,L=FF' \
       -u https://orderer:ordererpw@ca.tls:7052
 
 # enroll orderer msp from ca.orderer

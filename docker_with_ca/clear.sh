@@ -3,6 +3,9 @@ docker network rm bc-net
 
 
 docker rm -f ca.cec.dams.com
+docker rm -f ca.ia3.dams.com
+docker rm -f ca.ic3.dams.com
+docker rm -f ca.gov.dams.com
 docker rm -f orderer.dams.com
 docker rm -f peer0.cec.dams.com
 docker rm -f peer0.ia3.dams.com

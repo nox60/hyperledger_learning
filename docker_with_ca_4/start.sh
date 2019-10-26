@@ -100,7 +100,7 @@ docker run --rm -it \
         -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
         hyperledger/fabric-ca:1.4.3 \
         fabric-ca-client register \
-        -d --id.name orderer --id.secret ordererpw --id.type orderer  \
+        -d --id.name orderer.com --id.secret ordererpw --id.type orderer  \
         -u https://ca.orderer:7053
 
 # register orderer admin?

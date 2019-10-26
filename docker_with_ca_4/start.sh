@@ -97,7 +97,7 @@ docker run --rm -it \
         --network bc-net \
         -e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ca.orderer/ca.admin.home \
         -e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ca.orderer/ca.home/ca-cert.pem \
-        -e FABRIC_CA_CLIENT_CSR_NAMES='C=CA,O=Org1' \
+        -e FABRIC_CA_CLIENT_CSR_NAMES=[C=CA,O=Org1] \
         -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.orderer:/etc/hyperledger/ca.orderer \
         hyperledger/fabric-ca:1.4.3 \
         fabric-ca-client register \

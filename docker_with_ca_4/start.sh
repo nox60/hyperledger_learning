@@ -190,7 +190,7 @@ docker run --rm -it \
         -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec:/etc/hyperledger/ca.cec \
         hyperledger/fabric-ca:1.4.3 \
         fabric-ca-client register \
-        -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer --csr.hosts peer0.cec.com \
+        -d --id.name peer0-cec --id.secret peer0cecpw --id.type peer \
         -u https://ca.cec:7054
 
 # setup peer0

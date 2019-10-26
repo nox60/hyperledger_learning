@@ -82,6 +82,14 @@ docker run --rm -it \
       -u https://admin2:admin2pw@ca.cec:7054
 ```
 
+Error: got unexpected status: BAD_REQUEST -- error validating channel creation transaction for new channel 'mychannel', could not succesfully apply update to template configuration: error authorizing update: error validating DeltaSet: policy for [Group]  /Channel/Application not satisfied: implicit policy evaluation failed - 0 sub-policies were satisfied, but this policy requires 1 of the 'Admins' sub-policies to be satisfied
+
+发生这个错误的时候，使用 openssl x509 -in  cert.pem -noout -text 证书解开对应的msp公钥，查看身份是否是admin，比如下面的错误：
+ 
+        Subject: C=US, ST=North Carolina, O=Hyperledger, OU=client, CN=ca-cec-admin
+
+
+
 # 创建通道
 ```runad
 cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp/config.yaml
@@ -123,7 +131,7 @@ docker run --rm -it \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
     -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
     hyperledger/fabric-tools:1.4.3 \
-    peer channel join -b /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
+    peer channel join -b /etc/hyperledger/ordererdata/mychannel.block \
     --tls true \
     --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem
 ```

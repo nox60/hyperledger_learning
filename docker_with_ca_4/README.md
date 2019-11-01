@@ -152,7 +152,6 @@ docker run --rm -it \
     peer channel list
 ```
 
-
 # 安装智能合约
 ```greenplum
 docker run --rm -it \
@@ -173,7 +172,6 @@ docker run --rm -it \
     -l golang \
     -p mychaincode
 ```
-
 
 # 实例化智能合约
 ```greenplum

@@ -44,7 +44,6 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 ./start.sh
 ```
 
-
 需要注意到的是，在start.sh脚本中会拉起ca容器，目前ca容器使用的tls证书还是来自于cryptogen工具生成，在后期迭代之后，会使用自建的ca服务来生成。
 
 

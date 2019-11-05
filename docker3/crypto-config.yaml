@@ -11,7 +11,7 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: Orderer
-    Domain: dams.com
+    Domain: ymy.com
     EnableNodeOUs: true
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
@@ -29,23 +29,23 @@ OrdererOrgs:
 PeerOrgs:
 
   - Name: cec
-    Domain: cec.dams.com
-    EnableNodeOUs: true
-    Template:
-      Count: 2
-    Users:
-      Count: 1
-
-  - Name: ia3 
-    Domain: ia3.dams.com
+    Domain: cec.ymy.com
     EnableNodeOUs: true
     Template:
       Count: 1
     Users:
       Count: 1
 
-  - Name: ic3
-    Domain: ic3.dams.com
+  - Name: aes
+    Domain: aes.ymy.com
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+
+  - Name: hos
+    Domain: hos.ymy.com
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -53,7 +53,7 @@ PeerOrgs:
       Count: 1
 
   - Name: gov
-    Domain: gov.dams.com
+    Domain: gov.ymy.com
     EnableNodeOUs: true
     Template:
       Count: 1

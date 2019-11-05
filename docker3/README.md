@@ -167,7 +167,7 @@ docker run --rm -it \
     peer channel list 
 ```
 
-```安装合约
+```cec安装合约
 docker run --rm -it \
     --name cec.install.chaincode.admin.client \
     --network ymy-net \
@@ -187,7 +187,7 @@ docker run --rm -it \
     -p mychaincode
 ```
 
-```实例化智能合约
+```cec实例化智能合约
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin.client \
     --network ymy-net \
@@ -206,6 +206,47 @@ docker run --rm -it \
     -l golang \
     -v 1.0 \
     -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
+```
+
+```aes安装合约
+docker run --rm -it \
+    --name aes.install.chaincode.admin.client \
+    --network ymy-net \
+    -e CORE_PEER_LOCALMSPID=aesMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/tls/ca.crt \
+    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/aes.ymy.com/users/Admin@aes.ymy.com/msp \
+    -e CORE_PEER_ADDRESS=peer0.aes.ymy.com:7051 \
+    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
+    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
+    -v /opt/local/codes/docker_with_ca/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode install \
+    -n mychaincode \
+    -v 1.0 \
+    -l golang \
+    -p mychaincode
+```
+
+```aes实例化智能合约
+docker run --rm -it \
+    --name aes.instantiate.chaincode.admin.client \
+    --network ymy-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/tls/ca.crt \
+    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/aes.ymy.com/users/Admin@aes.ymy.com/msp \
+    -e CORE_PEER_ADDRESS=peer0.aes.ymy.com:7051 \
+    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
+    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode instantiate -o orderer.ymy.com:7050 \
+    --tls true --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem \
+    -C mychannel \
+    -n mychaincode \
+    -l golang \
+    -v 1.0 \
+    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''aesMSP.peer'\'')'
 ```
 
 ```查看已经实例化的智能合约
@@ -262,7 +303,28 @@ docker run --rm -it \
     -o orderer.ymy.com:7050 \
     -C mychannel \
     -n mychaincode \
-    -c '{"Args":["add","a","10"]}' \
+    -c '{"Args":["query","a"]}' \
+    --tls true \
+    --cafile /opt/crypto/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
+```
+
+```通过智能合约查询结果
+docker run --rm -it \
+    --name cec.instantiate.chaincode.admin.client \
+    --network ymy-net \
+    -e CORE_PEER_LOCALMSPID=govMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/gov.ymy.com/peers/peer0.gov.ymy.com/tls/ca.crt \
+    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/gov.ymy.com/users/Admin@gov.ymy.com/msp \
+    -e CORE_PEER_ADDRESS=peer0.gov.ymy.com:7051 \
+    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
+    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode invoke \
+    -o orderer.ymy.com:7050 \
+    -C mychannel \
+    -n mychaincode \
+    -c '{"Args":["query","a"]}' \
     --tls true \
     --cafile /opt/crypto/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
 ```

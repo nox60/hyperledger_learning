@@ -27,6 +27,25 @@ peer channel create -o orderer.ymy.com:7050 \
 -f /opt/channel-artifacts/channel.tx \
 --tls true \
 --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
+
+
+
+docker run --rm -it \
+    --name create.channel.client \
+    --network ymy-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.ymy.com/peers/peer0.cec.ymy.com/tls/ca.crt \
+    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.ymy.com/users/Admin@cec.ymy.com/msp \
+    -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
+    -v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel create --outputBlock /opt/channel-artifacts/mychannel.block -o orderer.dams.com:7050 \
+    -c mychannel \
+    -f /opt/channel-artifacts/channel.tx \
+    --tls true \
+    --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
+
+
 ```
 
 ```k

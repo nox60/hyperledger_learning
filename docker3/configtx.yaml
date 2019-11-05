@@ -25,7 +25,7 @@ Organizations:
         ID: OrdererMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: hyperledger_data/crypto-config/ordererOrganizations/dams.com/msp
+        MSPDir: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -49,7 +49,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: cecMSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/cec.ymy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -70,18 +70,18 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.cec.dams.com
+            - Host: peer0.cec.ymy.com
               Port: 7051
 
-    - &ia3
+    - &aes
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: ia3MSP
+        Name: aesMSP
 
         # ID to load the MSP definition as
-        ID: ia3MSP
+        ID: aesMSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/aes.ymy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -89,32 +89,32 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ia3MSP.admin', 'ia3MSP.peer', 'ia3MSP.client')"
+                Rule: "OR('aesMSP.admin', 'aesMSP.peer', 'aesMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('ia3MSP.admin', 'ia3MSP.client')"
+                Rule: "OR('aesMSP.admin', 'aesMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('ia3MSP.admin')"
+                Rule: "OR('aesMSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.ia3.dams.com
-              Port: 7151
+            - Host: peer0.aes.ymy.com
+              Port: 7051
 
 
 
-    - &ic3
+    - &hos
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: ic3MSP
+        Name: hosMSP
 
         # ID to load the MSP definition as
-        ID: ic3MSP
+        ID: hosMSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/hos.ymy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -122,20 +122,20 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ic3MSP.admin', 'ic3MSP.peer', 'ic3MSP.client')"
+                Rule: "OR('hosMSP.admin', 'hosMSP.peer', 'hosMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('ic3MSP.admin', 'ic3MSP.client')"
+                Rule: "OR('hosMSP.admin', 'hosMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('ic3MSP.admin')"
+                Rule: "OR('hosMSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.ic3.dams.com
-              Port: 7251
+            - Host: peer0.hos.ymy.com
+              Port: 7051
 
 
 
@@ -148,7 +148,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: govMSP
 
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/msp
+        MSPDir: hyperledger_data/crypto-config/peerOrganizations/gov.ymy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -168,8 +168,8 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.gov.dams.com
-              Port: 7351
+            - Host: peer0.gov.ymy.com
+              Port: 7051
 
 
 
@@ -291,7 +291,7 @@ Orderer: &OrdererDefaults
     OrdererType: solo
 
     Addresses:
-        - orderer.dams.com:7050
+        - orderer.ymy.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -382,7 +382,7 @@ Channel: &ChannelDefaults
 ################################################################################
 Profiles:
 
-    TwoOrgsOrdererGenesis:
+    FourOrgsOrdererGenesis:
         <<: *ChannelDefaults
         Orderer:
             <<: *OrdererDefaults
@@ -394,18 +394,18 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *cec
-                    - *ia3
-                    - *ic3
+                    - *aes
+                    - *hos
                     - *gov
-    TwoOrgsChannel:
+    FourOrgsChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *cec
-                - *ia3
-                - *ic3
+                - *aes
+                - *hos
                 - *gov
             Capabilities:
                 <<: *ApplicationCapabilities
@@ -419,7 +419,7 @@ Profiles:
             OrdererType: kafka
             Kafka:
                 Brokers:
-                - kafka.dams.com:9092
+                - kafka.ymy.com:9092
 
             Organizations:
             - *OrdererOrg
@@ -433,8 +433,8 @@ Profiles:
             SampleConsortium:
                 Organizations:
                 - *cec
-                - *ia3
-                - *ic3
+                - *aes
+                - *hos
 
     SampleMultiNodeEtcdRaft:
         <<: *ChannelDefaults
@@ -445,32 +445,32 @@ Profiles:
             OrdererType: etcdraft
             EtcdRaft:
                 Consenters:
-                - Host: orderer.dams.com
+                - Host: orderer.ymy.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
-                - Host: orderer2.dams.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls/server.crt
+                - Host: orderer2.ymy.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
-                - Host: orderer3.dams.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer2.ymy.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer2.ymy.com/tls/server.crt
+                - Host: orderer3.ymy.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
-                - Host: orderer4.dams.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer3.ymy.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer3.ymy.com/tls/server.crt
+                - Host: orderer4.ymy.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer4.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer4.dams.com/tls/server.crt
-                - Host: orderer5.dams.com
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer4.ymy.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer4.ymy.com/tls/server.crt
+                - Host: orderer5.ymy.com
                   Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer5.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer5.dams.com/tls/server.crt
+                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer5.ymy.com/tls/server.crt
+                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer5.ymy.com/tls/server.crt
             Addresses:
-                - orderer.dams.com:7050
-                - orderer2.dams.com:7050
-                - orderer3.dams.com:7050
-                - orderer4.dams.com:7050
-                - orderer5.dams.com:7050
+                - orderer.ymy.com:7050
+                - orderer2.ymy.com:7050
+                - orderer3.ymy.com:7050
+                - orderer4.ymy.com:7050
+                - orderer5.ymy.com:7050
 
             Organizations:
             - *OrdererOrg
@@ -484,4 +484,4 @@ Profiles:
             SampleConsortium:
                 Organizations:
                 - *cec
-                - *ia3
+                - *aes

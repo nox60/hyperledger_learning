@@ -6,7 +6,7 @@ docker network create --subnet=172.33.0.0/16 ymy-net
 
 docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
 
-docker rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
+docker rm -f $(docker_ymy ps -a | grep "dev-peer*" | awk '{print $1}')
 
 docker rm -f orderer.ymy.com
 
@@ -28,10 +28,10 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp:/var/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls:/var/hyperledger/orderer/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /opt/local/codes/docker2/hyperledger_data:/var/hyperledger/production/orderer \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp:/var/hyperledger/orderer/msp \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls:/var/hyperledger/orderer/tls \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
+      -v /opt/local/codes/docker_ymy/hyperledger_data:/var/hyperledger/production/orderer \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
 
@@ -42,7 +42,7 @@ docker run -it -d  \
 --network ymy-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
+-v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
 -p 5984:5984 \
 -p 9100:9100 \
 -d hyperledger/fabric-couchdb  
@@ -75,9 +75,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="ymy-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.ymy.com/peers/peer0.cec.ymy.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/cec.ymy.com/peers/peer0.cec.ymy.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/cecpeer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/cec.ymy.com/peers/peer0.cec.ymy.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/cec.ymy.com/peers/peer0.cec.ymy.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -90,7 +90,9 @@ docker run -ti -d \
 --network ymy-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_aes_peer0/:/opt/couchdb/data  \
+-v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_aes_peer0/:/opt/couchdb/data  \
+-p 5985:5984 \
+-p 9101:9100 \
 -d hyperledger/fabric-couchdb  
 
 
@@ -121,9 +123,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="ymy-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/aespeer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/aespeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -134,7 +136,9 @@ docker run -ti -d \
 --network ymy-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_hos/:/opt/couchdb/data  \
+-v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_hos/:/opt/couchdb/data  \
+-p 5986:5984 \
+-p 9102:9100 \
 -d hyperledger/fabric-couchdb  
 
 
@@ -165,9 +169,9 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="ymy-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/hos.ymy.com/peers/peer0.hos.ymy.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/hos.ymy.com/peers/peer0.hos.ymy.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/hospeer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/hos.ymy.com/peers/peer0.hos.ymy.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/hos.ymy.com/peers/peer0.hos.ymy.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/hospeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3       
 
@@ -178,7 +182,9 @@ docker run -ti -d \
 --network ymy-net \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
+-v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
+-p 5987:5984 \
+-p 9103:9100 \
 -d hyperledger/fabric-couchdb  
 
 docker rm -f peer0.gov.ymy.com
@@ -208,8 +214,8 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="ymy-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.ymy.com/peers/peer0.gov.ymy.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/gov.ymy.com/peers/peer0.gov.ymy.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/govpeer0:/var/hyperledger/production \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/gov.ymy.com/peers/peer0.gov.ymy.com/tls:/etc/hyperledger/fabric/tls \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/gov.ymy.com/peers/peer0.gov.ymy.com/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/govpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3

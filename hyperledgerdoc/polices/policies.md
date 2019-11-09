@@ -413,6 +413,8 @@ endorsement policy covers all of the state associated with a chaincode). The
 endorsement policy can be specified either by reference to an endorsement policy
 defined in the channel configuration or by explicitly specifying a Signature policy.
 
+当一个链代码被提交到通道时，背书策略则在此时会起作用，也就是说，一个背书策略覆盖了一条链代码关联的所有状态。这个背书策略可以被满足
+
 If an endorsement policy is not explicitly specified during the approval step,
 the default `Endorsement` policy `"MAJORITY Endorsement"` is used which means
 that a majority of the peers belonging to the different channel members

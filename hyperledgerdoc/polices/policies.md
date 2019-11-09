@@ -442,6 +442,8 @@ Member, Admin, Client, and Peer. A role is associated to an identity when a user
 enrolls with a CA. You can customize the list of roles available on your Fabric
 CA.
 
+签名式策略给予了用户使用规则的机会，这样简化了角色的
+
 Some examples of valid principals are:
 * 'Org0.Admin': an administrator of the Org0 MSP
 * 'Org1.Member': a member of the Org1 MSP

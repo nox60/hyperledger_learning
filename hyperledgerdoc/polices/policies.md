@@ -55,9 +55,12 @@ policy.
 相比保险策略是用来保险风险控制的。在超级账本体系中，策略是一种机制，用来进行基础设施管理的。
 在Fabric中的策略体现了成员们如何对网络、通道、智能合约中的一个改变接受或者拒绝。当区块链网络
 最初配置的说话，联盟成员们就对策略达成了一直，但是网络的演进过程中，策略也能改变。比如，网络
-成员们决定要增加或者移除通道成员，改变区块的组织结构，或者改变需要为
+成员们决定要增加或者移除通道成员，改变区块的组织结构，或者改变需要为智能合约背书的组织数量。
+当我们在定义谁可以执行这些操作的时候，这些行为的定义都可以视为策略。简单的说，所有在Fabric网络
+中的操作都可以被策略所控制。
 
 ## Why are policies needed
+为什么我们需要策略
 
 Policies are one of the things that make Hyperledger Fabric different from other
 blockchains like Ethereum or Bitcoin. In those systems, transactions can be
@@ -67,6 +70,9 @@ process that governs the code. Because Fabric is a permissioned blockchain whose
 users are recognized by the underlying infrastructure, those users have the
 ability to decide on the governance of the network before it is launched, and
 change the governance of a running network.
+因为策略的存在，使得超级账本区块链体系有别于其他区块链技术体系，比如以太坊和比特币。在
+其他体系中，网络中的任何节点可以发起合理的交易，这样的策略模式使得监管这样的网络，
+
 
 Policies allow members to decide which organizations can access or update a Fabric
 network, and provide the mechanism to enforce those decisions. Policies contain

@@ -27,12 +27,18 @@ rights that an individual has over an **asset**. We can see that policies are
 used throughout our daily lives to protect assets of value to us, from car
 rentals, health, our homes, and many more.
 
-策略是一组规则的集合，用来定义
+策略是一组规则的集合，用来定义如何确定输出和延申的结构。
+
+为了达到这个目标，策略一般被描述为“谁”和能做“什么”，比如个人是否具备解除资产的权利。
+我们可以看到策略贯穿我们日常生活，用来保护财产和价值。从汽车租赁、健康、家庭和更多。
 
 For example, an insurance policy defines the conditions, terms, limits, and
 expiration under which an insurance payout will be made. The policy is
 agreed to by the policy holder and the insurance company, and defines the rights
 and responsibilities of each party.
+
+比如，一个保险策略定义了条件，规则，限制以及过期时间。在以上条款之下才能确认一笔保险的赔付。
+策略的确认需要通过策略的持有者（保险人）和保险公司，然后双方定义权利和责任。
 
 Whereas an insurance policy is put in place for risk management, in Hyperledger
 Fabric, policies are the mechanism for infrastructure management. Fabric policies
@@ -45,6 +51,9 @@ number of organizations required to endorse a smart contract. All of these
 actions are described by a policy which defines who can perform the action.
 Simply put, everything you want to do on a Fabric network is controlled by a
 policy.
+
+相比保险策略是用来保险风险控制的。在超级账本体系中，策略是一种机制，用来进行基础设施管理的。
+在Fabric中的策略体现了
 
 ## Why are policies needed
 

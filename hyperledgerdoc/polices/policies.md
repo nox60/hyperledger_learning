@@ -95,16 +95,24 @@ agreed to by the network.
 Policies are implemented at different levels of a Fabric network. Each policy
 domain governs different aspects of how a network operates.
 
+策略在Fabric网络中不同的层次实现，所有的策略领域控制了网络操作的不同方面。
+
 ![policies.policies](./FabricPolicyHierarchy-2.png) *A visual representation
 of the Fabric policy hierarchy.*
 
+虚拟的继承关系。
+
 ### System channel configuration
+系统通道配置
 
 Every network begins with an ordering **system channel**. There must be exactly
 one ordering system channel for an ordering service, and it is the first channel
 to be created. The system channel also contains the organizations who are the
 members of the ordering service (ordering organizations) and those that are
 on the networks to transact (consortium organizations).
+
+所有的网络
+
 
 The policies in the ordering system channel configuration blocks govern the
 consensus used by the ordering service and define how new blocks are created.

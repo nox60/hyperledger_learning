@@ -85,7 +85,10 @@ they are written, policies evaluate the collection of signatures attached to
 transactions and proposals and validate if the signatures fulfill the governance
 agreed to by the network.
 
-权限允许
+策略允许成员决定那个组织可以访问或者更改网络，同时提供强制这些决定的机制，策略包含了能够
+访问资源的组织的列表，比如用户或者链代码。他们也指定了当一次资源更改的时候需要获得多少组
+织的确定才会生效，比如通道或者智能合约。一旦这些被写入，策略会比较该交易提交者的显示的签
+名，判断该提交是否满足监控网络的权限。
 
 ## How are policies implemented throughout Fabric
 

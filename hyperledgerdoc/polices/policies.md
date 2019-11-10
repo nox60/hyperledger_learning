@@ -111,13 +111,16 @@ to be created. The system channel also contains the organizations who are the
 members of the ordering service (ordering organizations) and those that are
 on the networks to transact (consortium organizations).
 
-所有的网络
+所有的网络都是开始于一个有序的系统通道。这必须是一个确定的有序的系统通道，该系统通道将
+用于通道排序服务，并将创建第一个通道。系统通道同时也包含了谁是orderer服务相关组织成员的
+组织信息。
 
 
 The policies in the ordering system channel configuration blocks govern the
 consensus used by the ordering service and define how new blocks are created.
 The system channel also governs which members of the consortium are allowed to
 create new channels.
+策略在排序系统通道的配置块中控制了共识，用于在排序服务定义新块的创建
 
 ### Application channel configuration
 

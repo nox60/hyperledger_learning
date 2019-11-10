@@ -53,7 +53,9 @@ Simply put, everything you want to do on a Fabric network is controlled by a
 policy.
 
 相比保险策略是用来保险风险控制的。在超级账本体系中，策略是一种机制，用来进行基础设施管理的。
-在Fabric中的策略体现了
+在Fabric中的策略体现了成员们如何对网络、通道、智能合约中的一个改变接受或者拒绝。当区块链网络
+最初配置的说话，联盟成员们就对策略达成了一直，但是网络的演进过程中，策略也能改变。比如，网络
+成员们决定要增加或者移除通道成员，改变区块的组织结构，或者改变需要为
 
 ## Why are policies needed
 

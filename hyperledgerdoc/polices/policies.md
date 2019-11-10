@@ -13,6 +13,11 @@ In this topic, we'll cover:
 * [Fabric chaincode lifecycle](#fabric-chaincode-lifecyle)
 * [Overriding policy definitions](#overriding-policy-definitions)
 
+名词定义：
+
+policy  策略
+rule    规则
+
 ## What is a policy
 
 At its most basic level, a policy is a set of rules that define the structure
@@ -21,6 +26,8 @@ policies typically describe a **who** and a **what**, such as the access or
 rights that an individual has over an **asset**. We can see that policies are
 used throughout our daily lives to protect assets of value to us, from car
 rentals, health, our homes, and many more.
+
+策略是一组规则的集合，用来定义
 
 For example, an insurance policy defines the conditions, terms, limits, and
 expiration under which an insurance payout will be made. The policy is

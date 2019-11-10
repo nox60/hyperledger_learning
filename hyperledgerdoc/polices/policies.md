@@ -73,6 +73,8 @@ change the governance of a running network.
 因为策略的存在，使得超级账本区块链体系有别于其他区块链技术体系，比如以太坊和比特币。在
 其他体系中，网络中的任何节点可以发起合理的交易，这样的策略模式使得监管这样的网络，
 
+因为Fabric是基于可信智能合约的基础架构的，用户是基础架构所认知的？这些用户具备在网络启动
+之前就确认管理网络的能力，并且改变管理一个运行中的网络?
 
 Policies allow members to decide which organizations can access or update a Fabric
 network, and provide the mechanism to enforce those decisions. Policies contain
@@ -82,6 +84,8 @@ on a proposal to update a resource, such as a channel or smart contracts. Once
 they are written, policies evaluate the collection of signatures attached to
 transactions and proposals and validate if the signatures fulfill the governance
 agreed to by the network.
+
+权限允许
 
 ## How are policies implemented throughout Fabric
 

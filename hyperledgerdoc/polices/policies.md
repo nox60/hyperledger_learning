@@ -120,12 +120,16 @@ The policies in the ordering system channel configuration blocks govern the
 consensus used by the ordering service and define how new blocks are created.
 The system channel also governs which members of the consortium are allowed to
 create new channels.
-策略在排序系统通道的配置块中控制了共识，用于在排序服务定义新块的创建
+策略在排序系统通道的配置块中控制了共识，用于在排序服务定义新块的创建。系统通道同时也
+管理联盟中的哪些成员能够创建新的通道。
 
 ### Application channel configuration
+业务通道配置
 
 Application _channels_ are used to provide a private communication mechanism
 between organizations in the consortium.
+业务通道是用于在联盟中组织之间提供私有连接机制的
+
 
 The policies in an application channel govern the ability to add or remove
 members from the channel. Application channels also govern which organizations
@@ -134,6 +138,8 @@ committed to a channel using the Fabric chaincode lifecyle. When an application
 channel is initially created, it inherits all the ordering service parameters
 from the orderer system channel by default. However, those parameters (and the
 policies governing them) can be customized in each channel.
+
+这种策略在一个业务系统
 
 ### Access control lists (ACLs)
 

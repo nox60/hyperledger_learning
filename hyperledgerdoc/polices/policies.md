@@ -245,7 +245,7 @@ configuration provides the ordering organizations control over which organizatio
 are members of the consortium, how blocks are delivered to channels, and the
 consensus mechanism used by the nodes of the ordering service.
 
-
+系统通道的配置和部分业务通道的的配置提供了排序组织控制联盟中其他组织和成员的能力，
 
 The system channel configuration provides members of the consortium the ability
 to create channels. Application channels and ACLs are the mechanism that

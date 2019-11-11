@@ -234,13 +234,18 @@ consortium. They also allow the organizations that join the consortium to create
 private application channels, govern their own business logic, and restrict
 access to the data that is put on the network.
 
-一个功能完备的Fabric网络能够实现负责不同业务的多个组织。这种模式提供了这样的扩展不同权限和
-角色的能力
+一个功能完备的Fabric网络能够实现负责不同业务的多个组织。通过允许排序服务的创造者创建初始规则
+和联盟会员关系，他们也允许组织加入联盟创造私有业务网络，控制他们自己的业务模型，控制访问
+数据，
+这种模式提供了给不同的组织，扩展不同权限和
+角色的能力。
 
 The system channel configuration and a portion of each application channel
 configuration provides the ordering organizations control over which organizations
 are members of the consortium, how blocks are delivered to channels, and the
 consensus mechanism used by the nodes of the ordering service.
+
+
 
 The system channel configuration provides members of the consortium the ability
 to create channels. Application channels and ACLs are the mechanism that

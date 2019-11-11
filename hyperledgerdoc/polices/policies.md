@@ -219,6 +219,10 @@ governed by either the Ordering Service organizations or the members of the
 consortium. In the following diagram you can see how the default policies
 implement control over the Fabric policy domains below.
 
+当Fabric策略很灵活并且能够被配置来满足一个网络的需求时，这种策略结构自然导向了一种这样的
+分隔：排序服务组织管控一部分，联盟成员管控另外一部分，通过下图你可以看到默认策略的实现控制
+了Fabric策略领域
+
 ![policies.policies](./FabricPolicyHierarchy-4.png) *A more detailed look at the
 policy domains governed by the Orderer organizations and consortium organizations.*
 
@@ -229,6 +233,9 @@ service the ability to establish the initial rules and membership of the
 consortium. They also allow the organizations that join the consortium to create
 private application channels, govern their own business logic, and restrict
 access to the data that is put on the network.
+
+一个功能完备的Fabric网络能够实现负责不同业务的多个组织。这种模式提供了这样的扩展不同权限和
+角色的能力
 
 The system channel configuration and a portion of each application channel
 configuration provides the ordering organizations control over which organizations

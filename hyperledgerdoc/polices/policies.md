@@ -193,6 +193,10 @@ transaction to be considered valid. Hence, the endorsement policies define the
 organizations (through their peers) who must “endorse” (i.e., approve of) the
 execution of a proposal.
 
+如果希望交易最终能被接受，所有的在链代码包中的智能合约都有一个背书策略，来确定需要多少
+不同通道成员的peer节点来执行和验证特定智能合约交易的有效性。因此，背书策略定义了这些需要
+为操作背书的组织。
+
 ### Modification policies
 
 There is one last type of policy that is crucial to how policies work in Fabric,

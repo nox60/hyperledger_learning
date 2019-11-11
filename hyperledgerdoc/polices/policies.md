@@ -205,6 +205,12 @@ required to sign (approve) any configuration _update_. It is the policy that
 defines how the policy is updated. Thus, each channel configuration element
 includes a reference to a policy which governs its modification.
 
+至少有一种类型的策略会决定有多少策略在Fabric网络中起作用，这就是 `Modification policy`
+`Modification policy`策略指定了在配置更新的时候，需要哪些角色组的登录。
+
+这样的策略定义了策略是怎样被更新的。因此，所有的通道配置基础元素都包含了一个对其修改策略
+的引用。
+
 ## The policy domains
 
 While Fabric policies are flexible and can be configured to meet the needs of a

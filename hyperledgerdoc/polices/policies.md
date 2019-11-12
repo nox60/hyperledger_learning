@@ -315,6 +315,9 @@ required. Recall that `ImplicitMeta` policies ultimately resolve the
 `Signature` sub-policies underneath them in the configuration tree as the
 diagram shows.
 
+如上面所说，隐式元数据策略模式的一个重要优点是，当你增加一个新的管理员组织到通道里，
+你不用更新通道策略，因为隐式元数据策略已经比较灵活，并考虑到了联盟成员的变更。
+
 You can also define an application level implicit policy to operate across
 organizations, in a channel for example, and either require that ANY of them
 are satisfied, that ALL are satisfied, or that a MAJORITY are satisfied. This

@@ -763,30 +763,3 @@ committed to a channel using the Fabric chaincode lifecyle. When an application
 channel is initially created, it inherits all the ordering service parameters
 from the orderer system channel by default. However, those parameters (and the
 policies governing them) can be customized in each channel.
-
-这种策略在一个业务系统用于管理增加和移除通道成员的能力。业务通道同时也管理需要确认在链代码
-定义和提交到通道之前
-
-当一个业务通道初始化创建时，它从通道系统通道那里继承了所有的通道服务的参数。所以这些参数
-以及这些策略信息可以在所有通道进行配置。
-
-### Access control lists (ACLs)
-
-Network administrators will be especially interested in the Fabric use of ACLs,
-which provide the ability to configure access to resources by associating those
-resources with existing policies. These "resources" could be functions on system
-chaincode (e.g., "GetBlockByNumber" on the "qscc" system chaincode) or other
-resources (e.g.,who can receive Block events). ACLs refer to policies
-defined in an application channel configuraton and extends them to control
-additional resources. The default set of Fabric ACLs is visible in the
-`configtx.yaml` file under the `Application: &ApplicationDefaults` section but
-they can and should be overridden in a production environment. The list of
-resources named in `configtx.yaml` is the complete set of all internal resources
-currently defined by Fabric.
-
-网络管理员们将会尤为对Fabric的ACL感兴趣。ACL提供了
-
-这些资源可以是 系统链代码提供的 功能函数，比如GetBlockByNumber这样的用来获取块数量的
-功能函数； 或者其他资源，比如谁可以收到块事件。
-
-ACL引用了 定义在业务通道配置上的 策略 已经扩展他们以控制更多资源。

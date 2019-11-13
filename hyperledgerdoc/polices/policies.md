@@ -939,31 +939,3 @@ with the consortium members agreeing to the changes, but no policy updates are
 required. Recall that `ImplicitMeta` policies ultimately resolve the
 `Signature` sub-policies underneath them in the configuration tree as the
 diagram shows.
-
-如上面所说，隐式元数据策略模式的一个重要优点是，当你增加一个新的管理员组织到通道里，
-你不用更新通道策略，因为隐式元数据策略已经比较灵活，因为其一开始就考虑到了联盟成员
-的变更，orderer里的联盟能够做出这样的改变并同意：增加新成员或者已经存在的成员离开。
-
-但不需要对策略进行任何修改，回忆一下隐式元数据策略解决的问题是：声明式策略的子策略
-
-You can also define an application level implicit policy to operate across
-organizations, in a channel for example, and either require that ANY of them
-are satisfied, that ALL are satisfied, or that a MAJORITY are satisfied. This
-format lends itself to much better, more natural defaults, so that each
-organization can decide what it means for a valid endorsement.
-
-用户也可以定义一个应用级别的隐式策略来操作组织。以一个通道作为例子，ANY代表任何一个
-即满足，ALL代表满足，或者MAJORITY代表满足。这样的格式导致了其更好，更加自然。因此所有
-组织可以决定什么是一个合理的背书。
-
-Further granularity and control can be achieved if you include [`NodeOUs`](msp.html#organizational-units) in your
-organization definition. Organization Units (OUs) are defined in the Fabric CA
-client configuration file and can be associated with an identity when it is
-created. In Fabric, `NodeOUs` provide a way to classify identities in a digital
-certificate hierarchy. For instance, an organization having specific `NodeOUs`
-enabled could require that a 'peer' sign for it to be a valid endorsement,
-whereas an organization without any might simply require that any member can
-sign.
-
-
-

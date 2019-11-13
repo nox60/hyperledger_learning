@@ -603,42 +603,6 @@ https://creativecommons.org/licenses/by/4.0/) -->
 
 
 
-------
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Policies
-
-**Audience**: Architects, application and smart contract developers,
-administrators
-
-In this topic, we'll cover:
-
-* [What is a policy](#what-is-a-policy)
-* [Why are policies needed](#why-are-policies-needed)
-* [How are policies implemented throughout Fabric](#how-are-policies-implemented-throughout-fabric)
-* [Fabric policy domains](#fabric-policy-domains)
-* [How do you write a policy in Fabric](#how-do-you-write-a-policy-in-fabric)
-* [Fabric chaincode lifecycle](#fabric-chaincode-lifecyle)
-* [Overriding policy definitions](#overriding-policy-definitions)
-
-名词定义：
-
-policy  策略
-rule    规则

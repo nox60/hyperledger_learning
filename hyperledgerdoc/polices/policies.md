@@ -917,25 +917,3 @@ channel and shows how the `ImplicitMeta` channel configuration admins policy,
 named `/Channel/Admins`, is resolved when the sub-policies named `Admins` below it
 in the configuration hierarchy are satisfied where each check mark represents that
 the conditions of the sub-policy were satisfied.
-
-![policies.policies](./FabricPolicyHierarchy-6.png)
-
-As you can see in the diagram above, `ImplicitMeta` policies, Type = 3, use a
-different syntax, `"<ANY|ALL|MAJORITY> <SubPolicyName>"`, for example:
-```
-`MAJORITY sub policy: Admins`
-```
-The diagram shows a sub-policy `Admins`, which refers to all the `Admins` policy
-below it in the configuration tree. You can create your own sub-policies
-and name them whatever you want and then define them in each of your
-organizations.
-
-As mentioned above, a key benefit of an `ImplicitMeta` policy such as `MAJORITY
-Admins` is that when you add a new admin organization to the channel, you do not
-have to update the channel policy. Therefore `ImplicitMeta` policies are
-considered to be more flexible as the consortium members change. The consortium
-on the orderer can change as new members are added or an existing member leaves
-with the consortium members agreeing to the changes, but no policy updates are
-required. Recall that `ImplicitMeta` policies ultimately resolve the
-`Signature` sub-policies underneath them in the configuration tree as the
-diagram shows.

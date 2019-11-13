@@ -889,31 +889,3 @@ particularly useful because the members of that group can change over time
 without requiring that the policy be updated. In Hyperledger Fabric, explicit
 sign offs in policies are expressed using the `Signature` syntax and implicit
 sign offs use the `ImplicitMeta` syntax.
-
-### Signature policies
-
-`Signature` policies define specific types of users who must sign in order for a
-policy to be satisfied such as `Org1.Peer OR Org2.Peer`. These policies are
-considered the most versatile because they allow for the construction of
-extremely specific rules like: “An admin of org A and 2 other admins, or 5 of 6
-organization admins”. The syntax supports arbitrary combinations of `AND`, `OR`
-and `NOutOf`. For example, a policy can be easily expressed by using `AND
-(Org1, Org2)` which means that a signature from at least one member in Org1 AND
-one member in Org2 is required for the policy to be satisfied.
-
-### ImplicitMeta policies
-
-`ImplicitMeta` policies are only valid in the context of channel configuration
-which is based on a tiered hierarchy of policies in a configuration tree. ImplicitMeta
-policies aggregate the result of policies deeper in the configuration tree that
-are ultimately defined by Signature policies. They are `Implicit` because they
-are constructed implicitly based on the current organizations in the
-channel configuration, and they are `Meta` because their evaluation is not
-against specific MSP principals, but rather against other sub-policies below
-them in the configuration tree.
-
-The following diagram illustrates the tiered policy structure for an application
-channel and shows how the `ImplicitMeta` channel configuration admins policy,
-named `/Channel/Admins`, is resolved when the sub-policies named `Admins` below it
-in the configuration hierarchy are satisfied where each check mark represents that
-the conditions of the sub-policy were satisfied.

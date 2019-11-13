@@ -967,26 +967,3 @@ sign.
 
 
 
-## An example: channel configuration policy
-
-Understanding policies begins with examining the `configtx.yaml` where the
-channel policies are defined. We can use the `configtx.yaml` file in the BYFN
-(first-network) tutorial to see examples of both policy syntax types. Navigate to the [fabric-samples/first-network](https://github.com/hyperledger/fabric-samples/blob/master/first-network/configtx.yaml)
-directory and examine the configtx.yaml file for BYFN.
-
-The first section of the file defines the Organizations of the network. Inside each
-organization definition are the default policies for that organization, `Readers, Writers,
-Admins, and Endorsement`, although you can name your policies anything you want.
-Each policy has a `Type` which describes how the policy is expressed (`Signature`
-or `ImplicitMeta`) and a `Rule`.
-
-The BYFN example below shows the `Org1` organization definition in the system
-channel, where the policy `Type` is `Signature` and the Endorsement policy rule
-is defined as `"OR('Org1MSP.peer')"` which  means that peer that is a member of
-`Org1MSP` is required to sign. It is these Signature policies that become the
-sub-policies that the ImplicitMeta policies point to.  
-
-<details>
-  <summary>
-    **Click here to see an example of an organization defined with signature policies**
-  </summary>

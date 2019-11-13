@@ -790,30 +790,3 @@ currently defined by Fabric.
 功能函数； 或者其他资源，比如谁可以收到块事件。
 
 ACL引用了 定义在业务通道配置上的 策略 已经扩展他们以控制更多资源。
-
-这些默认的Fabric的ACL配置在 `configtx.yaml` 文件中的 `Application: &ApplicationDefaults` 部分
-可见，但是他们在生产环境中将被覆盖。
-
-在  `configtx.yaml`中的资源列表是当前Fabric定义的所有内部资源的完整集合。
-
-In that file, ACLs are expressed using the following format:
-
-```
-# ACL policy for chaincode to chaincode invocation
-peer/ChaincodeToChaincode: /Channel/Application/Readers
-```
-
-Where `peer/ChaincodeToChaincode` represents the resource being secured and
-`/Channel/Application/Readers` refers to the policy which must be satisfied for
-the associated transaction to be considered valid.
-
-For a deeper dive into ACLS, refer to the topic in the Operations Guide on [ACLs](../access_control.html).
-
-### Smart contract endorsement policies
-
-Every smart contract inside a chaincode package has an endorsement policy that
-specifies how many peers belonging to different channel members need to execute
-and validate a transaction against a given smart contract in order for the
-transaction to be considered valid. Hence, the endorsement policies define the
-organizations (through their peers) who must “endorse” (i.e., approve of) the
-execution of a proposal.

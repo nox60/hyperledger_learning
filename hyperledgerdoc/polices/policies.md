@@ -870,22 +870,3 @@ configuration provides the ordering organizations control over which organizatio
 are members of the consortium, how blocks are delivered to channels, and the
 consensus mechanism used by the nodes of the ordering service.
 
-系统通道的配置和部分业务通道的的配置提供了对，排序组织控制联盟中其他组织和成员的能力，
-
-The system channel configuration provides members of the consortium the ability
-to create channels. Application channels and ACLs are the mechanism that
-consortium organizations use to add or remove members from a channel and restrict
-access to data and smart contracts on a channel.
-
-## How do you write a policy in Fabric
-
-If you want to change anything in Fabric, the policy associated with the resource
-describes **who** needs to approve it, either with an explicit sign off from
-individuals, or an implicit sign off by a group. In the insurance domain, an
-explicit sign off could be a single member of the homeowners insurance agents
-group. And an implicit sign off would be analogous to requiring approval from a
-majority of the managerial members of the homeowners insurance group. This is
-particularly useful because the members of that group can change over time
-without requiring that the policy be updated. In Hyperledger Fabric, explicit
-sign offs in policies are expressed using the `Signature` syntax and implicit
-sign offs use the `ImplicitMeta` syntax.

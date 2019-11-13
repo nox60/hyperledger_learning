@@ -817,29 +817,3 @@ and validate a transaction against a given smart contract in order for the
 transaction to be considered valid. Hence, the endorsement policies define the
 organizations (through their peers) who must “endorse” (i.e., approve of) the
 execution of a proposal.
-
-如果希望交易最终能被接受，所有的在链代码包中的智能合约都有一个背书策略，来确定需要多少
-不同通道成员的peer节点来执行和验证特定智能合约交易的有效性。因此，背书策略定义了这些需要
-为操作背书的组织。
-
-### Modification policies
-
-There is one last type of policy that is crucial to how policies work in Fabric,
-the `Modification policy`. Modification policies specify the group of identities
-required to sign (approve) any configuration _update_. It is the policy that
-defines how the policy is updated. Thus, each channel configuration element
-includes a reference to a policy which governs its modification.
-
-至少有一种类型的策略会决定有多少策略在Fabric网络中起作用，这就是 `Modification policy`
-`Modification policy`策略指定了在配置更新的时候，需要哪些角色组的登录。
-
-这样的策略定义了策略是怎样被更新的。因此，所有的通道配置基础元素都包含了一个对其修改策略
-的引用。
-
-## The policy domains
-
-While Fabric policies are flexible and can be configured to meet the needs of a
-network, the policy structure naturally leads to a division between the domains
-governed by either the Ordering Service organizations or the members of the
-consortium. In the following diagram you can see how the default policies
-implement control over the Fabric policy domains below.

@@ -609,6 +609,11 @@ https://creativecommons.org/licenses/by/4.0/) -->
 
 
 
+
+
+
+
+
 签名式策略给予了用户使用规则的机会，这样简化了角色的
 
 一些规则的例子如下：
@@ -650,24 +655,5 @@ For a deeper dive on how to write an endorsement policy refer to the topic on
   chaincode will be operated before it can be used on a channel.  The new process
   requires that organizations agree to the parameters that define a chaincode,
   such as name, version, and the chaincode endorsement policy.
-
-## Overriding policy definitions
-
-Hyperledger Fabric includes default policies which are useful for getting started,
-developing, and testing your blockchain, but they are meant to be customized
-in a production environment. You should be aware of the default policies
-in the `configtx.yaml` file. Channel configuration policies can be extended
-with arbitrary verbs, beyond the default `Readers, Writers, Admins` in
-`configtx.yaml`. The orderer system and application channels are overridden by
-issuing a config update when you override the default policies by editing the
-`configtx.yaml` for the orderer system channel or the `configtx.yaml` for a
-specific channel.
-
-See the topic on
-[Updating a channel configuration](../config_update.html#updating-a-channel-configuration)
-for more information.
-
-<!--- Licensed under Creative Commons Attribution 4.0 International License
-https://creativecommons.org/licenses/by/4.0/) -->
 
 

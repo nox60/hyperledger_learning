@@ -609,6 +609,30 @@ https://creativecommons.org/licenses/by/4.0/) -->
 
 
 
+签名式策略给予了用户使用规则的机会，这样简化了角色的
+
+一些规则的例子如下：
+
+Some examples of valid principals are:
+* 'Org0.Admin': an administrator of the Org0 MSP
+* 'Org1.Member': a member of the Org1 MSP
+* 'Org1.Client': a client of the Org1 MSP
+* 'Org1.Peer': a peer of the Org1 MSP
+* 'OrdererOrg.Orderer': an orderer in the OrdererOrg MSP
+
+* 'Org0.Admin': Org0的管理员
+* 'Org1.Member': Org1的成员
+* 'Org1.Client': Org1的客户(client)
+* 'Org1.Peer': Org1的peer节点
+* 'OrdererOrg.Orderer': Orderer组织的Orderer
+
+There are cases where it may be necessary for a particular state
+(a particular key-value pair, in other words) to have a different endorsement
+policy. This **state-based endorsement** allows the default chaincode-level
+endorsement policies to be overridden by a different policy for the specified
+keys.
+
+这些例子
 
 For a deeper dive on how to write an endorsement policy refer to the topic on
 [Endorsement policies](../endorsement-policies.html) in the Operations Guide.
@@ -645,4 +669,5 @@ for more information.
 
 <!--- Licensed under Creative Commons Attribution 4.0 International License
 https://creativecommons.org/licenses/by/4.0/) -->
+
 

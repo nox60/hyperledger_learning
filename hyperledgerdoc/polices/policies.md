@@ -631,25 +631,5 @@ Some examples of valid principals are:
 * 'Org1.Peer': Org1的peer节点
 * 'OrdererOrg.Orderer': Orderer组织的Orderer
 
-There are cases where it may be necessary for a particular state
-(a particular key-value pair, in other words) to have a different endorsement
-policy. This **state-based endorsement** allows the default chaincode-level
-endorsement policies to be overridden by a different policy for the specified
-keys.
-
-这些例子
-
-For a deeper dive on how to write an endorsement policy refer to the topic on
-[Endorsement policies](../endorsement-policies.html) in the Operations Guide.
-
-**Note:**  Policies work differently depending on which version of Fabric you are
-  using:
-- In Fabric releases prior to the 2.0 Alpha release, chaincode endorsement
-  policies can be updated during chaincode instantiation or
-  by using the chaincode lifecycle commands. If not specified at instantiation
-  time, the endorsement policy defaults to “any member of the organizations in the
-  channel”. For example, a channel with “Org1” and “Org2” would have a default
-  endorsement policy of “OR(‘Org1.member’, ‘Org2.member’)”.
-
 
 

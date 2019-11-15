@@ -241,12 +241,12 @@ docker run --rm -it \
     -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode instantiate -o orderer.ymy.com:7050 \
-    --tls true --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem \
+    --tls true --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/t    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''aesMSP.peer'\'')'
+lsca.ymy.com-cert.pem \
     -C mychannel \
     -n mychaincode \
     -l golang \
     -v 1.0 \
-    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''aesMSP.peer'\'')'
 ```
 
 ```查看已经实例化的智能合约

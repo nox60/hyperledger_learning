@@ -712,24 +712,6 @@ policy, use the Signature policy format to specify a more complex endorsement
 policy (such as requiring that a chaincode be endorsed by one organization, and
 then one of the other organizations on the channel).
 
-如果一个背书策略没有在提交步骤中被显式的声明，则默认的背书策略 `"MAJORITY Endorsement"` 将会启用，其含义是：通道上的不同成员需要执行和验证这笔交易，来确定该交易是合理的。
-
-这种默认的策略允许组织加入通道并自动的加入链代码的背书策略。如果你不希望使用这样的默认背书策略。使用签名策略来显示的指定更复杂的背书策略，比如，你需要一个链代码被一个机构背书，然后通道上的另外一个机构?
-
-Signature policies also allow you to include `principals` which are simply a way
-of matching an identity to a role. Principals are just like user IDs or group
-IDs, but they are more versatile because they can include a wide range of
-properties of an actor’s identity, such as the actor’s organization,
-organizational unit, role or even the actor’s specific identity. When we talk
-about principals, they are the properties which determine their permissions.
-Principals are described as 'MSP.ROLE', where `MSP` represents the required MSP
-ID (the organization),  and `ROLE` represents one of the four accepted roles:
-Member, Admin, Client, and Peer. A role is associated to an identity when a user
-enrolls with a CA. You can customize the list of roles available on your Fabric
-CA.
-
-签名式策略给予了用户使用规则的机会，这样简化了角色的
-
 
 
 

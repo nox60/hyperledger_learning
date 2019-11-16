@@ -607,3 +607,191 @@ https://creativecommons.org/licenses/by/4.0/) -->
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Fabric chaincode lifecycle
+
+In the Fabric Alpha 2.0 release, a new chaincode lifecycle process was introduced,
+whereby a more democratic process is used to govern chaincode on the network.
+The new process allows multiple organizations to vote on how a chaincode will
+be operated before it can be used on a channel. This is significant because it is
+the combination of this new lifecycle process and the policies that are
+specified during that process that dictate the security across the network. More details on
+the flow are available in the [Chaincode for Operators](../chaincode4noah.html)
+tutorial, but for purposes of this topic you should understand how policies are
+used in this flow. The new flow includes two steps where policies are specified:
+when chaincode is **approved**  by organization members, and when it is **committed**
+to the channel.
+
+The `Application` section of  the `configtx.yaml` file includes the default
+chaincode lifecycle endorsement policy. In a production environment you would
+customize this definition for your own use case.
+
+```
+################################################################################
+#
+#   SECTION: Application
+#
+#   - This section defines the values to encode into a config transaction or
+#   genesis block for application related parameters
+#
+################################################################################
+Application: &ApplicationDefaults
+
+    # Organizations is the list of orgs which are defined as participants on
+    # the application side of the network
+    Organizations:
+
+    # Policies defines the set of policies at this level of the config tree
+    # For Application policies, their canonical path is
+    #   /Channel/Application/<PolicyName>
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+```
+
+- The `LifecycleEndorsement` policy governs who needs to _approve a chaincode
+definition_.
+- The `Endorsement` policy is the _default endorsement policy for
+a chaincode_. More on this below.
+
+## Chaincode endorsement policies
+
+The endorsement policy is specified for a **chaincode** when it is approved
+and committed to the channel using the Fabric chaincode lifecycle (that is, one
+endorsement policy covers all of the state associated with a chaincode). The
+endorsement policy can be specified either by reference to an endorsement policy
+defined in the channel configuration or by explicitly specifying a Signature policy.
+
+当一个链代码被提交到通道时，背书策略则在此时会起作用，也就是说，一个背书策略覆盖了一条链代码关联的所有状态。这个背书策略的满足方式可以是通过引用一个定义在通道配置上的策略，也可以是显式的声明的策略。
+
+If an endorsement policy is not explicitly specified during the approval step,
+the default `Endorsement` policy `"MAJORITY Endorsement"` is used which means
+that a majority of the peers belonging to the different channel members
+(organizations) need to execute and validate a transaction against the chaincode
+in order for the transaction to be considered valid.  This default policy allows
+organizations that join the channel to become automatically added to the chaincode
+endorsement policy. If you don't want to use the default endorsement
+policy, use the Signature policy format to specify a more complex endorsement
+policy (such as requiring that a chaincode be endorsed by one organization, and
+then one of the other organizations on the channel).
+
+如果一个背书策略没有在提交步骤中被显式的声明，则默认的背书策略 `"MAJORITY Endorsement"` 将会启用，其含义是：通道上的不同成员需要执行和验证这笔交易，来确定该交易是合理的。
+
+这种默认的策略允许组织加入通道并自动的加入链代码的背书策略。如果你不希望使用这样的默认背书策略。使用签名策略来显示的指定更复杂的背书策略，比如，你需要一个链代码被一个机构背书，然后通道上的另外一个机构?
+
+Signature policies also allow you to include `principals` which are simply a way
+of matching an identity to a role. Principals are just like user IDs or group
+IDs, but they are more versatile because they can include a wide range of
+properties of an actor’s identity, such as the actor’s organization,
+organizational unit, role or even the actor’s specific identity. When we talk
+about principals, they are the properties which determine their permissions.
+Principals are described as 'MSP.ROLE', where `MSP` represents the required MSP
+ID (the organization),  and `ROLE` represents one of the four accepted roles:
+Member, Admin, Client, and Peer. A role is associated to an identity when a user
+enrolls with a CA. You can customize the list of roles available on your Fabric
+CA.
+
+签名式策略给予了用户使用规则的机会，这样简化了角色的
+
+一些规则的例子如下：
+
+Some examples of valid principals are:
+* 'Org0.Admin': an administrator of the Org0 MSP
+* 'Org1.Member': a member of the Org1 MSP
+* 'Org1.Client': a client of the Org1 MSP
+* 'Org1.Peer': a peer of the Org1 MSP
+* 'OrdererOrg.Orderer': an orderer in the OrdererOrg MSP
+
+* 'Org0.Admin': Org0的管理员
+* 'Org1.Member': Org1的成员
+* 'Org1.Client': Org1的客户(client)
+* 'Org1.Peer': Org1的peer节点
+* 'OrdererOrg.Orderer': Orderer组织的Orderer
+
+There are cases where it may be necessary for a particular state
+(a particular key-value pair, in other words) to have a different endorsement
+policy. This **state-based endorsement** allows the default chaincode-level
+endorsement policies to be overridden by a different policy for the specified
+keys.
+
+这些例子
+
+For a deeper dive on how to write an endorsement policy refer to the topic on
+[Endorsement policies](../endorsement-policies.html) in the Operations Guide.
+
+**Note:**  Policies work differently depending on which version of Fabric you are
+  using:
+- In Fabric releases prior to the 2.0 Alpha release, chaincode endorsement
+  policies can be updated during chaincode instantiation or
+  by using the chaincode lifecycle commands. If not specified at instantiation
+  time, the endorsement policy defaults to “any member of the organizations in the
+  channel”. For example, a channel with “Org1” and “Org2” would have a default
+  endorsement policy of “OR(‘Org1.member’, ‘Org2.member’)”.
+- Starting with the Alpha 2.0 release, Fabric introduced a new chaincode
+  lifecycle process that allows multiple organizations to agree on how a
+  chaincode will be operated before it can be used on a channel.  The new process
+  requires that organizations agree to the parameters that define a chaincode,
+  such as name, version, and the chaincode endorsement policy.
+
+## Overriding policy definitions
+
+Hyperledger Fabric includes default policies which are useful for getting started,
+developing, and testing your blockchain, but they are meant to be customized
+in a production environment. You should be aware of the default policies
+in the `configtx.yaml` file. Channel configuration policies can be extended
+with arbitrary verbs, beyond the default `Readers, Writers, Admins` in
+`configtx.yaml`. The orderer system and application channels are overridden by
+issuing a config update when you override the default policies by editing the
+`configtx.yaml` for the orderer system channel or the `configtx.yaml` for a
+specific channel.
+
+See the topic on
+[Updating a channel configuration](../config_update.html#updating-a-channel-configuration)
+for more information.
+
+<!--- Licensed under Creative Commons Attribution 4.0 International License
+https://creativecommons.org/licenses/by/4.0/) -->
+
+
+
+
+
+
+

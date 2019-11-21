@@ -969,43 +969,6 @@ chaincode lifecycle endorsement policy. In a production environment you would
 customize this definition for your own use case.
 
 ```
-################################################################################
-#
-#   SECTION: Application
-#
-#   - This section defines the values to encode into a config transaction or
-#   genesis block for application related parameters
-#
-################################################################################
-Application: &ApplicationDefaults
-
-    # Organizations is the list of orgs which are defined as participants on
-    # the application side of the network
-    Organizations:
-
-    # Policies defines the set of policies at this level of the config tree
-    # For Application policies, their canonical path is
-    #   /Channel/Application/<PolicyName>
-    Policies:
-        Readers:
-            Type: ImplicitMeta
-            Rule: "ANY Readers"
-        Writers:
-            Type: ImplicitMeta
-            Rule: "ANY Writers"
-        Admins:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Admins"
-        LifecycleEndorsement:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Endorsement"
-        Endorsement:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Endorsement"
-```
-
-
-
 
 
 

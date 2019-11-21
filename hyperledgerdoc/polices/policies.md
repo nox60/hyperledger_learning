@@ -760,29 +760,6 @@ access to data and smart contracts on a channel.
 
 ## How do you write a policy in Fabric
 
-If you want to change anything in Fabric, the policy associated with the resource
-describes **who** needs to approve it, either with an explicit sign off from
-individuals, or an implicit sign off by a group. In the insurance domain, an
-explicit sign off could be a single member of the homeowners insurance agents
-group. And an implicit sign off would be analogous to requiring approval from a
-majority of the managerial members of the homeowners insurance group. This is
-particularly useful because the members of that group can change over time
-without requiring that the policy be updated. In Hyperledger Fabric, explicit
-sign offs in policies are expressed using the `Signature` syntax and implicit
-sign offs use the `ImplicitMeta` syntax.
-
-### Signature policies
-
-`Signature` policies define specific types of users who must sign in order for a
-policy to be satisfied such as `Org1.Peer OR Org2.Peer`. These policies are
-considered the most versatile because they allow for the construction of
-extremely specific rules like: “An admin of org A and 2 other admins, or 5 of 6
-organization admins”. The syntax supports arbitrary combinations of `AND`, `OR`
-and `NOutOf`. For example, a policy can be easily expressed by using `AND
-(Org1, Org2)` which means that a signature from at least one member in Org1 AND
-one member in Org2 is required for the policy to be satisfied.
-
-### ImplicitMeta policies
 
 
 

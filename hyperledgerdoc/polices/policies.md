@@ -1069,26 +1069,6 @@ policy. This **state-based endorsement** allows the default chaincode-level
 endorsement policies to be overridden by a different policy for the specified
 keys.
 
-这些例子
-
-For a deeper dive on how to write an endorsement policy refer to the topic on
-[Endorsement policies](../endorsement-policies.html) in the Operations Guide.
-
-**Note:**  Policies work differently depending on which version of Fabric you are
-  using:
-- In Fabric releases prior to the 2.0 Alpha release, chaincode endorsement
-  policies can be updated during chaincode instantiation or
-  by using the chaincode lifecycle commands. If not specified at instantiation
-  time, the endorsement policy defaults to “any member of the organizations in the
-  channel”. For example, a channel with “Org1” and “Org2” would have a default
-  endorsement policy of “OR(‘Org1.member’, ‘Org2.member’)”.
-- Starting with the Alpha 2.0 release, Fabric introduced a new chaincode
-  lifecycle process that allows multiple organizations to agree on how a
-  chaincode will be operated before it can be used on a channel.  The new process
-  requires that organizations agree to the parameters that define a chaincode,
-  such as name, version, and the chaincode endorsement policy.
-
-
 
 
 

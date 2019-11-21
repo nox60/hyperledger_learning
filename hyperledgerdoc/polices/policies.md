@@ -914,41 +914,6 @@ on their underlying Signature sub-policies which we saw in the snippet above.
   </summary>
 ```
 
-################################################################################
-#
-#   SECTION: Orderer
-#
-#   - This section defines the values to encode into a config transaction or
-#   genesis block for orderer related parameters
-#
-################################################################################
-Orderer: &OrdererDefaults
-
-# Organizations is the list of orgs which are defined as participants on
-# the orderer side of the network
-Organizations:
-
-# Policies defines the set of policies at this level of the config tree
-# For Orderer policies, their canonical path is
-#   /Channel/Orderer/<PolicyName>
-Policies:
-Readers:
-    Type: ImplicitMeta
-    Rule: "ANY Readers"
-Writers:
-    Type: ImplicitMeta
-    Rule: "ANY Writers"
-Admins:
-    Type: ImplicitMeta
-    Rule: "MAJORITY Admins"
-# BlockValidation specifies what signatures must be included in the block
-# from the orderer for the peer to validate it.
-BlockValidation:
-    Type: ImplicitMeta
-    Rule: "ANY Writers"
-
-
-
 
 
 

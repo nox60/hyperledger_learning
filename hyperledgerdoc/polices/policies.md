@@ -899,21 +899,6 @@ sub-policies that the ImplicitMeta policies point to.
             Endorsement:
                 Type: Signature
                 Rule: "OR('Org1MSP.peer')"
-```
-</details>
-
-The next example shows the `ImplicitMeta` policy type used in the `Orderer`
-section of the `configtx.yaml` file which defines the default
-behavior of the orderer and also contains the associated policies `Readers`,
-`Writers`, and `Admins`. Again, these ImplicitMeta policies are evaluated based
-on their underlying Signature sub-policies which we saw in the snippet above.
-
-<details>
-  <summary>
-    **Click here to see an example of ImplicitMeta policies**
-  </summary>
-```
-
 
 
 

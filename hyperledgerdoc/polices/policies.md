@@ -711,55 +711,6 @@ required to sign (approve) any configuration _update_. It is the policy that
 defines how the policy is updated. Thus, each channel configuration element
 includes a reference to a policy which governs its modification.
 
-至少有一种类型的策略会决定有多少策略在Fabric网络中起作用，这就是 `Modification policy`
-`Modification policy`策略指定了在配置更新的时候，需要哪些角色组的登录。
-
-这样的策略定义了策略是怎样被更新的。因此，所有的通道配置基础元素都包含了一个对其修改策略
-的引用。
-
-## The policy domains
-
-While Fabric policies are flexible and can be configured to meet the needs of a
-network, the policy structure naturally leads to a division between the domains
-governed by either the Ordering Service organizations or the members of the
-consortium. In the following diagram you can see how the default policies
-implement control over the Fabric policy domains below.
-
-当Fabric策略很灵活并且能够被配置来满足一个网络的需求时，这种策略结构自然导向了一种这样的
-分隔：排序服务组织管控一部分，联盟成员管控另外一部分，通过下图你可以看到默认策略的实现控制
-了Fabric策略领域
-
-![policies.policies](./FabricPolicyHierarchy-4.png) *A more detailed look at the
-policy domains governed by the Orderer organizations and consortium organizations.*
-
-A fully functional Fabric network can feature many organizations with different
-responsibilities. The domains provide the ability to extend different privileges
-and roles to different organizations by allowing the founders of the ordering
-service the ability to establish the initial rules and membership of the
-consortium. They also allow the organizations that join the consortium to create
-private application channels, govern their own business logic, and restrict
-access to the data that is put on the network.
-
-一个功能完备的Fabric网络能够实现负责不同业务的多个组织。通过允许排序服务的创造者创建初始规则
-和联盟会员关系，他们也允许组织加入联盟创造私有业务网络，控制他们自己的业务模型，控制访问
-数据，
-这种模式提供了给不同的组织，扩展不同权限和
-角色的能力。
-
-The system channel configuration and a portion of each application channel
-configuration provides the ordering organizations control over which organizations
-are members of the consortium, how blocks are delivered to channels, and the
-consensus mechanism used by the nodes of the ordering service.
-
-系统通道的配置和部分业务通道的的配置提供了对，排序组织控制联盟中其他组织和成员的能力，
-
-The system channel configuration provides members of the consortium the ability
-to create channels. Application channels and ACLs are the mechanism that
-consortium organizations use to add or remove members from a channel and restrict
-access to data and smart contracts on a channel.
-
-## How do you write a policy in Fabric
-
 
 
 

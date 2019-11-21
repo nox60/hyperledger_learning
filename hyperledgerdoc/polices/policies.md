@@ -1004,21 +1004,6 @@ Application: &ApplicationDefaults
             Rule: "MAJORITY Endorsement"
 ```
 
-- The `LifecycleEndorsement` policy governs who needs to _approve a chaincode
-definition_.
-- The `Endorsement` policy is the _default endorsement policy for
-a chaincode_. More on this below.
-
-## Chaincode endorsement policies
-
-The endorsement policy is specified for a **chaincode** when it is approved
-and committed to the channel using the Fabric chaincode lifecycle (that is, one
-endorsement policy covers all of the state associated with a chaincode). The
-endorsement policy can be specified either by reference to an endorsement policy
-defined in the channel configuration or by explicitly specifying a Signature policy.
-
-
-
 
 
 

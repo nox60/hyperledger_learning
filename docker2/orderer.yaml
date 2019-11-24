@@ -524,20 +524,3 @@ Kafka:
     # Kafka protocol version used to communicate with the Kafka cluster brokers
     # (defaults to 0.10.2.0 if not specified)
     Version:
-
-################################################################################
-#
-#   Debug Configuration
-#
-#   - This controls the debugging options for the orderer
-#
-################################################################################
-Debug:
-
-    # BroadcastTraceDir when set will cause each request to the Broadcast service
-    # for this orderer to be written to a file in this directory
-    BroadcastTraceDir:
-
-    # DeliverTraceDir when set will cause each request to the Deliver service
-    # for this orderer to be written to a file in this directory
-    DeliverTraceDir:

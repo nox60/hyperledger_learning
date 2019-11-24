@@ -430,37 +430,4 @@ RAMLedger:
 ################################################################################
 Kafka:
 
-    # Retry: What do if a connection to the Kafka cluster cannot be established,
-    # or if a metadata request to the Kafka cluster needs to be repeated.
-    Retry:
-        # When a new channel is created, or when an existing channel is reloaded
-        # (in case of a just-restarted orderer), the orderer interacts with the
-        # Kafka cluster in the following ways:
-        # 1. It creates a Kafka producer (writer) for the Kafka partition that
-        # corresponds to the channel.
-        # 2. It uses that producer to post a no-op CONNECT message to that
-        # partition
-        # 3. It creates a Kafka consumer (reader) for that partition.
-        # If any of these steps fail, they will be re-attempted every
-        # <ShortInterval> for a total of <ShortTotal>, and then every
-        # <LongInterval> for a total of <LongTotal> until they succeed.
-        # Note that the orderer will be unable to write to or read from a
-        # channel until all of the steps above have been completed successfully.
-        ShortInterval: 5s
-        ShortTotal: 10m
-        LongInterval: 5m
-        LongTotal: 12h
-        # Affects the socket timeouts when waiting for an initial connection, a
-        # response, or a transmission. See Config.Net for more info:
-        # https://godoc.org/github.com/Shopify/sarama#Config
-        NetworkTimeouts:
-            DialTimeout: 10s
-            ReadTimeout: 10s
-            WriteTimeout: 10s
-        # Affects the metadata requests when the Kafka cluster is in the middle
-        # of a leader election.See Config.Metadata for more info:
-        # https://godoc.org/github.com/Shopify/sarama#Config
-        Metadata:
-            RetryBackoff: 250ms
-            RetryMax: 3
 

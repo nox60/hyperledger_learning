@@ -463,27 +463,4 @@ Kafka:
         Metadata:
             RetryBackoff: 250ms
             RetryMax: 3
-        # What to do if posting a message to the Kafka cluster fails. See
-        # Config.Producer for more info:
-        # https://godoc.org/github.com/Shopify/sarama#Config
-        Producer:
-            RetryBackoff: 100ms
-            RetryMax: 3
-        # What to do if reading from the Kafka cluster fails. See
-        # Config.Consumer for more info:
-        # https://godoc.org/github.com/Shopify/sarama#Config
-        Consumer:
-            RetryBackoff: 2s
-    # Settings to use when creating Kafka topics.  Only applies when
-    # Kafka.Version is v0.10.1.0 or higher
-    Topic:
-        # The number of Kafka brokers across which to replicate the topic
-        ReplicationFactor: 3
-    # Verbose: Enable logging for interactions with the Kafka cluster.
-    Verbose: false
-
-    # TLS: TLS settings for the orderer's connection to the Kafka cluster.
-    TLS:
-
-
 

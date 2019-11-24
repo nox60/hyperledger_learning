@@ -485,22 +485,5 @@ Kafka:
     # TLS: TLS settings for the orderer's connection to the Kafka cluster.
     TLS:
 
-      # Enabled: Use TLS when connecting to the Kafka cluster.
-      Enabled: false
 
-      # PrivateKey: PEM-encoded private key the orderer will use for
-      # authentication.
-      PrivateKey:
-        # As an alternative to specifying the PrivateKey here, uncomment the
-        # following "File" key and specify the file name from which to load the
-        # value of PrivateKey.
-        #File: path/to/PrivateKey
-
-      # Certificate: PEM-encoded signed public key certificate the orderer will
-      # use for authentication.
-      Certificate:
-        # As an alternative to specifying the Certificate here, uncomment the
-        # following "File" key and specify the file name from which to load the
-        # value of Certificate.
-        #File: path/to/Certificate
 

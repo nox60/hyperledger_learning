@@ -397,37 +397,5 @@ Consensus:
     
     
     
-    
-    
-    
-    
-    
-    
-
-################################################################################
-#
-#   SECTION: RAM Ledger
-#
-#   - This section applies to the configuration of the RAM ledger.
-#
-################################################################################
-RAMLedger:
-
-    # History Size: The number of blocks that the RAM ledger is set to retain.
-    # WARNING: Appending a block to the ledger might cause the oldest block in
-    # the ledger to be dropped in order to limit the number total number blocks
-    # to HistorySize. For example, if history size is 10, when appending block
-    # 10, block 0 (the genesis block!) will be dropped to make room for block 10.
-    HistorySize: 1000
-
-################################################################################
-#
-#   SECTION: Kafka
-#
-#   - This section applies to the configuration of the Kafka-based orderer, and
-#     its interaction with the Kafka cluster.
-#
-################################################################################
-Kafka:
 
 

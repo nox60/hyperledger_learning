@@ -714,64 +714,6 @@ CA.
 
 一些规则的例子如下：
 
-Some examples of valid principals are:
-* 'Org0.Admin': an administrator of the Org0 MSP
-* 'Org1.Member': a member of the Org1 MSP
-* 'Org1.Client': a client of the Org1 MSP
-* 'Org1.Peer': a peer of the Org1 MSP
-* 'OrdererOrg.Orderer': an orderer in the OrdererOrg MSP
-
-* 'Org0.Admin': Org0的管理员
-* 'Org1.Member': Org1的成员
-* 'Org1.Client': Org1的客户(client)
-* 'Org1.Peer': Org1的peer节点
-* 'OrdererOrg.Orderer': Orderer组织的Orderer
-
-There are cases where it may be necessary for a particular state
-(a particular key-value pair, in other words) to have a different endorsement
-policy. This **state-based endorsement** allows the default chaincode-level
-endorsement policies to be overridden by a different policy for the specified
-keys.
-
-这些例子
-
-For a deeper dive on how to write an endorsement policy refer to the topic on
-[Endorsement policies](../endorsement-policies.html) in the Operations Guide.
-
-**Note:**  Policies work differently depending on which version of Fabric you are
-  using:
-- In Fabric releases prior to the 2.0 Alpha release, chaincode endorsement
-  policies can be updated during chaincode instantiation or
-  by using the chaincode lifecycle commands. If not specified at instantiation
-  time, the endorsement policy defaults to “any member of the organizations in the
-  channel”. For example, a channel with “Org1” and “Org2” would have a default
-  endorsement policy of “OR(‘Org1.member’, ‘Org2.member’)”.
-- Starting with the Alpha 2.0 release, Fabric introduced a new chaincode
-  lifecycle process that allows multiple organizations to agree on how a
-  chaincode will be operated before it can be used on a channel.  The new process
-  requires that organizations agree to the parameters that define a chaincode,
-  such as name, version, and the chaincode endorsement policy.
-
-## Overriding policy definitions
-
-Hyperledger Fabric includes default policies which are useful for getting started,
-developing, and testing your blockchain, but they are meant to be customized
-in a production environment. You should be aware of the default policies
-in the `configtx.yaml` file. Channel configuration policies can be extended
-with arbitrary verbs, beyond the default `Readers, Writers, Admins` in
-`configtx.yaml`. The orderer system and application channels are overridden by
-issuing a config update when you override the default policies by editing the
-`configtx.yaml` for the orderer system channel or the `configtx.yaml` for a
-specific channel.
-
-See the topic on
-[Updating a channel configuration](../config_update.html#updating-a-channel-configuration)
-for more information.
-
-<!--- Licensed under Creative Commons Attribution 4.0 International License
-https://creativecommons.org/licenses/by/4.0/) -->
-
-
 
 
 

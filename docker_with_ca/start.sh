@@ -551,14 +551,3 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3       
 
 
-docker rm -f couchdb_gov
-docker run -ti -d \
---name couchdb_gov \
---network bc-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb  
-
-
-

@@ -419,11 +419,3 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-
-
-//--------------------------
-
-
-
-
-

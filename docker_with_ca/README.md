@@ -797,31 +797,5 @@ hyperledger/fabric-tools:1.4.3 \
 peer channel list 
 ```
 
-### 8 安装智能合约
-```greenplum
-docker run --rm -it \
---name cec.install.chaincode.admin2.client \
---network bc-net \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ENABLED="true"  \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.crt" \
--e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/server.key" \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/admin2/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
--v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
--v /opt/local/codes/docker_with_ca/chaincode:/opt/gopath/src/mychaincode \
--v /opt/local/codes/docker_with_ca/chaincode/example_code:/opt/gopath/src/example_code \
-hyperledger/fabric-tools:1.4.3 \
-peer chaincode install \
--n mychaincode \
--v 1.0 \
--l golang \
--p mychaincode
-```
-
-
-
 
 

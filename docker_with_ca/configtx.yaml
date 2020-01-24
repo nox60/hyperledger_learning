@@ -681,24 +681,3 @@ Organizations:
 
 
 
-
-
-################################################################################
-#
-#   SECTION: Capabilities
-#
-#   - This section defines the capabilities of fabric network. This is a new
-#   concept as of v1.1.0 and should not be utilized in mixed networks with
-#   v1.0.x peers and orderers.  Capabilities define features which must be
-#   present in a fabric binary for that binary to safely participate in the
-#   fabric network.  For instance, if a new MSP type is added, newer binaries
-#   might recognize and validate the signatures from this type, while older
-#   binaries without this support would be unable to validate those
-#   transactions.  This could lead to different versions of the fabric binaries
-#   having different world states.  Instead, defining a capability for a channel
-#   informs those binaries without this capability that they must cease
-#   processing transactions until they have been upgraded.  For v1.0.x if any
-#   capabilities are defined (including a map with all capabilities turned off)
-#   then the v1.0.x peer will deliberately crash.
-#
-################################################################################

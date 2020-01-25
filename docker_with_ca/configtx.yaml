@@ -888,12 +888,3 @@ Channel: &ChannelDefaults
     # description
     Capabilities:
         <<: *ChannelCapabilities
-
-################################################################################
-#
-#   Profile
-#
-#   - Different configuration profiles may be encoded here to be specified
-#   as parameters to the configtxgen tool
-#
-################################################################################

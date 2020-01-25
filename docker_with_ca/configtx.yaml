@@ -793,11 +793,3 @@ Application: &ApplicationDefaults
 
     Capabilities:
         <<: *ApplicationCapabilities
-################################################################################
-#
-#   SECTION: Orderer
-#
-#   - This section defines the values to encode into a config transaction or
-#   genesis block for orderer related parameters
-#
-################################################################################

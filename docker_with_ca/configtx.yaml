@@ -939,29 +939,3 @@ Profiles:
                 - *gov
             Capabilities:
                 <<: *ApplicationCapabilities
-
-    SampleDevModeKafka:
-        <<: *ChannelDefaults
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: kafka
-            Kafka:
-                Brokers:
-                    - kafka.dams.com:9092
-
-            Organizations:
-                - *OrdererOrg
-            Capabilities:
-                <<: *OrdererCapabilities
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - <<: *OrdererOrg
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *cec
-                    - *ia3
-                    - *ic3

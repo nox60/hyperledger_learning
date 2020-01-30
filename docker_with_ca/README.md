@@ -537,10 +537,3 @@ fabric-ca-client enroll \
 --home /etc/hyperledger/gov-ca/admin \
 -u https://admin:adminpw@ca.gov.dams.com:7054
 ```
-
-上面的命令会拉起一个容器，比如名为enroll.cec.admin.ca.client，该容器会执行enroll命令并且获取到admin的相关证书信息，执行完之后该容器自动销毁。
-获取到得证书文件等信息，在
-```dir
-/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin 
-```
-目录中。

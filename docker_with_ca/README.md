@@ -196,8 +196,65 @@ fabric-ca-client enroll \
     └── user
 ```
 
-//上面是没有启用HTTPS的
+//上面是没有启用HTTPS的，看看启用https之后有什么差异?
 
+//尝试注册一个peer，看看是否有权限
+```go
+docker run --rm -it \
+--name register.peer \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+-v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name peer --id.type peer  --id.secret peerpw
+```
+
+显示注册成功了，看起来，初始化的那个admin拥有非常高的权限
+
+//注册一个没有peer注册权限的admin2，有client权限，看看是否有权限
+
+1. 先注册
+```go
+docker run --rm -it \
+--name register.peer \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+-v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name admin2 --id.type admin  --id.attrs '"hf.Registrar.Roles=client"' --id.secret admin2pw 
+```
+
+2. 把这个admin2的msp拉到本地
+```go
+docker run --rm -it \
+--name enroll.test.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+-v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+-u http://admin2:admin2pw@test-ca:7054
+```
+
+3. 利用刚刚那个admin2的msp进行注册
+```go
+docker run --rm -it \
+--name register.peer2 \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+-v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name peer2 --id.type peer  --id.secret peer2pw 
+```
+
+4. 发现会报错，说权限不够
+```go
+Error: Response from server: Error Code: 45 - Failed to verify if user can act on type 'peer': : scode: 403, local code: 42, local msg: 'admin2' is not a registrar, remote code: 71, remote msg: Authorization failure
+
+```
 
 此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。
 

@@ -140,10 +140,8 @@ fabric-ca-client register \
 #fabric-ca-client register -d --id.name admin2 --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,client",hf.Revoker=true'
 # 上面的账户，表明能够注册两种类型的 MSP/CA，peer和client，需要实验一下
 
-```用docker启动一个
 用docker 启动一个ca server
-
-
+```用docker启动一个
 docker rm -f test-ca
 docker run \
   -it -d \
@@ -154,7 +152,10 @@ docker run \
       -e FABRIC_CA_SERVER_PORT=7054 \
       -v /root/temp/test-ca-home:/opt/ca-home \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
+```
 
+把admin的msp拉出来
+```go
 
 ```
 

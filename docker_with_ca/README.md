@@ -253,8 +253,21 @@ fabric-ca-client register \
 4. 发现会报错，说权限不够
 ```go
 Error: Response from server: Error Code: 45 - Failed to verify if user can act on type 'peer': : scode: 403, local code: 42, local msg: 'admin2' is not a registrar, remote code: 71, remote msg: Authorization failure
-
 ```
+
+5. 注册一个client
+```go
+docker run --rm -it \
+--name register.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+-v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name client --id.type client  --id.secret clientpw 
+```
+
+发现顺利注册成功
 
 此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。
 

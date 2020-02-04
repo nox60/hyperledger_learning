@@ -186,8 +186,8 @@ fabric-ca-client enroll \
 ├── fabric-ca-client-config.yaml
 └── msp
     ├── cacerts
-    │   └── test-ca-7054.pem
-    ├── IssuerPublicKey
+    │   └── test-ca-7054.pem        //等于上面的 ca-cert.pem
+    ├── IssuerPublicKey             //等于上面的 ssuerPublicKey
     ├── IssuerRevocationPublicKey
     ├── keystore
     │   └── 46b9002d4ebf9a2b565e2834b8f3573891646dd710de3f1cc3c7f800372bf2e0_sk
@@ -196,7 +196,7 @@ fabric-ca-client enroll \
     └── user
 ```
 
-
+//上面是没有启用HTTPS的
 
 
 此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。

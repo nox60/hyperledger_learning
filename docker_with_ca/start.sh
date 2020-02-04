@@ -19,6 +19,11 @@ echo $CEC_CA_PRIVATE_KEY
 #sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
 #["sh","-c","java $JAVA_OPTS  -Dfile.encoding=utf-8 -jar /opt/*.jar"]
 
+#注意，优先级如下（从最高到最低）:
+# 1. 命令参数
+# 2. 环境变量
+# 3. 配置文件
+
 docker rm -f ca.cec.dams.com
 docker run \
   -it -d \

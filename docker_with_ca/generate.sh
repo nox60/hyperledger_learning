@@ -6,13 +6,16 @@ rm -rf /opt/local/codes/docker_with_ca
 ln -s `pwd` /opt/local/codes/docker_with_ca
 
 
+# cryptogen generate \
+# --config=./crypto-config.yaml \
+# --output="hyperledger_data/crypto-config"
+# 生成各种证书文件
+
 cryptogen generate \
 --config=./crypto-config.yaml \
 --output="hyperledger_data/crypto-config"
 
 echo 'Create genesis block'
-
-
 # 创世区块
 configtxgen -outputBlock hyperledger_data/orderer.genesis.block \
 -channelID byfn-sys-channel \

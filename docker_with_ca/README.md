@@ -138,7 +138,7 @@ fabric-ca-client register \
 # 官方文档的意思是，如果用 --id.attrs 'hf.Revoker=true,admin=true:ecert', 表明会默认把 admin身份写入其证书？如果不跟ecert的话，会怎么样？
 
 #fabric-ca-client register -d --id.name admin2 --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,client",hf.Revoker=true'
-# 上面的账户，表明能够注册两种类型的 MSP/CA，peer和client，实验一下
+# 上面的账户，表明能够注册两种类型的 MSP/CA，peer和client，需要实验一下
 
 此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。
 

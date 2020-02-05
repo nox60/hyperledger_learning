@@ -210,12 +210,6 @@ fabric-ca-client register \
 --id.name peer --id.type peer  --id.secret peerpw
 ```
 
-显示注册成功了，看起来，初始化的那个admin拥有非常高的权限
-
-//注册一个没有peer注册权限的admin2，有client权限，看看是否有权限
-
-
-
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

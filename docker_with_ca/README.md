@@ -169,17 +169,6 @@ docker run \
         └── IssuerSecretKey
 ```
 
-把admin的msp拉出来
-```go
-docker run --rm -it \
---name enroll.test.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
--v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
--u http://admin:adminpw@test-ca:7054
-```
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

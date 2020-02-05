@@ -154,21 +154,6 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
 ```
 
-会生成这样的目录和文件结构：
-
-```go
-├── ca-cert.pem
-├── fabric-ca-server-config.yaml
-├── fabric-ca-server.db
-├── IssuerPublicKey
-├── IssuerRevocationPublicKey
-└── msp
-    └── keystore
-        ├── ed76bf690cfa52ef372d241986981896c18232a806238c818e9a9cca6fe1431f_sk
-        ├── IssuerRevocationPrivateKey
-        └── IssuerSecretKey
-```
-
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

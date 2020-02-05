@@ -308,8 +308,8 @@ docker run --rm -it \
       -v /root/temp/peer0-home-1:/opt/peer0-home-1 \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      -u http://peer0:peerpw@test-ca:7054 \
-      -M $FABRIC_CA_CLIENT_HOME/msp
+      -M /opt/peer0-home-1/msp \
+      -u http://peer0:peerpw@test-ca:7054
 ```
 
 ```go

@@ -255,18 +255,6 @@ fabric-ca-client register \
 Error: Response from server: Error Code: 45 - Failed to verify if user can act on type 'peer': : scode: 403, local code: 42, local msg: 'admin2' is not a registrar, remote code: 71, remote msg: Authorization failure
 ```
 
-5. 注册一个client
-```go
-docker run --rm -it \
---name register.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
--v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---id.name client --id.type client  --id.secret clientpw 
-```
-
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

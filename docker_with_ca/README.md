@@ -286,6 +286,7 @@ docker run --rm -it \
     --id.name peer0 --id.type peer  --id.secret peerpw 
 ```
 
+拉取tls
 ```go
 docker run --rm -it \
   --name enroll.cec.peer0 \
@@ -296,6 +297,54 @@ docker run --rm -it \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.com \
       -u http://peer0:peerpw@test-ca:7054
+```
+
+拉取msp?
+```go
+docker run --rm -it \
+  --name enroll.cec.peer0 \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-1 \
+      -v /root/temp/peer0-home-1:/opt/peer0-home-1 \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -u http://peer0:peerpw@test-ca:7054 \
+      -M $FABRIC_CA_CLIENT_HOME/msp
+```
+
+```go
+
+Global Flags:
+      --caname string                  Name of CA
+      --csr.cn string                  The common name field of the certificate signing request
+      --csr.hosts stringSlice          A list of comma-separated host names in a certificate signing request
+      --csr.keyrequest.algo string     Specify key algorithm
+      --csr.keyrequest.size int        Specify key size
+      --csr.names stringSlice          A list of comma-separated CSR names of the form <name>=<value> (e.g. C=CA,O=Org1)
+      --csr.serialnumber string        The serial number in a certificate signing request
+      --enrollment.attrs stringSlice   A list of comma-separated attribute requests of the form <name>[:opt] (e.g. foo,bar:opt)
+      --enrollment.label string        Label to use in HSM operations
+      --enrollment.profile string      Name of the signing profile to use in issuing the certificate
+      --enrollment.type string         The type of enrollment request: 'x509' or 'idemix' (default "x509")
+  -H, --home string                    Client's home directory (default "/opt/peer0-home")
+      --id.affiliation string          The identity's affiliation
+      --id.attrs stringSlice           A list of comma-separated attributes of the form <name>=<value> (e.g. foo=foo1,bar=bar1)
+      --id.maxenrollments int          The maximum number of times the secret can be reused to enroll (default CA's Max Enrollment)
+      --id.name string                 Unique name of the identity
+      --id.secret string               The enrollment secret for the identity being registered
+      --id.type string                 Type of identity being registered (e.g. 'peer, app, user') (default "client")
+      --loglevel string                Set logging level (info, warning, debug, error, fatal, critical)
+  -M, --mspdir string                  Membership Service Provider directory (default "msp")
+  -m, --myhost string                  Hostname to include in the certificate signing request during enrollment (default "a2fc115b3b43")
+  -a, --revoke.aki string              AKI (Authority Key Identifier) of the certificate to be revoked
+  -e, --revoke.name string             Identity whose certificates should be revoked
+  -r, --revoke.reason string           Reason for revocation
+  -s, --revoke.serial string           Serial number of the certificate to be revoked
+      --tls.certfiles stringSlice      A list of comma-separated PEM-encoded trusted certificate files (e.g. root1.pem,root2.pem)
+      --tls.client.certfile string     PEM-encoded certificate file when mutual authenticate is enabled
+      --tls.client.keyfile string      PEM-encoded key file when mutual authentication is enabled
+  -u, --url string                     URL of fabric-ca-server (default "http://localhost:7054")
+
 ```
 
 启动peer0的couchdb
@@ -336,7 +385,7 @@ docker run -it -d \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.dams.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_cec:5984" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_peer0:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \

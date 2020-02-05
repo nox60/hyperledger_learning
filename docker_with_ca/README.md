@@ -226,18 +226,6 @@ fabric-ca-client register \
 --id.name admin2 --id.type admin  --id.attrs '"hf.Registrar.Roles=client"' --id.secret admin2pw 
 ```
 
-2. 把这个admin2的msp拉到本地
-```go
-docker run --rm -it \
---name enroll.test.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
--v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
--u http://admin2:admin2pw@test-ca:7054
-```
-
 
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。

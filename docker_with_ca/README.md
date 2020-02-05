@@ -274,6 +274,7 @@ fabric-ca-client register \
 1. 是通过这个CA注册一个peer，然后和这个peer通信的时候，关掉这个ca，看看root ca是否能验证成功。这里好像是不需要，因为generate出来的各种ca证书，也是没有root ca服务供验证的
 完成上面的注册peer, 然后把peer的msp拉下来。启动peer
 
+注册一个peer0
 ```go
 docker run --rm -it \
     --name register.peer0 \
@@ -285,6 +286,7 @@ docker run --rm -it \
     --id.name peer0 --id.type peer  --id.secret peerpw 
 ```
 
+```go
 docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
@@ -293,7 +295,14 @@ docker run --rm -it \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.com \
-      -u https://peer0:peerpw@test-ca:7054
+      -u http://peer0:peerpw@test-ca:7054
+```
+
+启动peer0
+```go
+
+```
+
 
 
 2. 如果1成立，那么验证一个公钥是否是合法的公钥，就是看该公钥对应的rootca是否合法，这里如果我们手动替换一个rootca，看看能否通过。

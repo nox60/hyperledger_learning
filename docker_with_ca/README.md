@@ -196,19 +196,6 @@ fabric-ca-client enroll \
     └── user
 ```
 
-//上面是没有启用HTTPS的，看看启用https之后有什么差异?
-
-//尝试注册一个peer，看看是否有权限
-```go
-docker run --rm -it \
---name register.peer \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
--v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---id.name peer --id.type peer  --id.secret peerpw
-```
 
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。

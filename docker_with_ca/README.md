@@ -214,17 +214,6 @@ fabric-ca-client register \
 
 //注册一个没有peer注册权限的admin2，有client权限，看看是否有权限
 
-1. 先注册
-```go
-docker run --rm -it \
---name register.peer \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
--v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---id.name admin2 --id.type admin  --id.attrs '"hf.Registrar.Roles=client"' --id.secret admin2pw 
-```
 
 
 

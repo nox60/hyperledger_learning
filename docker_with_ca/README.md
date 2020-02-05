@@ -274,18 +274,6 @@ fabric-ca-client register \
 1. 是通过这个CA注册一个peer，然后和这个peer通信的时候，关掉这个ca，看看root ca是否能验证成功。这里好像是不需要，因为generate出来的各种ca证书，也是没有root ca服务供验证的
 完成上面的注册peer, 然后把peer的msp拉下来。启动peer
 
-注册一个peer0
-```go
-docker run --rm -it \
-    --name register.peer0 \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
-    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client register \
-    --id.name peer0 --id.type peer  --id.secret peerpw 
-```
-
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

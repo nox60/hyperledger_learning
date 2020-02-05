@@ -286,19 +286,6 @@ docker run --rm -it \
     --id.name peer0 --id.type peer  --id.secret peerpw 
 ```
 
-拉取tls
-```go
-docker run --rm -it \
-  --name enroll.cec.peer0 \
-      --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home \
-      -v /root/temp/peer0-home:/opt/peer0-home \
-      hyperledger/fabric-ca:1.4.3 \
-      fabric-ca-client enroll \
-      --enrollment.profile tls --csr.hosts peer0.com \
-      -u http://peer0:peerpw@test-ca:7054
-```
-
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

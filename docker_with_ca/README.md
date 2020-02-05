@@ -299,20 +299,6 @@ docker run --rm -it \
       -u http://peer0:peerpw@test-ca:7054
 ```
 
-拉取msp?
-```go
-docker run --rm -it \
-  --name enroll.cec.peer0 \
-      --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-1 \
-      -v /root/temp/peer0-home-1:/opt/peer0-home-1 \
-      hyperledger/fabric-ca:1.4.3 \
-      fabric-ca-client enroll \
-      -M /opt/peer0-home-1/msp \
-      -u http://peer0:peerpw@test-ca:7054
-```
-
-
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 

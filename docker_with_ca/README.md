@@ -181,23 +181,6 @@ fabric-ca-client enroll \
 -u http://admin:adminpw@test-ca:7054
 ```
 
-会生成这样的目录结构
-```dir
-├── fabric-ca-client-config.yaml
-└── msp
-    ├── cacerts
-    │   └── test-ca-7054.pem        //等于上面的 ca-cert.pem
-    ├── IssuerPublicKey             //等于上面的 ssuerPublicKey
-    ├── IssuerRevocationPublicKey
-    ├── keystore
-    │   └── 46b9002d4ebf9a2b565e2834b8f3573891646dd710de3f1cc3c7f800372bf2e0_sk
-    ├── signcerts
-    │   └── cert.pem
-    └── user
-```
-
-
-
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 
 ```runad

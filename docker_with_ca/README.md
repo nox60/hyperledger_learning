@@ -238,22 +238,6 @@ fabric-ca-client enroll \
 -u http://admin2:admin2pw@test-ca:7054
 ```
 
-3. 利用刚刚那个admin2的msp进行注册
-```go
-docker run --rm -it \
---name register.peer2 \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
--v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---id.name peer2 --id.type peer  --id.secret peer2pw 
-```
-
-4. 发现会报错，说权限不够
-```go
-Error: Response from server: Error Code: 45 - Failed to verify if user can act on type 'peer': : scode: 403, local code: 42, local msg: 'admin2' is not a registrar, remote code: 71, remote msg: Authorization failure
-```
 
 
 ### 2.2 创建ia3第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。

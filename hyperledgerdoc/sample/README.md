@@ -292,7 +292,7 @@ docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home \
-      -v /root/temp/peer0-tls-home:/opt/peer0-home \
+      -v /root/temp/peer0-home-tls:/opt/peer0-home \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.com \
@@ -301,9 +301,9 @@ docker run --rm -it \
 
 修改tls中的私钥文件名
 ```shell script
-mv /root/temp/peer0-tls-home/msp/keystore/* /root/temp/peer0-tls-home/msp/keystore/server.key
-mv /root/temp/peer0-tls-home/msp/signcert/* /root/temp/peer0-tls-home/msp/signcert/server.crt
-mv /root/temp/peer0-tls-home/msp/tlscacerts/* /root/temp/peer0-tls-home/msp/tlscacerts/ca.crt
+mv /root/temp/peer0-home-tls/msp/keystore/* /root/temp/peer0-home-tls/msp/keystore/server.key
+mv /root/temp/peer0-home-tls/msp/signcert/* /root/temp/peer0-home-tls/msp/signcert/server.crt
+mv /root/temp/peer0-home-tls/msp/tlscacerts/* /root/temp/peer0-home-tls/msp/tlscacerts/ca.crt
 
 ```
 
@@ -312,16 +312,13 @@ mv /root/temp/peer0-tls-home/msp/tlscacerts/* /root/temp/peer0-tls-home/msp/tlsc
 docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-1 \
-      -v /root/temp/peer0-home-1:/opt/peer0-home-1 \
+      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-msp \
+      -v /root/temp/peer0-home-msp:/opt/peer0-home-msp \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      -M /opt/peer0-home-1/msp \
+      -M /opt/peer0-home-msp/msp \
       -u http://peer0:peerpw@test-ca:7054
 ```
-
-修改tls 中的文件名
-
 
 ```go
 
@@ -403,7 +400,7 @@ docker run -it -d \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/msp:/etc/hyperledger/fabric/msp \
+      -v /root/temp/peer0-tls-home/msp:/etc/hyperledger/fabric/tls \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/cecpeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3

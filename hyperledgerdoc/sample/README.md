@@ -276,6 +276,7 @@ fabric-ca-client register \
 
 注册一个peer0
 ```go
+rm -rf /root/temp/peer0-home
 docker run --rm -it \
     --name register.peer0 \
     --network bc-net \
@@ -292,7 +293,7 @@ docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home \
-      -v /root/temp/peer0-home-tls:/opt/peer0-home \
+      -v /root/temp/peer0-home/tls:/opt/peer0-home \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.com \
@@ -301,9 +302,9 @@ docker run --rm -it \
 
 修改tls中的私钥文件名
 ```shell script
-mv /root/temp/peer0-home-tls/msp/keystore/* /root/temp/peer0-home-tls/msp/keystore/server.key
-mv /root/temp/peer0-home-tls/msp/signcerts/* /root/temp/peer0-home-tls/msp/signcerts/server.crt
-mv /root/temp/peer0-home-tls/msp/tlscacerts/* /root/temp/peer0-home-tls/msp/tlscacerts/ca.crt
+mv /root/temp/peer0-home/tls/msp/keystore/* /root/temp/peer0-home/tls/msp/keystore/server.key
+mv /root/temp/peer0-home/tls/msp/signcerts/* /root/temp/peer0-home/tls/msp/signcerts/server.crt
+mv /root/temp/peer0-home/tls/msp/tlscacerts/* /root/temp/peer0-home/tls/msp/tlscacerts/ca.crt
 
 ```
 
@@ -313,7 +314,7 @@ docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-msp \
-      -v /root/temp/peer0-home-msp:/opt/peer0-home-msp \
+      -v /root/temp/peer0-home/msp:/opt/peer0-home-msp \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -M /opt/peer0-home-msp/msp \
@@ -399,9 +400,8 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/temp/peer0-home-tls/msp:/etc/hyperledger/fabric/tls \
-      -v /root/temp/peer0-home-msp/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/cecpeer0:/var/hyperledger/production \
+      -v /root/temp/peer0-home:/etc/hyperledger/fabric \
+      -v /root/temp/peer0-home/production:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
 

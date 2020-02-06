@@ -302,7 +302,7 @@ docker run --rm -it \
 修改tls中的私钥文件名
 ```shell script
 mv /root/temp/peer0-home-tls/msp/keystore/* /root/temp/peer0-home-tls/msp/keystore/server.key
-mv /root/temp/peer0-home-tls/msp/signcert/* /root/temp/peer0-home-tls/msp/signcert/server.crt
+mv /root/temp/peer0-home-tls/msp/signcerts/* /root/temp/peer0-home-tls/msp/signcerts/server.crt
 mv /root/temp/peer0-home-tls/msp/tlscacerts/* /root/temp/peer0-home-tls/msp/tlscacerts/ca.crt
 
 ```

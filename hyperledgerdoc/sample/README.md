@@ -372,9 +372,9 @@ docker run -it -d  \
 启动peer0
 ```go
 
-docker rm -f peer0.cec.dams.com
+docker rm -f peer0.com
 docker run -it -d \
-  --name peer0.cec.dams.com \
+  --name peer0.com \
       --network bc-net \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -384,13 +384,13 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/signcerts/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/keystore/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/tlscacerts/ca.crt" \
-      -e CORE_PEER_ID="peer0.cec.dams.com" \
-      -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \
+      -e CORE_PEER_ID="peer0.com" \
+      -e CORE_PEER_ADDRESS="peer0.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.cec.dams.com:7052" \
+      -e CORE_PEER_CHAINCODEADDRESS="peer0.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.cec.dams.com:7051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.cec.dams.com:7051" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.com:7051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.com:7051" \
       -e CORE_PEER_LOCALMSPID="cecMSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_peer0:5984" \
@@ -399,7 +399,6 @@ docker run -it -d \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls:/etc/hyperledger/fabric/tls \
       -v /root/temp/peer0-home-tls/msp:/etc/hyperledger/fabric/tls \
       -v /root/temp/peer0-home-msp/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker_with_ca/hyperledger_data/cecpeer0:/var/hyperledger/production \

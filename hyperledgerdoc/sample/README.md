@@ -292,14 +292,22 @@ docker run --rm -it \
   --name enroll.cec.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home \
-      -v /root/temp/peer0-home:/opt/peer0-home \
+      -v /root/temp/peer0-tls-home:/opt/peer0-home \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.com \
       -u http://peer0:peerpw@test-ca:7054
 ```
 
-拉取msp?
+修改tls中的私钥文件名
+```shell script
+mv /root/temp/peer0-tls-home/msp/keystore/* /root/temp/peer0-tls-home/msp/keystore/server.key
+mv /root/temp/peer0-tls-home/msp/signcert/* /root/temp/peer0-tls-home/msp/signcert/server.crt
+mv /root/temp/peer0-tls-home/msp/tlscacerts/* /root/temp/peer0-tls-home/msp/tlscacerts/ca.crt
+
+```
+
+拉取msp
 ```go
 docker run --rm -it \
   --name enroll.cec.peer0 \
@@ -311,6 +319,9 @@ docker run --rm -it \
       -M /opt/peer0-home-1/msp \
       -u http://peer0:peerpw@test-ca:7054
 ```
+
+修改tls 中的文件名
+
 
 ```go
 

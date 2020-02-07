@@ -2,24 +2,24 @@ cat>/root/temp/configtx.yaml<<EOF
 
 ---
 Organizations:
-    - &OrdererOrg
-        Name: OrdererOrg
-        ID: OrdererMSP
-        MSPDir: hyperledger_data/crypto-config/ordererOrganizations/dams.com/msp
+    - &ordererOrg
+        Name: ordererMSP
+        ID: ordererMSP
+        MSPDir: /opt/orderer/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('OrdererMSP.member')"
+                Rule: "OR('ordererMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('OrdererMSP.member')"
+                Rule: "OR('ordererMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('OrdererMSP.admin')"
-    - &cec
+                Rule: "OR('ordererMSP.admin')"
+    - &org1
         Name: peer0MSP
         ID: peer0MSP
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/msp
+        MSPDir: /opt/peer0/msp
         Policies:
             Readers:
                 Type: Signature
@@ -107,26 +107,20 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *OrdererOrg
+                - *ordererOrg
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *cec
-                    - *ia3
-                    - *ic3
-                    - *gov
+                    - *org1
     TwoOrgsChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *cec
-                - *ia3
-                - *ic3
-                - *gov
+                - *org1
             Capabilities:
                 <<: *ApplicationCapabilities
 ...

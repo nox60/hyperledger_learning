@@ -294,6 +294,9 @@ docker run --rm -it \
 
 0. 注册orderer
 
+
+
+
 ```go
 rm -rf /root/temp/order-home
 docker run --rm -it \

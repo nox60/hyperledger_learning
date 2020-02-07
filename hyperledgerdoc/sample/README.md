@@ -427,6 +427,32 @@ Global Flags:
 启动 orderer服务 
 ```go
 
+docker rm -f orderer.com
+docker run -it -d  \
+  --name orderer.com \
+      --network bc-net \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
+      -e ORDERER_GENERAL_GENESISMETHOD="file" \
+      -e ORDERER_GENERAL_GENESISFILE="/etc/hyperledger/orderer_data/orderer.genesis.block" \
+      -e ORDERER_GENERAL_LOCALMSPID="ordererMSP" \
+      -e ORDERER_GENERAL_LOCALMSPDIR="/etc/hyperledger/fabric/msp" \
+      -e ORDERER_GENERAL_TLS_ENABLED="true" \
+      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
+      -e ORDERER_GENERAL_TLS_CERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/cert.pem" \
+      -e ORDERER_GENERAL_TLS_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
+      -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
+      -e ORDERER_KAFKA_VERBOSE="true" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/cert.pem" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
+      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
+      -v /root/temp/orderer-home/tls/msp:/etc/hyperledger/orderer/tls \
+      -v /root/temp/orderer-home/msp/msp:/etc/hyperledger/fabric/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/orderer_data_dir:/etc/hyperledger/production/orderer \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
+      -v /var/run:/var/run \
+      hyperledger/fabric-orderer:1.4.3
 ```
 
 启动peer0的couchdb

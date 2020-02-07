@@ -310,13 +310,14 @@ mv /root/temp/orderer-home/tls/msp/tlscacerts/* /root/temp/orderer-home/tls/msp/
 docker run --rm -it \
   --name enroll.cec.orderer \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/opt/ordrer-home-msp \
-      -v /root/temp/ordrer-home/msp:/opt/ordrer-home-msp \
+      -e FABRIC_CA_CLIENT_HOME=/opt/orderer-home-msp \
+      -v /root/temp/orderer-home/msp:/opt/orderer-home-msp \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      -M /opt/ordrer-home-msp/msp \
+      -M /opt/orderer-home-msp/msp \
       -u http://orderer:ordererpw@test-ca:7054
 ```
+mv /root/temp/orderer-home/msp/msp/cacerts/* /root/temp/orderer-home/msp/msp/cacerts/ca.pem
 
 接下来要测试的，
 
@@ -378,13 +379,12 @@ docker run --rm -it \
   --name configtxgen.generate.files \
       --network bc-net \
       -e FABRIC_CFG_PATH=/etc/hyperledger/ \
-      -v /root/temp/peer0-home/msp:/opt/peer0-home-msp \
-      -v /root/temp/orderer-home/msp:/opt/orderer-home-msp \
-      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -v /root/temp/:/opt/data \
+      -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
       configtxgen \
-      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
+      -outputBlock /opt/data/orderer.genesis.block \
       -channelID byfn-sys-channel \
       -profile TwoOrgsOrdererGenesis
 ```
@@ -421,6 +421,11 @@ Global Flags:
       --tls.client.certfile string     PEM-encoded certificate file when mutual authenticate is enabled
       --tls.client.keyfile string      PEM-encoded key file when mutual authentication is enabled
   -u, --url string                     URL of fabric-ca-server (default "http://localhost:7054")
+
+```
+
+启动 orderer服务 
+```go
 
 ```
 

@@ -269,6 +269,26 @@ fabric-ca-client register \
 
 发现顺利注册成功
 
+
+-1. 生成创世区块
+
+
+
+
+0. 注册orderer
+
+```go
+rm -rf /root/temp/order-home
+docker run --rm -it \
+    --name register.orderer \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client register \
+    --id.name orderer --id.type orderer   --id.secret ordererpw 
+```
+
 接下来要测试的，
 
 1. 是通过这个CA注册一个peer，然后和这个peer通信的时候，关掉这个ca，看看root ca是否能验证成功。这里好像是不需要，因为generate出来的各种ca证书，也是没有root ca服务供验证的
@@ -321,6 +341,9 @@ docker run --rm -it \
       -u http://peer0:peerpw@test-ca:7054
 ```
 
+mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
+
+
 ```go
 
 Global Flags:
@@ -364,7 +387,7 @@ docker run -it -d  \
     --network bc-net \
     -e COUCHDB_USER=admin \
     -e COUCHDB_PASSWORD=dev@2019  \
-    -v /root/temp/peer0-couchdb:/opt/couchdb/data \
+    -v /root/temp/peer0-home/couchdb:/opt/couchdb/data \
     -p 5984:5984 \
     -p 9100:9100 \
     -d hyperledger/fabric-couchdb
@@ -397,14 +420,34 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_peer0:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
+      -e CORE_NOTEOUS_ENABLE="false" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/temp/peer0-home:/etc/hyperledger/fabric \
+      -v /root/temp/peer0-home/msp/msp:/etc/hyperledger/fabric/msp \
+      -v /root/temp/peer0-home/tls/msp:/etc/hyperledger/fabric/tls \
       -v /root/temp/peer0-home/production:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
+```
 
+```shell
+cat>/root/temp/peer0-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
 ```
 
 

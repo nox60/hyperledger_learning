@@ -339,6 +339,8 @@ NodeOUs:
 EOF
 ```
 
+mkdir -p /root/temp/orderer-home/msp/msp/admincerts
+
 
 接下来要测试的，
 
@@ -394,7 +396,26 @@ docker run --rm -it \
 mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
 
 # 给peer0节点创建 config.yaml文件
+```shell
+cat>/root/temp/peer0-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
 
+# 生成configtx.yaml文件
 
 -1. 各种msp生成完毕之后，生成创世区块
 ```go
@@ -410,6 +431,22 @@ docker run --rm -it \
       -outputBlock /opt/data/orderer.genesis.block \
       -channelID byfn-sys-channel \
       -profile TwoOrgsOrdererGenesis
+```
+
+创建通道 channel.tx文件
+```go
+docker run --rm -it \
+  --name configtxgen.generate.files.channel.tx.file \
+      --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
+      -v /root/temp/:/opt/data \
+      -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -w /etc/hyperledger \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen \
+      -profile TwoOrgsChannel \
+      -outputCreateChannelTx /opt/data/channel.tx \
+      -channelID mychannel
 ```
 
 ```go
@@ -449,7 +486,6 @@ Global Flags:
 
 
 
-mkdir -p /root/temp/orderer-home/msp/msp/admincerts
 
 启动 orderer服务 
 ```go
@@ -479,25 +515,6 @@ docker run -it -d  \
       -v /root/temp/orderer.genesis.block:/etc/hyperledger/orderer_data/orderer.genesis.block \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
-```
-
-```shell
-cat>/root/temp/peer0-home/msp/msp/config.yaml<<EOF
-NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: orderer
-EOF
 ```
 
 启动peer0的couchdb
@@ -552,6 +569,29 @@ docker run -it -d \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -174,13 +174,13 @@ docker run \
 把admin的msp拉出来
 ```go
 docker run --rm -it \
---name enroll.test.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
--v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
--u http://admin:adminpw@ca.com:7054
+    --name enroll.test.ca.client \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client enroll \
+    -u http://admin:adminpw@ca.com:7054
 ```
 
 会生成这样的目录结构
@@ -281,7 +281,9 @@ docker run --rm -it \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name orderer.com --id.type orderer --id.secret ordererpw 
+    --id.name orderer.com --id.type orderer \
+    --id.affiliation ordererOrg.ordererMSP \
+    --id.secret ordererpw 
 ```
 
 拉取orderer的tls
@@ -570,8 +572,39 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3
 ```
 
-# 创建通道
+注册orderer机构管理员
+```go
+docker run --rm -it \
+    --name register.orderer.order.admin \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client register \
+    --id.name order.admin \
+    --id.type admin \
+    --id.affiliation ordererOrg.ordererMSP \
+    --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
+```
 
+
+把这个管理员order.admin的msp拉到本地
+```go
+docker run --rm -it \
+    --name register.test.ca.client \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+    -v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client enroll \
+    -u http://admin2:admin2pw@ca.com:7054
+```
+
+
+
+
+# 创建通道
+```go
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
@@ -587,7 +620,7 @@ docker run --rm -it \
     -f /etc/hyperledger/orderer_data/channel.tx \
     --tls true \
     --cafile /etc/hyperledger/fabric/tls/tlscacerts/ca.crt 
-
+```
 
 
 

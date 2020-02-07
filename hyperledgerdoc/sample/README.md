@@ -269,9 +269,6 @@ fabric-ca-client register \
 
 发现顺利注册成功
 
-
-
-
 0. 注册orderer
 ```go
 rm -rf /root/temp/order-home
@@ -424,6 +421,27 @@ Global Flags:
 
 ```
 
+
+```shell
+cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
+
 启动 orderer服务 
 ```go
 
@@ -454,9 +472,24 @@ docker run -it -d  \
       hyperledger/fabric-orderer:1.4.3
 ```
 
-mv /root/temp/peer0-home/tls/msp/keystore/* /root/temp/peer0-home/tls/msp/keystore/server.key
-mv /root/temp/peer0-home/tls/msp/signcerts/* /root/temp/peer0-home/tls/msp/signcerts/server.crt
-mv /root/temp/peer0-home/tls/msp/tlscacerts/* /root/temp/peer0-home/tls/msp/tlscacerts/ca.crt
+```shell
+cat>/root/temp/peer0-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
 
 启动peer0的couchdb
 ```go
@@ -471,6 +504,7 @@ docker run -it -d  \
     -p 9100:9100 \
     -d hyperledger/fabric-couchdb
 ```
+
 
 启动peer0
 ```go
@@ -510,24 +544,6 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3
 ```
 
-```shell
-cat>/root/temp/peer0-home/msp/msp/config.yaml<<EOF
-NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: orderer
-EOF
-```
 
 
 

@@ -142,7 +142,7 @@ fabric-ca-client register \
 
 用docker 启动一个ca server
 ```用docker启动一个
-docker rm -f test-ca
+docker rm -f ca.com
 docker run \
   -it -d \
   --name ca.com \
@@ -180,7 +180,7 @@ docker run --rm -it \
 -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
 hyperledger/fabric-ca:1.4.3 \
 fabric-ca-client enroll \
--u http://admin:adminpw@test-ca:7054
+-u http://admin:adminpw@ca.com:7054
 ```
 
 会生成这样的目录结构
@@ -237,7 +237,7 @@ docker run --rm -it \
 -v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
 hyperledger/fabric-ca:1.4.3 \
 fabric-ca-client enroll \
--u http://admin2:admin2pw@test-ca:7054
+-u http://admin2:admin2pw@ca.com:7054
 ```
 
 3. 利用刚刚那个admin2的msp进行注册
@@ -294,7 +294,7 @@ docker run --rm -it \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts orderer.com \
-      -u http://orderer:ordererpw@test-ca:7054
+      -u http://orderer.com:ordererpw@ca.com:7054
 ```
 
 修改tls中的私钥文件名
@@ -314,12 +314,30 @@ docker run --rm -it \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -M /opt/orderer-home-msp/msp \
-      -u http://orderer:ordererpw@test-ca:7054
+      -u http://orderer.com:ordererpw@ca.com:7054
 ```
 mv /root/temp/orderer-home/msp/msp/cacerts/* /root/temp/orderer-home/msp/msp/cacerts/ca.pem
 
 # 给orderer节点创建config.yaml文件
 
+```shell
+cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
 
 
 接下来要测试的，
@@ -350,7 +368,7 @@ docker run --rm -it \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       --enrollment.profile tls --csr.hosts peer0.com \
-      -u http://peer0:peerpw@test-ca:7054
+      -u http://peer0:peerpw@ca.com:7054
 ```
 
 修改tls中的私钥文件名
@@ -370,31 +388,13 @@ docker run --rm -it \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -M /opt/peer0-home-msp/msp \
-      -u http://peer0:peerpw@test-ca:7054
+      -u http://peer0:peerpw@ca.com:7054
 ```
 
 mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
 
 # 给peer0节点创建 config.yaml文件
 
-```shell
-cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
-NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: orderer
-EOF
-```
 
 -1. 各种msp生成完毕之后，生成创世区块
 ```go

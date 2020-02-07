@@ -1,3 +1,5 @@
+cat>/root/temp/configtx.yaml<<EOF
+
 ---
 Organizations:
     - &OrdererOrg
@@ -15,21 +17,21 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
     - &cec
-        Name: cecMSP
-        ID: cecMSP
+        Name: peer0MSP
+        ID: peer0MSP
         MSPDir: hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('cecMSP.admin', 'cecMSP.peer', 'cecMSP.client')"
+                Rule: "OR('peer0MSP.admin', 'peer0MSP.peer', 'peer0MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('cecMSP.admin', 'cecMSP.client')"
+                Rule: "OR('peer0MSP.admin', 'peer0MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('cecMSP.admin')"
+                Rule: "OR('peer0MSP.admin')"
         AnchorPeers:
-            - Host: peer0.dams.com
+            - Host: peer0.com
               Port: 7051
 Capabilities:
     Channel: &ChannelCapabilities
@@ -128,3 +130,5 @@ Profiles:
             Capabilities:
                 <<: *ApplicationCapabilities
 ...
+
+EOF

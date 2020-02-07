@@ -438,22 +438,25 @@ docker run -it -d  \
       -e ORDERER_GENERAL_LOCALMSPID="ordererMSP" \
       -e ORDERER_GENERAL_LOCALMSPDIR="/etc/hyperledger/fabric/msp" \
       -e ORDERER_GENERAL_TLS_ENABLED="true" \
-      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
-      -e ORDERER_GENERAL_TLS_CERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/cert.pem" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
+      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/server.key" \
+      -e ORDERER_GENERAL_TLS_CERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/server.crt" \
+      -e ORDERER_GENERAL_TLS_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/ca.crt]" \
       -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
       -e ORDERER_KAFKA_VERBOSE="true" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/cert.pem" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/${ORDERER_TLS_PRIVATE_KEY}" \
-      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/tls-ca-tls-7052.pem]" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/server.crt" \
+      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/server.key" \
+      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/ca.crt]" \
       -v /root/temp/orderer-home/tls/msp:/etc/hyperledger/orderer/tls \
       -v /root/temp/orderer-home/msp/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/orderer_data_dir:/etc/hyperledger/production/orderer \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
+      -v /root/temp/orderer.genesis.block:/etc/hyperledger/orderer_data/orderer.genesis.block \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
 ```
+
+mv /root/temp/peer0-home/tls/msp/keystore/* /root/temp/peer0-home/tls/msp/keystore/server.key
+mv /root/temp/peer0-home/tls/msp/signcerts/* /root/temp/peer0-home/tls/msp/signcerts/server.crt
+mv /root/temp/peer0-home/tls/msp/tlscacerts/* /root/temp/peer0-home/tls/msp/tlscacerts/ca.crt
 
 启动peer0的couchdb
 ```go

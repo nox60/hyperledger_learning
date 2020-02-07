@@ -5,7 +5,7 @@ Organizations:
     - &ordererOrg
         Name: ordererMSP
         ID: ordererMSP
-        MSPDir: /opt/orderer/msp
+        MSPDir: /opt/orderer-home-msp/msp
         Policies:
             Readers:
                 Type: Signature
@@ -19,7 +19,7 @@ Organizations:
     - &org1
         Name: peer0MSP
         ID: peer0MSP
-        MSPDir: /opt/peer0/msp
+        MSPDir: /opt/peer0-home-msp/msp
         Policies:
             Readers:
                 Type: Signature

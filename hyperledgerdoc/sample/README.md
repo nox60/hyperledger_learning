@@ -272,26 +272,6 @@ fabric-ca-client register \
 
 
 
--1. 生成创世区块
-```go
-docker run --rm -it \
-  --name configtxgen.generate.files \
-      --network bc-net \
-      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
-      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/etc/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/peer0/msp \
-      -w /etc/hyperledger \
-      hyperledger/fabric-tools:1.4.3 \
-      configtxgen \
-      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
-      -channelID byfn-sys-channel \
-      -profile TwoOrgsOrdererGenesis
-```
-
-
-
 0. 注册orderer
 ```go
 rm -rf /root/temp/order-home
@@ -328,16 +308,15 @@ mv /root/temp/orderer-home/tls/msp/tlscacerts/* /root/temp/orderer-home/tls/msp/
 拉取msp
 ```go
 docker run --rm -it \
-  --name enroll.cec.peer0 \
+  --name enroll.cec.orderer \
       --network bc-net \
-      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-msp \
-      -v /root/temp/peer0-home/msp:/opt/peer0-home-msp \
+      -e FABRIC_CA_CLIENT_HOME=/opt/ordrer-home-msp \
+      -v /root/temp/ordrer-home/msp:/opt/ordrer-home-msp \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      -M /opt/peer0-home-msp/msp \
-      -u http://peer0:peerpw@test-ca:7054
+      -M /opt/ordrer-home-msp/msp \
+      -u http://orderer:ordererpw@test-ca:7054
 ```
-
 
 接下来要测试的，
 
@@ -375,7 +354,6 @@ docker run --rm -it \
 mv /root/temp/peer0-home/tls/msp/keystore/* /root/temp/peer0-home/tls/msp/keystore/server.key
 mv /root/temp/peer0-home/tls/msp/signcerts/* /root/temp/peer0-home/tls/msp/signcerts/server.crt
 mv /root/temp/peer0-home/tls/msp/tlscacerts/* /root/temp/peer0-home/tls/msp/tlscacerts/ca.crt
-
 ```
 
 拉取msp
@@ -393,6 +371,23 @@ docker run --rm -it \
 
 mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
 
+
+-1. 各种msp生成完毕之后，生成创世区块
+```go
+docker run --rm -it \
+  --name configtxgen.generate.files \
+      --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
+      -v /root/temp/peer0-home/msp:/opt/peer0-home-msp \
+      -v /root/temp/orderer-home/msp:/opt/orderer-home-msp \
+      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -w /etc/hyperledger \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen \
+      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
+      -channelID byfn-sys-channel \
+      -profile TwoOrgsOrdererGenesis
+```
 
 ```go
 

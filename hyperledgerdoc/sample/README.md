@@ -316,6 +316,10 @@ docker run --rm -it \
 ```
 mv /root/temp/orderer-home/msp/msp/cacerts/* /root/temp/orderer-home/msp/msp/cacerts/ca.pem
 
+# 给orderer节点创建config.yaml文件
+
+
+
 接下来要测试的，
 
 1. 是通过这个CA注册一个peer，然后和这个peer通信的时候，关掉这个ca，看看root ca是否能验证成功。这里好像是不需要，因为generate出来的各种ca证书，也是没有root ca服务供验证的
@@ -369,6 +373,26 @@ docker run --rm -it \
 
 mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
 
+# 给peer0节点创建 config.yaml文件
+
+```shell
+cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
 
 -1. 各种msp生成完毕之后，生成创世区块
 ```go
@@ -422,25 +446,8 @@ Global Flags:
 ```
 
 
-```shell
-cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
-NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: orderer
-EOF
-```
 
+mkdir -p /root/temp/orderer-home/msp/msp/admincerts
 
 启动 orderer服务 
 ```go

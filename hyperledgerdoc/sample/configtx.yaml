@@ -65,7 +65,7 @@ Application: &ApplicationDefaults
 Orderer: &OrdererDefaults
     OrdererType: solo
     Addresses:
-        - orderer.dams.com:7050
+        - orderer.com:7050
     BatchTimeout: 2s
     BatchSize:
         MaxMessageCount: 10

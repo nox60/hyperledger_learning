@@ -570,10 +570,23 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3
 ```
 
+# 创建通道
 
-
-
-
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/tlscacerts/ca.crt \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -v /root/temp/peer0-home/msp/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/peer0-home/tls/msp:/etc/hyperledger/fabric/tls \
+    -v /root/temp/channel.tx:/etc/hyperledger/orderer_data/channel.tx \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
+    -c mychannel \
+    -f /etc/hyperledger/orderer_data/channel.tx \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/tls/tlscacerts/ca.crt 
 
 
 

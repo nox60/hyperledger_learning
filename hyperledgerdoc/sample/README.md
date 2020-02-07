@@ -145,32 +145,16 @@ fabric-ca-client register \
 docker rm -f test-ca
 docker run \
   -it -d \
-  --name test-ca \
+  --name ca.com \
       --network bc-net \
       -e FABRIC_CA_HOME="/opt/ca-home" \
-      -e FABRIC_CA_SERVER_CA_NAME="test-ca" \
-      -e FABRIC_CA_SERVER_CSR_CN=test-ca \
-      -e FABRIC_CA_SERVER_CSR_HOSTS=test-ca \
+      -e FABRIC_CA_SERVER_CA_NAME="ca.com" \
+      -e FABRIC_CA_SERVER_CSR_CN=ca.com \
+      -e FABRIC_CA_SERVER_CSR_HOSTS=ca.com \
       -e FABRIC_CA_SERVER_PORT=7054 \
       -v /root/temp/test-ca-home:/opt/ca-home \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
 ```
-
-
-docker rm -f ca.tls
-docker run \
-  -it -d \
-  --name ca.tls \
-      --network bc-net \
-      -e FABRIC_CA_SERVER_HOME=/etc/hyperledger/ca.tls/ca.home \
-      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
-      -e FABRIC_CA_SERVER_CSR_CN=ca.tls \
-      -e FABRIC_CA_SERVER_CSR_HOSTS=ca.tls \
-      -e FABRIC_CA_SERVER_DEBUG=false \
-      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
-      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  \
-      start -d -b \
-      ca-tls-admin:ca-tls-adminpw --port 7052
 
 会生成这样的目录和文件结构：
 
@@ -297,7 +281,7 @@ docker run --rm -it \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name orderer --id.type orderer   --id.secret ordererpw 
+    --id.name orderer.com --id.type orderer --id.secret ordererpw 
 ```
 
 拉取orderer的tls

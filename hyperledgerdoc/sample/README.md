@@ -293,10 +293,6 @@ docker run --rm -it \
 
 
 0. 注册orderer
-
-
-
-
 ```go
 rm -rf /root/temp/order-home
 docker run --rm -it \
@@ -308,6 +304,40 @@ docker run --rm -it \
     fabric-ca-client register \
     --id.name orderer --id.type orderer   --id.secret ordererpw 
 ```
+
+拉取orderer的tls
+```go
+docker run --rm -it \
+  --name enroll.orderer \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/opt/orderer-home \
+      -v /root/temp/orderer-home/tls:/opt/orderer-home \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      --enrollment.profile tls --csr.hosts orderer.com \
+      -u http://orderer:ordererpw@test-ca:7054
+```
+
+修改tls中的私钥文件名
+```shell script
+mv /root/temp/orderer-home/tls/msp/keystore/* /root/temp/orderer-home/tls/msp/keystore/server.key
+mv /root/temp/orderer-home/tls/msp/signcerts/* /root/temp/orderer-home/tls/msp/signcerts/server.crt
+mv /root/temp/orderer-home/tls/msp/tlscacerts/* /root/temp/orderer-home/tls/msp/tlscacerts/ca.crt
+```
+
+拉取msp
+```go
+docker run --rm -it \
+  --name enroll.cec.peer0 \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-msp \
+      -v /root/temp/peer0-home/msp:/opt/peer0-home-msp \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -M /opt/peer0-home-msp/msp \
+      -u http://peer0:peerpw@test-ca:7054
+```
+
 
 接下来要测试的，
 

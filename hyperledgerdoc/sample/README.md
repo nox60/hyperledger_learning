@@ -270,8 +270,25 @@ fabric-ca-client register \
 发现顺利注册成功
 
 
--1. 生成创世区块
 
+
+-1. 生成创世区块
+```go
+docker run --rm -it \
+  --name configtxgen.generate.files \
+      --network bc-net \
+      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/hyperledger_data \
+      -v /opt/local/codes/docker_with_ca_4/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/etc/hyperledger/orderer/msp \
+      -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/msp/msp:/etc/hyperledger/cec/peer0/msp \
+      -w /etc/hyperledger \
+      hyperledger/fabric-tools:1.4.3 \
+      configtxgen \
+      -outputBlock /etc/hyperledger/hyperledger_data/orderer.genesis.block \
+      -channelID byfn-sys-channel \
+      -profile TwoOrgsOrdererGenesis
+```
 
 
 

@@ -271,6 +271,27 @@ fabric-ca-client register \
 
 发现顺利注册成功
 
+先注册affiliation
+```go
+#fabric-ca-client affiliation add org3.department1
+docker run --rm -it \
+    --name add-affiliation \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client affiliation add ordererOrg
+```
+```go
+docker run --rm -it \
+    --name add-affiliation \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client affiliation add ordererOrg.ordererMSP
+```
+
 0. 注册orderer
 ```go
 rm -rf /root/temp/order-home

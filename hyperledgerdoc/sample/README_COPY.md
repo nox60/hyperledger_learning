@@ -156,6 +156,21 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
 ```
 
+会生成这样的目录和文件结构：
+
+```go
+├── ca-cert.pem
+├── fabric-ca-server-config.yaml
+├── fabric-ca-server.db
+├── IssuerPublicKey
+├── IssuerRevocationPublicKey
+└── msp
+    └── keystore
+        ├── ed76bf690cfa52ef372d241986981896c18232a806238c818e9a9cca6fe1431f_sk
+        ├── IssuerRevocationPrivateKey
+        └── IssuerSecretKey
+```
+
 把admin的msp拉出来
 ```go
 docker run --rm -it \
@@ -166,6 +181,92 @@ docker run --rm -it \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client enroll \
     -u http://admin:adminpw@ca.com:7054
+```
+
+会生成这样的目录结构
+```dir
+├── fabric-ca-client-config.yaml
+└── msp
+    ├── cacerts
+    │   └── test-ca-7054.pem        //等于上面的 ca-cert.pem
+    ├── IssuerPublicKey             //等于上面的 ssuerPublicKey
+    ├── IssuerRevocationPublicKey
+    ├── keystore
+    │   └── 46b9002d4ebf9a2b565e2834b8f3573891646dd710de3f1cc3c7f800372bf2e0_sk
+    ├── signcerts
+    │   └── cert.pem
+    └── user
+```
+
+//上面是没有启用HTTPS的，看看启用https之后有什么差异?
+
+//尝试注册一个peer，看看是否有权限
+```go
+docker run --rm -it \
+--name register.peer \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+-v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name peer --id.type peer  --id.secret peerpw
+```
+
+显示注册成功了，看起来，初始化的那个admin拥有非常高的权限
+
+//注册一个没有peer注册权限的admin2，有client权限，看看是否有权限
+
+1. 先注册
+```go
+docker run --rm -it \
+--name register.peer \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+-v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name admin2 --id.type admin  --id.attrs '"hf.Registrar.Roles=client"' --id.secret admin2pw 
+```
+
+2. 把这个admin2的msp拉到本地
+```go
+docker run --rm -it \
+--name enroll.test.ca.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+-v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client enroll \
+-u http://admin2:admin2pw@ca.com:7054
+```
+
+3. 利用刚刚那个admin2的msp进行注册
+```go
+docker run --rm -it \
+--name register.peer2 \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+-v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name peer2 --id.type peer  --id.secret peer2pw 
+```
+
+4. 发现会报错，说权限不够
+```go
+Error: Response from server: Error Code: 45 - Failed to verify if user can act on type 'peer': : scode: 403, local code: 42, local msg: 'admin2' is not a registrar, remote code: 71, remote msg: Authorization failure
+```
+
+5. 注册一个client
+```go
+docker run --rm -it \
+--name register.client \
+--network bc-net \
+-e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+-v /root/temp/test-ca-admin2-home:/opt/test-admin2-home \
+hyperledger/fabric-ca:1.4.3 \
+fabric-ca-client register \
+--id.name client --id.type client  --id.secret clientpw 
 ```
 
 发现顺利注册成功
@@ -181,19 +282,6 @@ docker run --rm -it \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client affiliation add ordererOrg
 ```
-
-增加第一个组织
-```go
-#fabric-ca-client affiliation add org3.department1
-docker run --rm -it \
-    --name add-affiliation \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
-    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client affiliation add org1
-```
-
 ```go
 docker run --rm -it \
     --name add-affiliation \
@@ -384,6 +472,44 @@ docker run --rm -it \
       -channelID mychannel
 ```
 
+```go
+
+Global Flags:
+      --caname string                  Name of CA
+      --csr.cn string                  The common name field of the certificate signing request
+      --csr.hosts stringSlice          A list of comma-separated host names in a certificate signing request
+      --csr.keyrequest.algo string     Specify key algorithm
+      --csr.keyrequest.size int        Specify key size
+      --csr.names stringSlice          A list of comma-separated CSR names of the form <name>=<value> (e.g. C=CA,O=Org1)
+      --csr.serialnumber string        The serial number in a certificate signing request
+      --enrollment.attrs stringSlice   A list of comma-separated attribute requests of the form <name>[:opt] (e.g. foo,bar:opt)
+      --enrollment.label string        Label to use in HSM operations
+      --enrollment.profile string      Name of the signing profile to use in issuing the certificate
+      --enrollment.type string         The type of enrollment request: 'x509' or 'idemix' (default "x509")
+  -H, --home string                    Client's home directory (default "/opt/peer0-home")
+      --id.affiliation string          The identity's affiliation
+      --id.attrs stringSlice           A list of comma-separated attributes of the form <name>=<value> (e.g. foo=foo1,bar=bar1)
+      --id.maxenrollments int          The maximum number of times the secret can be reused to enroll (default CA's Max Enrollment)
+      --id.name string                 Unique name of the identity
+      --id.secret string               The enrollment secret for the identity being registered
+      --id.type string                 Type of identity being registered (e.g. 'peer, app, user') (default "client")
+      --loglevel string                Set logging level (info, warning, debug, error, fatal, critical)
+  -M, --mspdir string                  Membership Service Provider directory (default "msp")
+  -m, --myhost string                  Hostname to include in the certificate signing request during enrollment (default "a2fc115b3b43")
+  -a, --revoke.aki string              AKI (Authority Key Identifier) of the certificate to be revoked
+  -e, --revoke.name string             Identity whose certificates should be revoked
+  -r, --revoke.reason string           Reason for revocation
+  -s, --revoke.serial string           Serial number of the certificate to be revoked
+      --tls.certfiles stringSlice      A list of comma-separated PEM-encoded trusted certificate files (e.g. root1.pem,root2.pem)
+      --tls.client.certfile string     PEM-encoded certificate file when mutual authenticate is enabled
+      --tls.client.keyfile string      PEM-encoded key file when mutual authentication is enabled
+  -u, --url string                     URL of fabric-ca-server (default "http://localhost:7054")
+
+```
+
+
+
+
 启动 orderer服务 
 ```go
 
@@ -413,7 +539,6 @@ docker run -it -d  \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
 ```
-
 
 启动peer0的couchdb
 ```go
@@ -483,6 +608,7 @@ docker run --rm -it \
     --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
 ```
 
+
 把这个管理员order.admin的msp拉到本地
 ```go
 docker run --rm -it \
@@ -495,32 +621,8 @@ docker run --rm -it \
     -u http://order.admin:adminpw@ca.com:7054
 ```
 
-注册org1机构管理员
-```go
-docker run --rm -it \
-    --name register.org1.admin \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
-    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client register \
-    --id.name org1.admin \
-    --id.type admin \
-    --id.affiliation org1 \
-    --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
-```
 
-把管理员org1.admin的msp拉到本地
-```go
-docker run --rm -it \
-    --name enroll.org1.admin.ca.client \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
-    -v /root/temp/org1-admin-home:/opt/test-admin2-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client enroll \
-    -u http://org1.admin:adminpw@ca.com:7054
-```
+
 
 # 创建通道
 ```go
@@ -530,7 +632,7 @@ docker run --rm -it \
     -e CORE_PEER_LOCALMSPID=peer0MSP \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca-com-7054.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/orderer-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/temp/channel.tx:/etc/hyperledger/orderer_data/channel.tx \
     hyperledger/fabric-tools:1.4.3 \
     peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \

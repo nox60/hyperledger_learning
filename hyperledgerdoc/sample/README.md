@@ -492,15 +492,27 @@ docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     hyperledger/fabric-tools:1.4.3 \
-    peer channel list \
-    --tls true \
-    --cafile /etc/hyperledger/fabric/cacerts/ca.pem
+    peer channel list
 ```
 
+docker run --rm -it \
+    --name cec.list.channel.admin2.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
+    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
+    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel list
 
 
 

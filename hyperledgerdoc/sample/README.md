@@ -43,95 +43,10 @@ start.sh 拉起相应的容器。
 
 
 ## 操作任务
-### 1.1. enroll cec的admin用户，目前初始的cec admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.cec.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/cec-ca/admin \
--u https://admin:adminpw@ca.cec.dams.com:7054
-```
-
-### 1.2. enroll ia3的admin用户，目前初始的ia3 admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.ia3.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ia3-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ia3-ca/fabric-ca-server-config/ca.ia3.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin:/etc/hyperledger/ia3-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca:/etc/hyperledger/ia3-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/ia3-ca/admin \
--u https://admin:adminpw@ca.ia3.dams.com:7054
-```
-
-### 1.3. enroll ic3的admin用户，目前初始的ic3 admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.ic3.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ic3-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ic3-ca/fabric-ca-server-config/ca.ic3.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/users/admin:/etc/hyperledger/ic3-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/ca:/etc/hyperledger/ic3-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/ic3-ca/admin \
--u https://admin:adminpw@ca.ic3.dams.com:7054
-```
-
-### 1.4. enroll gov的admin用户，目前初始的gov admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.gov.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/gov-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/gov-ca/fabric-ca-server-config/ca.gov.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin:/etc/hyperledger/gov-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/ca:/etc/hyperledger/gov-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/gov-ca/admin \
--u https://admin:adminpw@ca.gov.dams.com:7054
-```
-
-上面的命令会拉起一个容器，比如名为enroll.cec.admin.ca.client，该容器会执行enroll命令并且获取到admin的相关证书信息，执行完之后该容器自动销毁。
-获取到得证书文件等信息，在
-```dir
-/opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin 
-```
-目录中。
-
-### 2.1 创建cec的第二个admin用户，使用密码 admin2pw，后续操作会使用这个新创建的admin用户来进行操作。
 
 参数相关文档：
 https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#reenrolling-an-identity
 
-```runad
-docker run --rm -it \
---name register.cec.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client register \
---id.name admin2 --id.type admin  --id.attrs 'hf.Revoker=true,admin=true' --id.secret admin2pw \
--u https://ca.cec.dams.com:7054
-```
 
 # The following command uses the admin identity’s credentials to register a new identity with an enrollment id of “admin2”, an affiliation of “org1.department1”, an attribute named “hf.Revoker” with a value of “true”, and an attribute named “admin” with a value of “true”. The ”:ecert” suffix means that by default the “admin” attribute and its value will be inserted into the identity’s enrollment certificate, which can then be used to make access control decisions.
 # 这里权限是 'hf.Revoker=true,admin=true' ，和上面的官方文档描述是有差异的，官方文档用的是 admin=true:ecert default the “admin” attribute and its value will be inserted into the identity’s enrollment certificate, which can then be used to make access control decisions
@@ -168,7 +83,17 @@ docker run --rm -it \
     -u http://admin:adminpw@ca.com:7054
 ```
 
-发现顺利注册成功
+列出affiliation
+```go
+#fabric-ca-client affiliation add org3.department1
+docker run --rm -it \
+    --name add-affiliation \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client affiliation list
+```
 
 先注册affiliation
 ```go
@@ -350,7 +275,7 @@ NodeOUs:
 EOF
 ```
 
-# 生成configtx.yaml文件
+# 生成configtx.yaml文件 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 
 -1. 各种msp生成完毕之后，生成创世区块
 ```go
@@ -522,25 +447,61 @@ docker run --rm -it \
     -u http://org1.admin:adminpw@ca.com:7054
 ```
 
+mv /root/temp/org1-admin-home/msp/cacerts/* /root/temp/org1-admin-home/msp/cacerts/ca.pem
+
+```shell
+cat>/root/temp/org1-admin-home/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
 # 创建通道
 ```go
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=peer0MSP \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca-com-7054.pem \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/temp/channel.tx:/etc/hyperledger/orderer_data/channel.tx \
     hyperledger/fabric-tools:1.4.3 \
-    peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
+    peer channel create --outputBlock /etc/hyperledger/orderer_data/mychannel.block -o orderer.com:7050 \
     -c mychannel \
     -f /etc/hyperledger/orderer_data/channel.tx \
     --tls true \
-    --cafile /etc/hyperledger/fabric/tls/tlscacerts/ca.crt 
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
-
+# 列出通道
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7151 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/channel.tx:/etc/hyperledger/orderer_data/channel.tx \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel list \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
+```
 
 
 

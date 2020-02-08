@@ -576,6 +576,24 @@ docker run --rm -it \
     --installed
 ```
 
+查看已安装的合约
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode list\
+    -C mychannel \
+    --installed
+```
+
 
 
 

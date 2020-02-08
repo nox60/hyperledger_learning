@@ -477,11 +477,11 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/temp/channel.tx:/etc/hyperledger/orderer_data/channel.tx \
+    -v /root/temp:/opt/orderer_data \
     hyperledger/fabric-tools:1.4.3 \
-    peer channel create --outputBlock /etc/hyperledger/orderer_data/mychannel.block -o orderer.com:7050 \
+    peer channel create --outputBlock /opt/orderer_data/mychannel.block -o orderer.com:7050 \
     -c mychannel \
-    -f /etc/hyperledger/orderer_data/channel.tx \
+    -f /opt/orderer_data/channel.tx \
     --tls true \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
@@ -494,13 +494,11 @@ docker run --rm -it \
     -e CORE_PEER_LOCALMSPID=peer0MSP \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -e CORE_PEER_ADDRESS=peer0.com:7151 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/temp/channel.tx:/etc/hyperledger/orderer_data/channel.tx \
     hyperledger/fabric-tools:1.4.3 \
     peer channel list \
     --tls true \
-    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
+    --cafile /etc/hyperledger/fabric/cacerts/ca.pem
 ```
 
 

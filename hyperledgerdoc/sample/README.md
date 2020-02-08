@@ -576,7 +576,7 @@ docker run --rm -it \
     --installed
 ```
 
-查看已安装的合约
+查看已实例化合约
 ```go
 docker run --rm -it \
     --name create.channel.client \
@@ -591,7 +591,7 @@ docker run --rm -it \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\
     -C mychannel \
-    --installed
+    --instantiated
 ```
 
 

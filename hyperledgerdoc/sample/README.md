@@ -116,7 +116,7 @@ docker run --rm -it \
     -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client affiliation add org1
+    fabric-ca-client  affiliation add org3
 ```
 
 ```go
@@ -377,7 +377,7 @@ docker run -it -d \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.com:7051" \
-      -e CORE_PEER_LOCALMSPID="cecMSP" \
+      -e CORE_PEER_LOCALMSPID="peer0MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_peer0:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
@@ -486,6 +486,22 @@ docker run --rm -it \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
+# 加入通道
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp:/opt/orderer_data \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel join -b /opt/orderer_data/mychannel.block 
+```
+
 # 列出通道
 ```go
 docker run --rm -it \
@@ -500,19 +516,6 @@ docker run --rm -it \
     hyperledger/fabric-tools:1.4.3 \
     peer channel list
 ```
-
-docker run --rm -it \
-    --name cec.list.channel.admin2.client \
-    --network bc-net \
-    -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
-    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
-    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
-    hyperledger/fabric-tools:1.4.3 \
-    peer channel list
 
 
 

@@ -517,8 +517,10 @@ docker run --rm -it \
     peer channel list
 ```
 
+# 安装合约
+```go
 
-
+```
 
 
 

@@ -520,16 +520,15 @@ docker run --rm -it \
 # 安装合约
 ```go
 docker run --rm -it \
-    --name cec.install.chaincode.admin2.client \
+    --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=cecMSP \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
-    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin/msp \
-    -e CORE_PEER_ADDRESS=peer0.cec.com:7051 \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin/msp \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
-    -v /opt/local/codes/docker_with_ca_4/chaincode:/opt/gopath/src/mychaincode \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode install \
     -n mychaincode \
@@ -541,9 +540,38 @@ docker run --rm -it \
 
 
 
+# 实例化合约
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode install \
+    -n mychaincode \
+    -v 1.0 \
+    -l golang \
+    -p mychaincode
+```
 
 
 
+
+docker exec -it \
+cli \
+peer chaincode instantiate -o orderer.dams.com:7050 \
+--tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
+-C mychannel \
+-n mychaincode \
+-l golang \
+-v 1.0 \
+-c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
 
 
 

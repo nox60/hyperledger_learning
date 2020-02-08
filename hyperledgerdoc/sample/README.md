@@ -537,9 +537,6 @@ docker run --rm -it \
     -p mychaincode
 ```
 
-
-
-
 # 实例化合约
 ```go
 docker run --rm -it \
@@ -553,27 +550,31 @@ docker run --rm -it \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
-    peer chaincode install \
+    peer chaincode instantiate  -o orderer.com:7050\
+    -C mychannel \
     -n mychaincode \
     -v 1.0 \
     -l golang \
-    -p mychaincode
+    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''peer0MSP.peer'\'')'
 ```
 
-
-
-
-docker exec -it \
-cli \
-peer chaincode instantiate -o orderer.dams.com:7050 \
---tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
--C mychannel \
--n mychaincode \
--l golang \
--v 1.0 \
--c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
-
-
+查看已安装的合约
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode list\
+    -C mychannel \
+    --installed
+```
 
 
 

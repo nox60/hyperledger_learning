@@ -83,6 +83,30 @@ docker run --rm -it \
     -u http://admin:adminpw@ca.com:7054
 ```
 
+
+mv /root/temp/test-ca-admin-home/msp/cacerts/* /root/temp/test-ca-admin-home/msp/cacerts/ca.pem
+
+# 给orderer节点创建config.yaml文件
+
+```shell
+cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
 列出affiliation
 ```go
 #fabric-ca-client affiliation add org3.department1

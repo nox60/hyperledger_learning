@@ -553,7 +553,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/test-ca-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
@@ -588,6 +588,10 @@ docker run -it \
     --tls true \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
+
+
+Error: could not assemble transaction, err proposal response was not successful, error code 500, msg instantiation policy violation: signature set did not satisfy policy
+权限还是有问题。要研究。
 
 查看已安装的合约
 ```go

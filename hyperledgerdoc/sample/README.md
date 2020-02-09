@@ -83,13 +83,15 @@ docker run --rm -it \
     -u http://admin:adminpw@ca.com:7054
 ```
 
-
 mv /root/temp/test-ca-admin-home/msp/cacerts/* /root/temp/test-ca-admin-home/msp/cacerts/ca.pem
 
-# 给orderer节点创建config.yaml文件
+mkdir -p /root/temp/test-ca-admin-home/msp/admincerts
+
+
+# 创建config.yaml文件
 
 ```shell
-cat>/root/temp/orderer-home/msp/msp/config.yaml<<EOF
+cat>/root/temp/test-ca-admin-home/msp/config.yaml<<EOF
 NodeOUs:
   Enable: true
   ClientOUIdentifier:
@@ -551,7 +553,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/test-ca-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
@@ -573,7 +575,7 @@ docker run -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/test-ca-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \

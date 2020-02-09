@@ -528,7 +528,7 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode install \
     -n mychaincode \
@@ -548,7 +548,7 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode instantiate  -o orderer.com:7050\
     -C mychannel \

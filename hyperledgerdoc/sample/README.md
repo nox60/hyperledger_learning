@@ -528,18 +528,20 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
+    -v /root/chaincode/vendor:/opt/gopath/src \
+    -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode install \
     -n mychaincode \
-    -v 1.0 \
+    -v 1.1 \
     -l golang \
     -p mychaincode
 ```
 
 # 实例化合约
 ```go
-docker run --rm -it \
+docker run -it \
+    -e FABRIC_LOGGING_SPEC="DEBUG" \
     --name create.channel.client \
     --network bc-net \
     -e CORE_PEER_LOCALMSPID=peer0MSP \
@@ -548,14 +550,17 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
+    -v /root/chaincode/vendor:/opt/gopath/src \
+    -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode instantiate  -o orderer.com:7050\
     -C mychannel \
     -n mychaincode \
-    -v 1.0 \
+    -v 1.1 \
     -l golang \
-    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''peer0MSP.peer'\'')'
+    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''peer0MSP.peer'\'')' \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
 查看已安装的合约
@@ -587,7 +592,6 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\
     -C mychannel \

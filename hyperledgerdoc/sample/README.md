@@ -311,6 +311,8 @@ docker run --rm -it \
       -e FABRIC_CFG_PATH=/etc/hyperledger/ \
       -v /root/temp/:/opt/data \
       -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -v /root/temp/peer0-home/msp/msp:/opt/peer0-home/msp \
+      -v /root/temp/orderer-home/msp/msp:/opt/orderer-home/msp \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
       configtxgen \
@@ -579,7 +581,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/orderer-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
@@ -592,7 +594,7 @@ docker run --rm -it \
 
 # 实例化合约
 ```go
-docker run -it \
+docker run --rm  -it \
     -e FABRIC_LOGGING_SPEC="DEBUG" \
     --name create.channel.client \
     --network bc-net \
@@ -601,7 +603,7 @@ docker run -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/orderer-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \

@@ -389,6 +389,8 @@ docker run -it -d  \
     -d hyperledger/fabric-couchdb
 ```
 
+//http://192.168.81.128:5984/_utils/
+
 
 启动peer0
 ```go
@@ -669,7 +671,28 @@ docker run --rm -it \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
+执行合约
 
+```docker
+docker run --rm -it \
+    --name apply.chain.code \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    peer chaincode invoke \
+    -o orderer.com:7050 \
+    -C mychannel \
+    -n mychaincode \
+    -c '{"Args":["add","a","10"]}' \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
+```
 
 
 

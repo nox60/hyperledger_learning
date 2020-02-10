@@ -553,7 +553,9 @@ docker run --rm -it \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/temp:/opt/orderer_data \
     hyperledger/fabric-tools:1.4.3 \
-    peer channel join -b /opt/orderer_data/mychannel.block 
+    peer channel join -b /opt/orderer_data/mychannel.block \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
 # 列出通道

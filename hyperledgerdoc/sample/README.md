@@ -547,7 +547,7 @@ docker run --rm -it \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
-# 加入通道 --- 有问题，换版本
+# 加入通道 
 ```go
 docker run --rm -it \
     --name create.channel.client \

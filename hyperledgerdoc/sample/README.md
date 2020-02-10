@@ -323,10 +323,13 @@ docker run --rm -it \
 ```go
 docker run --rm -it \
   --name configtxgen.generate.files.channel.tx.file \
+      -e FABRIC_LOGGING_SPEC="DEBUG" \
       --network bc-net \
       -e FABRIC_CFG_PATH=/etc/hyperledger/ \
       -v /root/temp/:/opt/data \
       -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
+      -v /root/temp/peer0-home/msp/msp:/opt/peer0-home/msp \
+      -v /root/temp/orderer-home/msp/msp:/opt/orderer-home/msp \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
       configtxgen \
@@ -446,6 +449,29 @@ docker run --rm -it \
     -u http://order.admin:adminpw@ca.com:7054
 ```
 
+mv /root/temp/orderer-admin-home/msp/cacerts/* /root/temp/orderer-admin-home/msp/cacerts/ca.pem
+
+```shell
+cat>/root/temp/orderer-admin-home/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
+
+
 注册org1机构管理员
 ```go
 docker run --rm -it \
@@ -553,7 +579,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/orderer-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
@@ -575,7 +601,7 @@ docker run -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/test-ca-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/orderer-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
     -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
     hyperledger/fabric-tools:1.4.3 \
@@ -621,7 +647,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/orderer-admin-home/msp:/etc/hyperledger/fabric/msp \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\
     -C mychannel \

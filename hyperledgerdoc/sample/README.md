@@ -166,7 +166,7 @@ docker run --rm -it \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
     --id.name orderer.com --id.type orderer \
-    --id.affiliation ordererOrg.ordererMSP \
+    --id.affiliation ordererOrg \
     --id.secret ordererpw 
 ```
 
@@ -439,7 +439,7 @@ docker run --rm -it \
     fabric-ca-client register \
     --id.name order.admin \
     --id.type admin \
-    --id.affiliation ordererOrg.ordererMSP \
+    --id.affiliation ordererOrg \
     --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
 ```
 
@@ -475,7 +475,6 @@ NodeOUs:
     OrganizationalUnitIdentifier: orderer
 EOF
 ```
-
 
 
 注册org1机构管理员
@@ -534,7 +533,7 @@ docker run --rm -it \
     -e CORE_PEER_LOCALMSPID=peer0MSP \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/temp:/opt/orderer_data \
     hyperledger/fabric-tools:1.4.3 \
     peer channel create --outputBlock /opt/orderer_data/mychannel.block -o orderer.com:7050 \

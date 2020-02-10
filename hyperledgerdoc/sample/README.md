@@ -203,6 +203,8 @@ docker run --rm -it \
       -u http://orderer.com:ordererpw@ca.com:7054
 ```
 mv /root/temp/orderer-home/msp/msp/cacerts/* /root/temp/orderer-home/msp/msp/cacerts/ca.pem
+mkdir -p /root/temp/orderer-home/msp/msp/tlscacerts
+cp /root/temp/orderer-home/msp/msp/cacerts/ca.pem  /root/temp/orderer-home/msp/msp/tlscacerts/
 
 # 给orderer节点创建config.yaml文件
 
@@ -280,6 +282,8 @@ docker run --rm -it \
 ```
 
 mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
+mkdir -p /root/temp/peer0-home/msp/msp/tlscacerts
+cp /root/temp/peer0-home/msp/msp/cacerts/ca.pem  /root/temp/peer0-home/msp/msp/tlscacerts/
 
 # 给peer0节点创建 config.yaml文件
 ```shell
@@ -638,7 +642,9 @@ docker run --rm -it \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\
     -C mychannel \
-    --installed
+    --installed \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
 查看已实例化合约
@@ -655,7 +661,9 @@ docker run --rm -it \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\
     -C mychannel \
-    --instantiated
+    --instantiated \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
 

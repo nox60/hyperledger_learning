@@ -17,8 +17,8 @@ Organizations:
                 Type: Signature
                 Rule: "OR('ordererMSP.admin')"
     - &org1
-        Name: peer0MSP
-        ID: peer0MSP
+        Name: org1MSP
+        ID: org1MSP
         MSPDir: /opt/peer0-home/msp
         Policies:
             Readers:

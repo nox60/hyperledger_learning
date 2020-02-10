@@ -412,7 +412,7 @@ docker run -it -d \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
       -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.com:7051" \
       -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.com:7051" \
-      -e CORE_PEER_LOCALMSPID="peer0MSP" \
+      -e CORE_PEER_LOCALMSPID="org1MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_peer0:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
@@ -534,7 +534,7 @@ EOF
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
@@ -552,7 +552,7 @@ docker run --rm -it \
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
@@ -570,7 +570,7 @@ docker run --rm -it \
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
@@ -585,7 +585,7 @@ docker run --rm -it \
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
@@ -607,7 +607,7 @@ docker run --rm  -it \
     -e FABRIC_LOGGING_SPEC="DEBUG" \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
@@ -621,7 +621,7 @@ docker run --rm  -it \
     -n mychaincode \
     -v 1.1 \
     -l golang \
-    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''peer0MSP.peer'\'')' \
+    -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''org1MSP.peer'\'')' \
     --tls true \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
@@ -635,7 +635,7 @@ Error: could not assemble transaction, err proposal response was not successful,
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
@@ -655,7 +655,7 @@ docker run --rm -it \
 docker run --rm -it \
     --name create.channel.client \
     --network bc-net \
-    -e CORE_PEER_LOCALMSPID=peer0MSP \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \

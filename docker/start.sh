@@ -445,37 +445,5 @@ docker run -ti -d \
 -v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org3/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb
 
-docker rm -f peer0.org3.example.com
-docker run -it -d \
-  --name peer0.org3.example.com \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.org3.example.com" \
-      -e CORE_PEER_ADDRESS="peer0.org3.example.com:7151" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.org3.example.com:7052" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.org3.example.com:7051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.org3.example.com:7051" \
-      -e CORE_PEER_LOCALMSPID="Org3MSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="couchdb" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb:5984" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/org3peer:/var/hyperledger/production \
-      -v /etc/hosts:/etc/hosts \
-      -v /var/run:/var/run \
-      --link couchdb_org3:couchdb \
-      -p 7251:7051 \
-      -p 7252:7052 \
-      hyperledger/fabric-peer:1.4.3
+
 

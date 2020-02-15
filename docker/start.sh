@@ -369,12 +369,3 @@ docker run -it -d \
       -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3
 
-
-docker rm -f couchdb_org1_peer1
-docker run -ti -d \
---name couchdb_org1_peer1 \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org1_peer1/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-

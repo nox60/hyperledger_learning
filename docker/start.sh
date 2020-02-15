@@ -324,13 +324,3 @@ docker run -it -d \
       -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 
-#couchdb节点目前是link的方式和peer关联。
-
-docker rm -f couchdb_org1_peer0
-docker run -ti -d \
---name couchdb_org1_peer0 \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org1/peer0:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-

@@ -815,25 +815,6 @@ peer channel join -b /opt/channel-artifacts/mychannel.block \
 --cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
 
-### 6.4 gov加入通道操作
-```greenplum
-docker run --rm -it \
---name gov.join.channel.admin2.client \
---network bc-net \
--e CORE_PEER_LOCALMSPID=govMSP \
--e CORE_PEER_TLS_ENABLED="true"  \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls/ca.crt \
--e CORE_PEER_TLS_CERT_FILE="/opt/crypto/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls/server.crt" \
--e CORE_PEER_TLS_KEY_FILE="/opt/crypto/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls/server.key" \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/gov.dams.com/users/admin2/msp \
--e CORE_PEER_ADDRESS=peer0.gov.dams.com:7351 \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config:/opt/crypto \
--v /opt/local/codes/docker_with_ca/hyperledger_data:/opt/channel-artifacts \
-hyperledger/fabric-tools:1.4.3 \
-peer channel join -b /opt/channel-artifacts/mychannel.block \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```
 
 
 

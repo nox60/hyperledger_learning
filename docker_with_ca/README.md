@@ -465,21 +465,6 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-### 3.2 将该ia3组织的admin用户(用户名admin2)的msp拉取到本地
-```cgo
-docker run --rm -it \
---name enroll.ia3.admin2.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ia3-ca/admin2 \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ia3-ca/fabric-ca-server-config/ca.ia3.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin2:/etc/hyperledger/ia3-ca/admin2 \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca:/etc/hyperledger/ia3-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/ia3-ca/admin2 \
--u https://admin2:admin2pw@ca.ia3.dams.com:7054
-```
-
 ### 3.3 将该ic3组织的admin用户(用户名admin2)的msp拉取到本地
 ```cgo
 docker run --rm -it \

@@ -479,18 +479,6 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-
-
-### 3. 执行start.sh，拉起所需容器。
-
-```greenplum
-./start.sh
-```
-
-
-需要注意到的是，在start.sh脚本中会拉起ca容器，目前ca容器使用的tls证书还是来自于cryptogen工具生成，在后期迭代之后，会使用自建的ca服务来生成。
-
-
 ## 操作任务
 ### 1.1. enroll cec的admin用户，目前初始的cec admin用户相关信息是由cryptogen工具生成的。
 

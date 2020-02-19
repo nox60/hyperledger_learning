@@ -479,23 +479,6 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-## 操作任务
-### 1.1. enroll cec的admin用户，目前初始的cec admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.cec.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/cec-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/cec-ca/fabric-ca-server-config/ca.cec.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin:/etc/hyperledger/cec-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/cec-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/cec-ca/admin \
--u https://admin:adminpw@ca.cec.dams.com:7054
-```
-
 ### 1.2. enroll ia3的admin用户，目前初始的ia3 admin用户相关信息是由cryptogen工具生成的。
 
 ```runad

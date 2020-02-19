@@ -461,22 +461,6 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-
-### 3.4 将该gov组织的admin用户(用户名admin2)的msp拉取到本地
-```cgo
-docker run --rm -it \
---name enroll.gov.admin2.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/gov-ca/admin2 \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/gov-ca/fabric-ca-server-config/ca.gov.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/users/admin2:/etc/hyperledger/gov-ca/admin2 \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/ca:/etc/hyperledger/gov-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/gov-ca/admin2 \
--u https://admin2:admin2pw@ca.gov.dams.com:7054
-```
-
 ### 4. --此处有技术债务，需要拷贝一个config.yaml配置文件到新创建的admin用户的msp目录下，会在后续解释该配置文件。
 ```greenplum
 cp /opt/local/codes/docker_with_ca/config_cec.yaml /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/users/admin2/msp/config.yaml

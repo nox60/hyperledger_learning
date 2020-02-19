@@ -476,25 +476,6 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-
-
-
-### 1.2. enroll ia3的admin用户，目前初始的ia3 admin用户相关信息是由cryptogen工具生成的。
-
-```runad
-docker run --rm -it \
---name enroll.ia3.admin.ca.client \
---network bc-net \
--e FABRIC_CA_CLIENT_HOME=/etc/hyperledger/ia3-ca/admin \
--e FABRIC_CA_CLIENT_TLS_CERTFILES=/etc/hyperledger/ia3-ca/fabric-ca-server-config/ca.ia3.dams.com-cert.pem \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/users/admin:/etc/hyperledger/ia3-ca/admin \
--v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/ca:/etc/hyperledger/ia3-ca/fabric-ca-server-config \
-hyperledger/fabric-ca:1.4.3 \
-fabric-ca-client enroll \
---home /etc/hyperledger/ia3-ca/admin \
--u https://admin:adminpw@ca.ia3.dams.com:7054
-```
-
 ### 1.3. enroll ic3的admin用户，目前初始的ic3 admin用户相关信息是由cryptogen工具生成的。
 
 ```runad

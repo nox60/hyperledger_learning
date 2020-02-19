@@ -481,15 +481,6 @@ peer chaincode instantiate -o orderer.dams.com:7050 \
 
 
 
-
-
-
-### 2. 运行generate.sh生成必要证书文件。
-
-```greenplum
-./generate.sh
-```
-
 ### 3. 执行start.sh，拉起所需容器。
 
 ```greenplum

@@ -589,6 +589,65 @@ EOF
 
 
 
+//------------------writer角色的用户
+
+
+注册org1机构writer用户
+```go
+docker run --rm -it \
+    --name register.org1.admin \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client register \
+    --id.name org1.user \
+    --id.type user \
+    --id.affiliation org1 \
+    --id.attrs 'hf.Revoker=true,admin=true' --id.secret user 
+```
+
+把管理员org1.admin的msp拉到本地
+```go
+docker run --rm -it \
+    --name enroll.org1.admin.ca.client \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-user-home \
+    -v /root/temp/org1-user-home:/opt/test-user-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client enroll \
+    -u http://org1.user:user@ca.com:7054
+```
+
+mv /root/temp/org1-user-home/msp/cacerts/* /root/temp/org1-user-home/msp/cacerts/ca.pem
+mkdir -p /root/temp/org1-user-home/msp/tlscacerts
+cp /root/temp/org1-user-home/msp/cacerts/ca.pem  /root/temp/org1-user-home/msp/tlscacerts/
+
+```shell
+cat>/root/temp/org1-user-home/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
+
+
+
+
+
+
 # 创建通道
 ```go
 docker run --rm -it \

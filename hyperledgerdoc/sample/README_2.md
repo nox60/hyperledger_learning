@@ -835,6 +835,9 @@ docker run --rm -it \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
 
+//Error: error endorsing invoke: rpc error: code = Unknown desc = access denied: channel [mychannel] creator org [org1MSP] - proposal response: <nil>
+
+
 
 
 

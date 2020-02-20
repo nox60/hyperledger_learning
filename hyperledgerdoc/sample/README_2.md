@@ -610,21 +610,21 @@ docker run --rm -it \
 把用户org1.reader的msp拉到本地
 ```go
 docker run --rm -it \
-    --name enroll.org1.admin.ca.client \
+    --name enroll.org1.reader.ca.client \
     --network bc-net \
     -e FABRIC_CA_CLIENT_HOME=/opt/test-reader-home \
     -v /root/temp/org1-reader-home:/opt/test-reader-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client enroll \
-    -u http://org1.reader:reader@ca.com:7054
+    -u http://org1.reader:client@ca.com:7054
 ```
 
-mv /root/temp/org1-writer-home/msp/cacerts/* /root/temp/org1-writer-home/msp/cacerts/ca.pem
-mkdir -p /root/temp/org1-writer-home/msp/tlscacerts
-cp /root/temp/org1-writer-home/msp/cacerts/ca.pem  /root/temp/org1-writer-home/msp/tlscacerts/
+mv /root/temp/org1-reader-home/msp/cacerts/* /root/temp/org1-reader-home/msp/cacerts/ca.pem
+mkdir -p /root/temp/org1-reader-home/msp/tlscacerts
+cp /root/temp/org1-reader-home/msp/cacerts/ca.pem  /root/temp/org1-reader-home/msp/tlscacerts/
 
 ```shell
-cat>/root/temp/org1-writer-home/msp/config.yaml<<EOF
+cat>/root/temp/org1-reader-home/msp/config.yaml<<EOF
 NodeOUs:
   Enable: true
   ClientOUIdentifier:
@@ -711,7 +711,7 @@ docker run --rm -it \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
-    -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
+    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode install \
     -n mychaincode \
@@ -733,7 +733,7 @@ docker run --rm  -it \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode/vendor:/opt/gopath/src \
-    -v /root/chaincode/chaincode/mycode.go:/opt/gopath/src/mychaincode/mycode.go \
+    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode instantiate  -o orderer.com:7050\
     -C mychannel \
@@ -759,7 +759,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/org1-reader-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/chaincode:/opt/gopath/src/mychaincode \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\

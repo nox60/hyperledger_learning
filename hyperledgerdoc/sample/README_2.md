@@ -624,7 +624,7 @@ mkdir -p /root/temp/org1-writer-home/msp/tlscacerts
 cp /root/temp/org1-writer-home/msp/cacerts/ca.pem  /root/temp/org1-writer-home/msp/tlscacerts/
 
 ```shell
-cat>/root/temp/org1-user-home/msp/config.yaml<<EOF
+cat>/root/temp/org1-writer-home/msp/config.yaml<<EOF
 NodeOUs:
   Enable: true
   ClientOUIdentifier:

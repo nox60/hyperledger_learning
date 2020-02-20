@@ -544,10 +544,10 @@ docker run --rm -it \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name org1.admin \
+    --id.name org1.user \
     --id.type user \
     --id.affiliation org1 \
-    --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
+    --id.attrs 'hf.Revoker=true,admin=true' --id.secret user 
 ```
 
 把管理员org1.admin的msp拉到本地
@@ -555,16 +555,16 @@ docker run --rm -it \
 docker run --rm -it \
     --name enroll.org1.admin.ca.client \
     --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
-    -v /root/temp/org1-admin-home:/opt/test-admin2-home \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-user-home \
+    -v /root/temp/org1-user-home:/opt/test-user-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client enroll \
-    -u http://org1.admin:adminpw@ca.com:7054
+    -u http://org1.user:user@ca.com:7054
 ```
 
-mv /root/temp/org1-admin-home/msp/cacerts/* /root/temp/org1-admin-home/msp/cacerts/ca.pem
-mkdir -p /root/temp/org1-admin-home/msp/tlscacerts
-cp /root/temp/org1-admin-home/msp/cacerts/ca.pem  /root/temp/org1-admin-home/msp/tlscacerts/
+mv /root/temp/org1-user-home/msp/cacerts/* /root/temp/org1-user-home/msp/cacerts/ca.pem
+mkdir -p /root/temp/org1-user-home/msp/tlscacerts
+cp /root/temp/org1-user-home/msp/cacerts/ca.pem  /root/temp/org1-user-home/msp/tlscacerts/
 
 ```shell
 cat>/root/temp/org1-admin-home/msp/config.yaml<<EOF

@@ -14,6 +14,12 @@ docker run --rm -it \
 ```
 
 
+    ACLs: &ACLsDefault
+        lscc/ChaincodeExists: /Channel/Application/Readers
+        lscc/GetDeploymentSpec: /Channel/Application/Readers
+        lscc/GetChaincodeData: /Channel/Application/Readers
+        lscc/GetInstantiatedChaincodes: /Channel/Application/Readers
+
 
 LSCC(Lifecycle system chaincode) handles lifecycle requests such as install, instantiate and upgrade chaincodes.
 CSCC(Configuration system chaincode) handles channel configuration on the peer side.

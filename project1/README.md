@@ -96,14 +96,3 @@ peer channel list \
 --cafile ./hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem
 ```
 
-安装智能合约
-```installchain
-peer chaincode install \
--p sacc \
--l golang \
--n sacc \
--v 0 \
--o orderer.test.com:7050 \
---cafile ./hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem
-```
-

@@ -119,13 +119,3 @@ peer chaincode instantiate  \
 -c '{"Args":["a","10"]}' \
 -P "OR ('Org1MSP.admin')"
 ```
-
-peer chaincode instantiate \
--o  orderer.dams.com:7050  \
--C ca \
--n insurencebussiness \
--v 1.0 -c '{"Args":[]}' \
--P "OR ('Ia3MSP.member')"  \
---tls true \
---cafile tlsca.dams.com-cert.pem
-

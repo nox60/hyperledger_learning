@@ -89,10 +89,3 @@ peer channel join \
 --cafile ./hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem
 ```
 
-显示加入的通道
-```showjoined 
-peer channel list \
--o orderer.test.com:7050 \
---cafile ./hyperledger_data/crypto-config/ordererOrganizations/test.com/tlsca/tlsca.test.com-cert.pem
-```
-

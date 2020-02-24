@@ -599,30 +599,30 @@ docker run --rm -it \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name org1.writer \
+    --id.name org1.reader \
     --id.type peer \
     --id.affiliation org1 \
-    --id.attrs 'hf.Revoker=true' --id.secret client 
+    --id.attrs 'hf.Revoker=true' --id.secret peer 
 ```
 
-把用户org1.writer的msp拉到本地
+把用户org1.reader的msp拉到本地
 ```go
 docker run --rm -it \
-    --name enroll.org1.writer.ca.client \
+    --name enroll.org1.reader.ca.client \
     --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-writer-home \
-    -v /root/temp/org1-writer-home:/opt/test-writer-home \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-reader-home \
+    -v /root/temp/org1-reader-home:/opt/test-reader-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client enroll \
-    -u http://org1.writer:client@ca.com:7054
+    -u http://org1.reader:peer@ca.com:7054
 ```
 
-mv /root/temp/org1-writer-home/msp/cacerts/* /root/temp/org1-writer-home/msp/cacerts/ca.pem
-mkdir -p /root/temp/org1-writer-home/msp/tlscacerts
-cp /root/temp/org1-writer-home/msp/cacerts/ca.pem  /root/temp/org1-writer-home/msp/tlscacerts/
+mv /root/temp/org1-reader-home/msp/cacerts/* /root/temp/org1-reader-home/msp/cacerts/ca.pem
+mkdir -p /root/temp/org1-reader-home/msp/tlscacerts
+cp /root/temp/org1-reader-home/msp/cacerts/ca.pem  /root/temp/org1-reader-home/msp/tlscacerts/
 
 ```shell
-cat>/root/temp/org1-writer-home/msp/config.yaml<<EOF
+cat>/root/temp/org1-reader-home/msp/config.yaml<<EOF
 NodeOUs:
   Enable: true
   ClientOUIdentifier:

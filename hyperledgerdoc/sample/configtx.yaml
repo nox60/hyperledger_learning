@@ -63,6 +63,14 @@ Application: &ApplicationDefaults
         #---Lifecycle System Chaincode (lscc) function to policy mapping for access control---#
 
         # ACL policy for lscc's "getid" function
+
+        # 这里踩到了坑，注意！！！！ w的大小写，当w写成小写的时候，会报下面的错：
+
+        # Error: Bad response: 500 - access denied for [getchaincodes][mychannel]:
+        # failed evaluating policy on signed data during check policy [/Channel/Application/org1MSP/writers]:
+        # [policy /Channel/Application/org1MSP/writers not found]
+        # 找不到这个权限点的错误
+
         lscc/ChaincodeExists: /Channel/Application/org1MSP/writers
 
         # ACL policy for lscc's "getdepspec" function

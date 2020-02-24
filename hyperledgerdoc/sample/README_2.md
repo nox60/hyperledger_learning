@@ -881,3 +881,18 @@ docker run --rm -it \
 
 configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config > config.json
 
+
+```docker
+docker run --rm -it \
+    --name apply.chain.code \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -v /root/temp/org1-writer-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/chaincode:/opt/gopath/src/mychaincode \
+    hyperledger/fabric-tools:1.4.3 \
+    configtxlator 
+```

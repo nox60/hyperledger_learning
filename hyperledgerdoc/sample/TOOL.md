@@ -26,3 +26,6 @@ CSCC(Configuration system chaincode) handles channel configuration on the peer s
 QSCC(Query system chaincode) provides ledger query APIs such as getting blocks and transactions.
 ESCC(Endorsement system chaincode) handles endorsement by signing the transaction proposal response.
 VSCC(Validation system chaincode) handles the transaction validation, including checking endorsement policy and multiversioning concurrency control.
+
+
+https://www.cnblogs.com/cnblogs-wangzhipeng/p/9686235.html

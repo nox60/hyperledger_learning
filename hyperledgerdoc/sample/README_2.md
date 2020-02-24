@@ -538,16 +538,16 @@ EOF
 //------------------reader角色的用户
 
 
-注册org1机构reader 用户
+注册org1机构writer, id.type=client用户
 ```go
 docker run --rm -it \
-    --name register.org1.reader \
+    --name register.org1.writer \
     --network bc-net \
     -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name org1.reader \
+    --id.name org1.writer \
     --id.type client \
     --id.affiliation org1 \
     --id.attrs 'hf.Revoker=true' --id.secret client 
@@ -588,11 +588,7 @@ NodeOUs:
 EOF
 ```
 
-
-
-
-
-
+//-----------------------------------
 
 # 创建通道
 ```go

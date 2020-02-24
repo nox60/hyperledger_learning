@@ -71,16 +71,16 @@ Application: &ApplicationDefaults
         # [policy /Channel/Application/org1MSP/writers not found]
         # 找不到这个权限点的错误
 
-        lscc/ChaincodeExists: /Channel/Application/org1MSP/writers
+        lscc/ChaincodeExists: /Channel/Application/org1MSP/Writers
 
         # ACL policy for lscc's "getdepspec" function
-        lscc/GetDeploymentSpec: /Channel/Application/org1MSP/writers
+        lscc/GetDeploymentSpec: /Channel/Application/org1MSP/Writers
 
         # ACL policy for lscc's "getccdata" function
-        lscc/GetChaincodeData: /Channel/Application/org1MSP/writers
+        lscc/GetChaincodeData: /Channel/Application/org1MSP/Writers
 
         # ACL Policy for lscc's "getchaincodes" function
-        lscc/GetInstantiatedChaincodes: /Channel/Application/org1MSP/writers
+        lscc/GetInstantiatedChaincodes: /Channel/Application/org1MSP/Writers
 
 
     # Organizations lists the orgs participating on the application side of the

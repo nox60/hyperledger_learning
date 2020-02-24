@@ -725,7 +725,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/orderer-reader-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp/org1-reader-home/msp:/etc/hyperledger/fabric/msp \
     hyperledger/fabric-tools:1.4.3 \
     peer chaincode list\
     -C mychannel \

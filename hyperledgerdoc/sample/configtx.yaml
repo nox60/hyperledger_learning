@@ -63,16 +63,16 @@ Application: &ApplicationDefaults
         #---Lifecycle System Chaincode (lscc) function to policy mapping for access control---#
 
         # ACL policy for lscc's "getid" function
-        lscc/ChaincodeExists: /Channel/Application/Readers
+        lscc/ChaincodeExists: /Channel/Application/org1MSP/Readers
 
         # ACL policy for lscc's "getdepspec" function
-        lscc/GetDeploymentSpec: /Channel/Application/Readers
+        lscc/GetDeploymentSpec: /Channel/Application/org1MSP/Readers
 
         # ACL policy for lscc's "getccdata" function
-        lscc/GetChaincodeData: /Channel/Application/Readers
+        lscc/GetChaincodeData: /Channel/Application/org1MSP/Readers
 
         # ACL Policy for lscc's "getchaincodes" function
-        lscc/GetInstantiatedChaincodes: /Channel/Application/Readers
+        lscc/GetInstantiatedChaincodes: /Channel/Application/org1MSP/Readers
 
 
     # Organizations lists the orgs participating on the application side of the

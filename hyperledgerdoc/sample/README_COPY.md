@@ -1253,22 +1253,6 @@ docker run -it -d  \
       hyperledger/fabric-orderer:1.4.3
 ```
 
-启动peer0的couchdb
-```go
-docker rm -f couchdb_cec
-docker run -it -d  \
-    --name couchdb_peer0 \
-    --network bc-net \
-    -e COUCHDB_USER=admin \
-    -e COUCHDB_PASSWORD=dev@2019  \
-    -v /root/temp/peer0-home/couchdb:/opt/couchdb/data \
-    -p 5984:5984 \
-    -p 9100:9100 \
-    -d hyperledger/fabric-couchdb
-```
-
-
-
 
 
 

@@ -1306,22 +1306,6 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3
 ```
 
-注册orderer机构管理员
-```go
-docker run --rm -it \
-    --name register.orderer.order.admin \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
-    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client register \
-    --id.name order.admin \
-    --id.type admin \
-    --id.affiliation ordererOrg.ordererMSP \
-    --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
-```
-
-
 
 
 

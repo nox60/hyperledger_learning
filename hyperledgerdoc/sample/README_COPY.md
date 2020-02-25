@@ -1169,23 +1169,6 @@ docker run --rm -it \
       -profile TwoOrgsOrdererGenesis
 ```
 
-创建通道 channel.tx文件
-```go
-docker run --rm -it \
-  --name configtxgen.generate.files.channel.tx.file \
-      --network bc-net \
-      -e FABRIC_CFG_PATH=/etc/hyperledger/ \
-      -v /root/temp/:/opt/data \
-      -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
-      -w /etc/hyperledger \
-      hyperledger/fabric-tools:1.4.3 \
-      configtxgen \
-      -profile TwoOrgsChannel \
-      -outputCreateChannelTx /opt/data/channel.tx \
-      -channelID mychannel
-```
-
-
 
 
 

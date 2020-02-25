@@ -1223,38 +1223,6 @@ Global Flags:
 
 
 
-启动 orderer服务 
-```go
-
-docker rm -f orderer.com
-docker run -it -d  \
-  --name orderer.com \
-      --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
-      -e ORDERER_GENERAL_GENESISMETHOD="file" \
-      -e ORDERER_GENERAL_GENESISFILE="/etc/hyperledger/orderer_data/orderer.genesis.block" \
-      -e ORDERER_GENERAL_LOCALMSPID="ordererMSP" \
-      -e ORDERER_GENERAL_LOCALMSPDIR="/etc/hyperledger/fabric/msp" \
-      -e ORDERER_GENERAL_TLS_ENABLED="true" \
-      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/server.key" \
-      -e ORDERER_GENERAL_TLS_CERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/server.crt" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/ca.crt]" \
-      -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
-      -e ORDERER_KAFKA_VERBOSE="true" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/etc/hyperledger/orderer/tls/signcerts/server.crt" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/etc/hyperledger/orderer/tls/keystore/server.key" \
-      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/etc/hyperledger/orderer/tls/tlscacerts/ca.crt]" \
-      -v /root/temp/orderer-home/tls/msp:/etc/hyperledger/orderer/tls \
-      -v /root/temp/orderer-home/msp/msp:/etc/hyperledger/fabric/msp \
-      -v /root/temp/orderer.genesis.block:/etc/hyperledger/orderer_data/orderer.genesis.block \
-      -v /var/run:/var/run \
-      hyperledger/fabric-orderer:1.4.3
-```
-
-
-
 
 
 

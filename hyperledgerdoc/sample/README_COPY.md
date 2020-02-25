@@ -1322,21 +1322,6 @@ docker run --rm -it \
 ```
 
 
-把这个管理员order.admin的msp拉到本地
-```go
-docker run --rm -it \
-    --name register.test.ca.client \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
-    -v /root/temp/orderer-admin-home:/opt/test-admin2-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client enroll \
-    -u http://order.admin:adminpw@ca.com:7054
-```
-
-
-
-
 
 
 

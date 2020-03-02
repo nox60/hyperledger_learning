@@ -1837,19 +1837,3 @@ docker run --rm -it \
 
 
 
-此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。
-
-
-
-configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config > config.json
-
-
-```docker
-docker run --rm -it \
-    --name apply.chain.code \
-    --network bc-net \
-    -v /root/temp:/root/temp \
-    hyperledger/fabric-tools:1.4.3 \
-    configtxlator proto_decode --input /root/temp/mychannel.block \
-    --type common.Block  > /root/temp/config1.json
-```

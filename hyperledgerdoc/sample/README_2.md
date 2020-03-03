@@ -1482,14 +1482,3 @@ docker run --rm -it \
     --id.attrs 'hf.Revoker=true' --id.secret client 
 ```
 
-把用户org1.writer的msp拉到本地
-```go
-docker run --rm -it \
-    --name enroll.org1.writer.ca.client \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-writer-home \
-    -v /root/temp/org1-writer-home:/opt/test-writer-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client enroll \
-    -u http://org1.writer:client@ca.com:7054
-```

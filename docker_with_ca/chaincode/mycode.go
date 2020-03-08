@@ -129,29 +129,3 @@ func main() {
 		fmt.Printf("Error starting Simple chaincode: %s", err)
 	}
 }
-
-func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	fmt.Println("进入 query 方法")
-
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
-	}
-	var A string
-	A = args[0]
-	fmt.Println("the first arg : " + A)
-	// Delete the key from the state in ledger
-	Avalbytes, err := stub.GetState(A)
-	fmt.Println("the result    : " + string(Avalbytes))
-
-	if err != nil {
-		return shim.Error("Failed to query state")
-	}
-	if Avalbytes == nil {
-		jsonResp := "{\"Error\":\"Nil amount for " + A + "\"}"
-		return shim.Error(jsonResp)
-	}
-
-	jsonResp := string(Avalbytes)
-	fmt.Printf("Query Response:%s\n", jsonResp)
-	return shim.Success(Avalbytes)
-}

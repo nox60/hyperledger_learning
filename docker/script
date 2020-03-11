@@ -440,18 +440,6 @@ Installing chaincode on peer1.org2...
 2019-09-04 06:04:00.755 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
 ===================== Chaincode is installed on peer1.org2 =====================
 
-Querying chaincode on peer1.org2...
-===================== Querying on peer1.org2 on channel 'mychannel'... =====================
-Attempting to Query peer1.org2 ...3 secs
-+ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
-+ res=0
-+ set +x
-
-90
-===================== Query successful on peer1.org2 on channel 'mychannel' =====================
-
-========= All GOOD, BYFN execution completed ===========
-
 
 
 

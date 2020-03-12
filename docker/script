@@ -331,22 +331,4 @@ peer chaincode list \
 -C mychannel \
 --installed
 
-# view installed chain codes
-export CORE_PEER_LOCALMSPID=Org2MSP
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
-export CORE_PEER_ADDRESS=peer0.org2.example.com:7151
-peer chaincode list \
--C mychannel \
---installed
-
-+ res=0
-+ set +x
-2019-09-04 06:03:14.314 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:14.332 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
-===================== peer0.org1 joined channel 'mychannel' =====================
-
-
-
-
 

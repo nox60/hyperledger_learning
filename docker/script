@@ -346,27 +346,6 @@ peer chaincode list \
 2019-09-04 06:03:14.332 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
 ===================== peer0.org1 joined channel 'mychannel' =====================
 
-+ peer channel join -b mychannel.block
-+ res=0
-+ set +x
-2019-09-04 06:03:17.379 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:17.396 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
-===================== peer1.org1 joined channel 'mychannel' =====================
-
-+ peer channel join -b mychannel.block
-+ res=0
-+ set +x
-2019-09-04 06:03:20.444 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:20.460 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
-===================== peer0.org2 joined channel 'mychannel' =====================
-
-+ peer channel join -b mychannel.block
-+ res=0
-+ set +x
-2019-09-04 06:03:23.512 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:23.531 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
-===================== peer1.org2 joined channel 'mychannel' =====================
-
 
 
 

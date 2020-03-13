@@ -412,19 +412,3 @@ Instantiating chaincode on peer0.org2...
 2019-09-04 06:03:33.091 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
 ===================== Chaincode is instantiated on peer0.org2 on channel 'mychannel' =====================
 
-Querying chaincode on peer0.org1...
-===================== Querying on peer0.org1 on channel 'mychannel'... =====================
-Attempting to Query peer0.org1 ...3 secs
-+ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
-+ res=0
-+ set +x
-
-100
-===================== Query successful on peer0.org1 on channel 'mychannel' =====================
-Sending invoke transaction on peer0.org1 peer0.org2...
-+ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
-2019-09-04 06:04:00.550 UTC [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 001 Chaincode invoke successful. result: status:200
-+ res=0
-+ set +x
-===================== Invoke transaction successful on peer0.org1 peer0.org2 on channel 'mychannel' =====================
-

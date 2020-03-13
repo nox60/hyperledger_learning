@@ -428,25 +428,3 @@ Sending invoke transaction on peer0.org1 peer0.org2...
 + set +x
 ===================== Invoke transaction successful on peer0.org1 peer0.org2 on channel 'mychannel' =====================
 
-Installing chaincode on peer1.org2...
-+ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
-+ res=0
-+ set +x
-2019-09-04 06:04:00.600 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
-2019-09-04 06:04:00.600 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
-2019-09-04 06:04:00.755 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
-===================== Chaincode is installed on peer1.org2 =====================
-
-Querying chaincode on peer1.org2...
-===================== Querying on peer1.org2 on channel 'mychannel'... =====================
-Attempting to Query peer1.org2 ...3 secs
-+ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
-+ res=0
-+ set +x
-
-90
-===================== Query successful on peer1.org2 on channel 'mychannel' =====================
-
-========= All GOOD, BYFN execution completed ===========
-
-

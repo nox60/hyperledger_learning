@@ -362,18 +362,3 @@ peer chaincode list \
 2019-09-04 06:03:20.460 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
 ===================== peer0.org2 joined channel 'mychannel' =====================
 
-+ peer channel join -b mychannel.block
-+ res=0
-+ set +x
-2019-09-04 06:03:23.512 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:23.531 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
-===================== peer1.org2 joined channel 'mychannel' =====================
-
-Updating anchor peers for org1...
-+ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org1MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-+ res=0
-+ set +x
-2019-09-04 06:03:26.575 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:26.586 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
-===================== Anchor peers updated for org 'Org1MSP' on channel 'mychannel' =====================
-

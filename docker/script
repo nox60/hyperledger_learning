@@ -239,30 +239,6 @@ Attempting to Query peer1.org2 ...3 secs
 
 
 
-
-
-
-
-
-
-Updating anchor peers for org2...
-+ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org2MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-+ res=0
-+ set +x
-2019-09-04 06:03:29.639 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
-2019-09-04 06:03:29.648 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
-===================== Anchor peers updated for org 'Org2MSP' on channel 'mychannel' =====================
-
-Installing chaincode on peer0.org1...
-+
-peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
-+ res=0
-+ set +x
-2019-09-04 06:03:32.701 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
-2019-09-04 06:03:32.701 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
-2019-09-04 06:03:32.854 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
-===================== Chaincode is installed on peer0.org1 =====================
-
 Install chaincode on peer0.org2...
 + peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
 + res=0

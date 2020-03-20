@@ -12,7 +12,7 @@ WORKDIR /opt/gopath/src/chain1
 
 RUN go mod init mychaincode
 
-WORKDIR /opt/gopath/src/mychaincode
+WORKDIR /opt/gopath/src/chain1/mychaincode
 
 RUN go build
 

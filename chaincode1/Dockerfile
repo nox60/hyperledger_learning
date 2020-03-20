@@ -6,7 +6,7 @@ ENV GOPROXY https://goproxy.baidu.com/
 
 ENV GOCACHE "/root/.cache/go-build"
 
-ADD mycode.go /opt/gopath/src/mychaincode
+ADD /root/codes/hyperledger_learning/chaincode1/chain1/mycode.go /opt/gopath/src/mychaincode
 
 WORKDIR /opt/gopath/src
 

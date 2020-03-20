@@ -4,6 +4,8 @@ ENV GO111MODULE on
 
 ENV GOPROXY https://goproxy.baidu.com/
 
+ENV GOCACHE "/root/.cache/go-build"
+
 RUN go mod init
 
 RUN go mod vendor

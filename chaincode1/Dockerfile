@@ -12,6 +12,8 @@ WORKDIR /opt/gopath/src
 
 RUN go mod init mychaincode
 
+RUN go build /opt/gopath/src/mychaincode/mycode.go
+
 RUN go mod vendor
 
 

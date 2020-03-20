@@ -6,13 +6,17 @@ ENV GOPROXY https://goproxy.baidu.com/
 
 ENV GOCACHE "/root/.cache/go-build"
 
-ADD chain1/mycode.go /opt/gopath/src/mychaincode
+ADD chain1/mycode.go /opt/gopath/src/chain1/mychaincode
 
-WORKDIR /opt/gopath/src
+WORKDIR /opt/gopath/src/chain1
 
 RUN go mod init mychaincode
 
-RUN go build /opt/gopath/src/mychaincode/mycode.go
+WORKDIR /opt/gopath/src/mychaincode
+
+RUN go build
+
+WORKDIR /opt/gopath/src/chain1
 
 RUN go mod vendor
 

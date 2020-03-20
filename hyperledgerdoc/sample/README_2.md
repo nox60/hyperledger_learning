@@ -55,6 +55,10 @@ https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#ree
 #fabric-ca-client register -d --id.name admin2 --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,client",hf.Revoker=true'
 # 上面的账户，表明能够注册两种类型的 MSP/CA，peer和client，需要实验一下
 
+docker network rm bc-net
+
+docker network create --subnet=172.18.0.0/16 bc-net
+
 用docker 启动一个ca server
 ```用docker启动一个
 docker rm -f ca.com
@@ -735,6 +739,8 @@ docker run --rm  -it \
     --tls true \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```
+
+# 如果不把合约依赖的库打入镜像，此处会慢
 
 
 Error: could not assemble transaction, err proposal response was not successful, error code 500, msg instantiation policy violation: signature set did not satisfy policy

@@ -10,6 +10,8 @@ docker rm -f $(docker2 ps -a | grep "dev-peer*" | awk '{print $1}')
 
 docker rm -f orderer.dams.com
 
+
+UP
 docker run -it -d  \
   --name orderer.dams.com \
       --network bc-net \

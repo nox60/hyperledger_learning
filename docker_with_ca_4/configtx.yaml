@@ -293,3 +293,14 @@ Profiles:
         - *cec
       Capabilities:
         <<: *ApplicationCapabilities
+
+
+
+
+
+
+
+
+
+
+

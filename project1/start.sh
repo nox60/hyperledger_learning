@@ -116,15 +116,3 @@ nohup peer node start > hyperledger_data/peer.log 2>&1 &
 
 sleep 2
 echo 'create channel'
-
-# 官方例子中cafile 路径 ordererOrganizations/test.com/msp/tlscacerts/tlsca.test.com-cert.pem
-                    #  ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-# create channel
-peer channel create \
--o orderer.test.com:7050 \
--c mychannel \
--f hyperledger_data/channel.tx \
---tls  \
---outputBlock hyperledger_data/mychannel.block \
---cafile hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp/tlscacerts/tlsca.test.com-cert.pem/tlsca.test.com-cert.pem
-                                       

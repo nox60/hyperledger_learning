@@ -102,17 +102,4 @@ cryptogen generate \
 configtxgen -outputBlock hyperledger_data/genesis_block.pb \
 -profile TwoOrgsOrdererGenesis 
 
-# 创建通道transaction
-configtxgen -profile TwoOrgsChannel \
--outputCreateChannelTx hyperledger_data/channel.tx \
--channelID mychannel
 
-# start orderer
-nohup orderer > hyperledger_data/orderer.log   2>&1 &
-
-sleep 2
-echo 'start peer'
-nohup peer node start > hyperledger_data/peer.log 2>&1 &
-
-sleep 2
-echo 'create channel'

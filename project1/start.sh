@@ -128,10 +128,3 @@ peer channel create \
 --outputBlock hyperledger_data/mychannel.block \
 --cafile hyperledger_data/crypto-config/ordererOrganizations/test.com/orderers/orderer.test.com/msp/tlscacerts/tlsca.test.com-cert.pem/tlsca.test.com-cert.pem
                                        
-# 官方例子
-peer channel create \
--o orderer.example.com:7050 \
--c $CHANNEL_NAME \
--f ./channel-artifacts/channel.tx \
---tls \
---cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem

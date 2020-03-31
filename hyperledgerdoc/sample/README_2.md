@@ -1043,44 +1043,6 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
 ```
 
-把admin的msp拉出来
-```go
-docker run --rm -it \
-    --name enroll.test.ca.client \
-    --network bc-net \
-    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
-    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
-    hyperledger/fabric-ca:1.4.3 \
-    fabric-ca-client enroll \
-    -u http://admin:adminpw@ca.com:7054
-```
-
-mv /root/temp/test-ca-admin-home/msp/cacerts/* /root/temp/test-ca-admin-home/msp/cacerts/ca.pem
-
-mkdir -p /root/temp/test-ca-admin-home/msp/admincerts
-
-
-# 创建config.yaml文件
-
-```shell
-cat>/root/temp/test-ca-admin-home/msp/config.yaml<<EOF
-NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: orderer
-EOF
-```
-
 列出affiliation
 ```go
 #fabric-ca-client affiliation add org3.department1

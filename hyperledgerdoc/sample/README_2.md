@@ -1534,28 +1534,5 @@ docker run --rm -it \
     -u http://org1.writer:client@ca.com:7054
 ```
 
-mv /root/temp/org1-writer-home/msp/cacerts/* /root/temp/org1-writer-home/msp/cacerts/ca.pem
-mkdir -p /root/temp/org1-writer-home/msp/tlscacerts
-cp /root/temp/org1-writer-home/msp/cacerts/ca.pem  /root/temp/org1-writer-home/msp/tlscacerts/
-
-```shell
-cat>/root/temp/org1-writer-home/msp/config.yaml<<EOF
-NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/ca.pem
-    OrganizationalUnitIdentifier: orderer
-EOF
-```
-//-----------------------------------
 
 

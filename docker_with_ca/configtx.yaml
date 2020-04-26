@@ -700,21 +700,6 @@ Organizations:
               Port: 7251
 
 
-
-    - &gov
-        # DefaultOrg defines the organization which is used in the sampleconfig
-        # of the fabric.git development environment
-        Name: govMSP
-
-        # ID to load the MSP definition as
-        ID: govMSP
-
-        MSPDir: hyperledger_data/crypto-config/peerOrganizations/gov.dams.com/msp
-
-        # Policies defines the set of policies at this level of the config tree
-        # For organization policies, their canonical path is usually
-        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-        Policies:
             Readers:
                 Type: Signature
                 Rule: "OR('govMSP.admin', 'govMSP.peer', 'govMSP.client')"

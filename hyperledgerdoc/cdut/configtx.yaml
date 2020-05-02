@@ -19,7 +19,7 @@ Organizations:
     - &org1
         Name: org1MSP
         ID: org1MSP
-        MSPDir: /opt/peer0-home/msp
+        MSPDir: /opt/org1/peer0-home/msp
         Policies:
             Readers:
                 Type: Signature
@@ -31,8 +31,27 @@ Organizations:
                 Type: Signature
                 Rule: "OR('org1MSP.admin')"
         AnchorPeers:
-            - Host: peer0.com
+            - Host: org1.peer0.com
               Port: 7051
+
+    - &org2
+        Name: org2MSP
+        ID: org2MSP
+        MSPDir: /opt/org2/peer0-home/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('org2MSP.admin', 'org2MSP.peer', 'org2MSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('org2MSP.admin', 'org2MSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('org2MSP.admin')"
+        AnchorPeers:
+            - Host: org2.peer0.com
+              Port: 8051
+
 Capabilities:
     Channel: &ChannelCapabilities
         V1_4_3: true
@@ -151,6 +170,7 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *org1
+                    - *org2
     TwoOrgsChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
@@ -158,6 +178,7 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *org1
+                - *org2
             Capabilities:
                 <<: *ApplicationCapabilities
 ...

@@ -5,7 +5,7 @@ docker network rm bc-net
 docker network create --subnet=172.18.0.0/16 bc-net
 
 # 用docker 启动一个ca server
-```用docker启动一个
+```用docker启动一个ca-server
 docker rm -f ca.com
 docker run \
   -it -d \
@@ -20,7 +20,7 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
 ```
 
-把admin的msp拉出来
+# 把ca的admin的msp拉出来
 ```go
 docker run --rm -it \
     --name enroll.test.ca.client \
@@ -82,7 +82,7 @@ docker run --rm -it \
     fabric-ca-client affiliation add ordererOrg
 ```
 
-增加第一个组织
+增加org3组织
 ```go
 #fabric-ca-client affiliation add org3.department1
 docker run --rm -it \
@@ -92,6 +92,18 @@ docker run --rm -it \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client  affiliation add org3
+```
+
+增加org3组织的department1
+```go
+#fabric-ca-client affiliation add org3.department1
+docker run --rm -it \
+    --name add-affiliation \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client  affiliation add org3.department1
 ```
 
 ```go
@@ -139,7 +151,7 @@ mv /root/temp/orderer-home/tls/msp/signcerts/* /root/temp/orderer-home/tls/msp/s
 mv /root/temp/orderer-home/tls/msp/tlscacerts/* /root/temp/orderer-home/tls/msp/tlscacerts/ca.crt
 ```
 
-拉取msp
+# 拉取order的msp
 ```go
 docker run --rm -it \
   --name enroll.cec.orderer \
@@ -184,59 +196,59 @@ mkdir -p /root/temp/orderer-home/msp/msp/admincerts
 1. 是通过这个CA注册一个peer，然后和这个peer通信的时候，关掉这个ca，看看root ca是否能验证成功。这里好像是不需要，因为generate出来的各种ca证书，也是没有root ca服务供验证的
 完成上面的注册peer, 然后把peer的msp拉下来。启动peer
 
-注册一个peer0
+注册org1.peer0
 ```go
-rm -rf /root/temp/peer0-home
+rm -rf /root/temp/org1/peer0-home
 docker run --rm -it \
-    --name register.peer0 \
+    --name register.org1.peer0 \
     --network bc-net \
     -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name peer0 --id.type peer  --id.secret peerpw 
+    --id.name org1.peer0 --id.type peer  --id.secret peerpw 
 ```
 
 拉取tls
 ```go
 docker run --rm -it \
-  --name enroll.cec.peer0 \
+  --name enroll.cec.org1.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home \
-      -v /root/temp/peer0-home/tls:/opt/peer0-home \
+      -v /root/temp/org1/peer0-home/tls:/opt/peer0-home \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
-      --enrollment.profile tls --csr.hosts peer0.com \
-      -u http://peer0:peerpw@ca.com:7054
+      --enrollment.profile tls --csr.hosts org1.peer0.com \
+      -u http://org1.peer0:peerpw@ca.com:7054
 ```
 
 修改tls中的私钥文件名
 ```shell script
-mv /root/temp/peer0-home/tls/msp/keystore/* /root/temp/peer0-home/tls/msp/keystore/server.key
-mv /root/temp/peer0-home/tls/msp/signcerts/* /root/temp/peer0-home/tls/msp/signcerts/server.crt
-mv /root/temp/peer0-home/tls/msp/tlscacerts/* /root/temp/peer0-home/tls/msp/tlscacerts/ca.crt
+mv /root/temp/org1/peer0-home/tls/msp/keystore/* /root/temp/org1/peer0-home/tls/msp/keystore/server.key
+mv /root/temp/org1/peer0-home/tls/msp/signcerts/* /root/temp/org1/peer0-home/tls/msp/signcerts/server.crt
+mv /root/temp/org1/peer0-home/tls/msp/tlscacerts/* /root/temp/org1/peer0-home/tls/msp/tlscacerts/ca.crt
 ```
 
 拉取msp
 ```go
 docker run --rm -it \
-  --name enroll.cec.peer0 \
+  --name enroll.cec.org1.peer0 \
       --network bc-net \
       -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-msp \
-      -v /root/temp/peer0-home/msp:/opt/peer0-home-msp \
+      -v /root/temp/org1/peer0-home/msp:/opt/peer0-home-msp \
       hyperledger/fabric-ca:1.4.3 \
       fabric-ca-client enroll \
       -M /opt/peer0-home-msp/msp \
-      -u http://peer0:peerpw@ca.com:7054
+      -u http://org1.peer0:peerpw@ca.com:7054
 ```
 
-mv /root/temp/peer0-home/msp/msp/cacerts/* /root/temp/peer0-home/msp/msp/cacerts/ca.pem
-mkdir -p /root/temp/peer0-home/msp/msp/tlscacerts
-cp /root/temp/peer0-home/msp/msp/cacerts/ca.pem  /root/temp/peer0-home/msp/msp/tlscacerts/
+mv /root/temp/org1/peer0-home/msp/msp/cacerts/* /root/temp/org1/peer0-home/msp/msp/cacerts/ca.pem
+mkdir -p /root/temp/org1/peer0-home/msp/msp/tlscacerts
+cp /root/temp/org1/peer0-home/msp/msp/cacerts/ca.pem  /root/temp/org1/peer0-home/msp/msp/tlscacerts/
 
 # 给peer0节点创建 config.yaml文件
 ```shell
-cat>/root/temp/peer0-home/msp/msp/config.yaml<<EOF
+cat>/root/temp/org1/peer0-home/msp/msp/config.yaml<<EOF
 NodeOUs:
   Enable: true
   ClientOUIdentifier:
@@ -254,6 +266,82 @@ NodeOUs:
 EOF
 ```
 
+
+
+
+
+注册org2.peer0
+```go
+rm -rf /root/temp/org2/peer0-home
+docker run --rm -it \
+    --name register.org2.peer0 \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client register \
+    --id.name org2.peer0 --id.type peer  --id.secret peerpw 
+```
+
+拉取tls
+```go
+docker run --rm -it \
+  --name enroll.cec.org2.peer0 \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home \
+      -v /root/temp/org2/peer0-home/tls:/opt/peer0-home \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      --enrollment.profile tls --csr.hosts org2.peer0.com \
+      -u http://org2.peer0:peerpw@ca.com:7054
+```
+
+修改tls中的私钥文件名
+```shell script
+mv /root/temp/org2/peer0-home/tls/msp/keystore/* /root/temp/org2/peer0-home/tls/msp/keystore/server.key
+mv /root/temp/org2/peer0-home/tls/msp/signcerts/* /root/temp/org2/peer0-home/tls/msp/signcerts/server.crt
+mv /root/temp/org2/peer0-home/tls/msp/tlscacerts/* /root/temp/org2/peer0-home/tls/msp/tlscacerts/ca.crt
+```
+
+拉取msp
+```go
+docker run --rm -it \
+  --name enroll.cec.org2.peer0 \
+      --network bc-net \
+      -e FABRIC_CA_CLIENT_HOME=/opt/peer0-home-msp \
+      -v /root/temp/org2/peer0-home/msp:/opt/peer0-home-msp \
+      hyperledger/fabric-ca:1.4.3 \
+      fabric-ca-client enroll \
+      -M /opt/peer0-home-msp/msp \
+      -u http://org2.peer0:peerpw@ca.com:7054
+```
+
+mv /root/temp/org2/peer0-home/msp/msp/cacerts/* /root/temp/org2/peer0-home/msp/msp/cacerts/ca.pem
+mkdir -p /root/temp/org2/peer0-home/msp/msp/tlscacerts
+cp /root/temp/org2/peer0-home/msp/msp/cacerts/ca.pem  /root/temp/org2/peer0-home/msp/msp/tlscacerts/
+
+# 给peer0节点创建 config.yaml文件
+```shell
+cat>/root/temp/org2/peer0-home/msp/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
+
+
 # 生成configtx.yaml文件 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 
 -1. 各种msp生成完毕之后，生成创世区块
@@ -264,7 +352,8 @@ docker run --rm -it \
       -e FABRIC_CFG_PATH=/etc/hyperledger/ \
       -v /root/temp/:/opt/data \
       -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
-      -v /root/temp/peer0-home/msp/msp:/opt/peer0-home/msp \
+      -v /root/temp/org1/peer0-home/msp/msp:/opt/org1/peer0-home/msp \
+      -v /root/temp/org2/peer0-home/msp/msp:/opt/org2/peer0-home/msp \
       -v /root/temp/orderer-home/msp/msp:/opt/orderer-home/msp \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
@@ -283,7 +372,8 @@ docker run --rm -it \
       -e FABRIC_CFG_PATH=/etc/hyperledger/ \
       -v /root/temp/:/opt/data \
       -v /root/temp/configtx.yaml:/etc/hyperledger/configtx.yaml \
-      -v /root/temp/peer0-home/msp/msp:/opt/peer0-home/msp \
+      -v /root/temp/org1/peer0-home/msp/msp:/opt/org1/peer0-home/msp \
+      -v /root/temp/org2/peer0-home/msp/msp:/opt/org2/peer0-home/msp \
       -v /root/temp/orderer-home/msp/msp:/opt/orderer-home/msp \
       -w /etc/hyperledger \
       hyperledger/fabric-tools:1.4.3 \
@@ -324,29 +414,43 @@ docker run -it -d  \
 ```
 
 
-启动peer0的couchdb
+启动org1.peer0的couchdb
 ```go
-docker rm -f couchdb_cec
+docker rm -f couchdb_org1_peer0
 docker run -it -d  \
-    --name couchdb_peer0 \
+    --name couchdb_org1_peer0 \
     --network bc-net \
     -e COUCHDB_USER=admin \
     -e COUCHDB_PASSWORD=dev@2019  \
-    -v /root/temp/peer0-home/couchdb:/opt/couchdb/data \
+    -v /root/temp/org1/peer0-home/couchdb:/opt/couchdb/data \
     -p 5984:5984 \
     -p 9100:9100 \
+    -d hyperledger/fabric-couchdb
+```
+
+启动org2.peer0的couchdb
+```go
+docker rm -f couchdb_org2_peer0
+docker run -it -d  \
+    --name couchdb_org2_peer0 \
+    --network bc-net \
+    -e COUCHDB_USER=admin \
+    -e COUCHDB_PASSWORD=dev@2019  \
+    -v /root/temp/org2/peer0-home/couchdb:/opt/couchdb/data \
+    -p 5985:5984 \
+    -p 9101:9100 \
     -d hyperledger/fabric-couchdb
 ```
 
 //http://192.168.81.128:5984/_utils/
 
 
-启动peer0
+启动org1.peer0
 ```go
 
-docker rm -f peer0.com
+docker rm -f org1.peer0.com
 docker run -it -d \
-  --name peer0.com \
+  --name org1.peer0.com \
       --network bc-net \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e CORE_PEER_TLS_ENABLED="true" \
@@ -356,25 +460,64 @@ docker run -it -d \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/signcerts/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/keystore/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/tlscacerts/ca.crt" \
-      -e CORE_PEER_ID="peer0.com" \
-      -e CORE_PEER_ADDRESS="peer0.com:7051" \
+      -e CORE_PEER_ID="org1.peer0.com" \
+      -e CORE_PEER_ADDRESS="org1.peer0.com:7051" \
       -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.com:7052" \
+      -e CORE_PEER_CHAINCODEADDRESS="org1.peer0.com:7052" \
       -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.com:7051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.com:7051" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="org1.peer0.com:7051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="org1.peer0.com:7051" \
       -e CORE_PEER_LOCALMSPID="org1MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_peer0:5984" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_org1_peer0:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_NOTEOUS_ENABLE="false" \
       -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/temp/peer0-home/msp/msp:/etc/hyperledger/fabric/msp \
-      -v /root/temp/peer0-home/tls/msp:/etc/hyperledger/fabric/tls \
-      -v /root/temp/peer0-home/production:/var/hyperledger/production \
+      -v /root/temp/org1/peer0-home/msp/msp:/etc/hyperledger/fabric/msp \
+      -v /root/temp/org1/peer0-home/tls/msp:/etc/hyperledger/fabric/tls \
+      -v /root/temp/org1/peer0-home/production:/var/hyperledger/production \
+      -v /var/run:/var/run \
+      hyperledger/fabric-peer:1.4.3
+```
+
+
+启动org2.peer0
+```go
+
+docker rm -f org2.peer0.com
+docker run -it -d \
+  --name org2.peer0.com \
+      --network bc-net \
+      -e FABRIC_LOGGING_SPEC="INFO" \
+      -e CORE_PEER_TLS_ENABLED="true" \
+      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
+      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
+      -e CORE_PEER_PROFILE_ENABLED="true" \
+      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/signcerts/server.crt" \
+      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/keystore/server.key" \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/tlscacerts/ca.crt" \
+      -e CORE_PEER_ID="org2.peer0.com" \
+      -e CORE_PEER_ADDRESS="org2.peer0.com:8051" \
+      -e CORE_PEER_LISTENADDRESS="0.0.0.0:8051" \
+      -e CORE_PEER_CHAINCODEADDRESS="org2.peer0.com:8052" \
+      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:8052" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="org2.peer0.com:8051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="org2.peer0.com:8051" \
+      -e CORE_PEER_LOCALMSPID="org2MSP" \
+      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_org2_peer0:5985" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
+      -e CORE_NOTEOUS_ENABLE="false" \
+      -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
+      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
+      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
+      -v /root/temp/org2/peer0-home/msp/msp:/etc/hyperledger/fabric/msp \
+      -v /root/temp/org2/peer0-home/tls/msp:/etc/hyperledger/fabric/tls \
+      -v /root/temp/org2/peer0-home/production:/var/hyperledger/production \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
 ```
@@ -431,6 +574,59 @@ EOF
 
 
 注册org1机构管理员
+```go
+docker run --rm -it \
+    --name register.org1.admin \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin-home \
+    -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client register \
+    --id.name org1.admin \
+    --id.type admin \
+    --id.affiliation org1 \
+    --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
+```
+
+把管理员org1.admin的msp拉到本地
+```go
+docker run --rm -it \
+    --name enroll.org1.admin.ca.client \
+    --network bc-net \
+    -e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
+    -v /root/temp/org1-admin-home:/opt/test-admin2-home \
+    hyperledger/fabric-ca:1.4.3 \
+    fabric-ca-client enroll \
+    -u http://org1.admin:adminpw@ca.com:7054
+```
+
+mv /root/temp/org1-admin-home/msp/cacerts/* /root/temp/org1-admin-home/msp/cacerts/ca.pem
+mkdir -p /root/temp/org1-admin-home/msp/tlscacerts
+cp /root/temp/org1-admin-home/msp/cacerts/ca.pem  /root/temp/org1-admin-home/msp/tlscacerts/
+
+```shell
+cat>/root/temp/org1-admin-home/msp/config.yaml<<EOF
+NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca.pem
+    OrganizationalUnitIdentifier: orderer
+EOF
+```
+
+
+
+
+注册org2机构管理员
 ```go
 docker run --rm -it \
     --name register.org1.admin \
@@ -619,7 +815,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -e CORE_PEER_ADDRESS=org1.peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/temp:/opt/orderer_data \
     hyperledger/fabric-tools:1.4.3 \
@@ -637,7 +833,41 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -e CORE_PEER_ADDRESS=peer0.com:7051 \
+    -e CORE_PEER_ADDRESS=org1.peer0.com:7051 \
+    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel list
+```
+
+
+# org2加入通道 
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=org2MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=org2.peer0.com:8051 \
+    -v /root/temp/org2-admin-home/msp:/etc/hyperledger/fabric/msp \
+    -v /root/temp:/opt/orderer_data \
+    hyperledger/fabric-tools:1.4.3 \
+    peer channel join -b /opt/orderer_data/mychannel.block \
+    --tls true \
+    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
+```
+
+# 列出通道
+```go
+docker run --rm -it \
+    --name create.channel.client \
+    --network bc-net \
+    -e CORE_PEER_LOCALMSPID=org1MSP \
+    -e CORE_PEER_TLS_ENABLED="true"  \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
+    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
+    -e CORE_PEER_ADDRESS=org1.peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
     hyperledger/fabric-tools:1.4.3 \
     peer channel list

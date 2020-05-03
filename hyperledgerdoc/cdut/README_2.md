@@ -437,8 +437,6 @@ docker run -it -d  \
     -e COUCHDB_USER=admin \
     -e COUCHDB_PASSWORD=dev@2019  \
     -v /root/temp/org2/peer0-home/couchdb:/opt/couchdb/data \
-    -p 5985:5984 \
-    -p 9101:9100 \
     -d hyperledger/fabric-couchdb
 ```
 
@@ -635,30 +633,30 @@ docker run --rm -it \
     -v /root/temp/test-ca-admin-home:/opt/test-admin-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client register \
-    --id.name org1.admin \
+    --id.name org2.admin \
     --id.type admin \
-    --id.affiliation org1 \
+    --id.affiliation org2 \
     --id.attrs 'hf.Revoker=true,admin=true' --id.secret adminpw 
 ```
 
-把管理员org1.admin的msp拉到本地
+把管理员org2.admin的msp拉到本地
 ```go
 docker run --rm -it \
-    --name enroll.org1.admin.ca.client \
+    --name enroll.org2.admin.ca.client \
     --network bc-net \
     -e FABRIC_CA_CLIENT_HOME=/opt/test-admin2-home \
-    -v /root/temp/org1-admin-home:/opt/test-admin2-home \
+    -v /root/temp/org2-admin-home:/opt/test-admin2-home \
     hyperledger/fabric-ca:1.4.3 \
     fabric-ca-client enroll \
-    -u http://org1.admin:adminpw@ca.com:7054
+    -u http://org2.admin:adminpw@ca.com:7054
 ```
 
-mv /root/temp/org1-admin-home/msp/cacerts/* /root/temp/org1-admin-home/msp/cacerts/ca.pem
-mkdir -p /root/temp/org1-admin-home/msp/tlscacerts
-cp /root/temp/org1-admin-home/msp/cacerts/ca.pem  /root/temp/org1-admin-home/msp/tlscacerts/
+mv /root/temp/org2-admin-home/msp/cacerts/* /root/temp/org2-admin-home/msp/cacerts/ca.pem
+mkdir -p /root/temp/org2-admin-home/msp/tlscacerts
+cp /root/temp/org2-admin-home/msp/cacerts/ca.pem  /root/temp/org2-admin-home/msp/tlscacerts/
 
 ```shell
-cat>/root/temp/org1-admin-home/msp/config.yaml<<EOF
+cat>/root/temp/org2-admin-home/msp/config.yaml<<EOF
 NodeOUs:
   Enable: true
   ClientOUIdentifier:

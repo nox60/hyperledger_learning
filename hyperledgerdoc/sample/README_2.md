@@ -712,7 +712,7 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    ccr.ccs.tencentyun.com/nox600/chaincode:0.5 \
+    ccr.ccs.tencentyun.com/nox600/chaincode:0.6 \
     peer chaincode install \
     -n mychaincode \
     -v 1.3 \

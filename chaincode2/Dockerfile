@@ -6,4 +6,6 @@ ENV GOPROXY https://goproxy.baidu.com/
 
 ENV GOCACHE "/root/.cache/go-build"
 
-ADD chain2/mycode.go /opt/gopath/src/mychaincode/mycode.go
+ADD chain1y/mycode.go /opt/gopath/src/mychaincode/mycode.go
+
+ADD verdor

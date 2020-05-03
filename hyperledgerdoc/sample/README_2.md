@@ -375,6 +375,7 @@ docker run -it -d  \
       -v /root/temp/orderer-home/msp/msp:/etc/hyperledger/fabric/msp \
       -v /root/temp/orderer.genesis.block:/etc/hyperledger/orderer_data/orderer.genesis.block \
       -v /var/run:/var/run \
+      -p 7050:7050 \
       hyperledger/fabric-orderer:1.4.3
 ```
 
@@ -431,6 +432,8 @@ docker run -it -d \
       -v /root/temp/peer0-home/tls/msp:/etc/hyperledger/fabric/tls \
       -v /root/temp/peer0-home/production:/var/hyperledger/production \
       -v /var/run:/var/run \
+      -p 7051:7051 \
+      -p 7052:7052 \
       hyperledger/fabric-peer:1.4.3
 ```
 
@@ -709,10 +712,10 @@ docker run --rm -it \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
     -e CORE_PEER_ADDRESS=peer0.com:7051 \
     -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    chaincode:0.1 \
+    ccr.ccs.tencentyun.com/nox600/chaincode:0.5 \
     peer chaincode install \
     -n mychaincode \
-    -v 1.1 \
+    -v 1.3 \
     -l golang \
     -p mychaincode
 ```
@@ -733,7 +736,7 @@ docker run --rm  -it \
     peer chaincode instantiate  -o orderer.com:7050\
     -C mychannel \
     -n mychaincode \
-    -v 1.1 \
+    -v 1.3 \
     -l golang \
     -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''org1MSP.peer'\'')' \
     --tls true \

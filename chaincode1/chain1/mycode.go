@@ -8,8 +8,10 @@ import (
 )
 
 type userRecord struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id      string `json:"id"`
+	Name    string `json:"name"`
+	Type    string `json:"type"`
+	Content string `json:"content"`
 }
 
 //authorityChainCode   结构体
@@ -52,7 +54,7 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 
 	//user := new(userRecord)
 
-	user := userRecord{args[0], args[1]}
+	user := userRecord{args[0], args[1], args[2], args[3]}
 
 	//user.id = args[0]
 	//user.name = args[1]

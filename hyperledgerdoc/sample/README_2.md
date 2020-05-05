@@ -846,7 +846,7 @@ docker run --rm -it \
     -o orderer.com:7050 \
     -C mychannel \
     -n mychaincode \
-    -c '{"Args":["add","c","10"]}' \
+    -c '{"Args":["add","100","10","abc","sss"]}' \
     --tls true \
     --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
 ```

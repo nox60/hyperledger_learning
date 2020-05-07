@@ -442,7 +442,6 @@ docker run -it -d  \
 
 //http://192.168.81.128:5984/_utils/
 
-
 启动org1.peer0
 ```go
 
@@ -481,7 +480,6 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3
 ```
 
-
 启动org2.peer0
 ```go
 
@@ -498,15 +496,15 @@ docker run -it -d \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/keystore/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/tlscacerts/ca.crt" \
       -e CORE_PEER_ID="org2.peer0.com" \
-      -e CORE_PEER_ADDRESS="org2.peer0.com:8051" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:8051" \
-      -e CORE_PEER_CHAINCODEADDRESS="org2.peer0.com:8052" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:8052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="org2.peer0.com:8051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="org2.peer0.com:8051" \
+      -e CORE_PEER_ADDRESS="org2.peer0.com:7051" \
+      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
+      -e CORE_PEER_CHAINCODEADDRESS="org2.peer0.com:7052" \
+      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
+      -e CORE_PEER_GOSSIP_BOOTSTRAP="org2.peer0.com:7051" \
+      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="org2.peer0.com:7051" \
       -e CORE_PEER_LOCALMSPID="org2MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_org2_peer0:5985" \
+      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_org2_peer0:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e CORE_NOTEOUS_ENABLE="false" \
@@ -783,7 +781,6 @@ NodeOUs:
 EOF
 ```
 //-----------------------------------
-
 
 
 # 创建通道

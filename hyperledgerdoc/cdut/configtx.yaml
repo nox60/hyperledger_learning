@@ -50,7 +50,7 @@ Organizations:
                 Rule: "OR('org2MSP.admin')"
         AnchorPeers:
             - Host: org2.peer0.com
-              Port: 8051
+              Port: 7051
 
 Capabilities:
     Channel: &ChannelCapabilities

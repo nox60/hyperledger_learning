@@ -378,36 +378,7 @@ docker run -it -d \
 
 
 
-
-docker rm -f couchdb_ia3
-docker run -ti -d \
---name couchdb_ia3 \
---network bc-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_ia3_peer0/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-
-
-docker rm -f peer0.ia3.dams.com
-docker run -it -d \
-  --name peer0.ia3.dams.com \
-      --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.ia3.dams.com" \
-      -e CORE_PEER_ADDRESS="peer0.ia3.dams.com:7151" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7151" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.ia3.dams.com:7152" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7152" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.ia3.dams.com:7151" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.ia3.dams.com:7151" \
+DPOINT="peer0.ia3.dams.com:7151" \
       -e CORE_PEER_LOCALMSPID="ia3MSP" \
       -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_ia3:5984" \

@@ -343,20 +343,6 @@ docker run -it -d \
 
 
 
-docker rm -f couchdb_aes
-docker run -ti -d \
---name couchdb_aes \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_aes_peer0/:/opt/couchdb/data  \
--p 5985:5984 \
--p 9101:9100 \
--d hyperledger/fabric-couchdb  
-
-
-
-
 
 
 

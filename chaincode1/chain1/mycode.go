@@ -291,11 +291,3 @@ func (t *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) p
 	fmt.Printf("Query Response:%s\n", jsonResp)
 	return shim.Success(Avalbytes)
 }
-
-func main() {
-	//fmt.Println("hello world")
-	err := shim.Start(new(SmartContract))
-	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
-	}
-}

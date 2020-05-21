@@ -249,19 +249,3 @@ func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.
 
 	return shim.Success([]byte(string(args[0])))
 }
-
-func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
-	}
-
-	A := args[0]
-
-	// Delete the key from the state in ledger
-	err := stub.DelState(A)
-	if err != nil {
-		return shim.Error("Failed to delete state")
-	}
-
-	return shim.Success(nil)
-}

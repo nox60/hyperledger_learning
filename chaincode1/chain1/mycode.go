@@ -460,27 +460,4 @@ func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
 
-func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	function, args := stub.GetFunctionAndParameters()
-
-	fmt.Println("function：" + function)
-	fmt.Println("args[0] : " + args[0])
-
-	if len(args) > 2 {
-		fmt.Println("args[1] : " + args[1])
-	}
-
-	if function == "add" {
-		// Make payment of X units from A to B
-		return t.add(stub, args)
-	} else if function == "delete" {
-		// Deletes an entity from its state
-		return t.delete(stub, args)
-	} else if function == "query" {
-		// the old "Query" is now implemtned in invoke
-		return t.query(stub, args)
-	}
-
-	return shim.Error("function: " + function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
-}
 

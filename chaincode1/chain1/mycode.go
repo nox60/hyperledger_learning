@@ -434,30 +434,3 @@ func main() {
 
 
 
-
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-	pb "github.com/hyperledger/fabric/protos/peer"
-)
-
-type userRecord struct {
-	Id      string `json:"id"`
-	Name    string `json:"name"`
-	Type    string `json:"type"`
-	Content string `json:"content"`
-}
-
-//authorityChainCode   结构体
-type SmartContract struct {
-}
-
-func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("初始化授权记录的智能合约")
-	return shim.Success(nil)
-}
-
-

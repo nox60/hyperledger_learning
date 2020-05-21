@@ -484,37 +484,3 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Error("function: " + function + " || Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\" \"getServiceRecord\"")
 }
 
-//添加记录
-func (t *SmartContract) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	fmt.Println("进入 add 方法")
-	//var user = User{id: args[0], name: args[1]}
-
-	//user := new(userRecord)
-
-	user := userRecord{args[0], args[1], args[2], args[3]}
-
-	//user.id = args[0]
-	//user.name = args[1]
-
-	userAsBytes, err1 := json.Marshal(user)
-
-	fmt.Println("======")
-	fmt.Println(user)
-	fmt.Println(err1)
-	fmt.Println(userAsBytes)
-	fmt.Println(string(userAsBytes))
-	fmt.Println("======")
-
-	//err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
-	//err = stub.PutState(txId, []byte(string(strIns)))
-
-	err := stub.PutState(args[0], []byte(string(userAsBytes)))
-
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	fmt.Println("插入的id是" + args[0])
-
-	return shim.Success([]byte(string(args[0])))
-}

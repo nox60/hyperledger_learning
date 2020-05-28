@@ -406,25 +406,6 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/org1peer1:/var/hyperledger/production \
-      -v /etc/hosts:/etc/hosts \
-      -v /var/run:/var/run \
-      --link couchdb_org1_peer1:couchdb \
-      -p 7351:7051 \
-      -p 7352:7052 \
-      hyperledger/fabric-peer:1.4.3
-
-
-docker rm -f couchdb_org2
-docker run -ti -d \
---name couchdb_org2 \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org2/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-
-
+      -v /root/codes/hyperledger_lear
 
 

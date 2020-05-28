@@ -426,23 +426,5 @@ docker run -ti -d \
 -d hyperledger/fabric-couchdb
 
 
-docker rm -f peer0.org2.example.com
-docker run -it -d \
-  --name peer0.org2.example.com \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperled_data/org2peer:/var/hyperledger/production \
-      -v /etc/hosts:/etc/hosts \
-      -v /var/run:/var/run \
-      --link couchdb_org2:couchdb \
-      -p 7151:7051 \
-      -p 7152:7052 \
-      hyperledger/fabric-peer:1.4.3
-
 
 

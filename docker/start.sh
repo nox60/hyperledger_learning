@@ -436,16 +436,7 @@ docker run -it -d \
       -e CORE_PEER_PROFILE_ENABLED="true" \
       -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.org2.example.com" \
-      -e CORE_PEER_ADDRESS="peer0.org2.example.com:7151" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.org2.example.com:7052" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.org2.example.com:7051" \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls:/etc/hyperledger/fabric/tls \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp \
-      -v /root/codes/hyperledger_learning/docker/hyperledger_data/org2peer:/var/hyperledger/production \
+      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperled_data/org2peer:/var/hyperledger/production \
       -v /etc/hosts:/etc/hosts \
       -v /var/run:/var/run \
       --link couchdb_org2:couchdb \

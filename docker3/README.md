@@ -206,25 +206,5 @@ docker run --rm -it \
     -l golang \
     -v 1.0 \
     -c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
-```
 
-```aes安装合约
-docker run --rm -it \
-    --name aes.install.chaincode.admin.client \
-    --network ymy-net \
-    -e CORE_PEER_LOCALMSPID=aesMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/tls/ca.crt \
-    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/aes.ymy.com/users/Admin@aes.ymy.com/msp \
-    -e CORE_PEER_ADDRESS=peer0.aes.ymy.com:7051 \
-    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
-    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
-    -v /opt/local/codes/docker_with_ca/chaincode:/opt/gopath/src/mychaincode \
-    hyperledger/fabric-tools:1.4.3 \
-    peer chaincode install \
-    -n mychaincode \
-    -v 1.0 \
-    -l golang \
-    -p mychaincode
-```
 

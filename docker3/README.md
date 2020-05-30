@@ -166,23 +166,3 @@ docker run --rm -it \
     hyperledger/fabric-tools:1.4.3 \
     peer channel list 
 ```
-
-```cec安装合约
-docker run --rm -it \
-    --name cec.install.chaincode.admin.client \
-    --network ymy-net \
-    -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.ymy.com/peers/peer0.cec.ymy.com/tls/ca.crt \
-    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.ymy.com/users/Admin@cec.ymy.com/msp \
-    -e CORE_PEER_ADDRESS=peer0.cec.ymy.com:7051 \
-    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
-    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
-    -v /opt/local/codes/docker_with_ca/chaincode:/opt/gopath/src/mychaincode \
-    hyperledger/fabric-tools:1.4.3 \
-    peer chaincode install \
-    -n mychaincode \
-    -v 1.0 \
-    -l golang \
-    -p mychaincode
-```

@@ -192,22 +192,4 @@ docker run --rm -it \
     --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
 ```
 
-```dd
-# aes组织加入通道
-docker run --rm -it \
-    --name aes.join.channel.admin.client \
-    --network ymy-net \
-    -e CORE_PEER_LOCALMSPID=aesMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/aes.ymy.com/peers/peer0.aes.ymy.com/tls/ca.crt \
-    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/aes.ymy.com/users/Admin@aes.ymy.com/msp \
-    -e CORE_PEER_ADDRESS=peer0.aes.ymy.com:7051 \
-    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
-    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
-    hyperledger/fabric-tools:1.4.3 \
-    peer channel join -b /opt/channel-artifacts/mychannel.block \
-    --tls true \
-    --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
-```
-
 

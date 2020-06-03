@@ -336,19 +336,5 @@ docker run -it -d  \
 -d hyperledger/fabric-couchdb
 
 
-docker rm -f peer0.cec.dams.com
-docker run -it -d \
-  --name peer0.cec.dams.com \
-      --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.cec.dams.com" \
-
 
 

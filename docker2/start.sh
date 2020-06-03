@@ -416,15 +416,5 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3
 
 
-docker rm -f couchdb_ic3
-docker run -ti -d \
---name couchdb_ic3 \
---network bc-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-
-
 
     

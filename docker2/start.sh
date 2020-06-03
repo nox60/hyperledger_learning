@@ -426,24 +426,5 @@ docker run -ti -d \
 -d hyperledger/fabric-couchdb
 
 
-docker rm -f peer0.ic3.dams.com
-docker run -it -d \
-  --name peer0.ic3.dams.com \
-      --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.ic3.dams.com" \
-      -e CORE_PEER_ADDRESS="peer0.ic3.dams.com:7251" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7251" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.ic3.dams.com:7252" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7252" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.ic3.dams.com:7251" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.ic3.dams.com:7251" \
-      -e CORE_PEER_LOCALMSPID="ic3MSP" \
+
     

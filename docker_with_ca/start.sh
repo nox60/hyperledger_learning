@@ -682,28 +682,6 @@ docker run -it -d \
       -v /var/run:/var/run \
       hyperledger/fabric-peer:1.4.3
 
-docker rm -f cli
-docker run -it -d \
-  --name cli \
-      --network bc-net \
-      -e SYS_CHANNEL="byfn-sys-channel" \
-      -e GOPATH="/opt/gopath" \
-      -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_ID="cli" \
-      -e CORE_PEER_ADDRESS="peer0.cec.dams.com:7051" \
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

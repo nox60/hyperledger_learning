@@ -285,26 +285,3 @@ docker run -it -d \
 docker network rm ymy-net
 
 docker network create --subnet=172.33.0.0/16 ymy-net
-
-docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
-
-docker rm -f $(docker_ymy ps -a | grep "dev-peer*" | awk '{print $1}')
-
-docker rm -f orderer.ymy.com
-
-docker run -it -d  \
-  --name orderer.ymy.com \
-      --network ymy-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
-      -e ORDERER_GENERAL_GENESISMETHOD="file" \
-      -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
-      -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
-      -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
-      -e ORDERER_GENERAL_TLS_ENABLED="true" \
-      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
-      -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
-      -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="1" \
-      -e ORDERER_KAFKA_VERBOSE="true" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/t

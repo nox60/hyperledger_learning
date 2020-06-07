@@ -455,14 +455,4 @@ docker run -it -d \
       -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/peerOrganizations/hos.ymy.com/peers/peer0.hos.ymy.com/msp:/etc/hyperledger/fabric/msp \
       -v /opt/local/codes/docker_ymy/hyperledger_data/hospeer0:/var/hyperledger/production \
       -v /var/run:/var/run \
-      hyperledger/fabric-peer:1.4.3       
-
-
-docker rm -f couchdb_gov
-docker run -ti -d \
---name couchdb_gov \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
--p 5987:5
+      h

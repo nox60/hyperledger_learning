@@ -420,18 +420,4 @@ docker run -it -d \
       -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
       -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
       -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker2/hyperledger_data/crypto-config/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker2/hyperledger_data/ia3peer0:/var/hyperledger/production \
-      -v /var/run:/var/run \
-      hyperledger/fabric-peer:1.4.3
-
-
-docker rm -f couchdb_ic3
-docker run -ti -d \
---name couchdb_ic3 \
---network bc-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker2/hyperledger_data/couchdb_ic3/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-
+      -v /opt/local/codes/docker2/hyperledger_data

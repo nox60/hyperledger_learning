@@ -950,25 +950,3 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3       
 
 docker rm -f couchdb_org3
-docker run -ti -d \
---name couchdb_org3 \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /root/codes/hyperledger_learning/docker/hyperledger_data/couchdb_org3/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb  
-
-docker rm -f peer0.org3.example.com
-docker run -it -d \
-  --name peer0.org3.example.com \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.org3.example.com" \
-      -e CORE_PEER_ADDRESS="peer0.org3.example.com:7151" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.org3.example.com:7052" \

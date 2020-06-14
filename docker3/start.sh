@@ -358,24 +358,3 @@ docker run -ti -d \
 
 
 docker rm -f peer0.aes.ymy.com
-docker run -it -d \
-  --name peer0.aes.ymy.com \
-      --network ymy-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.aes.ymy.com" \
-      -e CORE_PEER_ADDRESS="peer0.aes.ymy.com:7051" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7051" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.aes.ymy.com:7052" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7052" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.aes.ymy.com:7051" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.aes.ymy.com:7051" \
-      -e CORE_PEER_LOCALMSPID="aesMSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCH

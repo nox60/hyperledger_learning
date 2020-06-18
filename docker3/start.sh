@@ -402,16 +402,6 @@ docker run -it -d \
       hyperledger/fabric-peer:1.4.3       
 
 
-docker rm -f couchdb_hos
-docker run -ti -d \
---name couchdb_hos \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_hos/:/opt/couchdb/data  \
--p 5986:5984 \
--p 9102:9100 \
--d hyperledger/fabric-couchdb  
 
 
 

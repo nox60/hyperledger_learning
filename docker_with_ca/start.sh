@@ -629,17 +629,6 @@ docker run -it -d \
       -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
       -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
       -e CORE_PEER_ID="peer0.ic3.dams.com" \
-      -e CORE_PEER_ADDRESS="peer0.ic3.dams.com:7251" \
-      -e CORE_PEER_LISTENADDRESS="0.0.0.0:7251" \
-      -e CORE_PEER_CHAINCODEADDRESS="peer0.ic3.dams.com:7252" \
-      -e CORE_PEER_CHAINCODELISTENADDRESS="0.0.0.0:7252" \
-      -e CORE_PEER_GOSSIP_BOOTSTRAP="peer0.ic3.dams.com:7251" \
-      -e CORE_PEER_GOSSIP_EXTERNALENDPOINT="peer0.ic3.dams.com:7251" \
-      -e CORE_PEER_LOCALMSPID="ic3MSP" \
-      -e CORE_LEDGER_STATE_STATEDATABASE="CouchDB" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_ic3:5984" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
-      -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
 
 
 

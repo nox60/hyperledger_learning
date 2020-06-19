@@ -640,25 +640,6 @@ docker run -it -d \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS="couchdb_ic3:5984" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME="admin" \
       -e CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD="dev@2019" \
-      -e CORE_VM_ENDPOINT="unix:///var/run/docker.sock" \
-      -e CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE="bc-net" \
-      -e FABRIC_CFG_PATH="/etc/hyperledger/fabric" \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls:/etc/hyperledger/fabric/tls \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/msp:/etc/hyperledger/fabric/msp \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/ic3peer0:/var/hyperledger/production \
-      -v /var/run:/var/run \
-      hyperledger/fabric-peer:1.4.3
-
-
-docker rm -f couchdb_gov
-docker run -ti -d \
---name couchdb_gov \
---network bc-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
--d hyperledger/fabric-couchdb
-
 
 
 

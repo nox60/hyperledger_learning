@@ -659,20 +659,6 @@ docker run -ti -d \
 -v /opt/local/codes/docker_with_ca/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
 -d hyperledger/fabric-couchdb
 
-docker rm -f peer0.gov.dams.com
-docker run -it -d \
-  --name peer0.gov.dams.com \
-      --network bc-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-      -e CORE_PEER_TLS_ROOTCERT_FILE="/etc/hyperledger/fabric/tls/ca.crt" \
-      -e CORE_PEER_ID="peer0.gov.dams.com" \
-
 
 
 

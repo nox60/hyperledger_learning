@@ -417,26 +417,3 @@ export GOV_CA_PRIVATE_KEY=$(cd /opt/local/codes/docker_with_ca/hyperledger_data/
 
 echo $CEC_CA_PRIVATE_KEY
 
-
-#sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d' \
-#["sh","-c","java $JAVA_OPTS  -Dfile.encoding=utf-8 -jar /opt/*.jar"]
-
-#注意，优先级如下（从最高到最低）:
-# 1. 命令参数
-# 2. 环境变量
-# 3. 配置文件
-
-docker rm -f ca.cec.dams.com
-docker run \
-  -it -d \
-  --name ca.cec.dams.com \
-      --network bc-net \
-      -e FABRIC_CA_HOME="/etc/hyperledger/fabric-ca-server" \
-      -e FABRIC_CA_SERVER_CA_NAME="ca-cec" \
-      -e FABRIC_CA_SERVER_TLS_ENABLED=true \
-      -e FABRIC_CA_SERVER_TLS_CERTFILE="/etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem" \
-      -e FABRIC_CA_SERVER_TLS_KEYFILE="/etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY}" \
-      -e FABRIC_CA_SERVER_PORT=7054 \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/crypto-config/peerOrganizations/cec.dams.com/ca:/etc/hyperledger/fabric-ca-server-config \
-      -v /opt/local/codes/docker_with_ca/hyperledger_data/cec-ca:/etc/hyperledger/cec-ca \
-      --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cec.dams.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CEC_CA_PRIVATE_KEY} -b admin:adminpw -d

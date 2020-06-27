@@ -428,16 +428,4 @@ docker run -ti -d \
 -p 9103:9100 \
 -d hyperledger/fabric-couchdb  
 
-docker rm -f peer0.gov.ymy.com
-docker run -it -d \
-  --name peer0.gov.ymy.com \
-      --network ymy-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \
-      -e CORE_PEER_PROFILE_ENABLED="true" \
-      -e CORE_PEER_TLS_CERT_FILE="/etc/hyperledger/fabric/tls/server.crt" \
-      -e CORE_PEER_TLS_KEY_FILE="/etc/hyperledger/fabric/tls/server.key" \
-
-
+docker rm -f peer0.go

@@ -420,15 +420,3 @@ docker run -it -d \
 
 
 docker rm -f couchdb_gov
-docker run -ti -d \
---name couchdb_gov \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_gov/:/opt/couchdb/data  \
--p 5987:5984 \
--p 9103:9100 \
--d hyperledger/fabric-couchdb  
-
-docker rm -f peer0.gov.ymy.com
-docker run -it -d \

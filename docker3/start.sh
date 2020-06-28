@@ -271,17 +271,4 @@ docker run -it -d  \
       -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
       -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
       -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
-      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp:/var/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls:/var/hyperledger/orderer/tls \
-      -v /opt/local/codes/docker_ymy/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /opt/local/codes/docker_ymy/hyperledger_data:/var/hyperledger/production/orderer \
-      -v /var/run:/var/run \
-      hyperledger/fabric-orderer:1.4.3
-
-
-docker rm -f couchdb_cec
-docker run -it -d  \
---name couchdb_cec \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
+      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp

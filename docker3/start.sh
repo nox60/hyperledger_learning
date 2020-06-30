@@ -228,31 +228,3 @@ docker run -it -d \
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#!/bin/bash
-
-docker network rm ymy-net
-
-docker network create --subnet=172.33.0.0/16 ymy-net
-
-docker rmi -f $(docker images --format "{{.Repository}}" |grep "^dev-peer*")
-
-docker rm -f $(docker_ymy ps -a | grep "dev-peer*" | awk '{print $1}')
-
-docker rm -f orderer.ymy.com
-
-docker run -it -d  \
-  --name orderer.ymy.com \rledger/orderer/tls/ca.crt]" \
-      -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="

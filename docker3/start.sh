@@ -256,10 +256,3 @@ docker rm -f orderer.ymy.com
 docker run -it -d  \
   --name orderer.ymy.com \rledger/orderer/tls/ca.crt]" \
       -e ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR="
-      --network ymy-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
-      -e ORDERER_GENERAL_GENESISMETHOD="file" \
-      -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
-      -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
-      -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \

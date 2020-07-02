@@ -241,13 +241,3 @@ docker run --rm -it \
 ```dd
 # hos组织加入通道
 docker run --rm -it \
-    --name hos.join.channel.admin.client \
-    --network ymy-net \
-    -e CORE_PEER_LOCALMSPID=hosMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/hos.ymy.com/peers/peer0.hos.ymy.com/tls/ca.crt \
-    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/hos.ymy.com/users/Admin@hos.ymy.com/msp \
-    -e CORE_PEER_ADDRESS=peer0.hos.ymy.com:7051 \
-    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
-    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
-    hyperledger/fabric-tools:1.4.3 \

@@ -249,26 +249,6 @@ docker run --rm -it \
 docker run --rm -it \
     --name gov.join.channel.admin.client \
     --network ymy-net \
-    -e CORE_PEER_LOCALMSPID=govMSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/gov.ymy.com/peers/peer0.gov.ymy.com/tls/ca.crt \
-    -e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/gov.ymy.com/users/Admin@gov.ymy.com/msp \
-    -e CORE_PEER_ADDRESS=peer0.gov.ymy.com:7051 \
-    -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config:/opt/crypto \
-    -v /opt/local/codes/docker_ymy/hyperledger_data:/opt/channel-artifacts \
-    hyperledger/fabric-tools:1.4.3 \
-    peer channel join -b /opt/channel-artifacts/mychannel.block \
-    --tls true \
-    --cafile /opt/crypto/ordererOrganizations/ymy.com/msp/tlscacerts/tlsca.ymy.com-cert.pem
-```
-
-
-
-
-
-
-
-
 
 
 

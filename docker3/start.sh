@@ -749,22 +749,3 @@ docker run -it -d \
 
 
 docker rm -f couchdb_aes
-docker run -ti -d \
---name couchdb_aes \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_aes_peer0/:/opt/couchdb/data  \
--p 5985:5984 \
--p 9101:9100 \
--d hyperledger/fabric-couchdb  
-
-
-docker rm -f peer0.aes.ymy.com
-docker run -it -d \
-  --name peer0.aes.ymy.com \
-      --network ymy-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false" \
-      -e CORE_PEER_GOSSIP_ORGLEADER="true" \

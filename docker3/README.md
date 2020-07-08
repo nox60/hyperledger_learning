@@ -366,31 +366,3 @@ docker run --rm -it \
 
 
 
-
-
-
-
-
-
-
-
-
-# 本文目标
-
-配置软连接：
-
-```mv
-ln -s /root/codes/hyperledger_learning/docker3 /opt/local/codes/docker_ymy
-```
-
-## 生成相关证书文件
-
-执行同级目录下的命令：
-```aa
-generate.sh
-```
-
-### 执行命令拉起所有容器：
-```bb
-start.sh
-```

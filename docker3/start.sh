@@ -292,18 +292,4 @@ docker run -it -d  \
       -e FABRIC_LOGGING_SPEC="INFO" \
       -e ORDERER_GENERAL_LISTENADDRESS="0.0.0.0" \
       -e ORDERER_GENERAL_GENESISMETHOD="file" \
-      -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block" \
-      -e ORDERER_GENERAL_LOCALMSPID="OrdererMSP" \
-      -e ORDERER_GENERAL_LOCALMSPDIR="/var/hyperledger/orderer/msp" \
-      -e ORDERER_GENERAL_TLS_ENABLED="true" \
-      -e ORDERER_GENERAL_TLS_PRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
-      -e ORDERER_GENERAL_TLS_CERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
-      -e ORDERER_GENERAL_TLS_ROOTCAS="[/var/hype1" \
-      -e ORDERER_KAFKA_VERBOSE="true" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE="/var/hyperledger/orderer/tls/server.crt" \
-      -e ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY="/var/hyperledger/orderer/tls/server.key" \
-      -e ORDERER_GENERAL_CLUSTER_ROOTCAS="[/var/hyperledger/orderer/tls/ca.crt]" \
-      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp:/var/hyperledger/orderer/msp \
-      -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls:/var/hyperledger/orderer/tls \
-      -v /opt/local/codes/docker_ymy/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /opt/local/codes/docker_ymy/hyperledger_data:/var/hyperledger/production/ordere
+      -e ORDERER_GENERAL_GENESISFILE="/var/hyperledger/orderer/orderer.genesis.block"

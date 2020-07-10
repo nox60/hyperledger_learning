@@ -306,18 +306,4 @@ docker run -it -d  \
       -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/msp:/var/hyperledger/orderer/msp \
       -v /opt/local/codes/docker_ymy/hyperledger_data/crypto-config/ordererOrganizations/ymy.com/orderers/orderer.ymy.com/tls:/var/hyperledger/orderer/tls \
       -v /opt/local/codes/docker_ymy/hyperledger_data/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block \
-      -v /opt/local/codes/docker_ymy/hyperledger_data:/var/hyperledger/production/orderer \
-      -v /var/run:/var/run \
-      hyperledger/fabric-orderer:1.4.3
-
-
-docker rm -f couchdb_cec
-docker run -it -d  \
---name couchdb_cec \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
--p 5984:5984 \
--p 9100:9100 \
--d hyperledger/fabric-couchdb  
+      -v /opt/local/codes/docker_ymy/hyperledger_data:/var/hyperledger/production/ordere

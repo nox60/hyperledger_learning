@@ -299,23 +299,3 @@ docker run -it -d  \
       -v /var/run:/var/run \
       hyperledger/fabric-orderer:1.4.3
 
-
-docker rm -f couchdb_cec
-docker run -it -d  \
---name couchdb_cec \
---network ymy-net \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=dev@2019  \
--v /opt/local/codes/docker_ymy/hyperledger_data/couchdb_cec/peer0:/opt/couchdb/data  \
--p 5984:5984 \
--p 9100:9100 \
--d hyperledger/fabric-couchdb
-
-
-docker rm -f peer0.cec.ymy.com
-docker run -it -d \
-  --name peer0.cec.ymy.com \
-      --network ymy-net \
-      -e FABRIC_LOGGING_SPEC="INFO" \
-      -e CORE_PEER_TLS_ENABLED="true" \
-      -e CORE_PEER_GOSSIP_USELEADERELECTION="false

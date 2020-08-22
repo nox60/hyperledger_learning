@@ -617,32 +617,6 @@ Channel: &ChannelDefaults
 ################################################################################
 Profiles:
 
-  TwoOrgsOrdererGenesis:
-    <<: *ChannelDefaults
-    Orderer:
-      <<: *OrdererDefaults
-      Organizations:
-        - *orderer
-      Capabilities:
-        <<: *OrdererCapabilities
-    Consortiums:
-      SampleConsortium:
-        Organizations:
-          - *cec
-  TwoOrgsChannel:
-    Consortium: SampleConsortium
-    <<: *ChannelDefaults
-    Application:
-      <<: *ApplicationDefaults
-      Organizations:
-        - *cec
-      Capabilities:
-        <<: *ApplicationCapabilities
-
-
-
-
-
 
 
 

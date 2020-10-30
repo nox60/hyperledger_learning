@@ -973,29 +973,4 @@ Profiles:
             - <<: *OrdererOrg
         Consortiums:
             SampleConsortium:
-                Organizations:
-                - *cec
-                - *ia3
-                - *ic3
-
-    SampleMultiNodeEtcdRaft:
-        <<: *ChannelDefaults
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: etcdraft
-            EtcdRaft:
-                Consenters:
-                - Host: orderer.dams.com
-                  Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer.dams.com/tls/server.crt
-                - Host: orderer2.dams.com
-                  Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer2.dams.com/tls/server.crt
-                - Host: orderer3.dams.com
-                  Port: 7050
-                  ClientTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com/tls/server.crt
-                  ServerTLSCert: hyperledger_data/crypto-config/ordererOrganizations/dams.com/orderers/orderer3.dams.com//ordererOrganizations/dams.com/ordereer_data/crypto-config/o
+     

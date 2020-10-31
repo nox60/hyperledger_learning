@@ -949,16 +949,4 @@ Profiles:
                 - *ia3
                 - *ic3
                 - *gov
-            Capabilities:
-                <<: *ApplicationCapabilities
-
-    SampleDevModeKafka:
-        <<: *ChannelDefaults
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: kafka
-            Kafka:
-                Brokers:
-                
+            Capabilit

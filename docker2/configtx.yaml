@@ -932,21 +932,4 @@ Profiles:
                 - *OrdererOrg
             Capabilities:
                 <<: *OrdererCapabilities
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *cec
-                    - *ia3
-                    - *ic3
-                    - *gov
-    TwoOrgsChannel:
-        Consortium: SampleConsortium
-        <<: *ChannelDefaults
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *cec
-                - *ia3
-                - *ic3
-                - *gov
-            Capabilit
+        Con

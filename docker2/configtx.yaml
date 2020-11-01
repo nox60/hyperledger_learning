@@ -906,20 +906,4 @@ Channel: &ChannelDefaults
         # By default, who may modify elements at this config level
         Admins:
             Type: ImplicitMeta
-            Rule: "MAJORITY Admins"
-
-    # Capabilities describes the channel level capabilities, see the
-    # dedicated Capabilities section elsewhere in this file for a full
-    # description
-    Capabilities:
-        <<: *ChannelCapabilities
-
-################################################################################
-#
-#   Profile
-#
-#   - Different configuration profiles may be encoded here to be specified
-#   as parameters to the configtxgen tool
-#
-################################################################################
-
+            R

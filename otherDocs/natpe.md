@@ -23,7 +23,7 @@ GatewayPorts yes
 systemctl restart sshd
 ```
 ## 内网主机安装autoSSH服务
-因为如果使用ssh方式的话，一旦断线需要手工重连，是无法长期使用的。这里使用autossh工具。
+因为如果使用ssh方式的话，一旦断线需要手工重连，是无法长期使用的。这里使用autossh工具，所以在A主机上执行下面的命令。
 
 ```shell
 yum install autossh
@@ -45,10 +45,18 @@ ssh-keygen
 使用ssh-copy-id命令发送
 
 ```ssh
-ssh-copy-id username@b
+ssh-copy-id -p 2200 username@b
 ```
 
-其中b是公网主机b的域名或者IP地址，username是b的登录用户名。调用该命令之后，输入相关密码完事。
+其中b是公网主机B的域名或者IP地址，username是b的登录用户名, -p 2200 是公网主机B的SSH端口，默认是22，但是很多时候为了安全可能会更改。调用该命令之后，输入相关密码结束。
+
+在执行上述命令之后，可以在A主机测试公钥是否成功发送到B主机，测试的方法就是免密码尝试登录，如果能够登录成功，则说明操作成功。
+
+```llgin
+ssh -p 2200 username@b
+```
+
+如果在A主机执行上述命令，能够成功登录B主机，说明公钥已经成功安装到B主机，可以免密登录。
 
 ## 利用autossh工具实现内网穿透
 

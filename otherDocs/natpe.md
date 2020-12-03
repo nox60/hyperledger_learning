@@ -37,3 +37,29 @@ yum install autossh
 ```shell
 ssh-keygen
 ```
+
+连续按回车之后，会生成相关的密钥文件。
+
+#### 2. 将主机A的公钥信息发送到公网主机
+
+使用ssh-copy-id命令发送
+
+```ssh
+ssh-copy-id username@b
+```
+
+其中b是公网主机b的域名或者IP地址，username是b的登录用户名。调用该命令之后，输入相关密码完事。
+
+## 利用autossh工具实现内网穿透
+
+在内网主机A上，利用autossh建立ssh隧道
+
+```autossh
+autossh -M 4444 -NR 80:localhost:4000 username@b -p 2200
+```
+
+参数解释:
+
+- aaaa
+- bbbb
+- cccc

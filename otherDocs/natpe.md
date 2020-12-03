@@ -55,11 +55,18 @@ ssh-copy-id username@b
 在内网主机A上，利用autossh建立ssh隧道
 
 ```autossh
-autossh -M 4444 -NR 80:localhost:4000 username@b -p 2200
+autossh -M 4444 -NR 11111:localhost:22 username@b -p 2200
 ```
 
-参数解释:
+相关参数和代码解释:
 
-- aaaa
-- bbbb
-- cccc
+- -M 4444 参数是内网主机A用来接收B主机通治的，如果隧道不正常，B主机会通过该端口通知A主机要求A主机重新连接。
+- -N 不执行远程命令
+- -R 将远程主机（公网主机B）的某个端口转发到本地指定机器的指定端口，这也是本文的全部目的
+- 11111:localhost:22 将公网主机B的11111端口上的请求，转发到内网主机A的22端口上
+- username@b b是公网B主机的域名或者端口，username是相关登录用户名
+- p 2200 是公网B主机的SSH端口，此处假设是2200，根据真实情况改变。
+
+## 检查
+
+分别检查本地主机A和公网主机B的端口监听情况

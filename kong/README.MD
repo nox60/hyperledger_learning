@@ -39,3 +39,6 @@ docker run --rm \
     -e "KONG_PASSWORD=password" \
     kong:latest kong migrations bootstrap
 ```
+
+
+

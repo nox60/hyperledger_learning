@@ -22,3 +22,9 @@ docker run --name my-couchdb \
 ```utils
 http://localhost:5984/_utils
 ```
+
+### 设计原则
+
+couchdb这样的文档数据库，用于在请求-响应一对一关系时候比较适合，比如博客请求中的ID和文章的对应关系
+
+### 利用couchdb设计一个博客系统

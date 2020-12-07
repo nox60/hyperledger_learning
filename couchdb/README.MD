@@ -64,6 +64,7 @@ https://docs.couchdb.org/en/stable/ddocs/ddocs.html#creation
 
 https://docs.couchdb.org/en/stable/ddocs/ddocs.html
 
+https://my.oschina.net/u/811958/blog/368661
 
 ### Design Document
 

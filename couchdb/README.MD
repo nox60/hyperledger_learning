@@ -54,3 +54,10 @@ http://localhost:5984/_utils
 couchdb这样的文档数据库，用于在请求-响应一对一关系时候比较适合，比如博客请求中的ID和文章的对应关系
 
 ### 利用couchdb设计一个博客系统
+
+
+### JavaScript
+
+https://docs.couchdb.org/en/stable/query-server/javascript.html
+
+https://docs.couchdb.org/en/stable/ddocs/ddocs.html#creation

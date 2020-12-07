@@ -77,3 +77,15 @@ edit conflicts with the rev parameter.
 Design Document 是CouchDB的一种标注报文格式，其URL以 _design/开头，并且携带一个ID
 
 Design Document是一种标准的JSON格式。
+
+首先调用下面的命令创建一个仓库：
+
+```shell script
+curl -X PUT http://admin:password@127.0.0.1:5984/basic
+
+```
+
+然后执行下面的命令提交view
+```json
+curl -X PUT http://admin:password127.0.0.1:5984/basic/_design/example -d @js_examples/mydesign.json
+```

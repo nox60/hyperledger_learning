@@ -61,3 +61,5 @@ couchdb这样的文档数据库，用于在请求-响应一对一关系时候比
 https://docs.couchdb.org/en/stable/query-server/javascript.html
 
 https://docs.couchdb.org/en/stable/ddocs/ddocs.html#creation
+
+https://docs.couchdb.org/en/stable/ddocs/ddocs.html

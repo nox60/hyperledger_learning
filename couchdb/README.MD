@@ -63,3 +63,16 @@ https://docs.couchdb.org/en/stable/query-server/javascript.html
 https://docs.couchdb.org/en/stable/ddocs/ddocs.html#creation
 
 https://docs.couchdb.org/en/stable/ddocs/ddocs.html
+
+
+### Design Document
+
+A design document is a CouchDB document with an id that begins with _design/. For
+instance, the example blog application, Sofa, is stored in a design document with the
+ID _design/sofa (see Figure 5-1). Design documents are just like any other CouchDB
+document—they replicate along with the other documents in their database and track
+edit conflicts with the rev parameter.
+
+Design Document 是CouchDB的一种标注报文格式，其URL以 _design/开头，并且携带一个ID
+
+Design Document是一种标准的JSON格式。

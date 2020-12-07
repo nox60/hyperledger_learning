@@ -82,10 +82,29 @@ Design Document是一种标准的JSON格式。
 
 ```shell script
 curl -X PUT http://admin:password@127.0.0.1:5984/basic
-
 ```
 
 然后执行下面的命令提交view
 ```json
-curl -X PUT http://admin:password127.0.0.1:5984/basic/_design/example -d @js_examples/mydesign.json
+curl -X PUT http://admin:password@127.0.0.1:5984/basic/_design/example -d @js_examples/first.json
+```
+
+执行几次下面的命令，给basic这个仓库增加测试数据
+```shell script
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{}'
+```
+
+然后执行下面的命令，调用刚才的view里面的查询函数foo，获取查询出来的数据
+```
+curl http://admin:password@localhost:5984/basic/_design/example/_view/foo
+```
+
+得到执行结果如下：
+
+```shell script
+{"total_rows":3,"offset":0,"rows":[
+{"id":"592029f8e459a449c3c8b54171000cd3","key":"592029f8e459a449c3c8b54171000cd3","value":"1-967a00dff5e02add41819138abb3284d"},
+{"id":"592029f8e459a449c3c8b54171001434","key":"592029f8e459a449c3c8b54171001434","value":"1-967a00dff5e02add41819138abb3284d"},
+{"id":"592029f8e459a449c3c8b5417100209b","key":"592029f8e459a449c3c8b5417100209b","value":"1-967a00dff5e02add41819138abb3284d"}
+]}
 ```

@@ -108,3 +108,33 @@ curl http://admin:password@localhost:5984/basic/_design/example/_view/foo
 {"id":"592029f8e459a449c3c8b5417100209b","key":"592029f8e459a449c3c8b5417100209b","value":"1-967a00dff5e02add41819138abb3284d"}
 ]}
 ```
+
+### View
+
+```Javascript
+function(doc) {
+    if(doc.date && doc.title) {
+        emit(doc.date, doc.title);
+    }
+}
+```
+
+view可以理解为是mysql中的view，也可以理解为是其他后台语言中的业务层代码，其实质目的都是用于将数据按照用户的要求查出。
+
+view在用户查询的时候执行，会将数据进行整理、排序、筛选。最终按照用户要求的格式展示。
+
+All map functions have a single parameter doc. This is a single document in the database.
+Our map function checks whether our document has a date and a title attribute—
+luckily, all of our documents have them—and then calls the built-in emit() function
+with these two attributes as arguments.
+
+所有的map函数都接受一个单参数doc，其是数据库中的一个文档，实例总的map函数检查了两个参数，一个是doc.date，一个是doc.title，均检查以上两个值是否存在。
+
+The emit() function always takes two arguments: the first is key, and the second is
+value. The emit(key, value) function creates an entry in our view result. One more
+thing: the emit() function can be called multiple times in the map function to create
+multiple entries in the view results from a single document, but we are not doing that
+yet.
+
+emit函数总是接受两个参数，第一个是键(key)，第二个是值(value)，此处传入的是doc.date和doc.title。emit函数会被调用多次。没调用一次，创建一行数据结果。
+

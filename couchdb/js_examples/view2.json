@@ -1,7 +1,7 @@
 {
-  "_id": "_design/example2",
+  "_id": "_design/example",
   "views": {
-    "view2": {
+    "view3": {
       "map": "function(doc){ if(doc.date && doc.title) { emit(doc.date, doc.title); } }"
     }
   }

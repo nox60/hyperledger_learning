@@ -186,4 +186,6 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-04-01 08:12:24", "related_value":"Some content2"}'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2018-08-23 12:49:05", "related_value":"Some content3"}'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2017-01-22 07:29:04", "related_value":"Some content5"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-06-14 01:28:11", "related_value":"Some content6", "related_person":"Kelly Zuo"}'
 ```

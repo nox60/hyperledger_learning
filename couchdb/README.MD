@@ -178,3 +178,12 @@ curl -X PUT http://admin:password@127.0.0.1:5984/basic/_design/example -d @js_ex
 ```
 curl http://admin:password@localhost:5984/basic/_design/example/_view/view2
 ```
+
+// 在做一个测试，看看是否会带出更多的数据
+执行几次下面的命令，给basic这个仓库增加测试数据
+```shell script
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2019-01-01 14:02:11", "related_value":"Some content", "related_person":"Jimmy wang"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-04-01 08:12:24", "related_value":"Some content2"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2018-08-23 12:49:05", "related_value":"Some content3"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
+```

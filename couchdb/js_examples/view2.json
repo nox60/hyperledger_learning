@@ -2,7 +2,7 @@
   "_id": "_design/example",
   "views": {
     "view2": {
-      "map": "function(doc){if(doc.date && doc.title) {emit(doc.date, doc.title);}}"
+      "map": "function(doc){ if(doc.date && doc.title) { emit(doc.date, doc.title); } }"
     }
   }
 }

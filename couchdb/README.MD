@@ -158,14 +158,19 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 
 创建一个view
 ```shell script
-function(doc) {
-    if(doc.create_date && doc.relate_value) {
-        emit(doc.create_date, doc.relate_value);
+{
+  "_id": "_design/example",
+  "views": {
+    "view2": {
+      "map": "function(doc){ if(doc.date && doc.title) { emit(doc.date, doc.title); } }"
     }
+  }
 }
 ```
 
+
+
 然后执行下面的命令，调用刚才的view里面的查询函数foo，获取查询出来的数据
 ```
-curl http://admin:password@localhost:5984/basic/_design/example/_view/foo
+curl http://admin:password@localhost:5984/basic/_design/example/_view/view2
 ```

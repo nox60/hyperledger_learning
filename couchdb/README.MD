@@ -156,7 +156,7 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
 ```
 
-创建一个view
+创建一个view，文件名为view2.json
 ```shell script
 {
   "_id": "_design/example",
@@ -168,6 +168,10 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 }
 ```
 
+提交上述的view
+```json
+curl -X PUT http://admin:password@127.0.0.1:5984/basic/_design/example -d @js_examples/view2.json
+```
 
 
 然后执行下面的命令，调用刚才的view里面的查询函数foo，获取查询出来的数据

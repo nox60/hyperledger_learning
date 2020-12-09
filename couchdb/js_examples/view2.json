@@ -1,5 +1,5 @@
 {
-  "_id": "_design/example",
+  "_id": "_design/example2",
   "views": {
     "view2": {
       "map": "function(doc){ if(doc.date && doc.title) { emit(doc.date, doc.title); } }"

@@ -198,3 +198,23 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 http://admin:password@192.168.16.70:5984/basic/_design/example/_view/view2?startkey="2018-08-23 12:49:05"&endkey="2022-08-23 12:49:05"
 ```
 
+增加测试数据如下：
+
+```shell script
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"a", "sample_value":1, "related_person":"Kelly Zuo"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"a", "sample_value":"6", "related_person":"Tom Jacky"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"b", "sample_value":"55", "related_person":"Naomi Sandy"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"b", "sample_value":189, "related_person":"Naomi Sandy"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"b", "sample_value":67, "related_person":"Naomi Sandy"}'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"c", "sample_value":5, "related_person":"Kelly Zuo"}'
+```
+
+水果店例子
+```shell script
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"apple", "prices": " { \"Fresh Mart\": 1.59, \"Price Max\": 5.99, \"Apples Express\": 0.79  } "  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"orange", "prices": " { \"Fresh Mart\": 2.59, \"Price Max\": 6.00, \"Apples Express\": 0.79  } "  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"banana", "prices": " { \"Fresh Mart\": 3.09, \"Price Max\": 4.38, \"Apples Express\": 0.79  } "  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"mango", "prices": " { \"Fresh Mart\": 4.00, \"Price Max\": 8.99, \"Apples Express\": 0.79  } "  }'
+
+
+```

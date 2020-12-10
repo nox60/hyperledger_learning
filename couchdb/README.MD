@@ -191,3 +191,10 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 ```
 
 经过测试证明，view会带出整个文档，只是在reduce过程中会选用指定的值进行reduct
+
+
+用下面的命令可以进行key的范围查询，注意字母大小写敏感，一旦写错会失效
+```shell script
+http://admin:password@192.168.16.70:5984/basic/_design/example/_view/view2?startkey="2018-08-23 12:49:05"&endkey="2022-08-23 12:49:05"
+```
+

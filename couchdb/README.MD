@@ -218,3 +218,13 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 
 
 ```
+
+
+童话记录例子
+
+```shell script
+
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 180  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 120  }'
+
+```

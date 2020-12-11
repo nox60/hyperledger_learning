@@ -215,16 +215,12 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"orange", "prices": " { \"Fresh Mart\": 2.59, \"Price Max\": 6.00, \"Apples Express\": 0.79  } "  }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"banana", "prices": " { \"Fresh Mart\": 3.09, \"Price Max\": 4.38, \"Apples Express\": 0.79  } "  }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"mango", "prices": " { \"Fresh Mart\": 4.00, \"Price Max\": 8.99, \"Apples Express\": 0.79  } "  }'
-
-
 ```
 
 
 童话记录例子
 
 ```shell script
-
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 180  }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 120  }'
-
 ```

@@ -224,3 +224,7 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 180  }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 120  }'
 ```
+
+
+https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
+https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce

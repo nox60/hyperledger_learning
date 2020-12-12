@@ -26,6 +26,8 @@ CouchDB使用B-tree的数据结构进行数据保存。
 
 ### 快速安装
 
+这里采用的是用Docker的方式安装，如果需要二进制的安装方式移步官方文档。
+
 ```dockerfile
 docker run --name my-couchdb \
     -v /opt/local/containers/couchdb/data:/opt/couchdb/data \

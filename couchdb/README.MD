@@ -248,14 +248,12 @@ function(keys, values) {
 ```
 
 得到结果：
-```
 
 |key|value|	
 |---|---|
 |1001|300|
 |1002|294|
 |1003|160|
-```
 
 https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce

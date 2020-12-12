@@ -220,11 +220,31 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 ```
 
 
-童话记录例子
+通话记录例子
 
 ```shell script
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 180  }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1001", "billSeconds": 120  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1002", "billSeconds": 214  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1002", "billSeconds": 80  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1003", "billSeconds": 160  }'
+```
+
+基于上面的例子，构造map函数
+
+```map
+function(doc) {
+    if (doc.phoneNumber && doc.billSeconds) {
+        emit(doc.phoneNumber, doc.billSeconds);
+    }
+}
+```
+
+再构造reduce函数
+```reduce
+function(keys, values) {
+    return sum(values);
+}
 ```
 
 

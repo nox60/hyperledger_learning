@@ -316,12 +316,12 @@ values is an array of the values that are returned by previous calls to the redu
 
 https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce
-
+https://www.techfreak.net/2013/11/14/a-couchdb-view-example.html
 
 
 |Argument|Description|Optional|Type|Default|Supported values|Partition query|
 |---|---|---|---|---|---|---|
-|bookmark TXE tag|	A bookmark to navigate to a specific page.|	Yes|	String|		| | | 	
+|bookmark |	A bookmark to navigate to a specific page.|	Yes|	String|		| | | 	
 |conflicts|	Can be set only if include_docs is true. Adds information about conflicts to each document.|	Yes|	Boolean|	False|	|	No|
 descending	Return the documents in "descending by key" order.	Yes	Boolean	False		Yes
 endkey	Stop returning records when the specified key is reached.	Yes	String or JSON array			Yes

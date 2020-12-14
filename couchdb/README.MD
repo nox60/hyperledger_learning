@@ -257,7 +257,6 @@ function(keys, values) {
 
 
 通话记录例子2
-
 ```shell script
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1011", "billSeconds": 160, "cardNumber": "11842f91-59b0-4364-8744-f1bbfe5fbdb0"  }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1011", "billSeconds": 140, "cardNumber": "92b7d293-6b14-4cc7-b034-8f8e103b70d9"   }'
@@ -266,7 +265,14 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1013", "billSeconds": 78, "cardNumber": "9e8c231c-2d0d-4c77-9760-92a9e77aec88"   }'
 ```
 
-
+将多个字段组合到value中的map
+```map
+function(doc) {    
+  if(doc.phoneNumber && doc.cardNumber){
+    emit(doc.phoneNumber, {billSeconds: doc.billSeconds, cardNumber: doc.cardNumber}); 
+  }
+}
+```
 
 https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce

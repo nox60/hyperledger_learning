@@ -274,5 +274,16 @@ function(doc) {
 }
 ```
 
+```result
+|id|key|value|	
+|--|---|---|
+|592029f8e459a449c3c8b5417101cd09|1011|{ "billSeconds": 160, "cardNumber": "11842f91-59b0-4364-8744-f1bbfe5fbdb0" }	|
+|592029f8e459a449c3c8b5417101d667|1011|{ "billSeconds": 140, "cardNumber": "92b7d293-6b14-4cc7-b034-8f8e103b70d9" }	|
+|592029f8e459a449c3c8b5417101e5e9|1012|{ "billSeconds": 294, "cardNumber": "71944c95-776f-4cb6-b88f-2d7507257ba7" }	|
+|592029f8e459a449c3c8b5417101ea5a|1012|{ "billSeconds": 111, "cardNumber": "d8fa568a-8328-418c-aa17-b45e68f26953" }	|
+|592029f8e459a449c3c8b5417101f39e|1013|{ "billSeconds": 78, "cardNumber": "9e8c231c-2d0d-4c77-9760-92a9e77aec88" }	|
+
+```
+
 https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce

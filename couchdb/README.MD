@@ -219,6 +219,18 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"item":"mango", "prices": " { [\"Fresh Mart\": 4.00], [\"Price Max\": 8.99], [\"Fruit Express\": 5.88]  } "  }'
 ```
 
+水果的map函数
+```shell script
+function(doc) {
+    var shop, price;
+    if (doc.item && doc.prices) {
+        doc.prices.forEach(function(i) {
+              emit(doc.item, i);
+        });
+    }
+}
+```
+
 
 通话记录例子
 

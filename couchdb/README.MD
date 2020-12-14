@@ -301,5 +301,18 @@ function (keys, values) {
 |1013|{ "billSeconds": 78, "cardNumber": "9e8c231c-2d0d-4c77-9760-92a9e77aec88" }|
 
 
+
+Reduce functions must handle two cases:
+
+When rereduce is false:
+
+keys is an array whose elements are arrays of the form [key, id], where key is a key that is emitted by the map function, and id identifies the document from which the key was generated.
+values is an array of the values that are emitted for the respective elements in keys, for example: reduce([ [key1,id1], [key2,id2], [key3,id3] ], [value1,value2,value3], false).
+When rereduce is true:
+
+keys is null.
+values is an array of the values that are returned by previous calls to the reduce function, for example: reduce(null, [intermediate1,intermediate2,intermediate3], true).
+
+
 https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce

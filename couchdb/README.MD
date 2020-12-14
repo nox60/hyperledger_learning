@@ -255,5 +255,18 @@ function(keys, values) {
 |1002|294|
 |1003|160|
 
+
+通话记录例子2
+
+```shell script
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1011", "billSeconds": 160, "cardNumber": "11842f91-59b0-4364-8744-f1bbfe5fbdb0"  }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1011", "billSeconds": 140, "cardNumber": "92b7d293-6b14-4cc7-b034-8f8e103b70d9"   }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1012", "billSeconds": 294, "cardNumber": "71944c95-776f-4cb6-b88f-2d7507257ba7"   }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1012", "billSeconds": 111, "cardNumber": "d8fa568a-8328-418c-aa17-b45e68f26953"   }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"phoneNumber":"1013", "billSeconds": 78, "cardNumber": "9e8c231c-2d0d-4c77-9760-92a9e77aec88"   }'
+```
+
+
+
 https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce

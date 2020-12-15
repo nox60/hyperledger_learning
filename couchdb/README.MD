@@ -337,8 +337,8 @@ https://www.techfreak.net/2013/11/14/a-couchdb-view-example.html
 |conflicts|	Can be set only if include_docs is true. Adds information about conflicts to each document.|	Yes|	Boolean|	False|	|	No|
 |descending	|Return the documents in "descending by key" order.	|Yes	|Boolean	|False		|Yes|
 |endkey	|Stop returning records when the specified key is reached.	|Yes	|String or JSON array|	|		|Yes|
-endkey_docid	Stop returning records when the specified document ID is reached.	Yes	String			Yes
-group	Using the reduce function, group the results to a group or single row.	Yes	Boolean	False		Yes
+|endkey_docid	|Stop returning records when the specified document ID is reached.	|Yes|	String	|	|	|Yes|
+|group	|Using the reduce function, group the results to a group or single row.	|Yes|	Boolean|	False	|	|Yes|
 group_level	Only applicable if the view uses complex keys: keys that are JSON arrays. Groups reduce results for the specified number of array fields.	Yes	Numeric			Yes
 include_docs	Include the full content of the documents in the response.	Yes	Boolean	False		Yes
 inclusive_end	Include rows with the specified endkey.	Yes	Boolean	True		Yes

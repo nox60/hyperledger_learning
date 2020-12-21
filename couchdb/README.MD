@@ -341,9 +341,9 @@ https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-views
 |endkey	|Stop returning records when the specified key is reached.	|Yes	|String or JSON array|	|		|Yes|
 |endkey_docid	|Stop returning records when the specified document ID is reached.	|Yes|	String	|	|	|Yes|
 |group	|Using the reduce function, group the results to a group or single row.	|Yes|	Boolean|	False	|	|Yes|
-|group_leve|	Only applicable if the view uses complex keys: keys that are JSON arrays. Groups reduce results for the specified number of array fields.|	Yes	|Numeric	| |		Yes|
-include_docs	Include the full content of the documents in the response.	Yes	Boolean	False		Yes
-inclusive_end	Include rows with the specified endkey.	Yes	Boolean	True		Yes
+|group_level |	Only applicable if the view uses complex keys: keys that are JSON arrays. Groups reduce results for the specified number of array fields.|	Yes	|Numeric	| | |		Yes|
+|include_docs|	Include the full content of the documents in the response.	|Yes|	Boolean|	False	 | |	Yes|
+|inclusive_end|	Include rows with the specified endkey.|	Yes|	Boolean |	True	| |  Yes |
 key	Return only documents that match the specified key. Keys are JSON values, and must be URL encoded.	Yes	JSON strings or arrays			Yes
 keys	Return only documents that match the specified keys. Keys are JSON values, and must be URL encoded.	Yes	Array of JSON strings or arrays			Yes
 limit 1	Limit the number of returned documents to the specified count.	Yes	Numeric			Yes

@@ -352,6 +352,6 @@ https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-views
 | skip |	Skip this number of rows from the start. |	Yes |	Numeric	| 0	 | | 	Yes |
 | stable |	Prefer view results from a 'stable' set of shards. The results are from a view that is less likely to be updated soon. |	Yes |	Boolean |	False	| |	No |
 | stale |	Allow the results from a stale view to be used. The request returns immediately, even if the view isn't built yet. If this parameter isn't specified, a response is returned only after the view is built. |	Yes |	String |	False	| |	No |
-startkey	Return records, starting with the specified key.	Yes	String or JSON array			Yes
-startkey_docid	Return records, starting with the specified document ID.	Yes	String			Yes
-update	Ensure that the view is updated before results are returned.	Yes	
+| startkey | Return records, starting with the specified key. |	Yes |	String or JSON array | | |			Yes |
+| startkey_docid |	Return records, starting with the specified document ID. |	Yes |	String	| |	|	Yes |
+| update |	Ensure that the view is updated before results are returned. | 	Yes |	String |	true |	Yes | |

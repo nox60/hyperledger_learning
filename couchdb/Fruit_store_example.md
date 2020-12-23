@@ -1,3 +1,5 @@
+筛选出'Fresh'的key信息
+
 ```javascript
 function(doc) {
     var shop, price;

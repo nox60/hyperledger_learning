@@ -7,7 +7,22 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"fruitName":"mango", "prices":  { [{"carrefour": 17.11},{"walmart": 16.00},{"Auchan": 15.11}]  }   }'
 ```
 
-在数据的操作方面，可以利用linux下的curl工具进行post请求发送提交数据，但是其他
+### 数据增加:
+
+#### 利用 curl
+
+#### 利用CouchDB自带的Fauxton
+
+#### 利用postman工具：
+
+在数据的操作方面，可以利用linux下的curl工具进行post请求发送提交数据，但是在命令行里面发送大量的Json数据需要对格式进行较多调整，比较麻烦。
+
+此处选用Postman工具进行数据提交，具体的操作是：
+
+```javascript
+http://admin:password@192.168.16.70:5984/basic
+```
+
 
 
 筛选出'Fresh'的key信息

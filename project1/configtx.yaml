@@ -717,48 +717,7 @@ Profiles:
             Capabilities:
                 <<: *ApplicationCapabilities
 
-                
-    TwoOrgsChannelbackup:
-        Consortium: SampleConsortium
-        <<: *ChannelDefaults
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *Org1
-                - *Org2
-            Capabilities:
-                <<: *ApplicationCapabilities
-
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+               
 
 
 

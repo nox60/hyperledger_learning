@@ -691,37 +691,6 @@ Channel: &ChannelDefaults
 #   as parameters to the configtxgen tool
 #
 ################################################################################
-Profiles:
-
-    TwoOrgsOrdererGenesis:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *Orderer
-            Capabilities:
-                <<: *OrdererCapabilities
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *Org1
-                    - *Org2
-    TwoOrgsChannel:
-        Consortium: SampleConsortium
-        <<: *ChannelDefaults
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *Org1
-                - *Org2
-            Capabilities:
-                <<: *ApplicationCapabilities
-
-               
-
-
-
-
 
 
 

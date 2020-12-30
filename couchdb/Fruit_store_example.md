@@ -90,6 +90,23 @@ function(doc) {
 |403665cb272a933325570190b602ccd0|	orange	|[ { "carrefour": 22 }, { "walmart": 26.1 }, { "Auchan": 18.59 } ]	 |
 
 
+如果我们想看的是所有水果在家乐福的价格，并且需要按照价格排序。我们在Fauxton中建立下面的map函数
+```javascript
+function(doc) {
+    var shop, price;
+    if (doc.fruitName && doc.prices) {
+        doc.prices.forEach(function(i) {
+            emit(doc.fruitName, 'aaaaa');
+              // for (var key in i) {
+              //     if ( key.indexOf("carrefour") != -1 ) {
+              //       emit(doc.fruitName, 'aaaaa');
+              //     }
+              // }
+        });
+    }
+}
+```
+
 
 筛选出'Fresh'的key信息
 

@@ -42,31 +42,31 @@ http://admin:password@192.168.16.70:5984/basic
 	"fruitName":"orange", 
 	"prices":  
 	[
-		{"carrefour": 17.11},
-		{"walmart": 16.00},
-		{"Auchan": 15.11}
+		{"carrefour": 22.00},
+		{"walmart": 26.10},
+		{"Auchan": 18.59}
 	] 
 }
 ```
 ```Json
 {
-	"fruitName":"orange", 
+	"fruitName":"apple", 
 	"prices":  
 	[
-		{"carrefour": 17.11},
-		{"walmart": 16.00},
-		{"Auchan": 15.11}
+		{"carrefour": 13.21},
+		{"walmart": 12.90},
+		{"Auchan": 9.11}
 	] 
 }
 ```
 ```Json
 {
-	"fruitName":"orange", 
+	"fruitName":"banana", 
 	"prices":  
 	[
-		{"carrefour": 17.11},
-		{"walmart": 16.00},
-		{"Auchan": 15.11}
+		{"carrefour": 19.21},
+		{"walmart": 11.02},
+		{"Auchan": 7.55}
 	] 
 }
 ```

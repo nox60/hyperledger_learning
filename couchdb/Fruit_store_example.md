@@ -19,10 +19,57 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 
 此处选用Postman工具进行数据提交，具体的操作是：
 
+请求下面的地址，发送的数据类型是application/json
 ```javascript
 http://admin:password@192.168.16.70:5984/basic
 ```
+数据是
+```Json
+{
+	"fruitName":"mango", 
+	"prices":  
+	[
+		{"carrefour": 17.11},
+		{"walmart": 16.00},
+		{"Auchan": 15.11}
+	] 
+}
+```
 
+继续发送下面的三个水果到couchdb
+```Json
+{
+	"fruitName":"orange", 
+	"prices":  
+	[
+		{"carrefour": 17.11},
+		{"walmart": 16.00},
+		{"Auchan": 15.11}
+	] 
+}
+```
+```Json
+{
+	"fruitName":"orange", 
+	"prices":  
+	[
+		{"carrefour": 17.11},
+		{"walmart": 16.00},
+		{"Auchan": 15.11}
+	] 
+}
+```
+```Json
+{
+	"fruitName":"orange", 
+	"prices":  
+	[
+		{"carrefour": 17.11},
+		{"walmart": 16.00},
+		{"Auchan": 15.11}
+	] 
+}
+```
 
 
 筛选出'Fresh'的key信息

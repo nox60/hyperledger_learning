@@ -68,6 +68,8 @@ https://docs.couchdb.org/en/stable/ddocs/ddocs.html
 
 https://my.oschina.net/u/811958/blog/368661
 
+http://guide.couchdb.org/editions/1/en/index.html
+
 ### Design Document
 
 A design document is a CouchDB document with an id that begins with _design/. For

@@ -98,7 +98,7 @@ function(doc) {
         doc.prices.forEach(function(i) {
               for (var key in i) {
                   if ( key.indexOf("carrefour") != -1 ) {
-                    emit(doc.item, i);
+                    emit(doc.fruitName, i);
                   }
               }
         });
@@ -106,3 +106,11 @@ function(doc) {
 }
 ```
 
+结果如下：
+
+|id	|key	|value|	
+|---|---|---|
+|	403665cb272a933325570190b602d66b|	apple|	{ "carrefour": 13.21 }	|
+|	403665cb272a933325570190b602e081|	banana	|{ "carrefour": 19.21 }	|
+|	403665cb272a933325570190b602bf9d|	mango|	{ "carrefour": 17.11 }	|
+|	403665cb272a933325570190b602ccd0|	orange|	{ "carrefour": 22 }|

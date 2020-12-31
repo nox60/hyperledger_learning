@@ -96,12 +96,11 @@ function(doc) {
     var shop, price;
     if (doc.fruitName && doc.prices) {
         doc.prices.forEach(function(i) {
-            emit(doc.fruitName, 'aaaaa');
-              // for (var key in i) {
-              //     if ( key.indexOf("carrefour") != -1 ) {
-              //       emit(doc.fruitName, 'aaaaa');
-              //     }
-              // }
+              for (var key in i) {
+                  if ( key.indexOf("carrefour") != -1 ) {
+                    emit(doc.item, i);
+                  }
+              }
         });
     }
 }

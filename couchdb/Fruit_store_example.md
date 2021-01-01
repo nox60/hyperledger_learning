@@ -160,3 +160,8 @@ function (keys, values, rereduce) {
 }
 ```
 对其进行修改，
+
+
+couchdb在调试的时候，最好把系统设置为debug的日志模式，这样可以在输出中看到输出。
+
+具体操作如下。 

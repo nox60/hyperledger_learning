@@ -71,6 +71,8 @@ https://my.oschina.net/u/811958/blog/368661
 
 http://guide.couchdb.org/editions/1/en/index.html
 
+https://callahan.io/blog/2016/06/04/debugging-couchdb-design-documents
+
 ### Design Document
 
 A design document is a CouchDB document with an id that begins with _design/. For

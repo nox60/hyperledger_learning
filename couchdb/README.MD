@@ -31,7 +31,7 @@ CouchDB使用B-tree的数据结构进行数据保存。
 ```dockerfile
 docker run --name my-couchdb \
     -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
-    -v /opt/local/containers/couchdb/log:/var/log/couchdb \
+    -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
     -p 5984:5984 \
     -e COUCHDB_USER=admin \
     -e COUCHDB_PASSWORD=password \

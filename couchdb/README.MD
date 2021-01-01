@@ -36,6 +36,13 @@ docker run --name my-couchdb \
     -e COUCHDB_USER=admin \
     -e COUCHDB_PASSWORD=password \
     -d couchdb:3.0
+
+sleep 5
+
+curl localhost:5984
+curl -X PUT http://admin:password@localhost:5984/_users
+curl -X PUT http://admin:password@localhost:5984/_replicator
+curl -X PUT http://admin:password@localhost:5984/_global_changes  
 ```
 
 ##### 参数说明
@@ -74,6 +81,8 @@ http://guide.couchdb.org/editions/1/en/index.html
 https://callahan.io/blog/2016/06/04/debugging-couchdb-design-documents
 
 https://blog.csdn.net/u012731379/article/details/79872120
+
+https://github.com/apache/couchdb/issues/1354
 
 ### Design Document
 

@@ -128,7 +128,7 @@ function(doc) {
     var shop, price;
     if (doc.fruitName && doc.prices) {
         doc.prices.forEach(function(i) {
-              for (var key in i) {
+              for (var key in i) {   // 这个地方后面也改成forEach
                   if ( key.indexOf("carrefour") != -1 ) {
                     emit("carrefour", i);
                   }

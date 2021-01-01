@@ -145,3 +145,18 @@ function(doc) {
 |---|---|
 |carrefour	|{ "carrefour": 71.53 }|
 
+
+如果此处要自己编写sum函数的话， 该怎么编写？
+
+编辑view，然后在reduce下拉菜单中选择CUSTOM，其中系统默认的reduce函数如下：
+
+```javascript
+function (keys, values, rereduce) {
+    if (rereduce) {
+        return sum(values);
+    } else {
+        return values.length;
+    }
+}
+```
+对其进行修改，

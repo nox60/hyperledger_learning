@@ -84,6 +84,9 @@ https://blog.csdn.net/u012731379/article/details/79872120
 
 https://github.com/apache/couchdb/issues/1354
 
+// map-reduce process
+https://blog.pablobm.com/2019/07/18/map-reduce-with-couchdb-a-visual-primer.html
+
 ### Design Document
 
 A design document is a CouchDB document with an id that begins with _design/. For

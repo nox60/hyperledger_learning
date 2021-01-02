@@ -206,8 +206,8 @@ function(doc) {
 
 写入下面的数据，做一些不太一样的聚合查询
 
-```json
-{ "fruitName":"mango", "city":"Beijing","prices":[{"carrefour": 12.14},{"walmart": 5.00},{"Auchan": 14.09}] }
+```SHELL
+curl -H "Content-Type: application/json" -X POST -d { \"fruitName\":\"mango\", \"city\":\"Beijing\",\"prices\":[{\"carrefour\": 12.14},{\"walmart\": 5.00},{\"Auchan\": 14.09}] }
 { "fruitName":"mango", "city":"Shanghai","prices":[{"carrefour": 9.0},{"walmart": 10.20},{"Auchan": 16.15}] }
 { "fruitName":"mango", "city":"Chengdu","prices":[{"carrefour": 8.77},{"walmart": 12.10},{"Auchan": 17.88}] }
 { "fruitName":"mango", "city":"Chongqing","prices":[{"carrefour": 13.82},{"walmart": 13.10},{"Auchan": 8.99}] }

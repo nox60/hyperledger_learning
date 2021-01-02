@@ -199,6 +199,25 @@ function(doc) {
 
 此时增加一个reduce函数为：
 
-|key	|value|
+|key|value|
 |---|---|
 |carrefour|	71.53|
+
+
+写入下面的数据，做一些不太一样的聚合查询
+
+```json
+{ "fruitName":"mango", "city":"Beijing","prices":[{"carrefour": 12.14},{"walmart": 5.00},{"Auchan": 14.09}] }
+{ "fruitName":"mango", "city":"Shanghai","prices":[{"carrefour": 9.0},{"walmart": 10.20},{"Auchan": 16.15}] }
+{ "fruitName":"mango", "city":"Chengdu","prices":[{"carrefour": 8.77},{"walmart": 12.10},{"Auchan": 17.88}] }
+{ "fruitName":"mango", "city":"Chongqing","prices":[{"carrefour": 13.82},{"walmart": 13.10},{"Auchan": 8.99}] }
+{ "fruitName":"mango", "city":"Xian","prices":[{"carrefour": 12.1},{"walmart": 12.16},{"Auchan": 14.18}] }
+{ "fruitName":"apple", "city":"Beijing","prices":[{"carrefour": 22.0},{"walmart": 5.00},{"Auchan": 14.09}] }
+{ "fruitName":"apple", "city":"Shanghai","prices":[{"carrefour": 8.0},{"walmart": 10.20},{"Auchan": 16.15}] }
+{ "fruitName":"apple", "city":"Chengdu","prices":[{"carrefour": 14.0},{"walmart": 12.10},{"Auchan": 17.88}] }
+{ "fruitName":"apple", "city":"Chongqing","prices":[{"carrefour": 23.12},{"walmart": 13.10},{"Auchan": 8.99}] }
+{ "fruitName":"apple", "city":"Xian","prices":[{"carrefour": 16.10},{"walmart": 18.76},{"Auchan": 12.66}] }
+
+
+```
+

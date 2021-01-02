@@ -162,6 +162,9 @@ function (keys, values, rereduce) {
 对其进行修改，
 
 
-couchdb在调试的时候，最好把系统设置为debug的日志模式，这样可以在输出中看到输出。
+couchdb在调试的时候，最好把系统设置为debug的日志模式，这样可以在输出中看到输出。此时会发现自己很难写出系统的_sum函数直接对carrefour进行总和的reduce函数。这和couchdb的分布式存储逻辑有关系。
+
+后续会对这里的问题进行整理和分析。
 
 具体操作如下。 
+

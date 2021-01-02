@@ -170,3 +170,19 @@ couchdb在调试的时候，最好把系统设置为debug的日志模式，这�
 
 具体操作如下。 
 
+所以更改一下map函数如下：
+
+```javascript
+function(doc) {
+    var shop, price;
+    if (doc.fruitName && doc.prices) {
+        doc.prices.forEach(function(i) {
+              for (var key in i) {   // 这个地方后面也改成forEach
+                  if ( key.indexOf("carrefour") != -1 ) {
+                    emit("carrefour", i);
+                  }
+              }
+        });
+    }
+}
+```

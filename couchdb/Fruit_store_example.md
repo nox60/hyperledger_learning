@@ -258,3 +258,10 @@ function(doc) {
 ```shell
 http://admin:password@192.168.88.128:5984/basic/_design/all_fruits/_view/all_fruits?
 ```
+
+注意，在couchdb中利用descending关键字进行降序操作，是对key字段进行排序的，而不能像关系库一样编写order by。
+```shell
+http://admin:password@192.168.88.128:5984/basic/_design/all_fruits/_view/all_fruits?descending=true
+```
+
+要实现关系库类似的order by功能，需要

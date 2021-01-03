@@ -224,6 +224,13 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Chongqing","prices":[{"carrefour": 12.01},{"walmart": 13.10},{"Auchan": 8.99}] }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Xian","prices":[{"carrefour": 11.4},{"walmart": 18.16},{"Auchan": 14.18}] }'
 
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Beijing","prices":[{"carrefour": 11.0},{"walmart": 6.99},{"Auchan": 12.39}] }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Shanghai","prices":[{"carrefour": 9.12},{"walmart": 8.37},{"Auchan": 19.65}] }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Chengdu","prices":[{"carrefour": 17.33},{"walmart": 10.99},{"Auchan": 19.00}] }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Chongqing","prices":[{"carrefour": 5.39},{"walmart": 11.09},{"Auchan": 4.58}] }'
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
+
+
 
 ```
 

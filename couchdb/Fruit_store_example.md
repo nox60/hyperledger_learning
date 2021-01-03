@@ -1,5 +1,11 @@
 水果店项目，首先创建相关的数据。
 
+
+创建数据库
+```shell
+curl -X PUT http://admin:password@localhost:5984/basic
+```
+
 ```shell script
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"fruitName":"apple", "prices":  { [{"carrefour": 13.09},{"walmart": 14.38},{"Auchan": 20.79}] }   }'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"fruitName":"orange", "prices":  { [{"carrefour": 11.22},{"walmart": 13.87},{"Auchan": 10.01}]  }   }'
@@ -229,3 +235,26 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
 ```
 
+编写下面的map函数
+
+
+```javascript
+function(doc) {
+    var shop, price;
+    if (doc.city) {
+        doc.prices.forEach(function(i) {
+            for (var key in i) {   // 这个地方后面也改成forEach
+                if ( key.indexOf("carrefour") != -1 ) {
+                    emit( doc.city+ " carrefour", i[key]);
+                }
+            }
+        });
+        emit(doc.city, doc.prices);
+    }
+}
+```
+
+用postman请求下面的地址，请求方式GET
+```shell
+http://admin:password@192.168.88.128:5984/basic/_design/all_fruits/_view/all_fruits?
+```

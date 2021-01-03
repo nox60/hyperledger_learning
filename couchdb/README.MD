@@ -346,6 +346,12 @@ https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-views-mapreduce
 https://www.techfreak.net/2013/11/14/a-couchdb-view-example.html
 
 
+https://www.jb51.cc/nosql/203421.html
+
+
+https://docs.couchdb.org/en/stable/ddocs/views/intro.html
+
+
 https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-views
 
 |Argument|Description|Optional|Type|Default|Supported values|Partition query|

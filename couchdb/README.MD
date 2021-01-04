@@ -380,6 +380,9 @@ https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-views
 
 ### 参数解析
 
+#### descending
+view的显示结果是默认按照acsii升序进行排序的，如果使用?descending=true关键字，则会按照降序排列。
+
 #### include_docs
 
 请求的响应结果中获取整个文档，例子:
@@ -395,3 +398,28 @@ Warning
 Do not emit the entire document as the value of your emit(key, value) statement unless you’re sure you know you want it. This stores an entire additional copy of your document in the view’s secondary index. Views with emit(key, doc) take longer to update, longer to write to disk, and consume significantly more disk space. The only advantage is that they are faster to query than using the ?include_docs=true parameter when querying a view.
 
 Consider the trade-offs before emitting the entire document. Often it is sufficient to emit only a portion of the document, or just a single key / value pair, in your views.
+
+#### key
+
+查询对应指定key的数据，要求使用url编码。
+
+比如查询Chongqing carrefour，通过url编码之后结果为:Chongqing+carrefour，编码的网站为: http://tool.chinaz.com/tools/urlencode.aspx
+
+http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?key="Chongqing+carrefour"
+
+会发现查询结果中只有key匹配的数据
+
+
+#### keys
+
+类似于 sql查询中的in，keys用json数组的方式传递
+
+http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?keys=["Chongqing+carrefour","Beijing+carrefour"]
+
+#### limit 
+限制返回结果的条数
+
+#### page_size
+页码值，3.1以下版本的couchdb目测暂时不支持该值，需要进一步确认
+
+

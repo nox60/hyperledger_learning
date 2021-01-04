@@ -423,3 +423,5 @@ http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?keys
 页码值，3.1以下版本的couchdb目测暂时不支持该值，需要进一步确认
 
 
+#### skip
+跳过从开始到skip指定值的记录，其实这就是分页查询中的start值。limit就是offset值。

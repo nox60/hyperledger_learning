@@ -376,3 +376,22 @@ https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-views
 | startkey | Return records, starting with the specified key. |	Yes |	String or JSON array | | |			Yes |
 | startkey_docid |	Return records, starting with the specified document ID. |	Yes |	String	| |	|	Yes |
 | update |	Ensure that the view is updated before results are returned. | 	Yes |	String |	true |	Yes | |
+
+
+### 参数解析
+
+#### include_docs
+
+请求的响应结果中获取整个文档，例子:
+
+http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?include_docs=true
+
+在响应的结果中除了有key和value字段以外，还有doc字段，包含了整个doc的信息。
+
+官方文档中这一段需要整理:
+
+Warning
+
+Do not emit the entire document as the value of your emit(key, value) statement unless you’re sure you know you want it. This stores an entire additional copy of your document in the view’s secondary index. Views with emit(key, doc) take longer to update, longer to write to disk, and consume significantly more disk space. The only advantage is that they are faster to query than using the ?include_docs=true parameter when querying a view.
+
+Consider the trade-offs before emitting the entire document. Often it is sufficient to emit only a portion of the document, or just a single key / value pair, in your views.

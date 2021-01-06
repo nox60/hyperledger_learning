@@ -23,3 +23,8 @@ curl -X PUT http://<server-IP|FQDN>:5984/_node/_local/_config/couchdb/uuid -d '"
 
 Finally, set the shared http secret for cookie creation to the second UUID:
 curl -X PUT http://<server-IP|FQDN>:5984/_node/_local/_config/couch_httpd_auth/secret -d '"SECOND-UUID-GOES-HERE"'
+
+
+
+After that we can join all the nodes together. Choose one node as the “setup coordination node” to run all these commands on. This “setup coordination node” only manages the setup and requires all other nodes to be able to see it and vice versa. It has no special purpose beyond the setup process; CouchDB does not have the concept of a “master” node in a cluster.
+

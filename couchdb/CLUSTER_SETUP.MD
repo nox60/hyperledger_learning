@@ -41,3 +41,17 @@ replicate
 
 node
 节点
+
+
+[cluster]
+q=2
+n=3
+
+q分片，n副本
+
+```shell script
+$ curl -X PUT "$COUCH_URL:5984/database-name?q=4&n=2"
+```
+This creates a database that is split into 4 shards and 2 replicas, yielding 8 shard replicas distributed throughout the cluster.
+
+上面的命令创建了一个数据库，分为4个分片和2个副本，因此会有8个分片分布在整个集群上。

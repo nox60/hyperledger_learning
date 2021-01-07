@@ -55,3 +55,20 @@ $ curl -X PUT "$COUCH_URL:5984/database-name?q=4&n=2"
 This creates a database that is split into 4 shards and 2 replicas, yielding 8 shard replicas distributed throughout the cluster.
 
 上面的命令创建了一个数据库，分为4个分片和2个副本，因此会有8个分片分布在整个集群上。
+
+
+
+This section describes how to manually place and replace shards. These activities are critical steps when you determine your cluster is too big or too small, and want to resize it successfully, or you have noticed from server metrics that database/shard layout is non-optimal and you have some “hot spots” that need resolving.
+
+Consider a three-node cluster with q=8 and n=3. Each database has 24 shards, distributed across the three nodes. If you add a fourth node to the cluster, CouchDB will not redistribute existing database shards to it. This leads to unbalanced load, as the new node will only host shards for databases created after it joined the cluster. To balance the distribution of shards from existing databases, they must be moved manually.
+
+
+
+Ensure the target node has joined the cluster.
+Copy the shard(s) and any secondary index shard(s) onto the target node.
+Set the target node to maintenance mode.
+Update cluster metadata to reflect the new target shard(s).
+Monitor internal replication to ensure up-to-date shard(s).
+Clear the target node’s maintenance mode.
+Update cluster metadata again to remove the source shard(s)
+Remove the shard file(s) and secondary index file(s) from the source node.

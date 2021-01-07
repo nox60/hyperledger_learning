@@ -103,4 +103,22 @@ _global_changes
 则CouchDB会自动创建上述的三个数据库（在restart的时候？）
 
 ### 通过API创建
+如果不想通过Fauxton的设置中心进行设置，
+Alternatively, if you don’t want to use the Setup Wizard or set that value, and run 3.x as a single node with a server administrator already configured via config file, make sure to create the three system databases manually on startup:
 
+通过下面的接口创造三个数据库：
+
+```shell script
+curl -X PUT http://127.0.0.1:5984/_users
+curl -X PUT http://127.0.0.1:5984/_replicator
+curl -X PUT http://127.0.0.1:5984/_global_changes
+```
+
+## 集群配置
+集群端口如下：
+
+|Port Number|	Protocol|	Recommended binding|	Usage|
+|---|---|---|---|
+|5984|	tcp|	As desired, by default localhost|	Standard clustered port for all HTTP API requests|
+|4369|	tcp	|All interfaces by default	|Erlang port mapper daemon (epmd)|
+|Random above 1024 (see below)|	tcp|	Automatic	|Communication with other CouchDB nodes in the cluster|

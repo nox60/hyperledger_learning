@@ -157,7 +157,20 @@ COUCHDB_PASSWORD
 COUCHDB_SECRET
 NODENAME
 ERL_FLAGS  (ERL_FLAGS=-setcookie "brumbrum")
+inet_dist_listen_min   9100
+inet_dist_listen_max   9100
 
+-setcookie 'brumbrum' -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200
+
+```shell
+$docker run -itd -p 4000:4000 4368:4369 9000:9000 <docker_image_name> iex \
+  --name test@1.2.3.4 \
+    --cookie secret \
+      --erl '-kernel inet_dist_listen_min 9000' \
+      --erl '-kernel inet_dist_listen_max 9000' \
+         -S mix phx.server`
+
+```
 
 docker run --name my-couchdb \
 -v /opt/local/containers/couchdb/data:/opt/couchdb/data \

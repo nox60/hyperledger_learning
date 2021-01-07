@@ -72,3 +72,35 @@ Monitor internal replication to ensure up-to-date shard(s).
 Clear the target node’s maintenance mode.
 Update cluster metadata again to remove the source shard(s)
 Remove the shard file(s) and secondary index file(s) from the source node.
+
+
+https://docs.couchdb.org/en/stable/setup/single-node.html
+
+
+
+
+## 安装
+描述安装脚本，说明端口配置
+
+
+## 配置
+### 1. 使用界面上的方式进行配置
+通过地址：http://127.0.0.1:5984/_utils#setup 访问Fauxton，然后会被询问是要配置单节点(single-node)还是设置一个集群，如果选择单节点，则要输入用户名和密码。
+
+同时可以把couchdb和公网地址进行绑定，这样可以被局域网或者互联网上的主机访问到，比如绑定到0.0.0.0低智商，则绑定到了主机的所有地址上。然后配置工具会要求输入用户名和密码，创建下面的三个系统数据库：
+
+```shell script
+_users
+_replicator
+_global_changes
+```
+
+### 通过配置文件设置使用单节点
+如果在local.ini文件中设置了 
+```shell script
+[couchdb] single_node=true
+```
+则CouchDB会自动创建上述的三个数据库（在restart的时候？）
+
+### 通过API创建
+

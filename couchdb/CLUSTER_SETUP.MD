@@ -143,4 +143,9 @@ In file etc/vm.args change the line -name couchdb@127.0.0.1 to -name couchdb@<re
 
 ```
 
+
+For a CouchDB cluster you need to provide the NODENAME setting as well as the erlang cookie. Settings to Erlang can be made with the environment variable ERL_FLAGS, e.g. ERL_FLAGS=-setcookie "brumbrum". By default, this image exposes the epmd port 4369 and the Erlang cluster communication port 9100 (i.e. inet_dist_listen_min and inet_dist_listen_max are both 9100). Further information can be found here.
+
+
+
 https://docs.couchdb.org/en/stable/setup/cluster.html

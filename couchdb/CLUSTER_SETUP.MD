@@ -146,6 +146,26 @@ In file etc/vm.args change the line -name couchdb@127.0.0.1 to -name couchdb@<re
 
 For a CouchDB cluster you need to provide the NODENAME setting as well as the erlang cookie. Settings to Erlang can be made with the environment variable ERL_FLAGS, e.g. ERL_FLAGS=-setcookie "brumbrum". By default, this image exposes the epmd port 4369 and the Erlang cluster communication port 9100 (i.e. inet_dist_listen_min and inet_dist_listen_max are both 9100). Further information can be found here.
 
+- COUCHDB_USER and COUCHDB_PASSWORD will create an ini-file based local admin user with the given username and password in the file /opt/couchdb/etc/local.d/docker.ini.
+- COUCHDB_SECRET will set the CouchDB shared cluster secret value, in the file /opt/couchdb/etc/local.d/docker.ini.
+- NODENAME will set the name of the CouchDB node inside the container to couchdb@${NODENAME}, in the file /opt/couchdb/etc/vm.args. This is used for clustering purposes and can be ignored for single-node setups.
+- Erlang Environment Variables like ERL_FLAGS will be used by Erlang itself. For a complete list have a look here
+
+要设置的值
+COUCHDB_USER
+COUCHDB_PASSWORD
+COUCHDB_SECRET
+NODENAME
+ERL_FLAGS  (ERL_FLAGS=-setcookie "brumbrum")
+
+
+docker run --name my-couchdb \
+-v /opt/local/containers/couchdb/data:/opt/couchdb/data \
+-v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
+-p 5984:5984 \
+-e COUCHDB_USER=admin \
+-e COUCHDB_PASSWORD=password \
+-d couchdb:3.0
 
 
 https://docs.couchdb.org/en/stable/setup/cluster.html

@@ -119,6 +119,28 @@ curl -X PUT http://127.0.0.1:5984/_global_changes
 
 |Port Number|	Protocol|	Recommended binding|	Usage|
 |---|---|---|---|
-|5984|	tcp|	As desired, by default localhost|	Standard clustered port for all HTTP API requests|
+|5984|	tcp|	As desired, by default localhost|	用于API请求|
 |4369|	tcp	|All interfaces by default	|Erlang port mapper daemon (epmd)|
-|Random above 1024 (see below)|	tcp|	Automatic	|Communication with other CouchDB nodes in the cluster|
+|大于1024|	tcp|	自动分配	| 和集群中的其他接口通信的端口|
+
+CouchDB uses Erlang-native clustering functionality to achieve a clustered installation. Erlang uses TCP port 4369 (EPMD) to find other nodes, so all servers must be able to speak to each other on this port. In an Erlang cluster, all nodes are connected to all other nodes, in a mesh network configuration.
+
+CouchDB利用Erlang原生的集群能力进行集群部署。Erlang通过TCP 4369端口寻找其他节点，因此所有的服务器需要能够通过该端口和其他节点通信，在Erlang集群中，所有的节点都连接到其他节点，在同一个服务网格中。
+
+
+If you expose the port 4369 to the Internet or any other untrusted network, then the only thing protecting you is the Erlang cookie.
+
+Every Erlang application running on that machine (such as CouchDB) then uses automatically assigned ports for communciation with other nodes. Yes, this means random ports. This will obviously not work with a firewall, but it is possible to force an Erlang application to use a specific port range.
+
+This documentation will use the range TCP 9100-9200, but this range is unnecessarily broad. If you only have a single Erlang application running on a machine, the range can be limited to a single port: 9100-9100, since the ports epmd assign are for inbound connections only. Three CouchDB nodes running on a single machine, as in a development cluster scenario, would need three ports in this range.
+
+当前文档会要求使用TCP 9100-9200 范围，但是这个范围是非必需的。如果仅仅是运行一个单Erlang进程在这台机器上，可以将该节点压缩成一个端口号：9100-9100。如果有三个CouchDB节点运行在一个机器上，则要求在该端口范围中至少有三个端口。
+
+
+将CouchDB绑定到一个FQDN域名上。
+```shell script
+In file etc/vm.args change the line -name couchdb@127.0.0.1 to -name couchdb@<reachable-ip-address|fully-qualified-domain-name> which defines the name of the node. Each node must have an identifier that allows remote systems to talk to it. The node name is of the form <name>@<reachable-ip-address|fully-qualified-domain-name>.
+
+```
+
+https://docs.couchdb.org/en/stable/setup/cluster.html

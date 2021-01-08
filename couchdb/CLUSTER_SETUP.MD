@@ -176,7 +176,7 @@ $docker run -itd -p 4000:4000 4368:4369 9000:9000 <docker_image_name> iex \
 The content of these environment variables will be added to the end of the command line for erl.
 
 erl -name bus@192.168.0.1 -setcookie 'brumbrum' -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200
-//testing......
+//testing......1. 测试是否能够正确将参数应用到erlang环境中。2.测试是否生效。
 ```
 
 docker run --name my-couchdb \
@@ -186,6 +186,5 @@ docker run --name my-couchdb \
 -e COUCHDB_USER=admin \
 -e COUCHDB_PASSWORD=password \
 -d couchdb:3.0
-
 
 https://docs.couchdb.org/en/stable/setup/cluster.html

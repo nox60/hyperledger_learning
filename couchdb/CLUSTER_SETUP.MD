@@ -172,6 +172,13 @@ $docker run -itd -p 4000:4000 4368:4369 9000:9000 <docker_image_name> iex \
 
 ```
 
+```shell script
+The content of these environment variables will be added to the end of the command line for erl.
+
+erl -name bus@192.168.0.1 -setcookie 'brumbrum' -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200
+//testing......
+```
+
 docker run --name my-couchdb \
 -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
 -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \

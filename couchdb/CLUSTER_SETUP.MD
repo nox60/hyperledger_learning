@@ -223,4 +223,28 @@ curl http://admin:password@192.168.88.128:5984/_membership
 ```
 
 
+
+```shell
+
+docker run --name my-couchdb \
+   -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
+   -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
+   -p 5984:5984 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
+   -d couchdb:3.0
+   
+docker run --name my-couchdb2 \
+   -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
+   -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
+   -p 5984:5984 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
+   -d couchdb:3.0
+```
+
+
+
 https://docs.couchdb.org/en/stable/setup/cluster.html

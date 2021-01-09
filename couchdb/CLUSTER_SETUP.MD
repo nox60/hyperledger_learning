@@ -129,8 +129,10 @@ CouchDB利用Erlang原生的集群能力进行集群部署。Erlang通过TCP 436
 
 
 If you expose the port 4369 to the Internet or any other untrusted network, then the only thing protecting you is the Erlang cookie.
+如果把4369端口暴露到公网或者其他非信任的网络环境中，唯一能够保护服务得方式就是Erlang cookie.
 
 Every Erlang application running on that machine (such as CouchDB) then uses automatically assigned ports for communciation with other nodes. Yes, this means random ports. This will obviously not work with a firewall, but it is possible to force an Erlang application to use a specific port range.
+所有运行在同一台机器上的Erlang进程都使用自动分配的端口和其他节点进行通信，因为端口号随机分配的，这对于防火墙保护下的网络不可行，因为需要指定端口进行网络开发。因此解决方案就是使用指定一个端口范围。
 
 This documentation will use the range TCP 9100-9200, but this range is unnecessarily broad. If you only have a single Erlang application running on a machine, the range can be limited to a single port: 9100-9100, since the ports epmd assign are for inbound connections only. Three CouchDB nodes running on a single machine, as in a development cluster scenario, would need three ports in this range.
 
@@ -179,12 +181,22 @@ erl -name bus@192.168.0.1 -setcookie 'brumbrum' -kernel inet_dist_listen_min 910
 //testing......1. 测试是否能够正确将参数应用到erlang环境中。2.测试是否生效。
 ```
 
+```shell
 docker run --name my-couchdb \
--v /opt/local/containers/couchdb/data:/opt/couchdb/data \
--v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
--p 5984:5984 \
--e COUCHDB_USER=admin \
--e COUCHDB_PASSWORD=password \
--d couchdb:3.0
+   -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
+   -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
+   -p 5984:5984 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
+   -d couchdb:3.0
+
+sleep 10
+
+curl -X PUT http://127.0.0.1:5984/_users
+curl -X PUT http://127.0.0.1:5984/_replicator
+curl -X PUT http://127.0.0.1:5984/_global_changes
+```
+
 
 https://docs.couchdb.org/en/stable/setup/cluster.html

@@ -172,6 +172,14 @@ $docker run -itd -p 4000:4000 4368:4369 9000:9000 <docker_image_name> iex \
       --erl '-kernel inet_dist_listen_max 9000' \
          -S mix phx.server`
 
+
+erl the Erlang shell.
+-name bus@192.168.0.1 the name of the Erlang node and its IP address or FQDN.
+-setcookie 'brumbrum' the “password” used when nodes connect to each other.
+-kernel inet_dist_listen_min 9100 the lowest port in the range.
+-kernel inet_dist_listen_max 9200 the highest port in the range.
+
+
 ```
 
 ```shell script
@@ -193,9 +201,23 @@ docker run --name my-couchdb \
 
 sleep 10
 
-curl -X PUT http://127.0.0.1:5984/_users
-curl -X PUT http://127.0.0.1:5984/_replicator
-curl -X PUT http://127.0.0.1:5984/_global_changes
+curl -X PUT http://admin:password@127.0.0.1:5984/_users
+curl -X PUT http://admin:password@127.0.0.1:5984/_replicator
+curl -X PUT http://admin:password@127.0.0.1:5984/_global_changes
+
+# Now, bind the clustered interface to all IP addresses availble on this machine
+curl -X PUT http://<server-IP|FQDN>:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+
+# Now, bind the clustered interface to all IP addresses availble on this machine
+curl -X PUT http://192.168.88.128:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+
+# If not using the setup wizard / API endpoint, the following 2 steps are required:
+# Set the UUID of the node to the first UUID you previously obtained:
+curl -X PUT http://192.168.88.128:5984/_node/_local/_config/couchdb/uuid -d '"FIRST-UUID-GOES-HERE"'
+
+# Finally, set the shared http secret for cookie creation to the second UUID:
+curl -X PUT http://192.168.88.128:5984/_node/_local/_config/couch_httpd_auth/secret -d '"SECOND-UUID-GOES-HERE"'
+
 ```
 
 

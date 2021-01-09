@@ -205,19 +205,21 @@ curl -X PUT http://admin:password@127.0.0.1:5984/_users
 curl -X PUT http://admin:password@127.0.0.1:5984/_replicator
 curl -X PUT http://admin:password@127.0.0.1:5984/_global_changes
 
-# Now, bind the clustered interface to all IP addresses availble on this machine
-curl -X PUT http://<server-IP|FQDN>:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+# First, get two UUIDs to use later on. Be sure to use the SAME UUIDs on all nodes.
+curl http://192.168.88.128:5984/_uuids?count=2
 
 # Now, bind the clustered interface to all IP addresses availble on this machine
-curl -X PUT http://192.168.88.128:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+curl -X PUT http://admin:password@192.168.88.128:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
 
 # If not using the setup wizard / API endpoint, the following 2 steps are required:
 # Set the UUID of the node to the first UUID you previously obtained:
-curl -X PUT http://192.168.88.128:5984/_node/_local/_config/couchdb/uuid -d '"FIRST-UUID-GOES-HERE"'
+curl -X PUT http://admin:password@192.168.88.128:5984/_node/_local/_config/couchdb/uuid -d '"c50e7f04ea232ab636d90fb59e000780"'
 
 # Finally, set the shared http secret for cookie creation to the second UUID:
-curl -X PUT http://192.168.88.128:5984/_node/_local/_config/couch_httpd_auth/secret -d '"SECOND-UUID-GOES-HERE"'
+curl -X PUT http://admin:password@192.168.88.128:5984/_node/_local/_config/couch_httpd_auth/secret -d '"c50e7f04ea232ab636d90fb59e000c2a"'
 
+
+curl http://admin:password@192.168.88.128:5984/_membership
 ```
 
 

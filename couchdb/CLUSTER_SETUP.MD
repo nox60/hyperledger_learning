@@ -225,26 +225,44 @@ curl http://admin:password@192.168.88.128:5984/_membership
 
 
 ```shell
+docker network rm my_net
+docker network create my_net
+
+docker rm -f my-couchdb
+docker rm -f my-couchdb2
 
 docker run --name my-couchdb \
-   -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
-   -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
+   --network my_net \
    -p 5984:5984 \
+   -p 9100:9100 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
+   -e ERL_FLAGS='-setcookie "brumbrum" -name m1@my-couchdb -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
    -d couchdb:3.0
    
 docker run --name my-couchdb2 \
-   -v /opt/local/containers/couchdb/data:/opt/couchdb/data \
-   -v /opt/local/containers/couchdb/log/couch.log:/opt/couchdb/couch.log \
-   -p 5984:5984 \
+   --network my_net \
+   -p 5985:5984 \
+   -p 9101:9101 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
+   -e ERL_FLAGS='-setcookie "brumbrum" -name m2@my-couchdb2 -kernel inet_dist_listen_min 9101 -kernel inet_dist_listen_max 9101' \
    -d couchdb:3.0
 ```
+
+在界面上进行配置，测试使用172IP先完成链接。
 
 
 
 https://docs.couchdb.org/en/stable/setup/cluster.html
+
+
+```shell
+docker run --name my-couchdb \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -d couchdb:3.0
+```
+
+docker exec -it my-couchdb /opt/couchdb/bin/remsh
+有问题

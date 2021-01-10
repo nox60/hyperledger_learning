@@ -265,4 +265,5 @@ docker run --name my-couchdb \
 ```
 
 docker exec -it my-couchdb /opt/couchdb/bin/remsh
+https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-error-shell-process-terminated
 有问题

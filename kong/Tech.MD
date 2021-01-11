@@ -1,3 +1,9 @@
+konga首先创建connection，比如：
+
+name: local
+url: http://172.19.0.4:8001
+
+
 request -> router -> service
 
 router n:1 service

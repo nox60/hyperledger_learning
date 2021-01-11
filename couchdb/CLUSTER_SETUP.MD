@@ -152,7 +152,7 @@ For a CouchDB cluster you need to provide the NODENAME setting as well as the er
 - COUCHDB_SECRET will set the CouchDB shared cluster secret value, in the file /opt/couchdb/etc/local.d/docker.ini.
 - NODENAME will set the name of the CouchDB node inside the container to couchdb@${NODENAME}, in the file /opt/couchdb/etc/vm.args. This is used for clustering purposes and can be ignored for single-node setups.
 - Erlang Environment Variables like ERL_FLAGS will be used by Erlang itself. For a complete list have a look here
-
+table/add
 要设置的值
 COUCHDB_USER
 COUCHDB_PASSWORD
@@ -232,7 +232,6 @@ docker rm -f my-couchdb
 docker rm -f my-couchdb2
 
 docker run --name my-couchdb \
-   --network my_net \
    -p 5984:5984 \
    -p 9100:9100 \
    -e COUCHDB_USER=admin \
@@ -241,7 +240,6 @@ docker run --name my-couchdb \
    -d couchdb:3.0
    
 docker run --name my-couchdb2 \
-   --network my_net \
    -p 5985:5984 \
    -p 9101:9101 \
    -e COUCHDB_USER=admin \
@@ -267,3 +265,6 @@ docker run --name my-couchdb \
 docker exec -it my-couchdb /opt/couchdb/bin/remsh
 https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-error-shell-process-terminated
 有问题
+
+1. 不同虚拟机测试构建集群。
+2. kong转发

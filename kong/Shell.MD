@@ -66,12 +66,11 @@ docker run -d  --name kong \
 
 sleep 5
 
-docker run   \
-        --rm pantsel/konga:latest \
+docker run --rm --link kong-postgres:kong-postgres pantsel/konga:latest \
         -c prepare \
         -a postgres \
-        --link kong-postgres:kong-postgres \
-        -u postgresql://kong:123456@kong-postgres:5432/postgres
+        -u postgresql://kong:123456@kong-postgres:5432/postgres 
+        
 
 
 docker run -d  --name konga \

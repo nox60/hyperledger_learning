@@ -81,3 +81,11 @@ docker run -d --network=kong_net --name konga \
         -e "DB_DATABASE=postgres" \
         -e "NODE_ENV=production" \
         pantsel/konga
+
+
+#测试tomcat1, 8.0
+docker run -it -d --name tomcat8 tomcat:8.0
+#测试tomcat2, 9.0
+docker run -it -d --name tomcat9 tomcat:9.0
+#测试tomcat3, 10.0
+docker run -it -d --name tomcat10 tomcat:10.0

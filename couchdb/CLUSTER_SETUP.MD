@@ -304,3 +304,5 @@ docker run --name my.couchdb2 \
 问题基本上就在-name 参数后面
 
 https://github.com/apache/couchdb/issues/2054
+
+https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-error-shell-process-terminated

@@ -248,6 +248,8 @@ docker run --name my-couchdb2 \
    -d couchdb:3.0
 ```
 
+
+
 在界面上进行配置，测试使用172IP先完成链接。
 
 
@@ -298,5 +300,7 @@ docker run --name my.couchdb2 \
    -e ERL_FLAGS='-setcookie "brumbrum2" -name couchdb2@my.couchdb2 -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
    -d couchdb:3.0
 ```
+
+问题基本上就在-name 参数后面
 
 https://github.com/apache/couchdb/issues/2054

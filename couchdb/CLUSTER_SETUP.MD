@@ -274,14 +274,16 @@ https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-erro
 
 ```shell script
 
-docker run --name my-couchdb \
+docker run --name my.couchdb \
    -p 5984:5984 \
    -p 5986:5986 \
    -p 9100-9200:9100-9200 \
    -p 4369:4369 \
+   --add-host my.couchdb:192.168.16.70 \
+   --add-host my.couchdb2:192.168.16.71 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -name couchdb1@my-couchdb -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
+   -e ERL_FLAGS='-setcookie "brumbrum" -name couchdb1@my.couchdb -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
    -d couchdb:3.0
    
 docker run --name my-couchdb2 \
@@ -289,6 +291,8 @@ docker run --name my-couchdb2 \
    -p 5986:5986 \
    -p 9100-9200:9100-9200 \
    -p 4369:4369 \
+   --add-host my-couchdb:192.168.16.70 \
+   --add-host my-couchdb2:192.168.16.71 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
    -e ERL_FLAGS='-setcookie "brumbrum2" -name couchdb2@my-couchdb2 -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \

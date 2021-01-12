@@ -294,3 +294,5 @@ docker run --name my-couchdb2 \
    -e ERL_FLAGS='-setcookie "brumbrum2" -name couchdb2@192.168.16.71 -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
    -d couchdb:3.0
 ```
+
+https://github.com/apache/couchdb/issues/2054

@@ -276,6 +276,7 @@ https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-erro
 
 docker run --name my-couchdb \
    -p 5984:5984 \
+   -p 5986:5986 \
    -p 9100:9100 \
    -p 4369:4369 \
    -e COUCHDB_USER=admin \
@@ -285,6 +286,7 @@ docker run --name my-couchdb \
    
 docker run --name my-couchdb2 \
    -p 5984:5984 \
+   -p 5986:5986 \
    -p 9100:9100 \
    -p 4369:4369 \
    -e COUCHDB_USER=admin \

@@ -363,7 +363,9 @@ docker run --rm --link kong-postgres:kong-postgres pantsel/konga:latest \
         -c prepare \
         -a postgres \
         -u postgresql://kong:123456@kong-postgres:5432/postgres 
-        
+
+docker rm -f konga
+
 docker run -d  --name konga \
         -p 1337:1337 \
         -e "DB_ADAPTER=postgres" \
@@ -377,4 +379,9 @@ docker run -d  --name konga \
         pantsel/konga
 
       
+```
+
+
+```shell
+docker inspect --format='{{.NetworkSettings.IPAddress}}' konga
 ```

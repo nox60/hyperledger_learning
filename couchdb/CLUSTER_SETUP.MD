@@ -350,7 +350,7 @@ docker run -d  --name kong \
     -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
     -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" \
     --link kong-postgres:kong-postgres \
-    -p 8000:8000 \
+    -p 4369:8000 \
     -p 8443:8443 \
     -p 8001:8001 \
     -p 8080-8090:8080-8090 \

@@ -295,6 +295,7 @@ docker run --name my.couchdb2 \
    -p 5986:5986 \
    -p 9100-9200:9100-9200 \
    -p 4369:4369 \
+   -e NODENAME=my.couchdb2 \
    --hostname my.couchdb2 \
    --add-host my.couchdb1:192.168.16.70 \
    --add-host my.couchdb2:192.168.16.71 \

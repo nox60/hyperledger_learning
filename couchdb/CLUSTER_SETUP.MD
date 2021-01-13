@@ -219,7 +219,7 @@ curl -X PUT http://admin:password@192.168.88.128:5984/_node/_local/_config/couch
 curl -X PUT http://admin:password@192.168.88.128:5984/_node/_local/_config/couch_httpd_auth/secret -d '"c50e7f04ea232ab636d90fb59e000c2a"'
 
 
-curl http://admin:password@192.168.88.128:5984/_membership
+curl http://admin:password@127.0.0.1:5984/_membership
 ```
 
 
@@ -273,6 +273,7 @@ https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-erro
 
 
 
+##### 正确的配置 ！！！！！！
 
 ```shell script
 

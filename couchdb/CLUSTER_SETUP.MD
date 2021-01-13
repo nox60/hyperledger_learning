@@ -233,18 +233,18 @@ docker rm -f my-couchdb2
 
 docker run --name my-couchdb \
    -p 5984:5984 \
-   -p 9100:9100 \
+   -p 9100-9200:9100-9200 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -name m1@my-couchdb -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9100' \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
    -d couchdb:3.0
    
 docker run --name my-couchdb2 \
    -p 5985:5984 \
-   -p 9101:9101 \
+   -p 9300-9400:9300-9400 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -name m2@my-couchdb2 -kernel inet_dist_listen_min 9101 -kernel inet_dist_listen_max 9101' \
+   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 9300 -kernel inet_dist_listen_max 9400' \
    -d couchdb:3.0
 ```
 
@@ -384,4 +384,32 @@ docker run -d  --name konga \
 
 ```shell
 docker inspect --format='{{.NetworkSettings.IPAddress}}' konga
+```
+
+```shell
+docker run --name my.couchdb \
+   -p 5984:5984 \
+   -p 5986:5986 \
+   -p 9100-9200:9100-9200 \
+   -e NODENAME=my.couchdb1 \
+   --hostname my.couchdb1 \
+   --add-host my.couchdb1:192.168.16.70 \
+   --add-host my.couchdb2:192.168.16.71 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
+   -d couchdb:3.0
+   
+docker run --name my.couchdb2 \
+   -p 5984:5984 \
+   -p 5986:5986 \
+   -p 9100-9200:9100-9200 \
+   -e NODENAME=my.couchdb2 \
+   --hostname my.couchdb2 \
+   --add-host my.couchdb1:192.168.16.70 \
+   --add-host my.couchdb2:192.168.16.71 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
+   -d couchdb:3.0
 ```

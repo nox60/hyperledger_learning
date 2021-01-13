@@ -326,5 +326,55 @@ docker run --name kong-postgres \
         -d postgres:9.6
 
 
+sleep 5
+
+docker run --rm \
+    -e "KONG_DATABASE=postgres" \
+    -e "KONG_PG_HOST=kong-postgres" \
+    -e "KONG_PG_PASSWORD=123456" \
+    -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
+    --link kong-postgres:kong-postgres \
+    kong kong migrations bootstrap
+
+docker rm -f kong
+
+docker run -d  --name kong \
+    -e "KONG_DATABASE=postgres" \
+    -e "KONG_PG_HOST=kong-postgres" \
+    -e "KONG_PG_PASSWORD=123456" \
+    -e "KONG_PG_USER=kong" \
+    -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
+    -e "KONG_PROXY_ACCESS_LOG=/dev/stdout" \
+    -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" \
+    -e "KONG_PROXY_ERROR_LOG=/dev/stderr" \
+    -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
+    -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" \
+    --link kong-postgres:kong-postgres \
+    -p 8000:8000 \
+    -p 8443:8443 \
+    -p 8001:8001 \
+    -p 8080-8090:8080-8090 \
+    -p 8444:8444 \
+    kong
+
+sleep 5
+
+docker run --rm --link kong-postgres:kong-postgres pantsel/konga:latest \
+        -c prepare \
+        -a postgres \
+        -u postgresql://kong:123456@kong-postgres:5432/postgres 
+        
+docker run -d  --name konga \
+        -p 1337:1337 \
+        -e "DB_ADAPTER=postgres" \
+        -e "DB_HOST=kong-postgres" \
+        -e "DB_PORT=5432" \
+        -e "DB_USER=kong" \
+        -e "DB_PASSWORD=123456" \
+        -e "DB_DATABASE=postgres" \
+        -e "NODE_ENV=production" \
+        --link kong-postgres:kong-postgres \
+        pantsel/konga
+
       
 ```

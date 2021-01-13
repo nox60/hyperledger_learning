@@ -307,3 +307,24 @@ docker run --name my.couchdb2 \
    -d couchdb:3.0
 ```
 
+
+
+##### 利用kong进行代理
+
+```shell
+docker rm -f kong-postgres
+
+rm -rf /root/kong/postgre_db/*
+
+docker run --name kong-postgres \
+        -v /root/kong/postgre_db:/var/lib/postgresql/data \
+        -e POSTGRES_PASSWORD=123456 \
+        -e POSTGRES_USER=kong \
+        -e POSTGRES_DB=kong \
+        -e PGDATA=/var/lib/postgresql/data/pgdata \
+        -p 5432:5432 \
+        -d postgres:9.6
+
+
+      
+```

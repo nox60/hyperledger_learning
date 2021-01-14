@@ -27,7 +27,7 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 
 请求下面的地址，发送的数据类型是application/json
 ```javascript
-http://admin:password@192.168.16.70:5984/basic
+http://admin:password@localhost:5984/basic
 ```
 数据是
 ```Json

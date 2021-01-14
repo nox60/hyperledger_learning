@@ -232,6 +232,7 @@ docker network create k-network
 
 docker rm -f my.couchdb1
 docker rm -f my.couchdb2
+docker rm -f my.couchdb3
 
 docker run --name my.couchdb1 \
    --network=k-network \

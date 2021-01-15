@@ -224,7 +224,7 @@ curl http://admin:password@127.0.0.1:5984/_membership
 
 
 
-正确：
+单机器部署正确：
 
 ```shell
 docker network rm k-network
@@ -399,6 +399,7 @@ docker run -d  --name konga \
       
 ```
 
+### bbb
 
 ```shell
 docker inspect --format='{{.NetworkSettings.IPAddress}}' konga
@@ -430,4 +431,45 @@ docker run --name my.couchdb2 \
    -e COUCHDB_PASSWORD=password \
    -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
    -d couchdb:3.0
+```
+
+### aa
+
+```shell script
+docker network rm k-network
+docker network create k-network
+
+docker rm -f my.couchdb1
+docker rm -f my.couchdb2
+docker rm -f my.couchdb3
+
+docker run --name my.couchdb1 \
+   --network=k-network \
+   -p 5984:5984 \
+   -p 9100-9200:9100-9200 \
+   -e NODENAME=my.couchdb1 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
+   -d couchdb:3.0
+   
+docker run --name my.couchdb2 \
+   --network=k-network \
+   -p 5985:5984 \
+   -p 9300-9400:9300-9400 \
+   -e NODENAME=my.couchdb2 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 9300 -kernel inet_dist_listen_max 9400' \
+   -d couchdb:3.0
+   
+docker run --name my.couchdb3 \
+   --network=k-network \
+   -p 5986:5984 \
+   -p 9500-9600:9500-9600 \
+   -e NODENAME=my.couchdb3 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbrum3" -kernel inet_dist_listen_min 9500 -kernel inet_dist_listen_max 9600' \
+   -d couchdb:3.0   
 ```

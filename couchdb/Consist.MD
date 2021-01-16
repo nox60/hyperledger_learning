@@ -55,4 +55,73 @@ http://admin:password@192.168.88.128:5984/playlist
     "rev": "1-612aeb6d24bf9647ef630c246aa69e44"
 }
 ```
-上面的结果说明操作成功， 并且里面包含了这个文档的id以及版本号rev
+上面的结果说明操作成功， 并且里面包含了这个文档的id以及版本号rev。
+
+After a few days, we find that our playlists have been updated and we want to back up our changes. After we have fed our playlists to the backup application, it fetches the latest versions from CouchDB, along with the corresponding document revisions. When the application hands back the new playlist document, CouchDB requires that the document revision is included in the request.
+
+经过一段时间之后，用户决定更新自己的歌单，首先用户从CouchDB上拉去该歌单的详细信息。
+
+
+请求地址：
+```shell
+http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce
+```
+
+请求方式：**GET**
+
+请求接口说明：
+```shell
+server:port/{db}/{docid}
+
+服务器及其对应的端口号后面，是数据库名称和文档id
+```
+
+返回下面的结果：
+```shell
+{
+    "_id": "0825d2afeabbbc8a0de2b1ba9e0003ce",
+    "_rev": "1-612aeb6d24bf9647ef630c246aa69e44",
+    "mySongs": [
+        {
+            "周杰伦": "《双截棍》"
+        },
+        {
+            "陈奕迅": "《富士山下》"
+        },
+        {
+            "Taylor Swift": "《Blank Space》"
+        }
+    ]
+}
+```
+
+可以看到，返回的数据和之前写入的数据有相同的版本号1-612aeb6d24bf9647ef630c246aa69e44，说明数据没有发生变化。
+
+此时用户对数据进行修改，增加了一条歌曲信息，操作如下
+
+请求地址：
+```shell
+http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce
+```
+
+请求方式：**PUT**
+
+请求接口说明：
+```shell
+server:port/{db}/{docid}
+
+服务器及其对应的端口号后面，是数据库名称和文档id
+```
+
+
+```shell
+{
+	"mySongs":  
+	[
+		{"周杰伦": "《双截棍》"},
+		{"陈奕迅": "《富士山下》"},
+		{"Taylor Swift": "《Blank Space》"},
+		{"林俊杰": "《那些你很冒险的梦》"}
+	] 
+}
+```

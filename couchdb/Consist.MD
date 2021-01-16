@@ -113,7 +113,6 @@ server:port/{db}/{docid}
 服务器及其对应的端口号后面，是数据库名称和文档id
 ```
 
-
 ```shell
 {
 	"mySongs":  
@@ -125,3 +124,14 @@ server:port/{db}/{docid}
 	] 
 }
 ```
+
+请求结果：
+```shell
+{
+    "ok": true,
+    "id": "0825d2afeabbbc8a0de2b1ba9e0003ce",
+    "rev": "1-2db722b7d6ad1a1df0fd49ccd6eb211e"
+}
+```
+
+可以看到数据库返回了一个新的版本号：1-2db722b7d6ad1a1df0fd49ccd6eb211e，说明文档已经更新并且有了新的版本。

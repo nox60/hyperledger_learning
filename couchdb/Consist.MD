@@ -51,7 +51,7 @@ http://admin:password@192.168.88.128:5984/playlist
 ```shell
 {
     "ok": true,
-    "id": "0825d2afeabbbc8a0de2b1ba9e0003ce",
+    "id": "416459795fe1b6621ea6ee984b000d0f",
     "rev": "1-612aeb6d24bf9647ef630c246aa69e44"
 }
 ```

@@ -98,7 +98,7 @@ server:port/{db}/{docid}
 
 此时用户对数据进行修改，增加了一条歌曲信息，操作如下
 
-https://docs.couchdb.org/en/3.1.1/api/document/common.html#updating-an-existing-document
+https://docs.couchdb.org/en/3.1.1/api/document/common.html#updating-an-existing-document 
 
 请求地址：
 ```shell

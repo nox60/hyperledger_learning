@@ -173,3 +173,9 @@ If-Match: 1-917fa2381192822767f010b95b45325b
 ```
 
 需要注意的是，_rav参数和请求头中的If-Match不能共存，即只能选用一种方式更新数据
+
+
+
+此处需要对这张图进行分析（figure 7）
+
+https://docs.couchdb.org/en/stable/intro/consistency.html#intro-consistency-07

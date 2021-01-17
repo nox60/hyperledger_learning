@@ -59,12 +59,11 @@ http://admin:password@192.168.88.128:5984/playlist
 
 After a few days, we find that our playlists have been updated and we want to back up our changes. After we have fed our playlists to the backup application, it fetches the latest versions from CouchDB, along with the corresponding document revisions. When the application hands back the new playlist document, CouchDB requires that the document revision is included in the request.
 
-经过一段时间之后，用户决定更新自己的歌单，首先用户从CouchDB上拉去该歌单的详细信息。
+经过一段时间之后，用户决定更新自己的歌单，首先用户从CouchDB上拉取该歌单的详细信息。
 
-
-请求地址：
+拉取歌单信息的时候，在请求中要带上歌单文档的id，请求如下：
 ```shell
-http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce
+http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f
 ```
 
 请求方式：**GET**
@@ -79,7 +78,7 @@ server:port/{db}/{docid}
 返回下面的结果：
 ```shell
 {
-    "_id": "0825d2afeabbbc8a0de2b1ba9e0003ce",
+    "_id": "416459795fe1b6621ea6ee984b000d0f",
     "_rev": "1-612aeb6d24bf9647ef630c246aa69e44",
     "mySongs": [
         {
@@ -99,9 +98,11 @@ server:port/{db}/{docid}
 
 此时用户对数据进行修改，增加了一条歌曲信息，操作如下
 
+https://docs.couchdb.org/en/3.1.1/api/document/common.html#updating-an-existing-document
+
 请求地址：
 ```shell
-http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce
+http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f
 ```
 
 请求方式：**PUT**
@@ -115,6 +116,7 @@ server:port/{db}/{docid}
 
 ```shell
 {
+    "rev": "1-612aeb6d24bf9647ef630c246aa69e44",
 	"mySongs":  
 	[
 		{"周杰伦": "《双截棍》"},

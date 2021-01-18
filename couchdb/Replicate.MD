@@ -7,3 +7,15 @@ transient:
 
 persistent:
 replicate信息保存在_replicator数据库里面，持续性复制。
+
+
+
+```json
+{
+    "_id": "my_rep",
+    "source": "http://myserver.com/foo",
+    "target":  "http://user:pass@localhost:5984/bar",
+    "create_target":  true,
+    "continuous": true
+}
+```

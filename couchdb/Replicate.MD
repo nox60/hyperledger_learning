@@ -58,3 +58,7 @@ The default replicator database is _replicator. Additional replicator databases 
 
 It is RECOMMENDED that one follow this algorithm specification, use the same HTTP endpoints, and run requests with the same parameters to provide a completely compatible implementation. Custom Replicator implementations MAY use different HTTP API endpoints and request parameters depending on their local specifics and they MAY implement only part of the Replication Protocol to run only Push or Pull Replication. However, while such solutions could also run the Replication process, they loose compatibility with the CouchDB Replicator.
 
+
+## protocol document
+
+https://docs.couchdb.org/en/stable/replication/protocol.html

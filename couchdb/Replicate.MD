@@ -48,3 +48,13 @@ replicate信息保存在_replicator数据库里面，持续性复制。
     "target": "http://adm:*****@localhost:5984/bar/"
 }
 ```
+
+
+The default replicator database is _replicator. Additional replicator databases can be created. To be recognized as such by the system, their database names should end with /_replicator.
+
+系统replicator的命名是以_replicator结尾的。
+
+比如：_design/_replicator
+
+It is RECOMMENDED that one follow this algorithm specification, use the same HTTP endpoints, and run requests with the same parameters to provide a completely compatible implementation. Custom Replicator implementations MAY use different HTTP API endpoints and request parameters depending on their local specifics and they MAY implement only part of the Replication Protocol to run only Push or Pull Replication. However, while such solutions could also run the Replication process, they loose compatibility with the CouchDB Replicator.
+

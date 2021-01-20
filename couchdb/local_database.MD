@@ -64,25 +64,25 @@ http://192.168.16.70:5984/_utils
 
 点击Configure Cluster，完成节点配置。
 
-通过下面的api查询集群情况：
+利用POSTMAN或者CRUL工具，通过下面的api查询集群情况：
 
 ```shell script
-curl http://admin:password@127.0.0.1:5984/_membership
+http://admin:password@127.0.0.1:5984/_membership
 ```
 会返回如下的信息：
 
 ```json
 {
-    "all_nodes":[
-      "couchdb@my.couchdb1",
-      "couchdb@my.couchdb2",
-      "couchdb@my.couchdb3"
-    ],
-    "cluster_nodes":[
-      "couchdb@my.couchdb1",
-      "couchdb@my.couchdb2",
-      "couchdb@my.couchdb3"
-    ]
+  "all_nodes": [
+    "couchdb@my.couchdb1",
+    "couchdb@my.couchdb2",
+    "couchdb@my.couchdb3"
+  ],
+  "cluster_nodes": [
+    "couchdb@my.couchdb1",
+    "couchdb@my.couchdb2",
+    "couchdb@my.couchdb3"
+  ]
 }
 ```
 
@@ -90,9 +90,11 @@ curl http://admin:password@127.0.0.1:5984/_membership
 
 ##### 创建数据库(集群复制库)
 
+###### 创建库
+
 请求地址：
 ```shell
-http://admin:password@192.168.16.70:5984/local_db
+http://admin:password@192.168.16.70:5984/cluster_db
 ```
 
 请求方式：**PUT**
@@ -103,6 +105,49 @@ http://admin:password@192.168.16.70:5984/local_db
     "ok": true
 }
 ```
+
+###### 插入数据
+
+因为该数据库是会被复制同步的数据库，插入一行数据以确定是否被同步
+
+请求地址：
+```shell
+http://admin:password@192.168.16.70:5984/cluster_db
+```
+
+请求方式POST，请求的报文如下：
+```json
+{
+	"mySongs":  
+	[
+		{"周杰伦": "《双截棍》"},
+		{"陈奕迅": "《富士山下》"},
+		{"Taylor Swift": "《Blank Space》"}
+	] 
+}
+```
+
+返回结果：
+```json
+{
+    "ok": true,
+    "id": "98312fbfb0d8ee4613edf7b6790005c4",
+    "rev": "1-612aeb6d24bf9647ef630c246aa69e44"
+}
+```
+以上返回结果表明数据插入成功
+
+###### 验证是否被同步
+请求另外一个数据库以查看该数据是否被同步过去
+
+请求地址：
+```shell
+http://admin:password@192.168.16.70:5985/cluster_db/98312fbfb0d8ee4613edf7b6790005c4
+```
+
+请求方式GET，从上面的接口参数中可以看到，所使用的是才插入的数据库的id，但请求的端口为5985端口，这是my.couchdb2数据库的端口。
+
+
 
 ##### 创建本地数据库
 

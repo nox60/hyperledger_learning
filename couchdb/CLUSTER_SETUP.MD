@@ -225,8 +225,7 @@ curl http://admin:password@127.0.0.1:5984/_membership
 
 
 单机器部署正确：
-
-```shell
+```shell script
 docker network rm k-network
 docker network create k-network
 

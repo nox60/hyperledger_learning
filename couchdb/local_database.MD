@@ -88,4 +88,35 @@ curl http://admin:password@127.0.0.1:5984/_membership
 
 该结果说明集群配置成功。
 
-##### 创建数据库
+##### 创建数据库(集群复制库)
+
+请求地址：
+```shell
+http://admin:password@192.168.16.70:5984/local_db
+```
+
+请求方式：**PUT**
+
+返回下面的结果，说明操作成功：
+```shell
+{
+    "ok": true
+}
+```
+
+##### 创建本地数据库
+
+
+请求地址：
+```shell
+http://admin:password@192.168.16.70:5984/local_db
+```
+
+请求方式：**PUT**
+
+返回下面的结果，说明操作成功：
+```shell
+{
+    "ok": true
+}
+```

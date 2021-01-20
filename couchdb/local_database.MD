@@ -60,5 +60,32 @@ http://192.168.16.70:5984/_utils
 
 进入界面之后点击右侧的扳手按钮，进入setup界面，选择Configure a Cluster。
 
-首先在Specify your Admin credentials下面的输入框中填写用户名和密码，根据前面初始化脚本中配置的相关信息，此处填入用户名admin，密码password，然后在界面下方的Add Nodes to the Cluster
-                                                                                                   Remote host
+首先在Specify your Admin credentials下面的输入框中填写用户名和密码，根据前面初始化脚本中配置的相关信息，此处填入用户名admin，密码password，然后在界面下方的Add Nodes to the Cluster，在Remote host中先填my.couchdb2，然后点击Add Node，此时会看到my.couchdb2:5984会出现在界面最下方。然后在Remote host中填写my.couchdb3,再次点击Add Node，会看到my.couchdb3:5984排列加入到列表中，出现在my.couchdb2:5984的下方。
+
+点击Configure Cluster，完成节点配置。
+
+通过下面的api查询集群情况：
+
+```shell script
+curl http://admin:password@127.0.0.1:5984/_membership
+```
+会返回如下的信息：
+
+```json
+{
+    "all_nodes":[
+      "couchdb@my.couchdb1",
+      "couchdb@my.couchdb2",
+      "couchdb@my.couchdb3"
+    ],
+    "cluster_nodes":[
+      "couchdb@my.couchdb1",
+      "couchdb@my.couchdb2",
+      "couchdb@my.couchdb3"
+    ]
+}
+```
+
+该结果说明集群配置成功。
+
+##### 创建数据库

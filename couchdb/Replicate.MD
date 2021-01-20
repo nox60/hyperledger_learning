@@ -62,3 +62,15 @@ It is RECOMMENDED that one follow this algorithm specification, use the same HTT
 ## protocol document
 
 https://docs.couchdb.org/en/stable/replication/protocol.html
+
+
+创建数据库
+```shell script
+http://admin:password@192.168.16.70:5984/sample
+```
+
+写入一行测试数据
+
+```shell script
+curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/sample -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
+```

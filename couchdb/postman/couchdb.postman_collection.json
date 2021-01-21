@@ -38,14 +38,20 @@
 					"response": []
 				},
 				{
-					"name": "获取数据库权限信息",
+					"name": "获取数据库信息",
 					"request": {
-						"url": "http://admin:password@192.168.16.70:5984/cluster_db/_security",
+						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
 								"description": ""
 							}
 						],
@@ -60,12 +66,17 @@
 				{
 					"name": "创建需要同步的数据库cluster_db",
 					"request": {
-						"url": "http://admin:password@192.168.16.70:5984/cluster_db",
+						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
 								"description": ""
 							}
 						],
@@ -77,12 +88,18 @@
 				{
 					"name": "向cluster_db提交数据",
 					"request": {
-						"url": "http://admin:password@192.168.16.70:5984/cluster_db",
+						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
 							}
 						],
 						"body": {
@@ -94,33 +111,15 @@
 					"response": []
 				},
 				{
-					"name": "向cluster_db提交local数据记录",
-					"request": {
-						"url": "http://admin:password@192.168.16.70:5984/cluster_db/_local/1",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《一路向北》\"},\r\n\t\t{\"林俊杰\": \"《曹操》\"}\r\n\t] \r\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
 					"name": "到另外一个数据库获取数据信息",
 					"request": {
-						"url": "http://admin:password@192.168.16.70:5985/cluster_db/98312fbfb0d8ee4613edf7b6790005c4",
+						"url": "http://192.168.16.70:5985/cluster_db/43cae2d7a6480010c57039378a000412",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/json",
+								"description": ""
 							}
 						],
 						"body": {
@@ -132,14 +131,45 @@
 					"response": []
 				},
 				{
+					"name": "向cluster_db提交local数据记录",
+					"request": {
+						"url": "http://192.168.16.70:5984/cluster_db/_local/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《一路向北》\"},\r\n\t\t{\"林俊杰\": \"《曹操》\"}\r\n\t] \r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "到另外一个数据库查看是否被同步",
 					"request": {
-						"url": "http://admin:password@192.168.16.70:5985/cluster_db/_local/1",
+						"url": "http://192.168.16.70:5986/cluster_db/_local/1",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
 							}
 						],
 						"body": {

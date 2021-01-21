@@ -93,7 +93,7 @@ http://admin:password@127.0.0.1:5984/_membership
 ###### 创建库
 
 请求地址：
-```shell
+```shell script
 http://admin:password@192.168.16.70:5984/cluster_db
 ```
 

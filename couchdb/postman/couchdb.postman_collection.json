@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "couchdb",
-		"_postman_id": "4426cb89-d2a3-d50e-5e04-2232e8f37268",
+		"_postman_id": "91c8e6e2-5cde-3276-d1f0-197b4549e389",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -80,7 +80,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -221,7 +224,7 @@
 			"response": []
 		},
 		{
-			"name": "http://admin:password@code20.cn:5984/basic Copy",
+			"name": "http://code20.cn:5984/basic Copy",
 			"request": {
 				"url": "http://admin:password@code20.cn:5984/basic",
 				"method": "POST",
@@ -321,7 +324,7 @@
 			"response": []
 		},
 		{
-			"name": "http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce Copy",
+			"name": "http://192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce Copy",
 			"request": {
 				"url": "http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce",
 				"method": "PUT",

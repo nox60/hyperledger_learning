@@ -179,3 +179,10 @@ If-Match: 1-917fa2381192822767f010b95b45325b
 此处需要对这张图进行分析（figure 7）
 
 https://docs.couchdb.org/en/stable/intro/consistency.html#intro-consistency-07
+
+
+Because CouchDB tracks document revisions, it ensures that updates like these will work only if they are based on current information. If we had made modifications to the playlist backups between synchronization, things wouldn’t go as smoothly.
+
+We back up some changes on our laptop and forget to synchronize. A few days later, we’re editing playlists on our desktop computer, make a backup, and want to synchronize this to our laptop. As illustrated in Figure 7. Synchronization conflicts between two databases, when our backup application tries to replicate between the two databases, CouchDB sees that the changes being sent from our desktop computer are modifications of out-of-date documents and helpfully informs us that there has been a conflict.
+
+Recovering from this error is easy to accomplish from an application perspective. Just download CouchDB’s version of the playlist and provide an opportunity to merge the changes or save local modifications into a new playlist.

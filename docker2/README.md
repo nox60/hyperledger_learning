@@ -1103,13 +1103,3 @@ peer chaincode invoke \
 --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
 ```
 
-```dd
-docker exec -it cli \
-peer chaincode invoke \
--o orderer.dams.com:7050 \
--C mychannel \
--n mychaincode \
--c '{"Args":["query","a"]}' \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```

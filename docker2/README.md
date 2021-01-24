@@ -1002,31 +1002,3 @@ docker exec -it \
 cli \
 peer channel list
 ```
-
-```dd2
-# 安装合约
-docker exec -it \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer chaincode install \
--n mychaincode \
--v 1.0 \
--l golang \
--p mychaincode
-```
-
-```ddd
-# 初始化合约
-docker exec -it \
-cli \
-peer chaincode instantiate -o orderer.dams.com:7050 \
---tls true --cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem \
--C mychannel \
--n mychaincode \
--l golang \
--v 1.0 \
--c '{"Args":["init","a","100","b","200"]}' -P 'OR ('\''cecMSP.peer'\'')'
-```

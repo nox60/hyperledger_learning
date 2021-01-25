@@ -1027,19 +1027,4 @@ peer chaincode list \
 --installed
 ```
 
-```dd44
-# 查看已经实例化的智能合约
-docker exec -it \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer chaincode list \
--C mychannel \
---instantiated
-```
-
-
-
 

@@ -253,3 +253,6 @@ http://192.168.16.70:5985/cluster_db/_local/1
 
 
 https://docs.couchdb.org/en/stable/cluster/sharding.html#cluster-sharding
+
+
+### 创建自定义的replicate任务，看看该数据是否会被同步

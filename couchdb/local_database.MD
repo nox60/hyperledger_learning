@@ -318,7 +318,7 @@ docker run --name my.couchdb_a_1 \
    -e NODENAME=my.couchdb_a_1 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 19100 -kernel inet_dist_listen_max 19200' \
+   -e ERL_FLAGS='-setcookie "brumbruma" -kernel inet_dist_listen_min 19100 -kernel inet_dist_listen_max 19200' \
    -d couchdb:3.0
    
 docker run --name my.couchdb_a_2 \
@@ -328,7 +328,7 @@ docker run --name my.couchdb_a_2 \
    -e NODENAME=my.couchdb_a_2 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 19300 -kernel inet_dist_listen_max 19400' \
+   -e ERL_FLAGS='-setcookie "brumbruma2" -kernel inet_dist_listen_min 19300 -kernel inet_dist_listen_max 19400' \
    -d couchdb:3.0
    
 docker run --name my.couchdb_a_3 \
@@ -338,6 +338,11 @@ docker run --name my.couchdb_a_3 \
    -e NODENAME=my.couchdb_a_3 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum3" -kernel inet_dist_listen_min 19500 -kernel inet_dist_listen_max 19600' \
+   -e ERL_FLAGS='-setcookie "brumbruma3" -kernel inet_dist_listen_min 19500 -kernel inet_dist_listen_max 19600' \
    -d couchdb:3.0   
 ```
+
+检查两个集群信息，分别正常。数据只会在同一个集群内部进行同步，不会同步到另外一个集群中去，测试略。
+
+##### 创建两个集群的数据同步
+

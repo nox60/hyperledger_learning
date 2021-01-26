@@ -1,237 +1,370 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "11bd16f7-5096-4f1b-9e33-99f3faa15ab0",
 		"name": "couchdb",
-		"_postman_id": "91c8e6e2-5cde-3276-d1f0-197b4549e389",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "local_database",
-			"description": "",
 			"item": [
 				{
 					"name": "获取集群信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/_membership",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5984/_membership",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_membership"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取数据库信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取数据库分片信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db/_shards",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db/_shards",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db",
+								"_shards"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取数据库元数据信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/_node/_local/_dbs/cluster_db",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/_node/_local/_dbs/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"_node",
+								"_local",
+								"_dbs",
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创建需要同步的数据库cluster_db",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "向cluster_db提交数据",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《双截棍》\"},\r\n\t\t{\"陈奕迅\": \"《富士山下》\"},\r\n\t\t{\"Taylor Swift\": \"《Blank Space》\"}\r\n\t] \r\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "到另外一个数据库获取数据信息",
 					"request": {
-						"url": "http://192.168.16.70:5985/cluster_db/43cae2d7a6480010c57039378a000412",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5985/cluster_db/43cae2d7a6480010c57039378a000412",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5985",
+							"path": [
+								"cluster_db",
+								"43cae2d7a6480010c57039378a000412"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "向cluster_db提交local数据记录",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db/_local/1",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《一路向北》\"},\r\n\t\t{\"林俊杰\": \"《曹操》\"}\r\n\t] \r\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db/_local/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db",
+								"_local",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "到另外一个数据库查看是否被同步",
 					"request": {
-						"url": "http://192.168.16.70:5986/cluster_db/_local/1",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"url": {
+							"raw": "http://192.168.16.70:5986/cluster_db/_local/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5986",
+							"path": [
+								"cluster_db",
+								"_local",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "replicate",
+			"item": [
+				{
+					"name": "创建replicate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"my_rep\",\r\n    \"source\": \"http://192.168.88.128:5984/source_db\",\r\n    \"target\":  \"http://admin:password@192.168.88.128:5987/target_db\",\r\n    \"create_target\":  true,\r\n    \"continuous\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建需要同步的数据库source_db",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n}"
+							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5984/source_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"source_db"
+							]
+						}
 					},
 					"response": []
 				}
@@ -240,7 +373,6 @@
 		{
 			"name": "http://admin:password@code20.cn:5984/basic",
 			"request": {
-				"url": "http://admin:password@code20.cn:5984/basic",
 				"method": "POST",
 				"header": [
 					{
@@ -252,14 +384,28 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@code20.cn:5984/basic",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"code20",
+						"cn"
+					],
+					"port": "5984",
+					"path": [
+						"basic"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "http://admin:password@192.168.128.88:5984/_dbs_info",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/_dbs_info",
 				"method": "POST",
 				"header": [
 					{
@@ -271,14 +417,30 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"keys\": [\r\n        \"basic\"\r\n    ]\r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/_dbs_info",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"_dbs_info"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "http://code20.cn:5984/basic Copy",
 			"request": {
-				"url": "http://admin:password@code20.cn:5984/basic",
 				"method": "POST",
 				"header": [
 					{
@@ -290,14 +452,28 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@code20.cn:5984/basic",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"code20",
+						"cn"
+					],
+					"port": "5984",
+					"path": [
+						"basic"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "创建playlist数据库",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist",
 				"method": "PUT",
 				"header": [
 					{
@@ -309,14 +485,30 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "提交第一份数据",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist",
 				"method": "POST",
 				"header": [
 					{
@@ -328,14 +520,30 @@
 					"mode": "raw",
 					"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《双截棍》\"},\r\n\t\t{\"陈奕迅\": \"《富士山下》\"},\r\n\t\t{\"Taylor Swift\": \"《Blank Space》\"}\r\n\t] \r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "获取数据信息",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
 				"method": "GET",
 				"header": [
 					{
@@ -343,18 +551,31 @@
 						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\n}"
-				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist",
+						"416459795fe1b6621ea6ee984b000d0f"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "更改数据",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
 				"method": "PUT",
 				"header": [
 					{
@@ -371,14 +592,31 @@
 					"mode": "raw",
 					"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《双截棍》\"},\r\n\t\t{\"陈奕迅\": \"《富士山下》\"},\r\n\t\t{\"Taylor Swift\": \"《Blank Space》\"},\r\n\t\t{\"林俊杰\": \"《那些你很冒险的梦》22222222\"}\r\n\t] \r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist",
+						"416459795fe1b6621ea6ee984b000d0f"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "http://192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce Copy",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce",
 				"method": "PUT",
 				"header": [
 					{
@@ -390,7 +628,25 @@
 					"mode": "raw",
 					"raw": "{\n\t\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist",
+						"0825d2afeabbbc8a0de2b1ba9e0003ce"
+					]
+				}
 			},
 			"response": []
 		}

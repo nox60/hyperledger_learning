@@ -64,6 +64,58 @@
 					"response": []
 				},
 				{
+					"name": "获取数据库分片信息",
+					"request": {
+						"url": "http://192.168.16.70:5984/cluster_db/_shards",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获取数据库元数据信息",
+					"request": {
+						"url": "http://192.168.16.70:5984/_node/_local/_dbs/cluster_db",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "创建需要同步的数据库cluster_db",
 					"request": {
 						"url": "http://192.168.16.70:5984/cluster_db",

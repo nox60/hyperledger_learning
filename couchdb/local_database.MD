@@ -314,30 +314,30 @@ docker rm -f my.couchdb_a_3
 docker run --name my.couchdb_a_1 \
    --network=k-network2 \
    -p 5987:5984 \
-   -p 19100-19200:9100-9200 \
-   -e NODENAME=my.couchdb1 \
+   -p 19100-19200:19100-19200 \
+   -e NODENAME=my.couchdb_a_1 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
+   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 19100 -kernel inet_dist_listen_max 19200' \
    -d couchdb:3.0
    
-docker run --name my.couchdb2 \
-   --network=k-network \
-   -p 5985:5984 \
-   -p 19300-19400:9300-9400 \
-   -e NODENAME=my.couchdb2 \
+docker run --name my.couchdb_a_2 \
+   --network=k-network2 \
+   -p 5988:5984 \
+   -p 19300-19400:19300-19400 \
+   -e NODENAME=my.couchdb_a_2 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 9300 -kernel inet_dist_listen_max 9400' \
+   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 19300 -kernel inet_dist_listen_max 19400' \
    -d couchdb:3.0
    
-docker run --name my.couchdb3 \
-   --network=k-network \
-   -p 5986:5984 \
-   -p 19500-19600:9500-9600 \
-   -e NODENAME=my.couchdb3 \
+docker run --name my.couchdb_a_3 \
+   --network=k-network2 \
+   -p 5989:5984 \
+   -p 19500-19600:19500-19600 \
+   -e NODENAME=my.couchdb_a_3 \
    -e COUCHDB_USER=admin \
    -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum3" -kernel inet_dist_listen_min 9500 -kernel inet_dist_listen_max 9600' \
+   -e ERL_FLAGS='-setcookie "brumbrum3" -kernel inet_dist_listen_min 19500 -kernel inet_dist_listen_max 19600' \
    -d couchdb:3.0   
 ```

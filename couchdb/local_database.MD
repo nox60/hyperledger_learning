@@ -345,4 +345,67 @@ docker run --name my.couchdb_a_3 \
 检查两个集群信息，分别正常。数据只会在同一个集群内部进行同步，不会同步到另外一个集群中去，测试略。
 
 ##### 创建两个集群的数据同步
+请求地址：
+```shell
+http://192.168.16.70:5984/_replicator
+```
 
+请求方式POST
+
+请求体：
+```json
+{
+    "_id": "my_rep",
+    "source": "http://192.168.16.70:5984/source_db",
+    "target":  "http://admin:password@192.168.16.70:5987/target_db", {“url”:”url in here”, “headers”: {“header1”:”value1”, }}
+    "create_target":  true,
+    "continuous": true
+}
+```
+
+```json
+{
+    "_id": "my_rep",
+    "source": "http://192.168.16.70:5984/source_db",
+    "target":  {"url":"http://192.168.16.70:5984/target_db", "headers": {"Content-Type":"application/json", "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="}},
+    "create_target":  true,
+    "continuous": true
+}
+```
+
+
+返回结果：
+```json
+{
+    "ok": true,
+    "_local_id": "aa2a2e2622758db8412da4a13c26cecb+continuous+create_target"
+}
+```
+
+##### 向源数据库写入数据进行测试
+
+请求地址：
+```shell
+http://192.168.16.70:5984/source_db
+```
+
+请求方式POST，请求的报文如下：
+```json
+{
+	"test": "会被复制的数据信息"
+}
+```
+
+返回了写入成功的信息
+```json
+{
+    "ok": true,
+    "id": "fa13cd76aef822dd85d4f7fd360009e3",
+    "rev": "1-1f743cb657685b8803a104985e74bc3c"
+}
+```
+
+此时查看复制情况会发现
+
+
+##### 向源数据库写入要求不允许复制的数据进行测试

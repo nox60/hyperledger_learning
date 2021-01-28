@@ -363,12 +363,33 @@ http://192.168.16.70:5984/_replicator
 }
 ```
 
+https://stackoverflow.com/questions/33348697/couchdb-replication-unauthorized-to-access-or-create-database
+
 ```json
 {
     "_id": "my_rep",
     "source": "http://192.168.16.70:5984/source_db",
     "target":  {"url":"http://192.168.16.70:5984/target_db", "headers": {"Content-Type":"application/json", "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="}},
     "create_target":  true,
+    "continuous": true
+}
+```
+
+```json
+{ 
+    "source": {
+        "url":"http://192.168.16.70:5984/source_db",
+        "headers":{
+            "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="
+        }
+    }, 
+    "target": {
+         "url":"http://192.168.16.70:5984/target_db",
+         "headers":{
+             "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="
+         }
+    },  
+    "create_target": false, 
     "continuous": true
 }
 ```

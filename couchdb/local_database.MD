@@ -353,27 +353,7 @@ http://192.168.16.70:5984/_replicator
 请求方式POST
 
 请求体：
-```json
-{
-    "_id": "my_rep",
-    "source": "http://192.168.16.70:5984/source_db",
-    "target":  "http://admin:password@192.168.16.70:5987/target_db", {“url”:”url in here”, “headers”: {“header1”:”value1”, }}
-    "create_target":  true,
-    "continuous": true
-}
-```
-
 https://stackoverflow.com/questions/33348697/couchdb-replication-unauthorized-to-access-or-create-database
-
-```json
-{
-    "_id": "my_rep",
-    "source": "http://192.168.16.70:5984/source_db",
-    "target":  {"url":"http://192.168.16.70:5984/target_db", "headers": {"Content-Type":"application/json", "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="}},
-    "create_target":  true,
-    "continuous": true
-}
-```
 
 ```json
 { 

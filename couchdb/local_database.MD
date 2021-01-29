@@ -342,6 +342,76 @@ docker run --name my.couchdb_a_3 \
    -d couchdb:3.0   
 ```
 
+##### 集群配置
+上述操作只是将两个集群中分别的3个node安装完毕，还没有形成集群。用下述命令可以查询到
+
+```shell script
+http://192.168.16.70:5984/_membership
+```
+
+返回结果
+```json
+{
+    "all_nodes": [
+        "couchdb@my.couchdb1"
+    ],
+    "cluster_nodes": [
+        "couchdb@my.couchdb1"
+    ]
+}
+```
+
+返回结果说明该集群里面只有一个节点，就是所请求的节点本身。
+
+
+###### 检查节点是否可以开始集群配置
+首先通过API检查所有节点是否已经能够配置集群，请求方式为GET，请求地址:
+```shell script
+http://192.168.16.70:5984/_cluster_setup
+```
+如果返回结果是：
+```json
+{
+    "state": "cluster_enabled"
+}
+```
+
+说明已经可以进行集群配置，反之则要在所有不是"cluster_enabled"的节点进行下面的操作，请求方式为POST
+```shell script
+http://192.168.16.70:5984/_cluster_setup
+```
+
+```json
+{"action": "enable_cluster", "bind_address":"0.0.0.0", "username": "admin", "password":"password", "node_count":"3"}
+```
+###### 将节点组成集群
+在couchdb的集群设计逻辑中，是没有所谓中心节点或者主节点这样的概念的，所有机器以平等的资格组成集群。所以在集群配置的过程中，可以随便找一台规划的集群中的机器，作为协调节点进行集群配置过程。
+```shell script
+http://192.168.16.70:5984/_cluster_setup
+```
+
+```json
+{
+    "action": "enable_cluster", 
+    "bind_address":"0.0.0.0", 
+    "username": "admin", 
+    "password":"password", 
+    "port": 5984, 
+    "node_count": "3", 
+    "remote_node": "my.couchdb1", 
+    "remote_current_user": "admin", 
+    "remote_current_password": "password" 
+}
+```
+
+当操作结果正确的时候返回的结果：
+```json
+{
+    "ok": true
+}
+```
+
+
 检查两个集群信息，分别正常。数据只会在同一个集群内部进行同步，不会同步到另外一个集群中去，测试略。
 
 ##### 创建两个集群的数据同步

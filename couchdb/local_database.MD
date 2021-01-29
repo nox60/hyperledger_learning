@@ -361,6 +361,8 @@ http://192.168.16.70:5984/_membership
 }
 ```
 
+https://docs.couchdb.org/en/stable/setup/cluster.html#preparing-couchdb-nodes-to-be-joined-into-a-cluster
+
 返回结果说明该集群里面只有一个节点，就是所请求的节点本身。
 
 ###### 创建必要的数据库

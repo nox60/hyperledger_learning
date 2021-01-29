@@ -407,16 +407,16 @@ http://192.168.16.70:5984/_cluster_setup
 
 ```json
 {
-    "action": "enable_cluster", 
-    "bind_address":"0.0.0.0", 
+    "action": "add_node", 
+    "host": "my.couchdb1", 
+    "port": "5984",
     "username": "admin", 
-    "password":"password", 
-    "port": 5984, 
-    "node_count": "3", 
-    "remote_node": "my.couchdb1", 
-    "remote_current_user": "admin", 
-    "remote_current_password": "password" 
+    "password": "password" 
 }
+```
+```shell script
+
+
 ```
 
 当操作结果正确的时候返回的结果：

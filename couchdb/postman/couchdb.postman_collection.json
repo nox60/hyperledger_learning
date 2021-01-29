@@ -14,23 +14,22 @@
 				{
 					"name": "获取集群信息",
 					"request": {
-						"url": "http://192.168.88.128:5984/_membership",
+						"url": "http://192.168.16.70:5984/_membership",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -344,6 +343,179 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n\t\"test\": \"会被复制的数据信息\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "setup_cluster",
+			"description": "",
+			"item": [
+				{
+					"name": "初始化",
+					"request": {
+						"url": "http://192.168.16.70:5984/_cluster_setup",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"action\": \"enable_cluster\", \"bind_address\":\"0.0.0.0\", \"username\": \"admin\", \"password\":\"password\", \"node_count\":\"3\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获取集群状态信息",
+					"request": {
+						"url": "http://192.168.16.70:5984/_membership",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "创造数据库_users",
+					"request": {
+						"url": "http://192.168.16.70:5984/_users",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "创造数据库_replicator",
+					"request": {
+						"url": "http://192.168.16.70:5984/_replicator",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "创造数据库_global_changes",
+					"request": {
+						"url": "http://192.168.16.70:5984/_global_changes",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "将node2加入集群",
+					"request": {
+						"url": "http://192.168.16.70:5984/_cluster_setup",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"enable_cluster\", \r\n    \"bind_address\":\"0.0.0.0\", \r\n    \"username\": \"admin\", \r\n    \"password\":\"password\", \r\n    \"port\": 5984, \r\n    \"node_count\": \"3\", \r\n    \"remote_node\": \"my.couchdb2\", \r\n    \"remote_current_user\": \"admin\", \r\n    \"remote_current_password\": \"password\" \r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "将node2加入集群 copy",
+					"request": {
+						"url": "http://192.168.16.70:5984/_cluster_setup",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"enable_cluster\", \r\n    \"bind_address\":\"0.0.0.0\", \r\n    \"username\": \"admin\", \r\n    \"password\":\"password\", \r\n    \"port\": 5984, \r\n    \"node_count\": \"3\", \r\n    \"remote_node\": \"my.couchdb2\", \r\n    \"remote_current_user\": \"admin\", \r\n    \"remote_current_password\": \"password\" \r\n}"
 						},
 						"description": ""
 					},

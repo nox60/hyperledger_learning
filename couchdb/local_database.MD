@@ -497,3 +497,17 @@ http://192.168.16.70:5984/source_db
 
 
 ##### 向源数据库写入要求不允许复制的数据进行测试
+
+
+
+
+
+
+----------------
+
+
+```json
+Once replication jobs are created they are managed by the scheduler. The scheduler is the replication component which periodically stops some jobs and starts others. This behavior makes it possible to have a larger number of jobs than the cluster could run simultaneously. Replication jobs which keep failing will be penalized and forced to wait. The wait time increases exponentially with each consecutive failure.
+
+When deciding which jobs to stop and which to start, the scheduler uses a round-robin algorithm to ensure fairness. Jobs which have been running the longest time will be stopped, and jobs which have been waiting the longest time will be started.
+```

@@ -535,7 +535,19 @@ curl -X DELETE "http://xxx.xxx.xxx.xxx/_node/_local/_nodes/node2@yyy.yyy.yyy.yyy
 
 ##### 创建两个集群的数据同步
 
-###### 首先创建源数据库
+###### 首先创建源数据库和目标数据库
+
+请求方式：put
+
+```json
+http://192.168.88.128:5984/source_db
+```
+
+```json
+http://192.168.88.128:5984/target_db
+```
+
+###### 将两个数据库定义为复制关系
 
 请求地址：
 ```shell
@@ -573,13 +585,21 @@ http://192.168.88.128:5984/_replicator
 }
 ```
 
-？另外一次请求的返回结果是,需要证实常见的返回结果是
+？另外一次请求的返回结果是,需要证实常见的返回结果是，
 ```json
 {
-    "ok": true,
-    "id": "31431fa7cc93ca9be4e6e087f3000ddc",
-    "rev": "1-2d670c16b79dff24c35eef646f1cae50"
+  "ok": true,
+  "id": "31431fa7cc93ca9be4e6e087f3000ddc",
+  "rev": "1-2d670c16b79dff24c35eef646f1cae50"
+},
+
+{222
+  "ok": true,
+  "id": "91657cc94842127216faec68100065fb",
+  "rev": "1-cd754b420c39e336ea0d434a6ab2d6e2"
 }
+  
+
 ```
 
 ##### 向源数据库写入数据进行测试

@@ -537,17 +537,14 @@ curl -X DELETE "http://xxx.xxx.xxx.xxx/_node/_local/_nodes/node2@yyy.yyy.yyy.yyy
 
 ###### 首先创建源数据库
 
-
 请求地址：
 ```shell
-http://192.168.16.70:5984/_replicator
+http://192.168.88.128:5984/_replicator
 ```
 
 请求方式POST
 
-请求体：
-https://stackoverflow.com/questions/33348697/couchdb-replication-unauthorized-to-access-or-create-database
-
+请求体
 ```json
 { 
     "source": {
@@ -576,6 +573,15 @@ https://stackoverflow.com/questions/33348697/couchdb-replication-unauthorized-to
 }
 ```
 
+？另外一次请求的返回结果是,需要证实常见的返回结果是
+```json
+{
+    "ok": true,
+    "id": "31431fa7cc93ca9be4e6e087f3000ddc",
+    "rev": "1-2d670c16b79dff24c35eef646f1cae50"
+}
+```
+
 ##### 向源数据库写入数据进行测试
 
 请求地址：
@@ -586,6 +592,7 @@ http://192.168.16.70:5984/source_db
 请求方式POST，请求的报文如下：
 ```json
 {
+    "": "",
 	"test": "会被复制的数据信息"
 }
 ```
@@ -599,7 +606,8 @@ http://192.168.16.70:5984/source_db
 }
 ```
 
-此时查看复制情况会发现
+此时查看复制情况会发现该条记录已经被同步到了tb_target数据库
+
 
 
 ##### 向源数据库写入要求不允许复制的数据进行测试

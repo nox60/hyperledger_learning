@@ -484,6 +484,36 @@ docker run --name my.couchdb_a_3 \
 
 检查两个集群信息，分别正常。数据只会在同一个集群内部进行同步，不会同步到另外一个集群中去，测试略。
 
+##### 将节点从集群中删除
+###### 首先获取节点版本信息
+在删除之前首先要获取节点的版本信息
+```json
+http://192.168.88.128:5984/_node/_local/_nodes/couchdb@my.couchdb2
+```
+
+返回信息
+```json
+{
+    "_id": "couchdb@my.couchdb2",
+    "_rev": "1-967a00dff5e02add41819138abb3284d"
+}
+```
+
+###### 删除节点
+请求地址，请求方式DELETE
+```shell
+curl -X DELETE "http://xxx.xxx.xxx.xxx/_node/_local/_nodes/node2@yyy.yyy.yyy.yyy?rev=1-967a00dff5e02add41820138abb3284d"
+```
+
+返回结果：
+```json
+{
+    "ok": true,
+    "id": "couchdb@my.couchdb2",
+    "rev": "2-eec205a9d413992850a6e32678485900"
+}
+```
+
 ##### 创建两个集群的数据同步
 请求地址：
 ```shell

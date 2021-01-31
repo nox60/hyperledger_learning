@@ -369,16 +369,24 @@ https://docs.couchdb.org/en/stable/setup/cluster.html#preparing-couchdb-nodes-to
 分别请求下面的接口，请求方式都是PUT，以创建必要的数据库。
 ```shell script
 http://192.168.16.70:5984/_users
+http://192.168.16.70:5985/_users
+http://192.168.16.70:5986/_users
+
+
 ```
 
 ```shell script
 http://192.168.16.70:5984/_replicator
+http://192.168.16.70:5985/_replicator
+http://192.168.16.70:5986/_replicator
+
 ```
 
 ```shell script
 http://192.168.16.70:5984/_global_changes
+http://192.168.16.70:5985/_global_changes
+http://192.168.16.70:5986/_global_changes
 ```
-
 
 
 ###### 检查节点是否可以开始集群配置

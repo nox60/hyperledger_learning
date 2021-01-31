@@ -1,43 +1,48 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "76bc5fc6-d237-4d13-9cbc-3a46c4c94906",
 		"name": "couchdb",
-		"_postman_id": "b7482218-3154-ef00-9957-52e73ce6a0cb",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "local_database",
-			"description": "",
 			"item": [
 				{
 					"name": "获取集群信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/_membership",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/_membership",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"_membership"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取数据库信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "GET",
 						"header": [
 							{
@@ -50,18 +55,26 @@
 								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取数据库分片信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db/_shards",
 						"method": "GET",
 						"header": [
 							{
@@ -74,18 +87,27 @@
 								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db/_shards",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db",
+								"_shards"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取数据库元数据信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/_node/_local/_dbs/cluster_db",
 						"method": "GET",
 						"header": [
 							{
@@ -98,18 +120,29 @@
 								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/_node/_local/_dbs/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"_node",
+								"_local",
+								"_dbs",
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创建需要同步的数据库cluster_db",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "PUT",
 						"header": [
 							{
@@ -125,14 +158,26 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "向cluster_db提交数据",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db",
 						"method": "POST",
 						"header": [
 							{
@@ -148,14 +193,26 @@
 							"mode": "raw",
 							"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《双截棍》\"},\r\n\t\t{\"陈奕迅\": \"《富士山下》\"},\r\n\t\t{\"Taylor Swift\": \"《Blank Space》\"}\r\n\t] \r\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "到另外一个数据库获取数据信息",
 					"request": {
-						"url": "http://192.168.16.70:5985/cluster_db/43cae2d7a6480010c57039378a000412",
 						"method": "GET",
 						"header": [
 							{
@@ -163,18 +220,27 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5985/cluster_db/43cae2d7a6480010c57039378a000412",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5985",
+							"path": [
+								"cluster_db",
+								"43cae2d7a6480010c57039378a000412"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "向cluster_db提交local数据记录",
 					"request": {
-						"url": "http://192.168.16.70:5984/cluster_db/_local/1",
 						"method": "PUT",
 						"header": [
 							{
@@ -190,15 +256,67 @@
 							"mode": "raw",
 							"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《一路向北》\"},\r\n\t\t{\"林俊杰\": \"《曹操》\"}\r\n\t] \r\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/cluster_db/_local/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"cluster_db",
+								"_local",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "到另外一个数据库查看是否被同步",
 					"request": {
-						"url": "http://192.168.16.70:5986/cluster_db/_local/1",
 						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"url": {
+							"raw": "http://192.168.16.70:5986/cluster_db/_local/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5986",
+							"path": [
+								"cluster_db",
+								"_local",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "replicate",
+			"item": [
+				{
+					"name": "创建需要同步的数据库source_db",
+					"request": {
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -213,138 +331,159 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "replicate",
-			"description": "",
-			"item": [
-				{
-					"name": "创建需要同步的数据库source_db",
-					"request": {
-						"url": "http://192.168.16.70:5984/source_db",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/source_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"source_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创建需要同步的数据库target_db",
 					"request": {
-						"url": "http://192.168.16.70:5984/target_db",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/target_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"target_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创建replicate, 名称my_rep",
 					"request": {
-						"url": "http://192.168.16.70:5984/_replicate",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"_id\": \"my_rep_1\",\r\n    \"source\": \"http://192.168.16.70:5984/source_db\",\r\n    \"target\": \"http://192.168.16.70:5984/target_db\",\r\n    \"continuous\": true\r\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/_replicate",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"_replicate"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "向source_db提交数据",
 					"request": {
-						"url": "http://192.168.16.70:5984/source_db",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n\t\"test\": \"会被复制的数据信息\"\r\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/source_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"source_db"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "查看复制情况",
 					"request": {
-						"url": "http://192.168.16.70:5984/_scheduler/docs/_replicator/my_rep_1",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"test\": \"会被复制的数据信息\"\r\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/_scheduler/docs/_replicator/my_rep_1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"_scheduler",
+								"docs",
+								"_replicator",
+								"my_rep_1"
+							]
+						}
 					},
 					"response": []
 				}
@@ -352,172 +491,602 @@
 		},
 		{
 			"name": "setup_cluster",
-			"description": "",
 			"item": [
 				{
 					"name": "初始化",
 					"request": {
-						"url": "http://192.168.16.70:5984/_cluster_setup",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"action\": \"enable_cluster\", \"bind_address\":\"0.0.0.0\", \"username\": \"admin\", \"password\":\"password\", \"node_count\":\"3\"}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.16.70:5984/_cluster_setup",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"16",
+								"70"
+							],
+							"port": "5984",
+							"path": [
+								"_cluster_setup"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "获取集群状态信息",
 					"request": {
-						"url": "http://192.168.16.70:5984/_membership",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5985/_membership",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5985",
+							"path": [
+								"_membership"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创造数据库_users",
 					"request": {
-						"url": "http://192.168.16.70:5984/_users",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5986/_users",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5986",
+							"path": [
+								"_users"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创造数据库_replicator",
 					"request": {
-						"url": "http://192.168.16.70:5984/_replicator",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5984/_replicator",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_replicator"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "创造数据库_global_changes",
 					"request": {
-						"url": "http://192.168.16.70:5984/_global_changes",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "将node2加入集群",
-					"request": {
-						"url": "http://192.168.16.70:5984/_cluster_setup",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"action\": \"enable_cluster\", \r\n    \"bind_address\":\"0.0.0.0\", \r\n    \"username\": \"admin\", \r\n    \"password\":\"password\", \r\n    \"port\": 5984, \r\n    \"node_count\": \"3\", \r\n    \"remote_node\": \"my.couchdb2\", \r\n    \"remote_current_user\": \"admin\", \r\n    \"remote_current_password\": \"password\" \r\n}"
-						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5984/_global_changes",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_global_changes"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "将node2加入集群 copy",
 					"request": {
-						"url": "http://192.168.16.70:5984/_cluster_setup",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"add_node\", \r\n    \"host\": \"my.couchdb3\", \r\n    \"port\": \"5984\",\r\n    \"username\": \"admin\", \r\n    \"password\": \"password\" \r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/_cluster_setup",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_cluster_setup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获得节点信息",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"url": {
+							"raw": "http://192.168.88.128:5984/_node/_local/_nodes/couchdb@my.couchdb3",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_node",
+								"_local",
+								"_nodes",
+								"couchdb@my.couchdb3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "从集群中删除节点",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"url": {
+							"raw": "http://192.168.88.128:5984/_node/_local/_nodes/couchdb@my.couchdb3?rev=1-967a00dff5e02add41819138abb3284d",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_node",
+								"_local",
+								"_nodes",
+								"couchdb@my.couchdb3"
+							],
+							"query": [
+								{
+									"key": "rev",
+									"value": "1-967a00dff5e02add41819138abb3284d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创造数据库 source_db",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"url": {
+							"raw": "http://192.168.88.128:5984/source_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"source_db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创造数据库 target_db",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"url": {
+							"raw": "http://192.168.88.128:5984/target_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"target_db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创造数据库 target_db - source_db的复制关系",
+					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"description": ""
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
-								"description": ""
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"action\": \"enable_cluster\", \r\n    \"bind_address\":\"0.0.0.0\", \r\n    \"username\": \"admin\", \r\n    \"password\":\"password\", \r\n    \"port\": 5984, \r\n    \"node_count\": \"3\", \r\n    \"remote_node\": \"my.couchdb2\", \r\n    \"remote_current_user\": \"admin\", \r\n    \"remote_current_password\": \"password\" \r\n}"
+							"raw": "{ \r\n    \"source\": {\r\n        \"url\":\"http://192.168.16.70:5984/source_db\",\r\n        \"headers\":{\r\n            \"Authorization\":\"Basic YWRtaW46cGFzc3dvcmQ=\"\r\n        }\r\n    }, \r\n    \"target\": {\r\n         \"url\":\"http://192.168.16.70:5984/target_db\",\r\n         \"headers\":{\r\n             \"Authorization\":\"Basic YWRtaW46cGFzc3dvcmQ=\"\r\n         }\r\n    },  \r\n    \"create_target\": false, \r\n    \"continuous\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						"description": ""
+						"url": {
+							"raw": "http://192.168.88.128:5984/_replicator",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"_replicator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "向source_db提交数据进行测试",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\":\"test001\",\r\n\t\"test\": \"往source库写入的数据信息，将会自动复制到target库\"\r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/source_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"source_db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "向target_db获取刚刚写入到source_db数据库的数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\":\"test_001\",\r\n\t\"test\": \"往target库写入的数据信息\"\r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/target_db/test001",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"target_db",
+								"test001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "向target_db提交数据进行测试",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\":\"test003\",\r\n\t\"test\": \"往target库写入的数据信息，测试是否会自动复制到source库\"\r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/target_db",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"target_db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "向source_db获取刚刚写入到target_db数据库的数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\":\"test002\",\r\n\t\"test\": \"往target库写入的数据信息\"\r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/source_db/test003",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"source_db",
+								"test003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "向source_db提交local数据进行测试",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"test\": \"往source库写入的数据信息，以local方式进行保存\"\r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/source_db/_local/test004",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"source_db",
+								"_local",
+								"test004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取local数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"test\": \"往source库写入的数据信息，以local方式进行保存\"\r\n}"
+						},
+						"url": {
+							"raw": "http://192.168.88.128:5984/source_db/_local/test004",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"88",
+								"128"
+							],
+							"port": "5984",
+							"path": [
+								"source_db",
+								"_local",
+								"test004"
+							]
+						}
 					},
 					"response": []
 				}
@@ -526,7 +1095,6 @@
 		{
 			"name": "http://admin:password@code20.cn:5984/basic",
 			"request": {
-				"url": "http://admin:password@code20.cn:5984/basic",
 				"method": "POST",
 				"header": [
 					{
@@ -538,14 +1106,28 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@code20.cn:5984/basic",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"code20",
+						"cn"
+					],
+					"port": "5984",
+					"path": [
+						"basic"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "http://admin:password@192.168.128.88:5984/_dbs_info",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/_dbs_info",
 				"method": "POST",
 				"header": [
 					{
@@ -557,14 +1139,30 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"keys\": [\r\n        \"basic\"\r\n    ]\r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/_dbs_info",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"_dbs_info"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "http://code20.cn:5984/basic Copy",
 			"request": {
-				"url": "http://admin:password@code20.cn:5984/basic",
 				"method": "POST",
 				"header": [
 					{
@@ -576,14 +1174,28 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@code20.cn:5984/basic",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"code20",
+						"cn"
+					],
+					"port": "5984",
+					"path": [
+						"basic"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "创建playlist数据库",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist",
 				"method": "PUT",
 				"header": [
 					{
@@ -595,14 +1207,30 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "提交第一份数据",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist",
 				"method": "POST",
 				"header": [
 					{
@@ -614,14 +1242,30 @@
 					"mode": "raw",
 					"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《双截棍》\"},\r\n\t\t{\"陈奕迅\": \"《富士山下》\"},\r\n\t\t{\"Taylor Swift\": \"《Blank Space》\"}\r\n\t] \r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "获取数据信息",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
 				"method": "GET",
 				"header": [
 					{
@@ -629,18 +1273,31 @@
 						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist",
+						"416459795fe1b6621ea6ee984b000d0f"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "更改数据",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
 				"method": "PUT",
 				"header": [
 					{
@@ -657,14 +1314,31 @@
 					"mode": "raw",
 					"raw": "{\r\n\t\"mySongs\":  \r\n\t[\r\n\t\t{\"周杰伦\": \"《双截棍》\"},\r\n\t\t{\"陈奕迅\": \"《富士山下》\"},\r\n\t\t{\"Taylor Swift\": \"《Blank Space》\"},\r\n\t\t{\"林俊杰\": \"《那些你很冒险的梦》22222222\"}\r\n\t] \r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist/416459795fe1b6621ea6ee984b000d0f",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist",
+						"416459795fe1b6621ea6ee984b000d0f"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "http://192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce Copy",
 			"request": {
-				"url": "http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce",
 				"method": "PUT",
 				"header": [
 					{
@@ -676,7 +1350,25 @@
 					"mode": "raw",
 					"raw": "{\n\t\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://admin:password@192.168.88.128:5984/playlist/0825d2afeabbbc8a0de2b1ba9e0003ce",
+					"protocol": "http",
+					"auth": {
+						"user": "admin",
+						"password": "password"
+					},
+					"host": [
+						"192",
+						"168",
+						"88",
+						"128"
+					],
+					"port": "5984",
+					"path": [
+						"playlist",
+						"0825d2afeabbbc8a0de2b1ba9e0003ce"
+					]
+				}
 			},
 			"response": []
 		}

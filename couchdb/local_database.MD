@@ -300,47 +300,6 @@ docker run --name my.couchdb3 \
    -d couchdb:3.0   
 ```
 
-##### 创建集群2
-
-
-```shell script
-docker network rm k-network2
-docker network create k-network2
-
-docker rm -f my.couchdb_a_1
-docker rm -f my.couchdb_a_2
-docker rm -f my.couchdb_a_3
-
-docker run --name my.couchdb_a_1 \
-   --network=k-network2 \
-   -p 5987:5984 \
-   -p 19100-19200:19100-19200 \
-   -e NODENAME=my.couchdb_a_1 \
-   -e COUCHDB_USER=admin \
-   -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbruma" -kernel inet_dist_listen_min 19100 -kernel inet_dist_listen_max 19200' \
-   -d couchdb:3.0
-   
-docker run --name my.couchdb_a_2 \
-   --network=k-network2 \
-   -p 5988:5984 \
-   -p 19300-19400:19300-19400 \
-   -e NODENAME=my.couchdb_a_2 \
-   -e COUCHDB_USER=admin \
-   -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbruma2" -kernel inet_dist_listen_min 19300 -kernel inet_dist_listen_max 19400' \
-   -d couchdb:3.0
-   
-docker run --name my.couchdb_a_3 \
-   --network=k-network2 \
-   -p 5989:5984 \
-   -p 19500-19600:19500-19600 \
-   -e NODENAME=my.couchdb_a_3 \
-   -e COUCHDB_USER=admin \
-   -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbruma3" -kernel inet_dist_listen_min 19500 -kernel inet_dist_listen_max 19600' \
-   -d couchdb:3.0   
-```
 
 ##### 集群配置
 上述操作只是将两个集群中分别的3个node安装完毕，还没有形成集群。用下述命令可以查询到
@@ -472,6 +431,56 @@ http://192.168.16.70:5985/_membership
 }
 ```
 
+
+##### 创建集群2
+
+类似集群1的操作，对集群2进行配置。
+
+创建集群节点命令：
+```shell script
+docker network rm k-network2
+docker network create k-network2
+
+docker rm -f my.couchdb_a_1
+docker rm -f my.couchdb_a_2
+docker rm -f my.couchdb_a_3
+
+docker run --name my.couchdb_a_1 \
+   --network=k-network2 \
+   -p 5987:5984 \
+   -p 19100-19200:19100-19200 \
+   -e NODENAME=my.couchdb_a_1 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbruma" -kernel inet_dist_listen_min 19100 -kernel inet_dist_listen_max 19200' \
+   -d couchdb:3.0
+   
+docker run --name my.couchdb_a_2 \
+   --network=k-network2 \
+   -p 5988:5984 \
+   -p 19300-19400:19300-19400 \
+   -e NODENAME=my.couchdb_a_2 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbruma2" -kernel inet_dist_listen_min 19300 -kernel inet_dist_listen_max 19400' \
+   -d couchdb:3.0
+   
+docker run --name my.couchdb_a_3 \
+   --network=k-network2 \
+   -p 5989:5984 \
+   -p 19500-19600:19500-19600 \
+   -e NODENAME=my.couchdb_a_3 \
+   -e COUCHDB_USER=admin \
+   -e COUCHDB_PASSWORD=password \
+   -e ERL_FLAGS='-setcookie "brumbruma3" -kernel inet_dist_listen_min 19500 -kernel inet_dist_listen_max 19600' \
+   -d couchdb:3.0   
+```
+
+其他诸如初始化集群中节点的users, replicator, global_changes数据库，以及将各节点组织成集群的操作略。最终需要查询到节点能够组成如下的集群结果：
+
+```json
+
+```
 
 检查两个集群信息，分别正常。数据只会在同一个集群内部进行同步，不会同步到另外一个集群中去，测试略。
 

@@ -417,24 +417,58 @@ http://192.168.16.70:5984/_cluster_setup
 http://192.168.16.70:5984/_cluster_setup
 ```
 
+下面为提交到的接口的消息体参数信息，可以看到host为my.couchdb2，而端口信息则是5984，不是5985（第二个节点从主机映射的端口），这是因为此处设计的couchdb集群是通过docker network进行通信的，所以使用了couchdb的内网端口5984，而不是映射到主机上的端口5985。
+
 ```json
 {
     "action": "add_node", 
-    "host": "my.couchdb1", 
+    "host": "my.couchdb2", 
     "port": "5984",
     "username": "admin", 
     "password": "password" 
 }
-```
-```shell script
-
-
 ```
 
 当操作结果正确的时候返回的结果：
 ```json
 {
     "ok": true
+}
+```
+
+此时调用查看集群成员信息的接口：
+```shell
+http://192.168.16.70:5984/_membership
+或：
+http://192.168.16.70:5985/_membership
+```
+
+均能的到下面的返回结果：
+```json
+{
+    "all_nodes": [
+        "couchdb@my.couchdb1",
+        "couchdb@my.couchdb2"
+    ],
+    "cluster_nodes": [
+        "couchdb@my.couchdb1",
+        "couchdb@my.couchdb2"
+    ]
+}
+```
+说明my.couchdb1和my.couchdb2已经组成了集群，按照上面类似的方式，将mycouchdb3加入到集群中，则三个节点组成的集群完成。当查看集群状态时候得到下面的结果信息时，说明集群组建成功。
+```json
+{
+    "all_nodes": [
+        "couchdb@my.couchdb1",
+        "couchdb@my.couchdb2",
+        "couchdb@my.couchdb3"
+    ],
+    "cluster_nodes": [
+        "couchdb@my.couchdb1",
+        "couchdb@my.couchdb2",
+        "couchdb@my.couchdb3"
+    ]
 }
 ```
 

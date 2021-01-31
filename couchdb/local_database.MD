@@ -560,13 +560,13 @@ http://192.168.88.128:5984/_replicator
 ```json
 { 
     "source": {
-        "url":"http://192.168.16.70:5984/source_db",
+        "url":"http://192.168.88.128:5984/source_db",
         "headers":{
             "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="
         }
     }, 
     "target": {
-         "url":"http://192.168.16.70:5984/target_db",
+         "url":"http://192.168.88.128:5984/target_db",
          "headers":{
              "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="
          }
@@ -589,17 +589,9 @@ http://192.168.88.128:5984/_replicator
 ```json
 {
   "ok": true,
-  "id": "31431fa7cc93ca9be4e6e087f3000ddc",
-  "rev": "1-2d670c16b79dff24c35eef646f1cae50"
-},
-
-{222
-  "ok": true,
-  "id": "91657cc94842127216faec68100065fb",
-  "rev": "1-cd754b420c39e336ea0d434a6ab2d6e2"
+  "id": "91657cc94842127216faec6810007b5e",
+  "rev": "1-ce0fb7a8730f852a4bc1040410a7e604"
 }
-  
-
 ```
 
 ##### 向源数据库写入数据进行测试
@@ -612,23 +604,35 @@ http://192.168.16.70:5984/source_db
 请求方式POST，请求的报文如下：
 ```json
 {
-    "": "",
-	"test": "会被复制的数据信息"
+  "_id":"test001",
+  "test": "往source库写入的数据信息，将会自动复制到target库"
 }
 ```
 
 返回了写入成功的信息
 ```json
 {
-    "ok": true,
-    "id": "fa13cd76aef822dd85d4f7fd360009e3",
-    "rev": "1-1f743cb657685b8803a104985e74bc3c"
+  "ok": true,
+  "id": "test001",
+  "rev": "1-3e8b59839dadb4301533183a137df54f"
 }
 ```
 
-此时查看复制情况会发现该条记录已经被同步到了tb_target数据库
+此时查看复制情况会发现该条记录已经被同步到了target_db数据库，通过下面的GET请求
+```json
+http://192.168.88.128:5984/target_db/test001
+```
 
+可以获得如下的结果，说明数据被同步到了target_db数据库
+```json
+{
+    "_id": "test001",
+    "_rev": "1-3e8b59839dadb4301533183a137df54f",
+    "test": "往source库写入的数据信息，将会自动复制到target库"
+}
+```
 
+然而，如果向target_db写入数据，是不会被复制到source_db数据库的。证明过程略。
 
 ##### 向源数据库写入要求不允许复制的数据进行测试
 

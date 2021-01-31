@@ -88,6 +88,9 @@ http://127.0.0.1:5984/_membership
 
 该结果说明集群配置成功。
 
+all_nodes are all the nodes thats this node knows about.
+cluster_nodes are the nodes that are connected to this node.
+
 ##### 创建数据库(集群复制库)
 
 ###### 创建库
@@ -431,6 +434,22 @@ http://192.168.16.70:5985/_membership
 }
 ```
 
+###### 集群重启之后会发现变化
+
+需要分析：
+```json
+{
+    "all_nodes": [
+        "couchdb@my.couchdb1"
+    ],
+    "cluster_nodes": [
+        "couchdb@my.couchdb1",
+        "couchdb@my.couchdb2",
+        "couchdb@my.couchdb3"
+    ]
+}
+```
+
 
 ##### 创建集群2
 
@@ -515,6 +534,10 @@ curl -X DELETE "http://xxx.xxx.xxx.xxx/_node/_local/_nodes/node2@yyy.yyy.yyy.yyy
 ```
 
 ##### 创建两个集群的数据同步
+
+###### 首先创建源数据库
+
+
 请求地址：
 ```shell
 http://192.168.16.70:5984/_replicator

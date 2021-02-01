@@ -665,5 +665,36 @@ _返回结果：_
 
 
 
+### 冲突解决
 
+https://docs.couchdb.org/en/stable/replication/conflicts.html
 
+```text
+  DESKTOP                          LAPTOP
++---------+
+| /db/bob |                                     INITIAL
+|   v1    |                                     CREATION
++---------+
+
++---------+                      +---------+
+| /db/bob |  ----------------->  | /db/bob |     PUSH
+|   v1    |                      |   v1    |
++---------+                      +---------+
+
++---------+                      +---------+  INDEPENDENT
+| /db/bob |                      | /db/bob |     LOCAL
+|   v2a   |                      |   v2b   |     EDITS
++---------+                      +---------+
+
++---------+                      +---------+
+| /db/bob |  ----------------->  | /db/bob |     PUSH
+|   v2a   |                      |   v2a   |
++---------+                      |   v2b   |
+                                 +---------+
+
++---------+                      +---------+
+| /db/bob |  <-----------------  | /db/bob |     PULL
+|   v2a   |                      |   v2a   |
+|   v2b   |                      |   v2b   |
++---------+                      +---------+
+```

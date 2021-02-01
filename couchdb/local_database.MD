@@ -663,3 +663,214 @@ _返回结果：_
 
 以上返回结果表明数据插入成功
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------
+
+
+
+
+其他诸如初始化集群中节点的users, replicator, global_changes数据库，以及将各节点组织成集群的操作略。最终需要查询到节点能够组成如下的集群结果：
+
+```json
+
+```
+
+检查两个集群信息，分别正常。数据只会在同一个集群内部进行同步，不会同步到另外一个集群中去，测试略。
+
+##### 将节点从集群中删除
+###### 首先获取节点版本信息
+在删除之前首先要获取节点的版本信息
+```json
+http://192.168.88.128:5984/_node/_local/_nodes/couchdb@my.couchdb2
+```
+
+返回信息
+```json
+{
+    "_id": "couchdb@my.couchdb2",
+    "_rev": "1-967a00dff5e02add41819138abb3284d"
+}
+```
+
+###### 删除节点
+请求地址，请求方式DELETE
+```shell
+curl -X DELETE "http://xxx.xxx.xxx.xxx/_node/_local/_nodes/node2@yyy.yyy.yyy.yyy?rev=1-967a00dff5e02add41820138abb3284d"
+```
+
+返回结果：
+```json
+{
+    "ok": true,
+    "id": "couchdb@my.couchdb2",
+    "rev": "2-eec205a9d413992850a6e32678485900"
+}
+```
+
+## 创建两个集群的数据同步
+
+### 首先创建源数据库和目标数据库
+
+请求方式：put
+
+```json
+http://192.168.88.128:5984/source_db
+```
+
+```json
+http://192.168.88.128:5984/target_db
+```
+
+### 将两个数据库定义为复制关系
+
+请求地址：
+```shell
+http://192.168.88.128:5984/_replicator
+```
+
+请求方式POST
+
+请求体
+```json
+{ 
+    "source": {
+        "url":"http://192.168.88.128:5984/source_db",
+        "headers":{
+            "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="
+        }
+    }, 
+    "target": {
+         "url":"http://192.168.88.128:5984/target_db",
+         "headers":{
+             "Authorization":"Basic YWRtaW46cGFzc3dvcmQ="
+         }
+    },  
+    "create_target": false, 
+    "continuous": true
+}
+```
+
+
+返回结果：
+```json
+{
+    "ok": true,
+    "_local_id": "aa2a2e2622758db8412da4a13c26cecb+continuous+create_target"
+}
+```
+
+？另外一次请求的返回结果是,需要证实常见的返回结果是，
+```json
+{
+  "ok": true,
+  "id": "91657cc94842127216faec6810007b5e",
+  "rev": "1-ce0fb7a8730f852a4bc1040410a7e604"
+}
+```
+
+### 向源数据库写入数据进行测试
+
+_请求地址：_
+```shell
+http://192.168.16.70:5984/source_db
+```
+
+_请求方式：_
+
+**POST**
+
+_请求报文：_
+```json
+{
+  "_id":"test001",
+  "test": "往source库写入的数据信息，将会自动复制到target库"
+}
+```
+
+_返回结果：_
+```json
+{
+  "ok": true,
+  "id": "test001",
+  "rev": "1-3e8b59839dadb4301533183a137df54f"
+}
+```
+
+此时查看复制情况会发现该条记录已经被同步到了target_db数据库，通过下面的GET请求
+```json
+http://192.168.88.128:5984/target_db/test001
+```
+
+可以获得如下的结果，说明数据被同步到了target_db数据库
+```json
+{
+    "_id": "test001",
+    "_rev": "1-3e8b59839dadb4301533183a137df54f",
+    "test": "往source库写入的数据信息，将会自动复制到target库"
+}
+```
+
+然而，如果向target_db写入数据，是不会被复制到source_db数据库的。证明过程略。
+
+### 向源数据库写入要求不允许复制的数据进行测试
+
+_请求地址：_
+```shell
+http://192.168.88.128:5984/source_db/_local/test004
+```
+
+_请求方式：_**PUT**。 _请求报文如下：_
+```json
+{
+  "test": "往source库写入的数据信息，以local方式进行保存"
+}
+```
+
+_返回结果：_
+```json
+{
+  "ok": true,
+  "id": "_local/test004",
+  "rev": "0-1"
+}
+```
+
+以上返回结果表明数据插入成功
+

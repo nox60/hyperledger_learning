@@ -698,3 +698,9 @@ https://docs.couchdb.org/en/stable/replication/conflicts.html
 |   v2b   |                      |   v2b   |
 +---------+                      +---------+
 ```
+
+
+
+## 复制协议
+
+https://docs.couchdb.org/en/stable/replication/protocol.html

@@ -549,14 +549,12 @@ http://192.168.88.128:5984/target_db
 
 ### 将两个数据库定义为复制关系
 
-请求地址：
+_请求地址：_
 ```shell
 http://192.168.88.128:5984/_replicator
 ```
 
-请求方式POST
-
-请求体
+_请求方式：_**POST**。 _请求报文如下：_
 ```json
 { 
     "source": {
@@ -576,16 +574,7 @@ http://192.168.88.128:5984/_replicator
 }
 ```
 
-
-返回结果：
-```json
-{
-    "ok": true,
-    "_local_id": "aa2a2e2622758db8412da4a13c26cecb+continuous+create_target"
-}
-```
-
-？另外一次请求的返回结果是,需要证实常见的返回结果是，
+_返回结果：_
 ```json
 {
   "ok": true,

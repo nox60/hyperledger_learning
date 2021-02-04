@@ -372,38 +372,3 @@ http://admin:password@localhost:5984/basic
 	] 
 }
 ```
-
-通过下面map函数，可以将数据库中有 fruitName和prices字段的数据筛选到(map)
-```javascript
-function(doc) {
-    if(doc.fruitName && doc.prices) {
-        emit(doc.fruitName, doc.prices);
-    }
-}
-```
-
-上述map函数的执行结果是如下所示的四行数据：
-
-|id|fruitName|prices|
-|---|---|---|
-|403665cb272a933325570190b602d66b|	apple	|[ { "carrefour": 13.21 }, { "walmart": 12.9 }, { "Auchan": 9.11 } ]	|
-|403665cb272a933325570190b602e081|	banana	|[ { "carrefour": 19.21 }, { "walmart": 11.02 }, { "Auchan": 7.55 } ] |	
-|403665cb272a933325570190b602bf9d|	mango |	[ { "carrefour": 17.11 }, { "walmart": 16 }, { "Auchan": 15.11 } ]	 |
-|403665cb272a933325570190b602ccd0|	orange	|[ { "carrefour": 22 }, { "walmart": 26.1 }, { "Auchan": 18.59 } ]	 |
-
-
-如果我们想看的是所有水果在家乐福的价格，并且需要按照价格排序。我们在Fauxton中建立下面的map函数
-```javascript
-function(doc) {
-    var shop, price;
-    if (doc.fruitName && doc.prices) {
-        doc.prices.forEach(function(i) {
-              for (var key in i) {
-                  if ( key.indexOf("carrefour") != -1 ) {
-                    emit(doc.fruitName, i);
-                  }
-              }
-        });
-    }
-}
-```

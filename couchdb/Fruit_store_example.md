@@ -548,41 +548,6 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
 ```
 
-编写下面的map函数，命名为view1
-
-
-```javascript
-function(doc) {
-    var shop, price;
-    if (doc.city) {
-        doc.prices.forEach(function(i) {
-            for (var key in i) {   // 这个地方后面也改成forEach
-                if ( key.indexOf("carrefour") != -1 ) {
-                    emit( doc.city+ " carrefour", i[key]);
-                }
-            }
-        });
-    }
-}
-```
-
-用postman请求下面的地址，请求方式GET
-```shell
-http://admin:password@192.168.88.128:5984/basic/_design/all_fruits/_view/view1?
-```
-
-注意，在couchdb中利用descending关键字进行降序操作，是对key字段进行排序的，而不能像关系库一样编写order by。
-```shell
-http://admin:password@192.168.88.128:5984/basic/_design/all_fruits/_view/all_fruits?descending=true
-```
-
-要实现关系库类似的order by功能，需要
-
-
-
-
-
-
 
 
 

@@ -523,34 +523,3 @@ function(doc) {
 |carrefour|	71.53|
 
 
-写入下面的数据，做一些不太一样的聚合查询
-
-```shell
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"mango", "city":"Beijing","prices":[{"carrefour": 12.14},{"walmart": 5.00},{"Auchan": 14.09}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"mango", "city":"Shanghai","prices":[{"carrefour": 9.0},{"walmart": 10.20},{"Auchan": 16.15}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"mango", "city":"Chengdu","prices":[{"carrefour": 8.77},{"walmart": 12.10},{"Auchan": 17.88}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"mango", "city":"Chongqing","prices":[{"carrefour": 13.82},{"walmart": 13.10},{"Auchan": 8.99}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"mango", "city":"Xian","prices":[{"carrefour": 12.1},{"walmart": 12.16},{"Auchan": 14.18}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"apple", "city":"Beijing","prices":[{"carrefour": 22.0},{"walmart": 5.00},{"Auchan": 14.09}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"apple", "city":"Shanghai","prices":[{"carrefour": 8.0},{"walmart": 10.20},{"Auchan": 16.15}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"apple", "city":"Chengdu","prices":[{"carrefour": 14.0},{"walmart": 12.10},{"Auchan": 17.88}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"apple", "city":"Chongqing","prices":[{"carrefour": 23.12},{"walmart": 13.10},{"Auchan": 8.99}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"apple", "city":"Xian","prices":[{"carrefour": 16.10},{"walmart": 18.16},{"Auchan": 14.18}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Beijing","prices":[{"carrefour": 5.0},{"walmart": 8.44},{"Auchan": 16.55}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Shanghai","prices":[{"carrefour": 6.2},{"walmart": 13.60},{"Auchan": 18.46}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Chengdu","prices":[{"carrefour": 11.3},{"walmart": 19.33},{"Auchan": 19.03}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Chongqing","prices":[{"carrefour": 12.01},{"walmart": 7.55},{"Auchan": 12.77}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"banana", "city":"Xian","prices":[{"carrefour": 11.4},{"walmart": 9.09},{"Auchan": 29.22}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Beijing","prices":[{"carrefour": 11.0},{"walmart": 6.99},{"Auchan": 12.39}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Shanghai","prices":[{"carrefour": 9.12},{"walmart": 8.37},{"Auchan": 19.65}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Chengdu","prices":[{"carrefour": 17.33},{"walmart": 10.99},{"Auchan": 19.00}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Chongqing","prices":[{"carrefour": 5.39},{"walmart": 11.09},{"Auchan": 4.58}] }'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
-```
-
-
-
-
-
-
-

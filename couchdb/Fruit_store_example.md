@@ -451,29 +451,3 @@ function (keys, values, rereduce) {
 }
 ```
 对其进行修改，
-
-
-couchdb在调试的时候，最好把系统设置为debug的日志模式，这样可以在输出中看到输出。此时会发现自己很难写出系统的_sum函数直接对carrefour进行总和的reduce函数。这和couchdb的分布式存储逻辑有关系。
-
-后续会对这里的问题进行整理和分析。
-
-总的来说，在map阶段，就让value值为数值类型是比较合适的做法，避免使用kv的json复杂类型做value。
-
-具体操作如下。
-
-所以更改一下map函数如下：
-
-```javascript
-function(doc) {
-    var shop, price;
-    if (doc.fruitName && doc.prices) {
-        doc.prices.forEach(function(i) {
-              for (var key in i) {   // 这个地方后面也改成forEach
-                  if ( key.indexOf("carrefour") != -1 ) {
-                    emit("carrefour", i[key]);
-                  }
-              }
-        });
-    }
-}
-```

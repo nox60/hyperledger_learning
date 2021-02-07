@@ -477,21 +477,3 @@ function(doc) {
     }
 }
 ```
-
-然后可见输出为：
-
-|		id|	key|	value|
-|---|---|---|
-|	6395500d6da3317e55dc8915f30014e8	|carrefour	|17.11|	
-|	6395500d6da3317e55dc8915f30037a4	|carrefour	|22	|
-|	6395500d6da3317e55dc8915f3004faa	|carrefour	|13.21|	
-|	6395500d6da3317e55dc8915f300637f	|carrefour	|19.21|	
-
-
-此时增加一个reduce函数为：
-
-|key|value|
-|---|---|
-|carrefour|	71.53|
-
-

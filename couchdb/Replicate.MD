@@ -74,3 +74,8 @@ http://admin:password@192.168.16.70:5984/sample
 ```shell script
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/sample -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
 ```
+
+
+https://docs.couchdb.org/en/stable/ddocs/views/intro.html
+
+"afrikaans", 1

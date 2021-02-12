@@ -931,59 +931,6 @@ http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?key=
 会发现查询结果中只有key匹配的数据
 
 
-#### keys
-
-类似于 sql查询中的in，keys用json数组的方式传递
-
-http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?keys=["Chongqing+carrefour","Beijing+carrefour"]
-
-#### limit
-限制返回结果的条数
-
-#### page_size
-页码值，3.1以下版本的couchdb目测暂时不支持该值，需要进一步确认
-
-
-#### skip
-跳过从开始到skip指定值的记录，其实这就是分页查询中的start值。limit就是offset值。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Preparing CouchDB nodes to be joined into a cluster
-Before you can add nodes to form a cluster, you must have them listening on an IP address accessible from the other nodes in the cluster. You should also ensure that a few critical settings are identical across all nodes before joining them.
-
-The settings we recommend you set now, before joining the nodes into a cluster, are:
-
-etc/vm.args settings as described in the previous two sections
-At least one server administrator user (and password)
-Bind the node’s clustered interface (port 5984) to a reachable IP address
-A consistent UUID. The UUID is used in identifying the cluster when replicating. If this value is not consistent across all nodes in the cluster, replications may be forced to rewind the changes feed to zero, leading to excessive memory, CPU and network use.
-A consistent httpd secret. The secret is used in calculating and evaluating cookie and proxy authentication, and should be set consistently to avoid unnecessary repeated session cookie requests.
-
-
-
 
 
 

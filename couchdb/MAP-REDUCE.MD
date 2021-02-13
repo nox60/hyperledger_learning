@@ -82,8 +82,17 @@ curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dv
 ### 查看刚才写入的数据
 
 ```shell
-docker run --rm --link my.couchdb.single:my.couchdb.single my-curl-jq:1.0 \
-sh -c 'curl -H "Content-Type:application/json" \
+curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://my.couchdb.single:5984/sample-db/_shards/1  | jq'
+-X GET http://localhost:5984/sample-db/_shards/1  | jq
+```
+
+结果
+```json
+{
+  "range": "80000000-bfffffff",
+  "nodes": [
+    "couchdb@my.couchdb.single"
+  ]
+}
 ```

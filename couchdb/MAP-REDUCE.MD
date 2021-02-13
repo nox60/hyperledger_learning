@@ -96,3 +96,53 @@ curl -H "Content-Type:application/json" \
   ]
 }
 ```
+
+配置view, 利用Fauxton配置
+```javascript
+function (document) {
+  const [date, time] = document.create_date.split(" ");
+  const [year, month, day] = date.split("-");
+  emit([year, month, day], 1);
+}
+```
+
+请求该view
+```shell
+curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://localhost:5984/sample-db/_design/year-month-day/_view/new-view?group_level=2 | jq
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 官方文档
+
+When run on leaf nodes (which contain actual map rows), the reduce function’s third parameter, rereduce, is false. The arguments in this case are the keys and values as output by the map function. The function has a single returned reduction value, which is stored on the inner node that a working set of leaf nodes have in common, and is used as a cache in future reduce calculations.
+
+When the reduce function is run on inner nodes, the rereduce flag is true. This allows the function to account for the fact that it will be receiving its own prior output. When rereduce is true, the values passed to the function are intermediate reduction values as cached from previous calculations. When the tree is more than two levels deep, the rereduce phase is repeated, consuming chunks of the previous level’s output until the final reduce value is calculated at the root node.
+
+A common mistake new CouchDB users make is attempting to construct complex aggregate values with a reduce function. Full reductions should result in a scalar value, like 5, and not, for instance, a JSON hash with a set of unique keys and the count of each. The problem with this approach is that you’ll end up with a very large final value. The number of unique keys can be nearly as large as the number of total keys, even for a large set. It is fine to combine a few scalar calculations into one reduce function; for instance, to find the total, average, and standard deviation of a set of numbers in a single function.
+
+If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.

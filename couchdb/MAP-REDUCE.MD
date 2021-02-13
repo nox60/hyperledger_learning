@@ -71,12 +71,19 @@ curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dv
 ### 写入数据
 
 ```shell script
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"create_date":"2019-01-01 14:02:11", "related_value":"Some content", "related_person":"Jimmy wang"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"create_date":"2020-04-01 08:12:24", "related_value":"Some content2"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"create_date":"2018-08-23 12:49:05", "related_value":"Some content3"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"create_date":"2017-01-22 07:29:04", "related_value":"Some content5"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"create_date":"2020-06-14 01:28:11", "related_value":"Some content6", "related_person":"Kelly Zuo"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"1", "create_date":"2019-01-01 14:02:11", "related_value":"Some content", "related_person":"Jimmy wang"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"2", "create_date":"2020-04-01 08:12:24", "related_value":"Some content2"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"3", "create_date":"2018-08-23 12:49:05", "related_value":"Some content3"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"4", "create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"5", "create_date":"2017-01-22 07:29:04", "related_value":"Some content5"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"6", "create_date":"2020-06-14 01:28:11", "related_value":"Some content6", "related_person":"Kelly Zuo"}'
 ```
 
 ### 查看刚才写入的数据
+
+```shell
+docker run --rm --link my.couchdb.single:my.couchdb.single my-curl-jq:1.0 \
+sh -c 'curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://my.couchdb.single:5984/sample-db/_shards/1  | jq'
+```

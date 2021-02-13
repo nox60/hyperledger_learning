@@ -311,7 +311,7 @@ ln -s /root/codes/hyperledger_learning/docker2 /opt/local/codes/docker2
 
 ### 首先需要执行同级目录下的：
 ```aa
-generate.sh
+
 ```
 脚本文件。
 

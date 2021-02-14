@@ -326,7 +326,11 @@ function (keys, values, rereduce) {
 
 When run on leaf nodes (which contain actual map rows), the reduce function’s third parameter, rereduce, is false. The arguments in this case are the keys and values as output by the map function. The function has a single returned reduction value, which is stored on the inner node that a working set of leaf nodes have in common, and is used as a cache in future reduce calculations.
 
+当reduce函数执行到叶子节点的时候，reduce函数中的第三个参数rereduce为false，然后keys和values值，是map函数的输出值。此时该函数会有一个单返回值，保存在该叶子节点的父亲节点中，作为后续的reduce函数继续计算所需要的值。
+
 When the reduce function is run on inner nodes, the rereduce flag is true. This allows the function to account for the fact that it will be receiving its own prior output. When rereduce is true, the values passed to the function are intermediate reduction values as cached from previous calculations. When the tree is more than two levels deep, the rereduce phase is repeated, consuming chunks of the previous level’s output until the final reduce value is calculated at the root node.
+
+当reduce函数执行到非叶子节点时，rereduce参数为true，将对之前在叶子节点上的计算结果进行重新计算。此时传入reduce函数中的另外两个参数为之前在叶子节点中结算的结果值。当该树的深度超过两层时，rereduce过程一直重复执行，直到达到根节点。
 
 A common mistake new CouchDB users make is attempting to construct complex aggregate values with a reduce function. Full reductions should result in a scalar value, like 5, and not, for instance, a JSON hash with a set of unique keys and the count of each. The problem with this approach is that you’ll end up with a very large final value. The number of unique keys can be nearly as large as the number of total keys, even for a large set. It is fine to combine a few scalar calculations into one reduce function; for instance, to find the total, average, and standard deviation of a set of numbers in a single function.
 

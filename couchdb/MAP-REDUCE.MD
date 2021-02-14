@@ -218,7 +218,7 @@ curl -H "Content-Type:application/json" \
 ```
 
 ### 给该view加上reduce函数
-直接在系统中选择_count reduce函数，然后再次请求该view
+直接在系统中选择_count reduce函数，然后使用下面的命令请求该view。其中group_level参数代表使用map输出的key中的第一个字段（年）进行数据分组。
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
@@ -255,15 +255,60 @@ curl -H "Content-Type:application/json" \
     }
   ]
 }
-
 ```
 
+上述结果表明每一年对应的出生数。
 
+如果使用下面的命令进行分组，命令中和上面的唯一差别是将group_level值改成了2，表明使用map输出key的前两个字段（年和月）进行分组。
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
 -X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?group_level=2 | jq
 ```
+
+可以看到输出结果如下，表明某年某月出生的人数，比如2017年1月，有两个人出生。
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017",
+        "01"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2018",
+        "08"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2019",
+        "01"
+      ],
+      "value": 3
+    },
+    {
+      "key": [
+        "2020",
+        "04"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2020",
+        "08"
+      ],
+      "value": 1
+    }
+  ]
+}
+```
+
 
 
 

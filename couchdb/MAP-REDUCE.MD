@@ -27,67 +27,89 @@ http://192.168.88.128:5984/_global_changes
 ```
 
 ### 创建数据库
-
 ```shell
-http://192.168.88.128:5984/sample-db?q=4&n=2
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://192.168.88.128:5984/sample-db?q=3&n=1
 ```
 
-其中，q是分片数量，n副本数量
+其中，q是该数据库的分片数量，n副本数量。因为我们是在一个单机版的couchdb上进行试验，所以n的值设大是没有意义的，系统会强制数据库的副本为1，也就是n值无论设置为多少在单机版的系统中均会被忽略。
 
 ### 分析刚才创建的数据库
 https://docs.couchdb.org/en/stable/cluster/sharding.html#examining-database-shards
 
 ```shell
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X GET http://192.168.88.128:5984/sample-db
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X GET http://192.168.88.128:5984/sample-db | jq
 ```
 
 ```json
 {
-    "db_name": "sample-db",
-    "purge_seq": "0-g1AAAADLeJzLYWBgYMlgTmGQTM4vTc5ISXLIrdSDMvWKM_PSc1JzgEqY8liAJMMBIPUfCLISGYjW0wDRs584PUkOQDKpnmg7EhmS7CGKswDJ3ENu",
-    "update_seq": "0-g1AAAADLeJzLYWBgYMlgTmGQTM4vTc5ISXLIrdSDMvWKM_PSc1JzgEqY8liAJMMBIPUfCLISGYjW0wDRs584PUkOQDKpnmg7EhmS7CGKswDJ3ENu",
-    "sizes": {
-        "file": 33432,
-        "external": 0,
-        "active": 0
-    },
-    "props": {},
-    "doc_del_count": 0,
-    "doc_count": 0,
-    "disk_format_version": 8,
-    "compact_running": false,
-    "cluster": {
-        "q": 4,
-        "n": 1,
-        "w": 1,
-        "r": 1
-    },
-    "instance_start_time": "0"
+  "db_name": "sample-db",
+  "purge_seq": "0-g1AAAACZeJzLYWBgYM5gTmGQTM4vTc5ISXLIrdSDMvWKM_PSc1JzgEqY8lgYVgEBkPoPBFmJDEToSQoFAqCOlUCNxOlIZADpCQEqzgIAUR4yxg",
+  "update_seq": "0-g1AAAACZeJzLYWBgYM5gTmGQTM4vTc5ISXLIrdSDMvWKM_PSc1JzgEqY8lgYVgEBkPoPBFmJDEToSQoFAqCOlUCNxOlIZADpCQEqzgIAUR4yxg",
+  "sizes": {
+    "file": 25074,
+    "external": 0,
+    "active": 0
+  },
+  "props": {},
+  "doc_del_count": 0,
+  "doc_count": 0,
+  "disk_format_version": 8,
+  "compact_running": false,
+  "cluster": {
+    "q": 3,
+    "n": 1,
+    "w": 1,
+    "r": 1
+  },
+  "instance_start_time": "0"
 }
 ```
-
-会发现因为是单机，n是无法调高的，只能为1
 
 ### 写入数据
 
 ```shell script
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"1", "create_date":"2019-01-01 14:02:11", "related_value":"Some content", "related_person":"Jimmy wang"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"2", "create_date":"2020-04-01 08:12:24", "related_value":"Some content2"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"3", "create_date":"2018-08-23 12:49:05", "related_value":"Some content3"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"4", "create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"5", "create_date":"2017-01-22 07:29:04", "related_value":"Some content5"}'
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"id":"6", "create_date":"2020-06-14 01:28:11", "related_value":"Some content6", "related_person":"Kelly Zuo"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"1", "create_date":"2019-01-01", "person_name":"Jimmy Wang"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"2", "create_date":"2020-04-01", "person_name":"Kelly Zhang"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"3", "create_date":"2018-08-23", "person_name":"Li Xiao Ming"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"4", "create_date":"2020-08-16", "person_name":"Zhang hong"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"5", "create_date":"2017-01-22", "person_name":"Wang Si Cong"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"6", "create_date":"2017-01-22", "person_name":"Song Xiao Feng"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"7", "create_date":"2019-01-12", "person_name":"He Xu Hua"}'
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/sample-db -d '{"_id":"8", "create_date":"2019-01-09", "person_name":"Fan Li Li"}'
+```
+
+### 查看sample-db数据库的分片情况
+```shell
+curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://localhost:5984/sample-db/_shards | jq .
+```
+
+可以看到三个分片的情况如下：
+```json
+{
+  "shards": {
+    "00000000-55555554": [
+      "couchdb@my.couchdb.single"
+    ],
+    "55555555-aaaaaaa9": [
+      "couchdb@my.couchdb.single"
+    ],
+    "aaaaaaaa-ffffffff": [
+      "couchdb@my.couchdb.single"
+    ]
+  }
+}
 ```
 
 ### 查看刚才写入的数据
-
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
 -X GET http://localhost:5984/sample-db/_shards/1  | jq
 ```
 
-结果
+结果如下所示，代表该行数据的所在分片信息：
 ```json
 {
   "range": "80000000-bfffffff",
@@ -97,11 +119,10 @@ curl -H "Content-Type:application/json" \
 }
 ```
 
-配置view, 利用Fauxton配置
+此时通过Fauxton工具配置一个view, 其实也可以选用curl工具利用couchdb的api进行配置，但是因为map函数为多行，合并成一行到curl命令中，可读性较差，也具备一定的合并难度，因此使用Fauxton工具在线生成。
 ```javascript
 function (document) {
-  const [date, time] = document.create_date.split(" ");
-  const [year, month, day] = date.split("-");
+  const [year, month, day] = document.create_date.split("-");
   emit([year, month, day], 1);
 }
 ```
@@ -110,13 +131,144 @@ function (document) {
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/sample-db/_design/year-month-day/_view/new-view?group_level=2 | jq
+-X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1 | jq
+```
+
+结果如下：
+```json
+{
+  "total_rows": 8,
+  "offset": 0,
+  "rows": [
+    {
+      "id": "5",
+      "key": [
+        "2017",
+        "01",
+        "22"
+      ],
+      "value": 1
+    },
+    {
+      "id": "6",
+      "key": [
+        "2017",
+        "01",
+        "22"
+      ],
+      "value": 1
+    },
+    {
+      "id": "3",
+      "key": [
+        "2018",
+        "08",
+        "23"
+      ],
+      "value": 1
+    },
+    {
+      "id": "1",
+      "key": [
+        "2019",
+        "01",
+        "01"
+      ],
+      "value": 1
+    },
+    {
+      "id": "8",
+      "key": [
+        "2019",
+        "01",
+        "09"
+      ],
+      "value": 1
+    },
+    {
+      "id": "7",
+      "key": [
+        "2019",
+        "01",
+        "12"
+      ],
+      "value": 1
+    },
+    {
+      "id": "2",
+      "key": [
+        "2020",
+        "04",
+        "01"
+      ],
+      "value": 1
+    },
+    {
+      "id": "4",
+      "key": [
+        "2020",
+        "08",
+        "16"
+      ],
+      "value": 1
+    }
+  ]
+}
+
+```
+
+### 给该view加上reduce函数
+直接在系统中选择_count reduce函数，然后再次请求该view
+```shell
+curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?group_level=1 | jq
+```
+
+结果如下：
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2018"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2019"
+      ],
+      "value": 3
+    },
+    {
+      "key": [
+        "2020"
+      ],
+      "value": 2
+    }
+  ]
+}
+
+```
+
+
+```shell
+curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?group_level=2 | jq
 ```
 
 
 
 
-
+ 
 
 
 
@@ -129,3 +281,7 @@ When the reduce function is run on inner nodes, the rereduce flag is true. This 
 A common mistake new CouchDB users make is attempting to construct complex aggregate values with a reduce function. Full reductions should result in a scalar value, like 5, and not, for instance, a JSON hash with a set of unique keys and the count of each. The problem with this approach is that you’ll end up with a very large final value. The number of unique keys can be nearly as large as the number of total keys, even for a large set. It is fine to combine a few scalar calculations into one reduce function; for instance, to find the total, average, and standard deviation of a set of numbers in a single function.
 
 If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.
+
+### 芒果，西瓜，苹果，菠萝在多家水果店有售，找到每个水果最低的单价
+
+### 某平台销售多个品牌的电脑，计算每个月，每个品牌的销售总价

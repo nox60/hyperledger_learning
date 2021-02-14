@@ -309,7 +309,10 @@ curl -H "Content-Type:application/json" \
 }
 ```
 
+上述统计因为业务逻辑比较简单，可以用系统自带的_count reduce函数进行统计。同时，也可以使用自定义的reduce函数进行统计，写法如下：
+```javascript
 
+```
 
 
 

@@ -311,16 +311,18 @@ curl -H "Content-Type:application/json" \
 
 上述统计因为业务逻辑比较简单，可以用系统自带的_count reduce函数进行统计。同时，也可以使用自定义的reduce函数进行统计，写法如下：
 ```javascript
-
+function (keys, values, rereduce) {
+  if (rereduce) {
+    return sum(values);
+  } else {
+    return sum(values);
+  }
+}
 ```
 
+然后分别调用group_level为1和2的请求，也均能得到和上面的请求一样的结果。
 
-
- 
-
-
-
-### 官方文档
+这里比较难以理解的，是reduce函数中rereduce参数的概念。官方文档解释如下：
 
 When run on leaf nodes (which contain actual map rows), the reduce function’s third parameter, rereduce, is false. The arguments in this case are the keys and values as output by the map function. The function has a single returned reduction value, which is stored on the inner node that a working set of leaf nodes have in common, and is used as a cache in future reduce calculations.
 
@@ -329,6 +331,11 @@ When the reduce function is run on inner nodes, the rereduce flag is true. This 
 A common mistake new CouchDB users make is attempting to construct complex aggregate values with a reduce function. Full reductions should result in a scalar value, like 5, and not, for instance, a JSON hash with a set of unique keys and the count of each. The problem with this approach is that you’ll end up with a very large final value. The number of unique keys can be nearly as large as the number of total keys, even for a large set. It is fine to combine a few scalar calculations into one reduce function; for instance, to find the total, average, and standard deviation of a set of numbers in a single function.
 
 If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.
+
+
+### 官方文档
+
+
 
 ### 芒果，西瓜，苹果，菠萝在多家水果店有售，找到每个水果最低的单价
 

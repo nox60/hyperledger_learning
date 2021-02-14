@@ -120,23 +120,6 @@ curl -H "Content-Type:application/json" \
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 官方文档
 
 When run on leaf nodes (which contain actual map rows), the reduce function’s third parameter, rereduce, is false. The arguments in this case are the keys and values as output by the map function. The function has a single returned reduction value, which is stored on the inner node that a working set of leaf nodes have in common, and is used as a cache in future reduce calculations.

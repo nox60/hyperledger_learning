@@ -442,8 +442,11 @@ function (keys, values) {
 分析上面的输出结果，发现2019年度注册的用户中，三位用户的名字均正确输出，但是用户名的数组结构比较奇怪，有两位用户被放到了同一个数组单元中，这样三个用户构成的数组长度就是2，也就不难解释为什么上面的reduce函数中使用return values.length方式统计注册用户数会出现和预期不一样的情况了。
 
 ...
-在处理过程中，首先由map函数对所有的行进行映射处理，输出的结果为两个值：key和value，均是值（不是数组），然后会作为reduce函数的输入，reduce函数的入参默认为是keys, values, rereduce。
+在处理过程中，首先由map函数对所有的行进行映射处理，输出的结果为两个值：key和value，然后会作为reduce函数的输入，reduce函数的入参默认为是keys, values, rereduce三个参数，但当第一次处理map函数给出的结果（key, value）时，无论map所返回的key和value是什么样的数据结果，比如json或者数组，reduce函数均会作为**长度为1的数组**进行处理：将map函数所输出的key作为reduce函数的keys[0]，相应的，会将map函数所输出的value作为values[0]，rereduce值为false。在处理过程中，会根据group_level值进行分组操作，但是因为couchdb的分布式特性，同一个分组（比如年代2019）下的数据，可能为兄弟节点（具有同样的父节点），于是上述的兄弟节点在reduce处理之后，会合并成新的 keys, values, rereduce值由reduce函数进行循环处理，此时的keys值则不是长度为1的数组了，比如在某一个分区中，有两个兄弟节点具有同样的分组值，则这两个兄弟节点在reduce函数处理之后的结果会合并成新的values数组，数组的长度为2，然后数组元素是以上两个兄弟节点被reduce函数处理的结果。而keys值则是两个兄弟节点相同的分组值（此时是2019）。如果兄弟节点的数量为多个，相应的values的长度为多个。而rereduce值则会为true。
 
+上述的keys, values, rereduce值会作为reduce函数新一轮处理的入参，此时的values则和第一轮处理时有明显的差异（可能不是长度为1的数组）。
+
+因此，这就要求了reduce函数中，要根据rereduce值判断当前处理的情况和阶段，以便最终输出正确的结果。
 
 
 couchdb的数据存储是分布式存储结构，同一个父亲节点下面，有多个叶子节点，当使用某种规则，比如上面的年代分组，则同为2019年的多行数据，分布在分布式结构中。其中可能有多行数据有共同的父亲节点。reduce函数在处理完这些叶子节点之后，会将结果以数组的不同单元的方式合并，形成新的入参（values），再次由reduce函数进行处理，此时的rereduce参数值则为true。
@@ -480,6 +483,3 @@ A common mistake new CouchDB users make is attempting to construct complex aggre
 
 If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.
 
-### 芒果，西瓜，苹果，菠萝在多家水果店有售，找到每个水果最低的单价
-
-### 某平台销售多个品牌的电脑，计算每个月，每个品牌的销售总价

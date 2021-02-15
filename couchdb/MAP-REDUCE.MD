@@ -277,7 +277,7 @@ curl -H "Content-Type:application/json" \
 -X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?group_level=2 | jq
 ```
 
-可以看到输出结果如下，表明某年某月出生的人数，比如2017年1月，有两个人出生。
+可以看到输出结果如下，表明某年某月注册的人数，比如2017年1月，有两个人注册。
 ```json
 {
   "rows": [
@@ -323,15 +323,126 @@ curl -H "Content-Type:application/json" \
 上述统计因为业务逻辑比较简单，可以用系统自带的_count reduce函数进行统计。同时，也可以使用自定义的reduce函数进行统计，写法如下：
 ```javascript
 function (keys, values, rereduce) {
-  if (rereduce) {
-    return values;
-  } else {
-    return values.length;
-  }
+    if (rereduce) {
+        return sum(values);
+    } else {
+        return values.length;
+    }
 }
 ```
 
 然后分别调用group_level为1和2的请求，也均能得到和上面的请求一样的结果。
+
+但是reduce函数的写法让人有些迷惑，尤其是函数中有rereduce这个参数。另外两个参数keys和values比较好理解，可以理解是map函数的输出。但是这个rereduce就比较难以理解了。
+
+试着在Fauxton中将reduce函数修改成下面:
+```javascript
+function (keys, values) {
+        return values.length;
+}
+```
+
+然后调用group_level=1的请求，会得到下面的结果：
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2018"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2019"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2020"
+      ],
+      "value": 2
+    }
+  ]
+}
+```
+会发现该统计结果是有问题的，因为2019年的注册用户有三位，此处的统计只有两位。
+
+为了分析这个问题，此处进一步修改reduce函数为下面的样子：
+```javascript
+function (keys, values) {
+        return values;
+}
+```
+相当于对map输出的结果不进行任何处理，直接输出，会发现输出结果如下：
+```javascript
+{
+  "rows": [
+    {
+      "key": [
+        "2017"
+      ],
+      "value": [
+        [
+          "Wang Si Cong"
+        ],
+        [
+          "Song Xiao Feng"
+        ]
+      ]
+    },
+    {
+      "key": [
+        "2018"
+      ],
+      "value": [
+        [
+          "Li Xiao Ming"
+        ]
+      ]
+    },
+    {
+      "key": [
+        "2019"
+      ],
+      "value": [
+        [
+          "He Xu Hua",
+          "Jimmy Wang"
+        ],
+        [
+          "Fan Li Li"
+        ]
+      ]
+    },
+    {
+      "key": [
+        "2020"
+      ],
+      "value": [
+        [
+          "Kelly Zhang"
+        ],
+        [
+          "Zhang hong"
+        ]
+      ]
+    }
+  ]
+}
+```
+
+分析上面的输出结果，发现2019年度注册的用户中，三位用户的名字均正确输出，但是用户名的数组结构比较奇怪，有两位用户被放到了同一个数组单元中，这样三个用户构成的数组长度就是2，也就不难解释为什么上面的reduce函数中使用return values.length方式统计注册用户数会出现和预期不一样的情况了。
+
+造成这一问题的根本原因是，couchdb的reduce过程，是一个循环处理的过程，
+
 
 这里比较难以理解的，是reduce函数中rereduce参数的概念。官方文档解释如下：
 

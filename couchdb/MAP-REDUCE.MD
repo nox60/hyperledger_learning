@@ -102,7 +102,7 @@ curl -H "Content-Type:application/json" \
 }
 ```
 
-### 查看刚才写入的数据
+### 可以查看一条数据的分片情况
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
@@ -119,11 +119,20 @@ curl -H "Content-Type:application/json" \
 }
 ```
 
-此时通过Fauxton工具配置一个view, 其实也可以选用curl工具利用couchdb的api进行配置，但是因为map函数为多行，合并成一行到curl命令中，可读性较差，也具备一定的合并难度，因此使用Fauxton工具在线生成。
+### 编写view对数据进行map操作
+
+在couchdb中，通过javascript语法编写的map函数，将数据库中得数据进行map，然后输出成需要的结果。这个过程类似mysql类型的关系数据库的sql操作。
+
+此时通过Fauxton工具配置view, 其实也可以选用curl工具利用couchdb的api进行配置，但是因为map函数为多行，如果合并成一行放到curl命令中可读性会比较差，并且合并过程也有一定的难度，因此使用Fauxton工具在线生成。
+
+操作方式：Design Documents > +号 > New View
+
+其中design名称此处取为year-month-day，Index Name就为view1
+
 ```javascript
 function (document) {
-  const [year, month, day] = document.create_date.split("-");
-  emit([year, month, day], 1);
+    const [year, month, day] = document.create_date.split("-");
+    emit([year, month, day], document.person_name);
 }
 ```
 
@@ -131,7 +140,7 @@ function (document) {
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1 | jq
+-X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?reduce=false| jq
 ```
 
 结果如下：
@@ -147,7 +156,7 @@ curl -H "Content-Type:application/json" \
         "01",
         "22"
       ],
-      "value": 1
+      "value": "Wang Si Cong"
     },
     {
       "id": "6",
@@ -156,7 +165,7 @@ curl -H "Content-Type:application/json" \
         "01",
         "22"
       ],
-      "value": 1
+      "value": "Song Xiao Feng"
     },
     {
       "id": "3",
@@ -165,7 +174,7 @@ curl -H "Content-Type:application/json" \
         "08",
         "23"
       ],
-      "value": 1
+      "value": "Li Xiao Ming"
     },
     {
       "id": "1",
@@ -174,7 +183,7 @@ curl -H "Content-Type:application/json" \
         "01",
         "01"
       ],
-      "value": 1
+      "value": "Jimmy Wang"
     },
     {
       "id": "8",
@@ -183,7 +192,7 @@ curl -H "Content-Type:application/json" \
         "01",
         "09"
       ],
-      "value": 1
+      "value": "Fan Li Li"
     },
     {
       "id": "7",
@@ -192,7 +201,7 @@ curl -H "Content-Type:application/json" \
         "01",
         "12"
       ],
-      "value": 1
+      "value": "He Xu Hua"
     },
     {
       "id": "2",
@@ -201,7 +210,7 @@ curl -H "Content-Type:application/json" \
         "04",
         "01"
       ],
-      "value": 1
+      "value": "Kelly Zhang"
     },
     {
       "id": "4",
@@ -210,14 +219,16 @@ curl -H "Content-Type:application/json" \
         "08",
         "16"
       ],
-      "value": 1
+      "value": "Zhang hong"
     }
   ]
 }
-
 ```
+可以看到，通过map函数，我们将数据按照我们需要的结果进行了映射输出
 
-### 给该view加上reduce函数
+### 利用reduce函数对数据进行分析
+
+#### 任务1. 以年为分组，统计当年注册的用户数量
 直接在系统中选择_count reduce函数，然后使用下面的命令请求该view。其中group_level参数代表使用map输出的key中的第一个字段（年）进行数据分组。
 ```shell
 curl -H "Content-Type:application/json" \
@@ -257,9 +268,9 @@ curl -H "Content-Type:application/json" \
 }
 ```
 
-上述结果表明每一年对应的出生数。
+上述结果表明每一年对应的注册人。
 
-如果使用下面的命令进行分组，命令中和上面的唯一差别是将group_level值改成了2，表明使用map输出key的前两个字段（年和月）进行分组。
+如果使用下面的命令进行分组，命令中相比上一次执行的命令唯一差别是将group_level值改成了2，表明使用map输出key的前两个字段（年和月）进行分组。
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
@@ -313,9 +324,9 @@ curl -H "Content-Type:application/json" \
 ```javascript
 function (keys, values, rereduce) {
   if (rereduce) {
-    return sum(values);
+    return values;
   } else {
-    return sum(values);
+    return values.length;
   }
 }
 ```

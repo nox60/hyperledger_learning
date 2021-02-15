@@ -47,3 +47,28 @@ curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dv
 
 ### 1. 分析所有水果在各家水果店的平均价格；
 
+分析：map阶段使用fruit_name作为key值，价格作为value; reduce阶段计算价格的平均值。
+
+map函数如下：
+
+```javascript
+function (document) {
+    emit(document.fruit_name, document.price);
+}
+```
+
+reduce函数如下：
+```javascript
+function (keys, values, rereduce) {
+  if (rereduce) {
+    
+    return sum(values);
+  } else {
+    let counts = 0;
+    values.forEach(function(i,index){
+      console.log(i,index)
+    })
+    return values.[0];
+  }
+}
+```

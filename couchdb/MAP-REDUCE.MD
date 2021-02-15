@@ -441,6 +441,14 @@ function (keys, values) {
 
 分析上面的输出结果，发现2019年度注册的用户中，三位用户的名字均正确输出，但是用户名的数组结构比较奇怪，有两位用户被放到了同一个数组单元中，这样三个用户构成的数组长度就是2，也就不难解释为什么上面的reduce函数中使用return values.length方式统计注册用户数会出现和预期不一样的情况了。
 
+...
+在处理过程中，首先由map函数对所有的行进行映射处理，输出的结果为两个值：key和value，均是值（不是数组），然后会作为reduce函数的输入，reduce函数的入参默认为是keys, values, rereduce。
+
+
+
+couchdb的数据存储是分布式存储结构，同一个父亲节点下面，有多个叶子节点，当使用某种规则，比如上面的年代分组，则同为2019年的多行数据，分布在分布式结构中。其中可能有多行数据有共同的父亲节点。reduce函数在处理完这些叶子节点之后，会将结果以数组的不同单元的方式合并，形成新的入参（values），再次由reduce函数进行处理，此时的rereduce参数值则为true。
+...
+
 造成这一问题的根本原因是，couchdb的reduce过程，是一个循环处理的过程，这和couchdb的分布式结构有关。reduce首先会在不同的节点进行处理，数据库sample-db定义了三个分片（节点），2019年注册的三个用户分别分散在两个不同的分片中。在处理方式为return values 的reduce函数中，没有对map函数的结果（reduce的输入）进行过多的计算和统计，只是直接返回，但是对于不同的分片节点，reduce函数的初次处理会首先将处理结果进行合并，然后在重新整理的过程中进行再次处理（rereduce），因此reduce函数会在其中一个节点把两个2019年的注册用户合并到同一个value中，然后在rereduce过程中再次处理，就形成了下面的入参结构：
 节点1的输出结果：
 ```javascript
@@ -456,6 +464,7 @@ key:2019, values:[节点二的处理结果合并结果]
 
 首先
 
+### 官方文档
 
 这里比较难以理解的，是reduce函数中rereduce参数的概念。官方文档解释如下：
 
@@ -470,11 +479,6 @@ When the reduce function is run on inner nodes, the rereduce flag is true. This 
 A common mistake new CouchDB users make is attempting to construct complex aggregate values with a reduce function. Full reductions should result in a scalar value, like 5, and not, for instance, a JSON hash with a set of unique keys and the count of each. The problem with this approach is that you’ll end up with a very large final value. The number of unique keys can be nearly as large as the number of total keys, even for a large set. It is fine to combine a few scalar calculations into one reduce function; for instance, to find the total, average, and standard deviation of a set of numbers in a single function.
 
 If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.
-
-
-### 官方文档
-
-
 
 ### 芒果，西瓜，苹果，菠萝在多家水果店有售，找到每个水果最低的单价
 

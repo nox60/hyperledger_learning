@@ -483,3 +483,216 @@ A common mistake new CouchDB users make is attempting to construct complex aggre
 
 If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+可以看到输出结果如下，表明某年某月注册的人数，比如2017年1月，有两个人注册。
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017",
+        "01"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2018",
+        "08"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2019",
+        "01"
+      ],
+      "value": 3
+    },
+    {
+      "key": [
+        "2020",
+        "04"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2020",
+        "08"
+      ],
+      "value": 1
+    }
+  ]
+}
+```
+
+上述统计因为业务逻辑比较简单，可以用系统自带的_count reduce函数进行统计。同时，也可以使用自定义的reduce函数进行统计，写法如下：
+```javascript
+function (keys, values, rereduce) {
+    if (rereduce) {
+        return sum(values);
+    } else {
+        return values.length;
+    }
+}
+```
+
+然后分别调用group_level为1和2的请求，也均能得到和上面的请求一样的结果。
+
+但是reduce函数的写法让人有些迷惑，尤其是函数中有rereduce这个参数。另外两个参数keys和values比较好理解，可以理解是map函数的输出。但是这个rereduce就比较难以理解了。
+
+试着在Fauxton中将reduce函数修改成下面:
+```javascript
+function (keys, values) {
+        return values.length;
+}
+```
+
+然后调用group_level=1的请求，会得到下面的结果：
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2018"
+      ],
+      "value": 1
+    },
+    {
+      "key": [
+        "2019"
+      ],
+      "value": 2
+    },
+    {
+      "key": [
+        "2020"
+      ],
+      "value": 2
+    }
+  ]
+}
+```
+会发现该统计结果是有问题的，因为2019年的注册用户有三位，此处的统计只有两位。
+
+为了分析这个问题，此处进一步修改reduce函数为下面的样子：
+```javascript
+function (keys, values) {
+        return values;
+}
+```
+相当于对map输出的结果不进行任何处理，直接输出，会发现输出结果如下：
+```javascript
+{
+  "rows": [
+    {
+      "key": [
+        "2017"
+      ],
+      "value": [
+        [
+          "Wang Si Cong"
+        ],
+        [
+          "Song Xiao Feng"
+        ]
+      ]
+    },
+    {
+      "key": [
+        "2018"
+      ],
+      "value": [
+        [
+          "Li Xiao Ming"
+        ]
+      ]
+    },
+    {
+      "key": [
+        "2019"
+      ],
+      "value": [
+        [
+          "He Xu Hua",
+          "Jimmy Wang"
+        ],
+        [
+          "Fan Li Li"
+        ]
+      ]
+    },
+    {
+      "key": [
+        "2020"
+      ],
+      "value": [
+        [
+          "Kelly Zhang"
+        ],
+        [
+          "Zhang hong"
+        ]
+      ]
+    }
+  ]
+}
+```

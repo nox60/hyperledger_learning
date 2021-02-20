@@ -167,33 +167,3 @@ replicate信息保存在_replicator数据库里面，持续性复制。
 }
 ```
 
-
-The default replicator database is _replicator. Additional replicator databases can be created. To be recognized as such by the system, their database names should end with /_replicator.
-
-系统replicator的命名是以_replicator结尾的。
-
-比如：_design/_replicator
-
-It is RECOMMENDED that one follow this algorithm specification, use the same HTTP endpoints, and run requests with the same parameters to provide a completely compatible implementation. Custom Replicator implementations MAY use different HTTP API endpoints and request parameters depending on their local specifics and they MAY implement only part of the Replication Protocol to run only Push or Pull Replication. However, while such solutions could also run the Replication process, they loose compatibility with the CouchDB Replicator.
-
-
-## protocol document
-
-https://docs.couchdb.org/en/stable/replication/protocol.html
-
-
-创建数据库
-```shell script
-http://admin:password@192.168.16.70:5984/sample
-```
-
-写入一行测试数据
-
-```shell script
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/sample -d '{ "fruitName":"cherry", "city":"Xian","prices":[{"carrefour": 19.99},{"walmart": 12.06},{"Auchan": 16.67}] }'
-```
-
-
-https://docs.couchdb.org/en/stable/ddocs/views/intro.html
-
-"afrikaans", 1

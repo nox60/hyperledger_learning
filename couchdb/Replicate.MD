@@ -135,32 +135,3 @@ replicate信息保存在_replicator数据库里面，持续性复制。
 ```
 
 
-```json
-{
-    "database": "_replicator",
-    "doc_id": "my_rep",
-    "error_count": 0,
-    "id": "a81a78e822837e66df423d54279c15fe+continuous+create_target",
-    "info": {
-        "revisions_checked": 113,
-        "missing_revisions_found": 113,
-        "docs_read": 113,
-        "docs_written": 113,
-        "changes_pending": 0,
-        "doc_write_failures": 0,
-        "checkpointed_source_seq": "113-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE01ygQLsZsYGqcamiZjKcRqRxwIkGRqA1H-oSbZgk1KMLCzTDE0wdWUBAF6HJIQ",
-        "source_seq": "113-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE01ygQLsZsYGqcamiZjKcRqRxwIkGRqA1H-oSbZgk1KMLCzTDE0wdWUBAF6HJIQ",
-        "through_seq": "113-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE01ygQLsZsYGqcamiZjKcRqRxwIkGRqA1H-oSbZgk1KMLCzTDE0wdWUBAF6HJIQ"
-    },
-    "last_updated": "2017-04-05T19:18:15Z",
-    "node": "node1@127.0.0.1",
-    "source_proxy": null,
-    "target_proxy": null,
-    "source": "http://myserver.com/foo/",
-    "start_time": "2017-04-05T19:18:15Z",
-    "state": "running",
-    "target": "http://adm:*****@localhost:5984/bar/"
-}
-```
-
-

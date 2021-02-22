@@ -163,35 +163,3 @@ curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dv
 curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/fruits-db -d '{"_id":"29", "fruit_name":"lemon", "price":"27.34"}'
 curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/fruits-db -d '{"_id":"30", "fruit_name":"banana", "price":"3.33"}'
 ```
-
-### 1. 分析所有水果在各家水果店的平均价格；
-
-分析：map阶段使用fruit_name作为key值，价格作为value; reduce阶段计算价格的平均值。
-
-map函数如下：
-
-```javascript
-function (document) {
-    emit(document.fruit_name, document.price);
-}
-```
-
-reduce函数如下：
-```javascript
-function (keys, values, rereduce) {
-    let counts = 0;
-    let sum = 1;
-    values.forEach(function(i,index){
-      counts++;
-      sum = sum + i;
-    })
-    return sum/counts;
-}
-```
-
-```shell
-curl -H "Content-Type:application/json" \
--H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/fruits-db/_design/fruits_funs/_view/average?group_level=1 | jq
-```
-

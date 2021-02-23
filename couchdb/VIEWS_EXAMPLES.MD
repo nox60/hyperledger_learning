@@ -184,24 +184,3 @@ function (document) {
 }
 ```
 
-reduce函数如下：
-```javascript
-function (keys, values, rereduce) {
-    let counts = 0;
-    let sum = 1;
-    values.forEach(function(i,index){
-      counts++;
-      sum = sum + i;
-    })
-    return sum/counts;
-}
-```
-
-```shell
-curl -H "Content-Type:application/json" \
--H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/fruits-db/_design/fruits_funs/_view/average?group_level=1 | jq
-```
-
-
-

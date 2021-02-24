@@ -7,8 +7,8 @@
 
 
 ### 创建数据库
-```shell
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://192.168.88.128:5984/fruits-db?q=3&n=1
+```shell script
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://localhost:5984/fruits-db?q=3&n=1
 ```
 
 ### 数据准备
@@ -45,9 +45,65 @@ curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dv
 curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X POST http://localhost:5984/fruits-db -d '{"_id":"30", "fruit_name":"banana", "price":"3.33"}'
 ```
 
-### 1. 分析所有水果在各家水果店的平均价格；
+### 1. 统计每种水果的记录数量
+通过Fauxton创建一个view，design分组名称为design1，view名称为view1
 
-分析：map阶段使用fruit_name作为key值，价格作为value; reduce阶段计算价格的平均值。
+map函数如下：
+```javascript
+function (document) {
+    emit(document.fruit_name, document.price);
+}
+```
+
+reduce函数如下：
+```javascript
+function (keys, values, rereduce) {
+  if (rereduce) {
+    return sum(values);
+  } else {
+    return values.length;
+  }
+}
+```
+
+通过下面的命令请求：
+```shell
+curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://localhost:5984/fruits-db/_design/design1/_view/view1?group_level=1 | jq
+```
+
+得到如下的结果，符合期望值：
+```json
+{
+  "rows": [
+    {
+      "key": "apple",
+      "value": 5
+    },
+    {
+      "key": "banana",
+      "value": 8
+    },
+    {
+      "key": "lemon",
+      "value": 7
+    },
+    {
+      "key": "mango",
+      "value": 5
+    },
+    {
+      "key": "watermelon",
+      "value": 5
+    }
+  ]
+}
+```
+
+### 2. 分析所有水果在各家水果店的平均价格；
+通过Fauxton创建一个view，design分组归属为之前已经创建的design1，view名称为view2
+
 
 map函数如下：
 
@@ -60,18 +116,25 @@ function (document) {
 reduce函数如下：
 ```javascript
 function (keys, values, rereduce) {
+  if (rereduce) {
     let counts = 0;
-    let sum = 1;
-    values.forEach(function(i,index){
-      counts++;
-      sum = sum + i;
-    })
+    let sum = 0;
+    for(k = 0,len=values.length; k < len; k++) {
+        sum = sum + values[k]
+        counts++
+    }
     return sum/counts;
+  } else {
+    return values;
+  }
 }
 ```
 
+请求命令如下:
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
 -X GET http://localhost:5984/fruits-db/_design/fruits_funs/_view/average?group_level=1 | jq
 ```
+
+

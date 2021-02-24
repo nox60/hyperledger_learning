@@ -128,7 +128,7 @@ curl -H "Content-Type:application/json" \
 
 操作方式：Design Documents > +号 > New View
 
-其中design名称此处取为year-month-day，Index Name就为view1
+其中design名称此处取为design1，Index Name就为view1
 
 ```javascript
 function (document) {
@@ -141,7 +141,7 @@ function (document) {
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?reduce=false| jq
+-X GET http://localhost:5984/sample-db/_design/design1/_view/view1?reduce=false| jq
 ```
 
 结果如下：
@@ -234,7 +234,7 @@ curl -H "Content-Type:application/json" \
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?group_level=1 | jq
+-X GET http://localhost:5984/sample-db/_design/design1/_view/view1?group_level=1 | jq
 ```
 
 结果如下：
@@ -275,7 +275,7 @@ curl -H "Content-Type:application/json" \
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/sample-db/_design/year-month-day/_view/view1?group_level=2 | jq
+-X GET http://localhost:5984/sample-db/_design/design1/_view/view1?group_level=2 | jq
 ```
 
 可以看到输出结果如下，表明某年某月注册的人数，比如2017年1月，有两个人注册。
@@ -344,14 +344,14 @@ function (keys, values) {
 ```
 
 ```javascript
-function (keys, values, rereduce) 
+function (keys, values, rereduce) {
     if (rereduce) {
         let temp = '';
-        for(k = 0,len=values[j].length; k < len; j++) {
+        for(k = 0,len=values.length; k < len; k++) {
             if( temp.indexOf("|!|" <= 0 ) ){
-                temp = temp + values[j] + ','
+                temp = temp + values[k] + ','
             } else {
-                temp + values [j];
+                temp + values [k];
             }
         }
         return temp
@@ -471,9 +471,6 @@ function (keys, values) {
 
 
 
-
-
-
 couchdb的数据存储是分布式存储结构，同一个父亲节点下面，有多个叶子节点，当使用某种规则，比如上面的年代分组，则同为2019年的多行数据，分布在分布式结构中。其中可能有多行数据有共同的父亲节点。reduce函数在处理完这些叶子节点之后，会将结果以数组的不同单元的方式合并，形成新的入参（values），再次由reduce函数进行处理，此时的rereduce参数值则为true。
 
 
@@ -509,3 +506,121 @@ A common mistake new CouchDB users make is attempting to construct complex aggre
 If you’re interested in pushing the edge of CouchDB’s incremental reduce functionality, have a look at Google’s paper on Sawzall, which gives examples of some of the more exotic reductions that can be accomplished in a system with similar constraints.
 
 
+
+
+#### 任务2. 以年为分组，统计当年注册的用户，名字以逗号分隔
+
+通过Fauxton创建一个新的view, 该view保存在之前的design分组（design1）下，view名称为view2
+
+map函数对创建时间进行切分
+```javascript
+function (document) {
+    const [year, month, day] = document.create_date.split("-");
+    emit([year, month, day], document.person_name);
+}
+```
+
+reduce函数如下：
+```javascript
+function (keys, values, rereduce) {
+    if (rereduce) {
+        let temp = '';
+        for(k = 0,len=values.length; k < len; k++) {
+            if( temp.indexOf("|!|" <= 0 ) ){
+                temp = temp + values[k] + ','
+            } else {
+                temp + values [k];
+            }
+        }
+        return temp
+    } else {
+        return values
+    }
+}
+```
+
+通过下面的命令进行调用，首先获取按照年和月同时进行分组的结果：
+```shell script
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X GET http://localhost:5984/sample-db/_design/design1/_view/view2?group_level=2 | jq
+```
+
+可以得到如下的结果，该结果符合期望。
+
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017",
+        "01"
+      ],
+      "value": "Wang Si Cong,Song Xiao Feng,"
+    },
+    {
+      "key": [
+        "2018",
+        "08"
+      ],
+      "value": "Li Xiao Ming,"
+    },
+    {
+      "key": [
+        "2019",
+        "01"
+      ],
+      "value": "He Xu Hua,Jimmy Wang,Fan Li Li,"
+    },
+    {
+      "key": [
+        "2020",
+        "04"
+      ],
+      "value": "Kelly Zhang,"
+    },
+    {
+      "key": [
+        "2020",
+        "08"
+      ],
+      "value": "Zhang hong,"
+    }
+  ]
+}
+```
+
+然后获取只按照年代进行分组的结果，调用命令如下:
+```shell script
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X GET http://localhost:5984/sample-db/_design/design1/_view/view2?group_level=1 | jq
+```
+
+调用结果如下，符合预期：
+```json
+{
+  "rows": [
+    {
+      "key": [
+        "2017"
+      ],
+      "value": "Wang Si Cong,Song Xiao Feng,"
+    },
+    {
+      "key": [
+        "2018"
+      ],
+      "value": "Li Xiao Ming,"
+    },
+    {
+      "key": [
+        "2019"
+      ],
+      "value": "He Xu Hua,Jimmy Wang,Fan Li Li,"
+    },
+    {
+      "key": [
+        "2020"
+      ],
+      "value": "Zhang hong,Kelly Zhang,"
+    }
+  ]
+}
+```

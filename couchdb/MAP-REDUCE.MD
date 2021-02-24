@@ -344,19 +344,20 @@ function (keys, values) {
 ```
 
 ```javascript
-function (keys, values) {
-    
-    
+function (keys, values, rereduce) 
+    if (rereduce) {
         let temp = '';
-        if(Array.isArray(values)){
-            for(j = 0,len=values.length; j < len; j++) {
-               temp = temp + values[j] + '|'
+        for(k = 0,len=values[j].length; k < len; j++) {
+            if( temp.indexOf("|!|" <= 0 ) ){
+                temp = temp + values[j] + ','
+            } else {
+                temp + values [j];
             }
-        } else {
-            temp = values;
-        }         
-
-        return temp;
+        }
+        return temp
+    } else {
+        return values
+    }
 }
 ```
 

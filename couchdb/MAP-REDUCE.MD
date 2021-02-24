@@ -20,15 +20,16 @@ docker run --name my.couchdb.single \
 
 ### 初始化
 
+创建下面的三个数据库。
 ```shell
-http://192.168.88.128:5984/_users
-http://192.168.88.128:5984/_replicator
-http://192.168.88.128:5984/_global_changes
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://localhost:5984/_users
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://localhost:5984/_replicator
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://localhost:5984/_global_changes
 ```
 
 ### 创建数据库
 ```shell
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://192.168.88.128:5984/sample-db?q=3&n=1
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X PUT http://localhost:5984/sample-db?q=3&n=1
 ```
 
 其中，q是该数据库的分片数量，n副本数量。因为我们是在一个单机版的couchdb上进行试验，所以n的值设大是没有意义的，系统会强制数据库的副本为1，也就是n值无论设置为多少在单机版的系统中均会被忽略。
@@ -37,7 +38,7 @@ curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dv
 https://docs.couchdb.org/en/stable/cluster/sharding.html#examining-database-shards
 
 ```shell
-curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X GET http://192.168.88.128:5984/sample-db | jq
+curl -H "Content-Type:application/json" -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" -X GET http://localhost:5984/sample-db | jq
 ```
 
 ```json
@@ -339,6 +340,23 @@ function (keys, values, rereduce) {
 ```javascript
 function (keys, values) {
         return values.length;
+}
+```
+
+```javascript
+function (keys, values) {
+    
+    
+        let temp = '';
+        if(Array.isArray(values)){
+            for(j = 0,len=values.length; j < len; j++) {
+               temp = temp + values[j] + '|'
+            }
+        } else {
+            temp = values;
+        }         
+
+        return temp;
 }
 ```
 

@@ -240,23 +240,19 @@ function (document) {
 reduce函数如下：
 ```javascript
 function (keys, values, rereduce) {
-  if (rereduce) {
     let arr = new Array()
-    for(i = 0,len=values.length; i < len; i++) {
-        if(Array.isArray(values[i])){
-            for(j = 0,len2=values[i].length; j < len2; j++) {
-                arr.push(values[i][j])            
-            }
-        } else {
-            arr.push(values[i])
-        }
+    if(Array.isArray(values)){
+        for(i=0;i<values.length;i++){
+            if(Array.isArray(values[i])){
+                arr.push(...values[i])
+            } else {
+                arr.push(values[i])
+            }              
+        }   
     }
-    // 排序之后返回
-    // arr.sort()
-    return arr
-  } else {
-    return values.length;
-  }
+    return arr.sort(function(a,b){
+        return a - b
+    })
 }
 ```
 
@@ -269,7 +265,65 @@ curl -H "Content-Type:application/json" \
 
 得到如下符合预期的结果：
 ```json
-
+{
+  "rows": [
+    {
+      "key": "apple",
+      "value": [
+        4,
+        7.27,
+        10.9,
+        11.9,
+        19.23
+      ]
+    },
+    {
+      "key": "banana",
+      "value": [
+        0.98,
+        3.33,
+        4.96,
+        5.6,
+        9.9,
+        11.2,
+        13,
+        50.3
+      ]
+    },
+    {
+      "key": "lemon",
+      "value": [
+        0.76,
+        2,
+        3,
+        27.34,
+        28.7,
+        43.1,
+        55
+      ]
+    },
+    {
+      "key": "mango",
+      "value": [
+        4.82,
+        5.62,
+        6.63,
+        7.3,
+        11.2
+      ]
+    },
+    {
+      "key": "watermelon",
+      "value": [
+        3,
+        4.7,
+        4.78,
+        5,
+        30
+      ]
+    }
+  ]
+}
 ```
 
 

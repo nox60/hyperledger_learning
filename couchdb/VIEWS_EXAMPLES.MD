@@ -163,6 +163,69 @@ curl -H "Content-Type:application/json" \
 
 
 ### 3. 找到每个水果最低的单价；
+通过Fauxton创建一个view，design分组归属为之前已经创建的design1，view名称为view3
+
+
+map函数如下：
+
+```javascript
+function (document) {
+    emit(document.fruit_name, document.price);
+}
+```
+
+reduce函数如下：
+```javascript
+function (keys, values, rereduce) {
+    let lowest = 0;
+    lowest = parseFloat(values[0]);
+    for(i = 0;i < values.length;i++) {
+        let intTemp = parseFloat(values[i])
+        if( intTemp <= lowest ) {
+            lowest = intTemp
+        }       
+    }
+    return lowest
+}
+```
+
+请求命令如下:
+```shell
+curl -H "Content-Type:application/json" \
+-H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+-X GET http://localhost:5984/fruits-db/_design/design1/_view/view3?group_level=1 | jq
+```
+
+得到如下符合预期的结果：
+```json
+{
+  "rows": [
+    {
+      "key": "apple",
+      "value": 4
+    },
+    {
+      "key": "banana",
+      "value": 0.98
+    },
+    {
+      "key": "lemon",
+      "value": 0.76
+    },
+    {
+      "key": "mango",
+      "value": 4.82
+    },
+    {
+      "key": "watermelon",
+      "value": 3
+    }
+  ]
+}
+```
+
+
+### 4. 找到每个水果最低的单价；
 通过Fauxton创建一个view，design分组归属为之前已经创建的design1，view名称为view2
 
 

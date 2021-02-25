@@ -177,13 +177,23 @@ function (document) {
 reduce函数如下：
 ```javascript
 function (keys, values, rereduce) {
-    let counts = 0;
-    let sum = 0;
-    for(k = 0,len=values.length; k < len; k++) {
-        sum = sum + values[k]
-        counts++
+  if (rereduce) {
+    let arr = new Array()
+    for(i = 0,len=values.length; i < len; i++) {
+        if(Array.isArray(values[i])){
+            for(j = 0,len2=values[i].length; j < len2; j++) {
+                arr.push(values[i][j])            
+            }
+        } else {
+            arr.push(values[i])
+        }
     }
-    return (Math.floor(sum/counts * 100) / 100)
+    // 排序之后返回
+    // arr.sort()
+    return arr
+  } else {
+    return values.length;
+  }
 }
 ```
 
@@ -191,33 +201,12 @@ function (keys, values, rereduce) {
 ```shell
 curl -H "Content-Type:application/json" \
 -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
--X GET http://localhost:5984/fruits-db/_design/fruits_funs/_view/view2?group_level=1 | jq
+-X GET http://localhost:5984/fruits-db/_design/design1/_view/view4?group_level=1 | jq
 ```
 
 得到如下符合预期的结果：
 ```json
-{
-  "rows": [
-    {
-      "key": "apple",
-      "value": 13.87
-    },
-    {
-      "key": "banana",
-      "value": 12.06
-    },
-    {
-      "key": "lemon",
-      "value": 18.43
-    },
-    {
-      "key": "mango",
-      "value": 7.14
-    },
-    {
-      "key": "watermelon",
-      "value": 6.98
-    }
-  ]
-}
+
 ```
+
+

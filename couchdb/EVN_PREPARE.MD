@@ -1,6 +1,20 @@
 ## 基本环境配置使用
 
+### Docker 安装
+#### 通过apt-get安装方式
+
+#### 二进制安装方式
+
 ### 操作工具(curl)准备
+部分操作系统是没有直接安装curl工具的，使用下面的命令进行安装：
+```shell script
+apt-get -y install curl
+```
+
+同时因为couchdb提供的api返回的数据结构是json，为了在终端能够更为友好的将json数据格式进行展示并显示，这里推荐jq工具。
+```shell script
+apt-get -y install jq
+```
 
 ### 准备一个包含curl和jq的镜像
 

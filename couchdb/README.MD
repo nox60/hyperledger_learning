@@ -411,7 +411,6 @@ http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?key=
 
 
 #### keys
-
 类似于 sql查询中的in，keys用json数组的方式传递
 
 http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?keys=["Chongqing+carrefour","Beijing+carrefour"]
@@ -421,7 +420,6 @@ http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?keys
 
 #### page_size
 页码值，3.1以下版本的couchdb目测暂时不支持该值，需要进一步确认
-
 
 #### skip
 跳过从开始到skip指定值的记录，其实这就是分页查询中的start值。limit就是offset值。
@@ -464,3 +462,9 @@ A consistent httpd secret. The secret is used in calculating and evaluating cook
 
 
 
+### couchdb环境准备
+### map-reduce过程分析
+### map-reduce参数分析
+### map-reduce实践（水果店例子）
+### couchdb单主机多节点实贱
+### couchdb分区分片研究

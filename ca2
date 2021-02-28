@@ -241,3 +241,17 @@ docker run -it -d \
       -v /opt/local/codes/docker2/chaincode/example_code:/opt/gopath/src/example_code \
       -v /var/run:/var/run \
       hyperledger/fabric-tools:1.4.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+

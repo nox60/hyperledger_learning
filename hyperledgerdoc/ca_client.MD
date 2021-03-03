@@ -19,3 +19,5 @@ docker run \
       ca-tls-admin:ca-tls-adminpw --port 7052
 ```
 
+#### msp的0知识证明验证
+#### msp的revoke验证，看看是怎样生效的？

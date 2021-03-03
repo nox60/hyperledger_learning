@@ -53,7 +53,7 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 
 # 创建第二个Admin账户
 
-```runad
+```shell script
 docker run --rm -it \
 --name register.cec.admin2.ca.client \
 --network bc-net \
@@ -69,7 +69,7 @@ fabric-ca-client register \
 
 # 获取第二个Admin账户msp
 
-```runad
+```shell script
 docker run --rm -it \
   --name enroll.ca.cec.admin2 \
       --network bc-net \
@@ -90,7 +90,7 @@ Error: got unexpected status: BAD_REQUEST -- error validating channel creation t
 
 
 # 创建通道
-```runad
+```shell script
 cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp/config.yaml
 
 docker run --rm -it \
@@ -111,11 +111,10 @@ docker run --rm -it \
     -f /etc/hyperledger/ordererdata/channel.tx \
     --tls true \
     --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem 
-    
 ```
 
 # 加入通道
-```joinchannelcgo
+```shell script
 docker run --rm -it \
     --name gov.join.channel.admin2.client \
     --network bc-net \

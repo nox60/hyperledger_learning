@@ -151,7 +151,7 @@ docker run --rm -it \
 ```
 
 # 安装智能合约
-```greenplum
+```shell script
 docker run --rm -it \
     --name cec.install.chaincode.admin2.client \
     --network bc-net \
@@ -172,7 +172,7 @@ docker run --rm -it \
 ```
 
 # 实例化智能合约
-```greenplum
+```shell script
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \

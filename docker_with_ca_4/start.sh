@@ -28,6 +28,7 @@ docker run \
       ca-tls-admin:ca-tls-adminpw --port 7052
 
 # enroll tls.ca admin 获取 ca.tls的管理员信息，用来后面注册 orderer, peer的tls等账户。
+# enroll 命令用于获取指定用户的账户信息，后续在进行相关操作的时候，要用该信息作为身份验证
 docker run --rm -it -d\
   --name enroll.tls.ca.admin \
       --network bc-net \
@@ -40,6 +41,9 @@ docker run --rm -it -d\
 
 # register orderer tls 给orderer注册tls证书，用于启动orderer节点时候的tls通信
 # fabric-ca-client register -d --id.name orderer1-org0 --id.secret ordererPW --id.type orderer -u https://0.0.0.0:7052
+
+# fabirc-ca-client 所支持的参数有
+
 docker run --rm -it \
     --name register.orderer.tls \
         --network bc-net \

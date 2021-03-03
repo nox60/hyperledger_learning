@@ -234,7 +234,7 @@ docker run --rm -it \
     --instantiated
 ```
 
-```ddkk
+```shell script
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \
@@ -253,8 +253,7 @@ docker run --rm -it \
     -c '{"Args":["add","a","10"]}' 
 ```
 
-```dd
-
+```shell script
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \
@@ -271,8 +270,6 @@ docker run --rm -it \
     -C mychannel \
     -n mychaincode \
     -c '{"Args":["query","a"]}'
-
-
 ```
 
 

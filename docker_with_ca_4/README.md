@@ -216,7 +216,7 @@ docker run --rm -it \
 ```
 
 # 查看已经实例化的智能合约
-```greenplum
+```shell
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \

@@ -40,7 +40,7 @@ ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_
 
 ### 4. 执行start.sh，拉起所需容器。
 
-```greenplum
+```shell
 ./start.sh
 ```
 
@@ -135,7 +135,7 @@ docker run --rm -it \
 ```
 
 # 查询已经加入的通道
-```greenplum
+```shell
 docker run --rm -it \
     --name cec.list.channel.admin2.client \
     --network bc-net \
@@ -197,7 +197,7 @@ docker run --rm -it \
 ```
 
 # 查看已经安装的智能合约
-```greenplum
+```shell
 docker run --rm -it \
     --name cec.instantiate.chaincode.admin2.client \
     --network bc-net \

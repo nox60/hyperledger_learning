@@ -20,19 +20,19 @@ start.sh 拉起相应的容器。
 
 ### 1. 运行clear.sh清理现场。
 
-```clearenv
+```shell
 ./clear.sh
 ```
 
 ### 2. 运行generate.sh生成必要证书文件。
 
-```greenplum
+```shell
 ./generate.sh
 ```
 
 ### 3. 创建软连接，该任务的目的是映射出一个/opt/local下面的目录，该目录在后续操作中会被硬编码指定，目前如果不使用docker-compose的配置方式的话，是不支持相对路径的，所以创建该软连接。
 
-```greenplum
+```shell
 rm -rf /opt/local/codes/docker_with_ca_4
 ln -s /root/codes/hyperledger_learning/docker_with_ca_4 /opt/local/codes/docker_with_ca_4
 

@@ -10,12 +10,12 @@
 
 因为hyperledger很多依赖在github上，虽然没有被墙，但是直接安装速度会非常慢，梯子的安装配置不是本文要讨论的目标，此处假设读者会自己安装和配置好梯子，此处只是给建议的设置，有更好的其他方式请自行研究，下面的设置是假设设置在本机的1080端口：
 
-```export
+```shell
 export ALL_PROXY=socks5://127.0.0.1:1080
 ```
 
 在下载速度较快的资源比如国内有的资源的时候，可以选择关闭梯子，操作如下：
-```export
+```shell
 export ALL_PROXY=
 ```
 
@@ -34,7 +34,7 @@ curl -O https://download.docker.com/linux/static/stable/x86_64/docker-18.09.8.tg
 
 解压
 
-```unzip
+```shell
 tar -xzvf docker-18.09.8.tgz
 ```
 

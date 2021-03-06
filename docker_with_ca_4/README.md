@@ -1073,28 +1073,3 @@ Error: got unexpected status: BAD_REQUEST -- error validating channel creation t
         Subject: C=US, ST=North Carolina, O=Hyperledger, OU=client, CN=ca-cec-admin
 
 
-
-# 创建通道
-```runad
-cp /opt/local/codes/docker_with_ca_4/config_admin_peer0_cec.yaml /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp/config.yaml
-
-docker run --rm -it \
-    --name create.channel.client \
-    --network bc-net \
-    -e CORE_PEER_LOCALMSPID=cecMSP \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/ca.cec/ca.tls/tls-ca-tls-7052.pem \
-    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/admin2/msp \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.tls:/etc/hyperledger/ca.tls \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data:/etc/hyperledger/ordererdata \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/ca.cec/ca.admin2.home/msp:/etc/hyperledger/admin2/msp \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/tls/msp/tlscacerts:/etc/hyperledger/ca.orderer/ca.tls \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/cec/peer0.home/tls/msp/tlscacerts:/etc/hyperledger/ca.cec/ca.tls \
-    -v /opt/local/codes/docker_with_ca_4/hyperledger_data/crypto/orderer/msp/msp:/var/hyperledger/orderer/msp \
-    hyperledger/fabric-tools:1.4.3 \
-    peer channel create --outputBlock /etc/hyperledger/ordererdata/mychannel.block -o orderer.com:7050 \
-    -c mychannel \
-    -f /etc/hyperledger/ordererdata/channel.tx \
-    --tls true \
-    --cafile /etc/hyperledger/ca.orderer/ca.tls/tls-ca-tls-7052.pem 
-    
-```

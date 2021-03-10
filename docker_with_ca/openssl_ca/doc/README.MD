@@ -37,7 +37,11 @@ openssl req -new -key server.key -out server.csr
 openssl x509 -req -days 3650 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out serverx509.crt
 ```
 
+openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
+
 
 参考文章：
 
 https://www.cnblogs.com/wangao1236/p/11609429.html
+
+https://www.cnblogs.com/f-ck-need-u/p/7115871.html

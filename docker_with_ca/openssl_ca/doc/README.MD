@@ -45,3 +45,5 @@ openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out serv
 https://www.cnblogs.com/wangao1236/p/11609429.html
 
 https://www.cnblogs.com/f-ck-need-u/p/7048359.html#blogopenssl
+
+https://blog.51cto.com/9843231/2456947

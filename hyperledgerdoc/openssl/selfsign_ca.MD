@@ -131,6 +131,28 @@ openssl ca -in request.csr
 
 nginx的配置片段如下：
 
+```shell
+    server {
+        listen 443 ssl;
+        server_name code20.cn;
+        root /usr/share/nginx/html;
+        ssl_certificate         /usr/local/nginx/conf/1_code20.cn_bundle.crt;
+        ssl_certificate_key     /usr/local/nginx/conf/2_code20.cn.key;
+        ssl_session_timeout 5m;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+        ssl_prefer_server_ciphers on;
+
+        error_page 400 404 500 502 503 504 /50x.html;
+            location = /error {
+                root /usr/share/nginx/html/40x.html;
+            }
+
+    }
+```
+
+其中，ssl_certificate
+
 
 
 ### 为什么自己建设的证书浏览器不认

@@ -303,36 +303,3 @@ openssl req -new -days 365 -key key.pem -out request.csr
 
 将上面生成的request.csr文件发送给CA
 
-
-### 自建CA为该网站签发证书
-CA使用自己的私钥和证书（均已经配置在openssl配置文件指定的路径中了）来为网站签发证书
-
-```shell
-openssl ca -in request.csr
-```
-
-签发成功之后，可以看到CA生成了一个名为02.pem（根据当前的生成序号生成的）的证书文件
-
-```shell
-[root@k1 ca]# tree -C /etc/pki/CA
-/etc/pki/CA
-├── cacert.pem
-├── certs
-├── crl
-├── index.txt
-├── index.txt.attr
-├── index.txt.attr.old
-├── index.txt.old
-├── newcerts
-│   ├── 01.pem
-│   └── 02.pem
-├── private
-│   └── cakey.pem
-├── serial
-└── serial.old
-```
-
-### 部署到nginx测试
-网站服务器获得CA签发的02.pem证书之后，可以进行SSL相关的配置。以Nginx为例，配置SSL需要两个文件，一个是网站的私钥文件（key.pem），一个是CA给网站签发的证书文件（02.pem）。
-
-nginx的配置片段如下：

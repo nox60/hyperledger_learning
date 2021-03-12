@@ -7,7 +7,7 @@
 
 openssl是由一定的默认配置的，其默认配置保存在：
 ```shell
-/etc/pki/tls
+/etc/pki/tls/openssl.cnf
 ```
 
 ```shell

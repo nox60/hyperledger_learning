@@ -99,6 +99,10 @@ openssl rsa -in key.pem -pubout -out key.pub
 openssl req -new -days 365 -key key.pem -out request.csr
 ```
 
+```shell
+openssl req -text -noout -in request.csr
+```
+
 将上面生成的request.csr文件发送给CA
 
 
@@ -108,6 +112,8 @@ CA使用自己的私钥和证书（均已经配置在openssl配置文件指定�
 ```shell
 openssl ca -in request.csr
 ```
+
+openssl ca -policy policy_anything -extensions v3_req -in request.csr
 
 签发成功之后，可以看到CA生成了一个名为02.pem（根据当前的生成序号生成的）的证书文件
 
@@ -163,3 +169,5 @@ nginx的配置片段如下：
 ### 导入浏览器
 
 
+
+https://blog.csdn.net/weixin_34387468/article/details/91855502

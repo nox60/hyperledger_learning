@@ -50,7 +50,6 @@ echo "01" > /etc/pki/CA/serial
 现在可以对CA自身的数字证书进行签发了，执行下面的命令：
 ```shell
 openssl ca -selfsign -policy policy_anything -extensions v3_req -in rootCA.csr
-openssl ca -policy policy_anything -out ustack.crt -config /tmp/openssl.cnf -extensions v3_req -infiles ustack.csr
 ```
 会被询问是否确定要签发，选择回车，则签发。
 
@@ -108,7 +107,7 @@ openssl req -new -days 365 -key key.pem -out request.csr
 ```
 
 ```shell
-openssl req -text -noout -in request.csr
+openssl req -text -noout -in request.csr  
 ```
 
 
@@ -119,7 +118,7 @@ openssl req -text -noout -in request.csr
 CA使用自己的私钥和证书（均已经配置在openssl配置文件指定的路径中了）来为网站签发证书
 
 ```shell
-openssl ca -in request.csr
+openssl ca -policy policy_anything -extensions v3_req -in request.csr
 ```
 
 openssl ca -policy policy_anything -extensions v3_req -in request.csr

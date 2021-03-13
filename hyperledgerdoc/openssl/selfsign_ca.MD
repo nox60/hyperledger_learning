@@ -28,6 +28,10 @@ openssl genrsa -out pri_key.pem
 
 该证书生成之后，参考上面openssl配置文件中的配置， 需要将所生成的私钥文件pri_key.pem拷贝到 /etc/pki/CA/private/ 下面并命名为 cakey.pem 文件，否则后面CA为其他请求签署证书时候会找不到自己私钥
 
+```shell
+cp pri_key.pem /etc/pki/CA/private/cakey.pem 
+```
+
 然后要为CA生成CA的数字证书请求文件
 
 ```shell

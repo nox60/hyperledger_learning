@@ -36,6 +36,7 @@ cp pri_key.pem /etc/pki/CA/private/cakey.pem
 
 ```shell
 openssl req -new -key /etc/pki/CA/private/cakey.pem -out rootCA.csr
+
 ```
 此处就得到了CA数字证书请求文件rootCA.csr
 
@@ -48,7 +49,8 @@ echo "01" > /etc/pki/CA/serial
 
 现在可以对CA自身的数字证书进行签发了，执行下面的命令：
 ```shell
-openssl ca -selfsign -in rootCA.csr
+openssl ca -selfsign -policy policy_anything -extensions v3_req -in rootCA.csr
+openssl ca -policy policy_anything -out ustack.crt -config /tmp/openssl.cnf -extensions v3_req -infiles ustack.csr
 ```
 会被询问是否确定要签发，选择回车，则签发。
 
@@ -69,6 +71,12 @@ openssl ca -selfsign -in rootCA.csr
 ├── serial
 └── serial.old
 
+```
+
+解析该证书
+
+```shell
+openssl x509 -text -in /etc/pki/CA/newcerts/01.pem
 ```
 
 现在需要将01.pem证书拷贝到openssl配置文件中的配置的路径中去，并命名为cacert.pem文件，否则无法为其他网站签发证书，执行下面的命令：
@@ -102,6 +110,7 @@ openssl req -new -days 365 -key key.pem -out request.csr
 ```shell
 openssl req -text -noout -in request.csr
 ```
+
 
 将上面生成的request.csr文件发送给CA
 

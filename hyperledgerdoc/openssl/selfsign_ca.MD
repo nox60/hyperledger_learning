@@ -179,3 +179,18 @@ nginx的配置片段如下：
 
 
 https://blog.csdn.net/weixin_34387468/article/details/91855502
+
+
+
+
+Digital Signature, Non-Repudiation, Key Encipherment (e0)
+
+Certificate Signing, Off-line CRL Signing, CRL Signing (06)
+
+Digital Signature, Non-Repudiation, Key Encipherment, Off-line CRL Signing, CRL Signing (e2)
+
+
+
+nonRepudiation, digitalSignature, keyEncipherment
+
+openssl ca -in request.csr

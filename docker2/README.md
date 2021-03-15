@@ -229,6 +229,21 @@ export PATH
 git version 2.9.5
 ```
 
+git梯子设置
+```shell script
+# 以下使用socks5代理
+git config --global http.proxy socks5://127.0.0.1:1080
+git config --global https.proxy socks5://127.0.0.1:1080
+ 
+# 以下使用http代理
+git config --global http.proxy http://127.0.0.1:1081
+git config --global https.proxy https://127.0.0.1:1081
+ 
+# 取消代理
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
 ## Golang
 
 
@@ -525,6 +540,7 @@ peer chaincode invoke \
 
 
 
+npm install --save bulma-stylus@0.8.0 hexo-renderer-inferno@^0.1.3 hexo-component-inferno@^0.10.5 inferno@^7.3.3 inferno-create-element@^7.3.3
 
 
  

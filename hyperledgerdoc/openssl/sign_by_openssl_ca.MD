@@ -17,8 +17,64 @@
 ```http request
 https://www.cnblogs.com/xdyixia/p/11610102.html
 ```
-
+### 系统环境准备
+在本文中准备了两台测试环境:
+CA服务器：用于签发ca证书的服务器。此处选用CentOS7.4操作系统，其他操作系统也可以。操作系统已经安装好openssl软件，如果没有安装好也可以利用yum工具安装。
+Website服务器：用于使用ca证书并运行网站的web服务器。此处选用CentOS7.4操作系统，安装nginx程序以加载ca证书并实现https服务。nginx程序的安装可以利用yum或者docker方式。
 
 ### 配置ca服务器
+查看openssl软件版本可以确定软件已经正确安装。
+```shell
+[root@ca ~]# openssl version
+OpenSSL 1.0.2k-fips  26 Jan 2017
+```
+
+本文选用的是openssl的ca方式，依赖openssl的配置文件openssl.cnf，该配置文件的路径在:
+```shell
+/etc/pki/tls/openssl.cnf
+```
+
+可以通过vi工具查看该配置文件，其中该配置文件中的部分核心配置信息如下：
+
+```shell
+[ CA_default ]
+dir             = /etc/pki/CA             # 定义路径变量
+database        = $dir/index.txt          # 数据库索引文件
+new_certs_dir   = $dir/newcerts           # 新签署的证书保存目录，按照下面的证书序列号进行命名
+certificate     = $dir/cacert.pem         # CA自己的证书路径，该证书用于签发其他证书，并用于普通用户在访问网站时候，验证网站的数字证书是否是该CA所签发。
+serial          = $dir/serial             # 当前证书序列号，后续证书会递增
+private_key     = $dir/private/cakey.pem  # CA自己的私钥路径名，该私钥会被用于签发其他证书。
+```
+
+目前上述目录均是空目录
+```shell
+[root@ca CA]# tree -C /etc/pki/CA
+/etc/pki/CA
+├── certs
+├── crl
+├── newcerts
+└── private
+```
+
+#### ca服务器openssl.cnf文件配置
+首先要对ca服务器的openssl.cnf文件进行配置
+
+
+
+#### ca服务器生成私钥
+```shell
+openssl genrsa -out pri_key.pem
+```
+
+该证书生成之后，参考上面openssl配置文件中的配置， 需要将所生成的私钥文件pri_key.pem拷贝到 /etc/pki/CA/private/ 下面并命名为 cakey.pem 文件，否则后面CA为其他请求签署证书时候会找不到自己私钥.
+
+```shell
+cp pri_key.pem /etc/pki/CA/private/cakey.pem 
+```
+
+#### 为CA生成CA的数字证书请求文件
+
 ### 配置文件介绍
+
+
 ### 

@@ -57,7 +57,7 @@ private_key     = $dir/private/cakey.pem  # CA自己的私钥路径名，该私�
 ```
 
 #### ca服务器openssl.cnf文件配置
-首先要对ca服务器的openssl.cnf文件进行配置
+首先要对ca服务器的openssl.cnf文件进行配置，否则后面自签发证书无法通过。。。。。。
 
 
 
@@ -72,7 +72,52 @@ openssl genrsa -out pri_key.pem
 cp pri_key.pem /etc/pki/CA/private/cakey.pem 
 ```
 
-#### 为CA生成CA的数字证书请求文件
+#### 为CA生成数字证书
+CA数字证书用于发送给用户，以验证网站的数字证书是否是依赖CA的数字证书所签发。
+
+在生成CA数字证书之前，首先要生成CA数字证书的请求文件
+```shell
+openssl req -new -key /etc/pki/CA/private/cakey.pem -out rootCA.csr
+```
+
+其中生成过程如下：
+```shell
+[root@ca ca]# openssl req -new -key /etc/pki/CA/private/cakey.pem -out rootCA.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:CN
+State or Province Name (full name) []:SC
+Locality Name (eg, city) [Default City]:CD
+Organization Name (eg, company) [Default Company Ltd]:TESTORG
+Organizational Unit Name (eg, section) []:TESTORG_CA
+Common Name (eg, your name or your server's hostname) []:testorg000.com
+Email Address []:
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+```
+
+主要填写了下述几个字段:
+
+```shell
+Country Name (2 letter code) [XX]:CN                                            // 国家
+State or Province Name (full name) []:SC                                        // 省
+Locality Name (eg, city) [Default City]:CD                                      // 市
+Organization Name (eg, company) [Default Company Ltd]:TESTORG                   // 公司
+Organizational Unit Name (eg, section) []:TESTORG_CA                            // 部门
+Common Name (eg, your name or your server's hostname) []:testorg000.com         // CA的域名
+```
+
+以上几个字段，在后续网站申请证书的过程中，需要根据CA服务器的openssl.cnf定义的规则进行匹配，如果要求一致但是网站证书请求中不一致的，CA会拒绝签发证书
+
+
 
 ### 配置文件介绍
 

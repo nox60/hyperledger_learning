@@ -61,6 +61,34 @@ private_key     = $dir/private/cakey.pem  # CA自己的私钥路径名，该私�
 
 
 
+CA服务器生成策略配置与说明：
+```shell
+policy          = policy_match
+
+# For the CA policy
+[ policy_match ]
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+# For the 'anything' policy
+# At this point in time, you must list all acceptable 'object'
+# types.
+[ policy_anything ]
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+```
+
+
 #### ca服务器生成私钥
 ```shell
 openssl genrsa -out pri_key.pem
@@ -117,9 +145,83 @@ Common Name (eg, your name or your server's hostname) []:testorg000.com         
 
 以上几个字段，在后续网站申请证书的过程中，需要根据CA服务器的openssl.cnf定义的规则进行匹配，如果要求一致但是网站证书请求中不一致的，CA会拒绝签发证书
 
+此处就得到了CA数字证书请求文件rootCA.csr
 
+接下来即将为CA签发自己的数字证书，该数字证书后续将用来为其他证书请求签发数字证书。在签发之前，要为CA创建数据库索引文件，否则签发要出错
 
-### 配置文件介绍
+```shell
+touch /etc/pki/CA/index.txt 
+echo "01" > /etc/pki/CA/serial
+```
 
+现在可以对CA自身的数字证书进行签发了，执行下面的命令：
+```shell
+openssl ca -selfsign -policy policy_anything -extensions v3_req -in rootCA.csr
+```
+会被询问是否确定要签发，选择回车，则签发。
 
-### 
+执行下面的命令，可以发现CA的相关目录中签发了一个新的数字证书 01.pem，该数字证书是CA的数字证书
+```shell
+[root@ca ca]# tree -C /etc/pki/CA
+/etc/pki/CA
+├── certs
+├── crl
+├── index.txt
+├── index.txt.attr
+├── index.txt.old
+├── newcerts
+│   └── 01.pem
+├── private
+│   └── cakey.pem
+├── serial
+└── serial.old
+
+4 directories, 7 files
+```
+
+现在需要将01.pem证书拷贝到openssl配置文件中定义的CA自有证书对应的路径中去，并按照配置的名称进行命名为cacert.pem文件，否则无法为其他网站签发证书，执行下面的命令：
+```shell
+cp /etc/pki/CA/newcerts/01.pem /etc/pki/CA/cacert.pem
+```
+
+### 网站生成私钥和证书请求文件
+
+网站首先要生成私钥，然后利用私钥生成证书申请文件，将证书申请文件提交给CA以签发证书。网站需要自行妥善安全的保存私钥，避免泄密。
+
+在网站自己的计算机上，利用下面的命令生成私钥：
+```shell
+openssl genrsa -out key.pem 2048
+```
+
+然后利用下面的命令生成证书申请文件csr
+```shell
+openssl req -new -days 365 -key key.pem -out request.csr
+```
+
+生成过程中输入的参数如下:
+
+```shell
+[root@website ~]# openssl req -new -days 365 -key key.pem -out website_req.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:CN
+State or Province Name (full name) []:SC
+Locality Name (eg, city) [Default City]:CD
+Organization Name (eg, company) [Default Company Ltd]:TESTWEBSITE_ORG
+Organizational Unit Name (eg, section) []:DEV
+Common Name (eg, your name or your server's hostname) []:testwebsite007.com
+Email Address []:
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+```
+
+网站可以通过任何安全的渠道将证书申请文件

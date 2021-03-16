@@ -292,3 +292,39 @@ openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 
 ### 用户访问网站
 此时，用户已经可以访问该网站
+
+#### 首先导入CA证书
+登录到CA服务器上，拷贝之前CA生成的数字证书给用户，可以用sftp或者其他安全的方式。CA的数字证书路径为：
+```shell
+/etc/pki/CA/cacert.pem
+```
+
+然后打开chrome浏览器，依次选择：
+
+```shell
+设置->隐私设置和安全性->安全->管理证书->受信任的根证书颁发机构->导入
+```
+
+然后找到CA服务器提供的cacert.pem证书，注意浏览器默认的扩展名没有.pem的，在导入的时候要切换到所有文件，然后选择cacert.pem，然后导入的目标记得选择：受信任的根证书颁发机构
+
+
+### 常见错误排除
+
+在自行签发证书并通过https访问的过程中，还是又不少问题的，排除问题最常用的办法是在chrome浏览器的开发者调试工具中，选择security标签。如下图：
+
+![img.png](images/1.png)
+
+#### 错误1 Certificate - Subject Alternative Name missing
+
+Certificate - Subject Alternative Name missing
+错误是要求数字证书必须提供除了Common Name对应的域名之外的第二个域名。
+
+#### 错误2 Certificate - missing
+Certificate - missing
+This site is missing a valid, trusted certificate (net::ERR_CERT_AUTHORITY_INVALID).
+该错误表示，没有足够的CA信息来证明所访问网站的证书是可靠的。表明没有导入CA证书。
+
+注意，在导入CA证书之后，依然有可能继续报上面的错误，此时要在浏览器的不安全感叹号上点右键，然后选择证书，然后选择证书路径。会发现已经识别到CA证书，说明网站的证书是由CA机构签发的，但是点击根证书会发现错误: 此证书对于所选的目的似乎无效。
+
+该错误的原因是因为没有在
+

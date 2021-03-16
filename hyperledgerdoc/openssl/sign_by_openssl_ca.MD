@@ -57,11 +57,10 @@ private_key     = $dir/private/cakey.pem  # CA自己的私钥路径名，该私�
 ```
 
 #### ca服务器openssl.cnf文件配置
-首先要对ca服务器的openssl.cnf文件进行配置，否则后面自签发证书无法通过。。。。。。
+首先要对ca服务器的openssl.cnf文件进行配置下面的配置：
 
 ##### 配置CA根证书keyUsage
-
-修改 [ v3_req ] 节点中的keyUsage，增加 cRLSign，否则即便客户端导入CA根证书之后，也会报错认为该CA没有签发数字证书的资格。
+修改 [ v3_req ] 节点中的keyUsage，增加 cRLSign, keyCertSign，否则即便客户端导入CA根证书之后，也会报错认为该CA没有签发数字证书的资格。
 
 修改前:
 ```shell
@@ -74,7 +73,24 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 ```shell
 [ v3_req ]
 ...
-keyUsage = nonRepudiation, digitalSignature, keyEncipherment, cRLSign
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment, cRLSign, keyCertSign
+```
+
+##### 配置CA服务器basicConstraints参数
+需要将CA服务器的openssl.cnf中basicConstraints参数进行配置，以允许CA具有签发证书的资格。
+
+修改前:
+```shell
+[ v3_req ]
+...
+basicConstraints = CA:FALSE
+```
+
+修改后:
+```shell
+[ v3_req ]
+...
+basicConstraints = CA:TRUE
 ```
 
 CA服务器生成策略配置与说明：
@@ -138,8 +154,8 @@ Country Name (2 letter code) [XX]:CN
 State or Province Name (full name) []:SC
 Locality Name (eg, city) [Default City]:CD
 Organization Name (eg, company) [Default Company Ltd]:TESTORG
-Organizational Unit Name (eg, section) []:TESTORG_CA
-Common Name (eg, your name or your server's hostname) []:testorg000.com
+Organizational Unit Name (eg, section) []:CA
+Common Name (eg, your name or your server's hostname) []:192.168.16.80
 Email Address []:
 
 Please enter the following 'extra' attributes
@@ -155,8 +171,8 @@ Country Name (2 letter code) [XX]:CN                                            
 State or Province Name (full name) []:SC                                        // 省
 Locality Name (eg, city) [Default City]:CD                                      // 市
 Organization Name (eg, company) [Default Company Ltd]:TESTORG                   // 公司
-Organizational Unit Name (eg, section) []:TESTORG_CA                            // 部门
-Common Name (eg, your name or your server's hostname) []:testorg000.com         // CA的域名
+Organizational Unit Name (eg, section) []:CA                                    // 部门
+Common Name (eg, your name or your server's hostname) []:192.168.16.80          // CA的IP
 ```
 
 以上几个字段，在后续网站申请证书的过程中，需要根据CA服务器的openssl.cnf定义的规则进行匹配，如果要求一致但是网站证书请求中不一致的，CA会拒绝签发证书
@@ -272,7 +288,7 @@ openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 4 directories, 10 files
 ```
 
-02.pem就是CA中心为网站所签发的数字证书文件，可以通过受信任的渠道发送给用户。
+02.pem就是CA中心为网站所签发的数字证书文件，可以通过受信任的渠道发送给网站。
 
 ### 网站利用CA中心所签发的数字证书进行SSL加密
 当网站获得CA中心所签发的数字证书之后，则可以对自己所提供的http服务进行加密了(https)。
@@ -335,7 +351,7 @@ openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 Certificate - Subject Alternative Name missing
 错误是要求数字证书必须提供除了Common Name对应的域名之外的第二个域名。
 
-#### 错误2 Certificate - missing
+#### 错误2 Certificate - missing ERR_CERT_AUTHORITY_INVALID
 Certificate - missing
 This site is missing a valid, trusted certificate (net::ERR_CERT_AUTHORITY_INVALID).
 该错误表示，没有足够的CA信息来证明所访问网站的证书是可靠的。表明没有导入CA证书。
@@ -346,5 +362,18 @@ This site is missing a valid, trusted certificate (net::ERR_CERT_AUTHORITY_INVAL
 
 该错误的原因是因为没有在openssl.cnf 中配置正确的目的，参见：
 
+#### 错误3 Certificate - missing ERR_CERT_INVALID
+Certificate - missing
+This site is missing a valid, trusted certificate (net::ERR_CERT_INVALID).
+该错误表示，该CA机构缺乏足够的资格签发证书。
 
+更详细的信息和错误2一样，通过在浏览器的不安全感叹号上点右键，然后选择证书，然后选择证书路径。会发现已经识别到CA证书，说明网站的证书是由CA机构签发的，但是点击根证书会发现错误: 此证书颁发机构不允许颁发证书或不能用作终端实体证书。如下图所示：
+![img.png](images/3.png)
 
+该错误的根本原因是在openssl.cnf 中配置正确的设置，参见：
+
+#### 错误4 Certificate - missing ERR_CERT_COMMON_NAME_INVALID
+Certificate - missing
+This site is missing a valid, trusted certificate (net::ERR_CERT_COMMON_NAME_INVALID).
+
+这说明证书的COMMON NAME非法，一般是使用IP地址作为COMMON NAME会造成该问题，需要使用域名。

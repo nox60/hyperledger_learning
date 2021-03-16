@@ -217,12 +217,42 @@ cp /etc/pki/CA/newcerts/01.pem /etc/pki/CA/cacert.pem
 ```
 
 ### 网站生成私钥和证书请求文件
-
 网站首先要生成私钥，然后利用私钥生成证书申请文件，将证书申请文件提交给CA以签发证书。网站需要自行妥善安全的保存私钥，避免泄密。
 
 在网站自己的计算机上，利用下面的命令生成私钥：
 ```shell
 openssl genrsa -out key.pem 2048
+```
+
+#### 网站openssl相关配置修改
+网站的电脑上，也需要对openssl的相关配置进行修改之后，生成的证书请求信息才能正确。主要要解决的问题是，配置Subject Alternative Name相关信息，也就是该证书能够支持的其他解析信息(域名或者IP地址)。
+
+其配置方式是，修改网站电脑的openssl.cnf文件，注意不是CA服务器的openssl.cnf文件。
+
+```shell
+vi /etc/pki/tls/openssl.cnf
+```
+
+首先
+```shell
+[ v3_req ]
+...
+subjectAltName = @alt_names
+```
+
+然后在文件最后增加；
+```shell
+[ alt_names ]
+DNS.1 = www.localwebsite001.com
+DNS.2 = 192.168.16.81
+```
+
+然后修改[ req ]段落，打开# req_extensions = v3_req 的注释
+
+```shell
+[ req ]
+...
+req_extensions = v3_req
 ```
 
 然后利用下面的命令生成证书申请文件csr
@@ -265,6 +295,7 @@ CA中拿到网站所提交的website_req.csr证书申请文件之后，可以为
 ```shell
 openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 ```
+
 
 执行成功之后，可以看到ca中心的机器上生成了02.pem文件：
 ```shell
@@ -338,6 +369,13 @@ openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 ```
 
 然后找到CA服务器提供的cacert.pem证书，注意浏览器默认的扩展名没有.pem的，在导入的时候要切换到所有文件，然后选择cacert.pem，然后导入的目标记得选择：受信任的根证书颁发机构
+
+#### 手动修改hosts文件以实现DNS
+因为本示例是在内网进行操作，所以要修改DNS文件以实现域名解析。具体hosts文件的修改方法自行百度，在本示例中，加入了一下解析项：
+
+```shell
+192.168.16.81	localwebsite001.com
+```
 
 
 ### 常见错误排除

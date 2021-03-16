@@ -350,6 +350,7 @@ openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 
 Certificate - Subject Alternative Name missing
 错误是要求数字证书必须提供除了Common Name对应的域名之外的第二个域名。
+参见
 
 #### 错误2 Certificate - missing ERR_CERT_AUTHORITY_INVALID
 Certificate - missing

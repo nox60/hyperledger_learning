@@ -195,7 +195,7 @@ openssl genrsa -out key.pem 2048
 
 然后利用下面的命令生成证书申请文件csr
 ```shell
-openssl req -new -days 365 -key key.pem -out request.csr
+openssl req -new -days 365 -key key.pem -out website_req.csr
 ```
 
 生成过程中输入的参数如下:
@@ -224,4 +224,71 @@ An optional company name []:
 
 ```
 
-网站可以通过任何安全的渠道将证书申请文件
+网站可以通过任何安全的渠道将上一步所生成的证书申请文件website_req.csr发送给CA中心，一般是通过网页上传、电子邮件等方式。
+
+
+### CA中心为网站签发证书
+CA中拿到网站所提交的website_req.csr证书申请文件之后，可以为网站签发证书。
+
+```shell
+openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
+```
+
+执行成功之后，可以看到ca中心的机器上生成了02.pem文件：
+```shell
+[root@ca ca]# tree -C /etc/pki/CA
+/etc/pki/CA
+├── cacert.pem
+├── certs
+├── crl
+├── index.txt
+├── index.txt.attr
+├── index.txt.attr.old
+├── index.txt.old
+├── newcerts
+│   ├── 01.pem
+│   └── 02.pem
+├── private
+│   └── cakey.pem
+├── serial
+└── serial.old
+
+4 directories, 10 files
+```
+
+02.pem就是CA中心为网站所签发的数字证书文件，可以通过受信任的渠道发送给用户。
+
+### 网站利用CA中心所签发的数字证书进行SSL加密
+当网站获得CA中心所签发的数字证书之后，则可以对自己所提供的http服务进行加密了(https)。
+
+参下面的nginx配置片段：
+
+```shell
+    server {
+        listen 443 ssl;
+        server_name testwebsite007.com;
+        root /usr/share/nginx/html;
+        ssl_certificate                 /opt/ssl/02.pem;
+        ssl_certificate_key             /opt/ssl/key.pem;
+        ssl_session_timeout 5m;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+        ssl_prefer_server_ciphers on;
+
+        error_page 400 404 500 502 503 504 /50x.html;
+            location = /error {
+                root /usr/share/nginx/html/40x.html;
+            }
+    }
+```
+
+相关的配置信息均可以在网上关于nginx的配置介绍中查询到，关于数字证书配置的要关注下面两行:
+```shell
+        ssl_certificate                 /opt/ssl/02.pem;                  // 数字证书
+        ssl_certificate_key             /opt/ssl/key.pem;                 // 数字证书对应的私钥
+```
+
+网站可以利用上面的配置启动https服务，要关注一下系统日志中是否有配置路径错误等信息，保证正确启动。
+
+### 用户访问网站
+此时，用户已经可以访问该网站

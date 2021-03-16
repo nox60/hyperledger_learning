@@ -155,7 +155,7 @@ State or Province Name (full name) []:SC
 Locality Name (eg, city) [Default City]:CD
 Organization Name (eg, company) [Default Company Ltd]:TESTORG
 Organizational Unit Name (eg, section) []:CA
-Common Name (eg, your name or your server's hostname) []:192.168.16.80
+Common Name (eg, your name or your server's hostname) []:www.localcaserver.com
 Email Address []:
 
 Please enter the following 'extra' attributes
@@ -167,12 +167,12 @@ An optional company name []:
 主要填写了下述几个字段:
 
 ```shell
-Country Name (2 letter code) [XX]:CN                                            // 国家
-State or Province Name (full name) []:SC                                        // 省
-Locality Name (eg, city) [Default City]:CD                                      // 市
-Organization Name (eg, company) [Default Company Ltd]:TESTORG                   // 公司
-Organizational Unit Name (eg, section) []:CA                                    // 部门
-Common Name (eg, your name or your server's hostname) []:192.168.16.80          // CA的IP
+Country Name (2 letter code) [XX]:CN                                               // 国家
+State or Province Name (full name) []:SC                                           // 省
+Locality Name (eg, city) [Default City]:CD                                         // 市
+Organization Name (eg, company) [Default Company Ltd]:TESTORG                      // 公司
+Organizational Unit Name (eg, section) []:CA                                       // 部门
+Common Name (eg, your name or your server's hostname) []:www.localcaserver.com     // CA的域名
 ```
 
 以上几个字段，在后续网站申请证书的过程中，需要根据CA服务器的openssl.cnf定义的规则进行匹配，如果要求一致但是网站证书请求中不一致的，CA会拒绝签发证书
@@ -244,9 +244,9 @@ If you enter '.', the field will be left blank.
 Country Name (2 letter code) [XX]:CN
 State or Province Name (full name) []:SC
 Locality Name (eg, city) [Default City]:CD
-Organization Name (eg, company) [Default Company Ltd]:TESTWEBSITE_ORG
+Organization Name (eg, company) [Default Company Ltd]:TESTORG
 Organizational Unit Name (eg, section) []:DEV
-Common Name (eg, your name or your server's hostname) []:testwebsite007.com
+Common Name (eg, your name or your server's hostname) []:localwebsite001.com
 Email Address []:
 
 Please enter the following 'extra' attributes

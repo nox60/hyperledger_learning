@@ -59,7 +59,23 @@ private_key     = $dir/private/cakey.pem  # CA自己的私钥路径名，该私�
 #### ca服务器openssl.cnf文件配置
 首先要对ca服务器的openssl.cnf文件进行配置，否则后面自签发证书无法通过。。。。。。
 
+##### 配置CA根证书keyUsage
 
+修改 [ v3_req ] 节点中的keyUsage，增加 cRLSign，否则即便客户端导入CA根证书之后，也会报错认为该CA没有签发数字证书的资格。
+
+修改前:
+```shell
+[ v3_req ]
+...
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+```
+
+修改后:
+```shell
+[ v3_req ]
+...
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment, cRLSign
+```
 
 CA服务器生成策略配置与说明：
 ```shell

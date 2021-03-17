@@ -90,10 +90,27 @@ basicConstraints = CA:FALSE
 ```shell
 [ v3_req ]
 ...
-basicConstraints = CA:TRUE
+basicConstraints = CA:TRUE               // 这里可能有问题
 ```
 
-CA服务器生成策略配置与说明：
+##### 配置CA服务器[ CA_default ] 中的策略
+需要修改 copy_extensions 策略为true，该策略的修改意味着CA中心在签发来自网站的证书申请请求csr的时候，会拷贝csr文件中的扩展信息。该配置参数要求谨慎使用。但如果不修改该参数，所签发的证书缺乏Subject Alternative Name相关的信息，会报错。
+修改前:
+```shell
+[ CA_default ]
+...
+# copy_extensions = copy
+```
+
+修改后:
+```shell
+[ CA_default ]
+...
+copy_extensions = copy
+```
+
+
+##### CA服务器生成策略配置与说明：
 ```shell
 policy          = policy_match
 

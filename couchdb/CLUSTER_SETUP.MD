@@ -811,38 +811,3 @@ https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-erro
 
 
 
-##### 正确的配置
-
-4369端口是默认的，不好修改，修改之后集群的配置会相对比较麻烦。
-
-```shell script
-docker run --name my.couchdb \
-   -p 5984:5984 \
-   -p 5986:5986 \
-   -p 9100-9200:9100-9200 \
-   -p 4369:4369 \
-   -e NODENAME=my.couchdb1 \
-   --hostname my.couchdb1 \
-   --add-host my.couchdb1:192.168.16.70 \
-   --add-host my.couchdb2:192.168.16.71 \
-   -e COUCHDB_USER=admin \
-   -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
-   -d couchdb:3.0
-   
-docker run --name my.couchdb2 \
-   -p 5984:5984 \
-   -p 5986:5986 \
-   -p 9100-9200:9100-9200 \
-   -p 4369:4369 \
-   -e NODENAME=my.couchdb2 \
-   --hostname my.couchdb2 \
-   --add-host my.couchdb1:192.168.16.70 \
-   --add-host my.couchdb2:192.168.16.71 \
-   -e COUCHDB_USER=admin \
-   -e COUCHDB_PASSWORD=password \
-   -e ERL_FLAGS='-setcookie "brumbrum2" -kernel inet_dist_listen_min 9100 -kernel inet_dist_listen_max 9200' \
-   -d couchdb:3.0
-```
-
-

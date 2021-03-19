@@ -788,26 +788,4 @@ docker run --name my.couchdb3 \
 
 
 
-在界面上进行配置，测试使用172IP先完成链接。
-
-
-
-https://docs.couchdb.org/en/stable/setup/cluster.html
-
-
-```shell
-docker run --name my-couchdb \
-   -e COUCHDB_USER=admin \
-   -e COUCHDB_PASSWORD=password \
-   -d couchdb:3.0
-```
-
-docker exec -it my-couchdb /opt/couchdb/bin/remsh
-https://stackoverflow.com/questions/9238671/erlang-connecting-to-local-node-error-shell-process-terminated
-有问题
-
-1. 不同虚拟机测试构建集群。
-2. kong转发
-
-
 

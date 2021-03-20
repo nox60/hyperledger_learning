@@ -737,32 +737,3 @@ openssl genrsa -out key.pem 2048
 ```shell
 vi /etc/pki/tls/openssl.cnf
 ```
-
-首先
-```shell
-[ v3_req ]
-...
-subjectAltName = @alt_names
-```
-
-然后在文件最后增加；
-```shell
-[ alt_names ]
-DNS.1 = www.localwebsite001.com
-DNS.2 = 192.168.16.81
-```
-
-然后修改[ req ]段落，打开# req_extensions = v3_req 的注释
-
-```shell
-[ req ]
-...
-req_extensions = v3_req
-```
-
-然后利用下面的命令生成证书申请文件csr
-```shell
-openssl req -new -days 365 -key key.pem -out website_req.csr
-```
-
-生成过程中输入的参数如下:

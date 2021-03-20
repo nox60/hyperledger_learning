@@ -894,30 +894,3 @@ openssl ca -policy policy_anything -extensions v3_req -in website_req.csr
 Certificate - Subject Alternative Name missing
 错误是要求数字证书必须提供除了Common Name对应的域名之外的第二个域名。
 参见
-
-#### 错误2 Certificate - missing ERR_CERT_AUTHORITY_INVALID
-Certificate - missing
-This site is missing a valid, trusted certificate (net::ERR_CERT_AUTHORITY_INVALID).
-该错误表示，没有足够的CA信息来证明所访问网站的证书是可靠的。表明没有导入CA证书。
-
-注意，在导入CA证书之后，依然有可能继续报上面的错误，此时要在浏览器的不安全感叹号上点右键，然后选择证书，然后选择证书路径。会发现已经识别到CA证书，说明网站的证书是由CA机构签发的，但是点击根证书会发现错误: 此证书对于所选的目的似乎无效。如下图所示：
-
-![img.png](images/2.png)
-
-该错误的原因是因为没有在openssl.cnf 中配置正确的目的，参见：
-
-#### 错误3 Certificate - missing ERR_CERT_INVALID
-Certificate - missing
-This site is missing a valid, trusted certificate (net::ERR_CERT_INVALID).
-该错误表示，该CA机构缺乏足够的资格签发证书。
-
-更详细的信息和错误2一样，通过在浏览器的不安全感叹号上点右键，然后选择证书，然后选择证书路径。会发现已经识别到CA证书，说明网站的证书是由CA机构签发的，但是点击根证书会发现错误: 此证书颁发机构不允许颁发证书或不能用作终端实体证书。如下图所示：
-![img.png](images/3.png)
-
-该错误的根本原因是在openssl.cnf 中配置正确的设置，参见：
-
-#### 错误4 Certificate - missing ERR_CERT_COMMON_NAME_INVALID
-Certificate - missing
-This site is missing a valid, trusted certificate (net::ERR_CERT_COMMON_NAME_INVALID).
-
-这说明证书的COMMON NAME非法，一般是使用IP地址作为COMMON NAME会造成该问题，需要使用域名。

@@ -720,20 +720,3 @@ openssl ca -selfsign -policy policy_anything -extensions v3_req -in rootCA.csr
 ```shell
 cp /etc/pki/CA/newcerts/01.pem /etc/pki/CA/cacert.pem
 ```
-
-### 网站生成私钥和证书请求文件
-网站首先要生成私钥，然后利用私钥生成证书申请文件，将证书申请文件提交给CA以签发证书。网站需要自行妥善安全的保存私钥，避免泄密。
-
-在网站自己的计算机上，利用下面的命令生成私钥：
-```shell
-openssl genrsa -out key.pem 2048
-```
-
-#### 网站openssl相关配置修改
-网站的电脑上，也需要对openssl的相关配置进行修改之后，生成的证书请求信息才能正确。主要要解决的问题是，配置Subject Alternative Name相关信息，也就是该证书能够支持的其他解析信息(域名或者IP地址)。
-
-其配置方式是，修改网站电脑的openssl.cnf文件，注意不是CA服务器的openssl.cnf文件。
-
-```shell
-vi /etc/pki/tls/openssl.cnf
-```

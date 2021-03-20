@@ -690,33 +690,3 @@ Common Name (eg, your name or your server's hostname) []:www.localcaserver.com  
 touch /etc/pki/CA/index.txt 
 echo "01" > /etc/pki/CA/serial
 ```
-
-现在可以对CA自身的数字证书进行签发了，执行下面的命令：
-```shell
-openssl ca -selfsign -policy policy_anything -extensions v3_req -in rootCA.csr
-```
-会被询问是否确定要签发，选择回车，则签发。
-
-执行下面的命令，可以发现CA的相关目录中签发了一个新的数字证书 01.pem，该数字证书是CA的数字证书
-```shell
-[root@ca ca]# tree -C /etc/pki/CA
-/etc/pki/CA
-├── certs
-├── crl
-├── index.txt
-├── index.txt.attr
-├── index.txt.old
-├── newcerts
-│   └── 01.pem
-├── private
-│   └── cakey.pem
-├── serial
-└── serial.old
-
-4 directories, 7 files
-```
-
-现在需要将01.pem证书拷贝到openssl配置文件中定义的CA自有证书对应的路径中去，并按照配置的名称进行命名为cacert.pem文件，否则无法为其他网站签发证书，执行下面的命令：
-```shell
-cp /etc/pki/CA/newcerts/01.pem /etc/pki/CA/cacert.pem
-```

@@ -252,14 +252,13 @@ git config --global --unset https.proxy
 选择合适的版本进行下载，此处是LINUX故选择LINUX版本。
 
 ```aa
-curl -O  https://golang.org/dl/go1.15.10.linux-amd64.tar.gz
-
+比如下载： go1.15.10.linux-amd64.tar.gz
 ```
 
 解压
 
 ```unzip
-tar -xzvf go1.15.10.linux-amd64.tar.gz
+tar xzf go1.15.10.linux-amd64.tar.gz
 ```
 
 将解压的目录移到合适的位置，比如 /opt/local/go
@@ -268,9 +267,10 @@ tar -xzvf go1.15.10.linux-amd64.tar.gz
 ```
 # ========== Golang settings =====================
 export GOROOT="/opt/local/go"
-export GOPATH="/root/goprojects"
 export GOBIN=$GOPATH/bin
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GO111MODULE=on
+export GOPROXY=https://goproxy.io,direct
 ```
 其中需要注意的是：
 

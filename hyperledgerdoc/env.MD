@@ -83,10 +83,11 @@ tar xzf go1.10.linux-amd64.tar.gz
 设置以下几个环境变量
 ```
 # ========== Golang settings =====================
-export GOROOT="/root/bin/go"
-export GOPATH="/root/goprojects"
-export GOBIN=$GOPATH/bin
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOROOT="/opt/local/bin/go"
+export GOBIN="/opt/local/bin/go/bin"
+export PATH=$GOROOT/bin:$PATH
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
 ```
 其中，
 

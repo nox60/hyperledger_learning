@@ -66,7 +66,7 @@ git config --global --unset https.proxy
 
 # Golang环境配置
 
-需要到 https://golang.org/dl/
+需要到 https://studygolang.com/dl/
 
 选择合适的版本进行下载，此处是LINUX故选择LINUX版本。
 

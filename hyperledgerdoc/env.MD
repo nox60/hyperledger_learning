@@ -64,6 +64,69 @@ git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
 
+# Nodejs
+
+
+到：https://nodejs.org/download/release/ 下载一个稳定版本的nodejs，下面选择的是14.16.0版本
+
+```downloadnodejs
+wget https://npm.taobao.org/mirrors/node/v14.16.0/node-v14.16.0-linux-x64.tar.xz
+```
+
+解压
+
+```unzip
+tar -xvf node-v14.16.0-linux-x64.tar.xz
+```
+一般来说你会把解压后的目录做一些自己的安排，比如改名，移动到你指定的某个目录下，此处是放在了 /opt/local/node1416 这个目录下面。然后设置环境变量，以保证能够运行node程序。
+
+```setpath
+# ========== Nodejs settings =====================
+export PATH=/opt/local/node1416/bin:$PATH
+```
+
+加入环境变量之后，通过下面的命令验证node的安装是否成功
+```nodejs
+[root@core-center software]# node -v
+v14.16.0
+```
+能正确显示版本号，说明node安装成功
+
+另外需要参考下面的帖子对 npm 的全局安装目录进行改动：
+
+https://stackoverflow.com/questions/29468404/gyp-warn-eacces-user-root-does-not-have-permission-to-access-the-dev-dir
+
+设置淘宝源：
+```shell
+npm config set registry https://registry.npm.taobao.org
+```
+
+# yarn
+
+浏览器访问： https://github.com/yarnpkg/yarn/releases/
+
+找到要下载的版本，本次下载的版本是：1.22.10
+
+```shell
+wget https://github.com/yarnpkg/yarn/releases/download/v1.22.10/yarn-v1.22.10.tar.gz
+```
+
+解压：
+```shell
+tar -xzvf yarn-v1.22.10.tar.gz
+```
+
+环境变量设置：
+```shell
+# ========== yarn ===============================
+export PATH=$PATH:/opt/local/yarn-v1.22.10/bin
+```
+
+设置国内源：
+```shell
+yarn config set registry https://registry.npm.taobao.org
+```
+
 # Golang环境配置
 
 需要到 https://studygolang.com/dl/

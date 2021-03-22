@@ -71,13 +71,13 @@ git config --global --unset https.proxy
 选择合适的版本进行下载，此处是LINUX故选择LINUX版本。
 
 ```aa
-wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
+wget https://studygolang.com/dl/golang/go1.15.10.linux-amd64.tar.gz
 ```
 
 解压
 
 ```unzip
-tar xzf go1.10.linux-amd64.tar.gz
+tar xzf go1.15.10.linux-amd64.tar.gz
 ```
 
 设置以下几个环境变量

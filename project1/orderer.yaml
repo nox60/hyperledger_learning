@@ -725,19 +725,4 @@ Operations:
         PrivateKey:
 
         # Most operations service endpoints require client authentication when TLS
-        # is enabled. ClientAuthRequired requires client certificate authentication
-        # at the TLS layer to access all resources.
-        ClientAuthRequired: false
-
-        # Paths to PEM encoded ca certificates to trust for client authentication
-        ClientRootCAs: []
-
-################################################################################
-#
-#   Metrics  Configuration
-#
-#   - This configures metrics collection for the orderer
-#
-################################################################################
-Metrics:
-    # Th
+        # is enabled. ClientAuthRequired requires client cert

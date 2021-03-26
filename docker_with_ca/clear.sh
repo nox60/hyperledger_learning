@@ -13,9 +13,6 @@ docker rm -f peer0.ic3.dams.com
 docker rm -f peer0.gov.dams.com
 docker rm -f couchdb_cec
 docker rm -f couchdb_ia3
-docker rm -f couchdb_ic3
-docker rm -f couchdb_gov
-docker rm -f cli
 docker rm -f $(docker ps -a | grep "dev-peer*" | awk '{print $1}')
 
 

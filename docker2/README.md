@@ -909,34 +909,3 @@ cryptogen:
  Go version: go1.11.5
  OS/Arch: linux/amd64
 ```
-
-## 下载代码
-
-
-```gitclone
-git clone https://github.com/nox60/hyperledger_learning.git
-```
-
-将工程目录中的docker2 目录拷贝到 /opt/local/codes/ 下面，注意这里之所以需要固定到该目录，是因为代码中有不少绝对路径指定了该目录，在熟悉之后可以自行改动。
-
-此处使用软连接方式：
-
-```mv
-ln -s /root/codes/hyperledger_learning/docker2 /opt/local/codes/docker2
-```
-
-## 生成相关证书文件
-
-执行同级目录下的：
-
-### 首先需要执行同级目录下的：
-```aa
-
-```
-脚本文件。
-
-### 然后执行：
-```bb
-start.sh
-```
-拉起所有容器。

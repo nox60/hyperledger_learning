@@ -940,36 +940,3 @@ ln -s /root/codes/hyperledger_learning/docker2 /opt/local/codes/docker2
 start.sh
 ```
 拉起所有容器。
-
-### 通过cli容器执行下列命令
-```aa
-# 创建通道
-docker exec -it cli \
-peer channel create -o orderer.dams.com:7050 \
--c mychannel \
--f /opt/channel-artifacts/channel.tx \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```
-
-```k
-# cec组织加入通道
-docker exec -it \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer channel join -b mychannel.block
-```
-
-```dd
-# ia3组织加入通道
-docker exec -it \
--e CORE_PEER_LOCALMSPID=ia3MSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151 \
-cli \
-peer channel join -b mychannel.block
-```

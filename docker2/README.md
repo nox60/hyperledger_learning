@@ -883,29 +883,3 @@ GOROOT是指golang编译器的位置
 GOPATH是指项目根目录的位置, 使用go get拉下来的代码和编译出的二进制文件会放在这个目录里。
 
 GOBIN是指项目目录中bin目录所在的位置
-
-# 区块链环境准备
-
-## 安装各种二进制程序和容器
-
-执行下面的命令，会下载hyperledger-fabric相关代码进行编译，构建二进制可执行程序和构建容器镜像
-
-```images
-curl -sSL  http://bit.ly/2ysbOFE | bash -s
-```
-
-安装完成之后，通过下面的命令验证是否安装正常：
-
-```gene
-cryptogen version
-```
-
-如果出现下面的结果，说明安装正常：
-
-```version
-cryptogen:
- Version: 1.4.3
- Commit SHA: b8c4a6a
- Go version: go1.11.5
- OS/Arch: linux/amd64
-```

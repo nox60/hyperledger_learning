@@ -1825,30 +1825,6 @@ docker run --rm -it \
 
 
 
-2. 如果1成立，那么验证一个公钥是否是合法的公钥，就是看该公钥对应的rootca是否合法，这里如果我们手动替换一个rootca，看看能否通过。
-
-
-
-
-
-此处要说明一下，为什么 FABRIC_CA_CLIENT_HOME 是 admin而不是admin2，因为此处执行操作的是admin账户，admin2成功注册之后不会生成账户msp信息，只会在ca的数据库中存在，需要在后面的操作中通过enroll操作才会将admin2的账户信息拉取到本地。
-
-
-
-configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config > config.json
-
-
-```docker
-docker run --rm -it \
-    --name apply.chain.code \
-    --network bc-net \
-    -v /root/temp:/root/temp \
-    hyperledger/fabric-tools:1.4.3 \
-    configtxlator proto_decode --input /root/temp/mychannel.block \
-    --type common.Block  > /root/temp/config1.json
-```
-
-
 
 
 

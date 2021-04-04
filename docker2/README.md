@@ -101,7 +101,7 @@ mv docker.service /etc/systemd/system/
 
 ```aa
 {
-    "registry-mirrors": ["http://813c39a0.m.daocloud.io"],
+    "registry-mirrors": ["https://hpcbpa6n.mirror.aliyuncs.com"],
     "max-concurrent-downloads": 20
 }
 ```

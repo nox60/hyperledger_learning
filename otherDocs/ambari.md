@@ -81,22 +81,131 @@ make prefix=/opt/local/bin/git install
 ```
 
 
-### nodejs准备
+### nodejs
+
+到：https://nodejs.org/download/release/ 下载一个稳定版本的nodejs，下面选择的是14.16.0版本
+
+```downloadnodejs
+wget https://npm.taobao.org/mirrors/node/v14.16.0/node-v14.16.0-linux-x64.tar.xz
+```
+
+解压
+
+```unzip
+tar -xvf node-v14.16.0-linux-x64.tar.xz
+```
+把解压后的目录做一些自己的安排，比如改名，移动到你指定的某个目录下。然后设置环境变量，以保证能够运行node程序。
+
+```setpath
+# ========== Nodejs settings =====================
+export PATH=/opt/local/bin/node-v14.16.0-linux-x64/bin:$PATH
+```
+
+加入环境变量之后，通过下面的命令验证node的安装是否成功
+```nodejs
+[root@core-center software]# node -v
+v14.16.0
+```
+能正确显示版本号，说明node安装成功
+
+另外需要参考下面的帖子对 npm 的全局安装目录进行改动：
+
+https://stackoverflow.com/questions/29468404/gyp-warn-eacces-user-root-does-not-have-permission-to-access-the-dev-dir
+
+设置淘宝源：
+```shell
+npm config set registry https://registry.npm.taobao.org
+```
+
+验证:
+```shell
+npm config get registry
+```
+
+安装Bower
+```shell
+npm -g install bower
+```
+
+安装gulp
+```shell
+npm -g install gulp
+```
+
+# yarn
+
+浏览器访问： https://github.com/yarnpkg/yarn/releases/
+
+找到要下载的版本，本次下载的版本是：1.22.10
+
+```shell
+wget https://github.com/yarnpkg/yarn/releases/download/v1.22.10/yarn-v1.22.10.tar.gz
+```
+
+解压：
+```shell
+tar -xzvf yarn-v1.22.10.tar.gz
+```
+
+环境变量设置：
+```shell
+# ========== yarn ===============================
+export PATH=$PATH:/opt/local/bin/yarn-v1.22.10/bin
+```
+
+设置国内源：
+```shell
+yarn config set registry https://registry.npm.taobao.org
+```
+
 
 ### python & pip
+首先删除系统自带的：
 
+```shell
+yum remove python
+```
 下载并解压
 ```shell
 wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
-tar -Jxvf Python-3.7.0.tar.xz
+tar -xvf Python-3.7.0.tar.xz
 ```
 
 进入该目录：
 ```shell
 cd 
 
-./configure prefix=/usr/local/python3
+./configure prefix=/opt/local/bin/python3
 
 make && make install
 
+
 ```
+修改
+
+```shell
+[root@bigdata-template bin]# rm -rf /usr/bin/python
+[root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/python3 /usr/bin/python
+[root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/pip3 /usr/bin/pip
+```
+
+### 解决yum 对python2的依赖问题
+
+vi /usr/bin/yum
+将第一行"#!/usr/bin/python" 改为 "#!/usr/bin/python2.7"即可。
+
+
+vi /usr/libexec/urlgrabber-ext-down
+将第一行"#!/usr/bin/python" 改为 "#!/usr/bin/python2.7"即可。
+
+
+### 安装rpm-build工具
+
+yum install rpm-build
+
+
+
+### 执行的命令
+
+mvn -B -e -X clean install rpm:rpm -DnewVersion=2.7.5.0.0 apache-rat:check -Drat.numUnapprovedLicenses=600 -DbuildNumber=5895e4ed6b30a2da8a90fee2403b6cab91d19972 -DskipTests -Dpython.ver="python >= 2.6"
+

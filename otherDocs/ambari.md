@@ -186,7 +186,7 @@ make && make install
 
 ```shell
 [root@bigdata-template bin]# rm -rf /usr/bin/python
-[root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/python3 /usr/bin/python
+[root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/python2.7 /usr/bin/python
 [root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/pip3 /usr/bin/pip
 ```
 

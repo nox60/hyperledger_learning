@@ -133,6 +133,7 @@ setenforce 0
 systemctl stop firewalld
 systemctl disable firewalld
 systemctl daemon-reload
+systemctl enable docker
 systemctl start docker
 ```
 

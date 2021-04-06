@@ -65,3 +65,58 @@ wget http://192.168.10.140/HDP-GPL/centos7/3.1.4.0-315/hdp.gpl.repo
 wget http://192.168.10.140/HDP-UTILS/centos7/1.1.0.22/hdp-utils.repo
 
 cp * /etc/yum.repos.d/
+
+
+
+
+------------------------
+
+
+
+http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.5.0/ambari.repo
+
+https://archive.cloudera.com/p/ambari/2.x/2.6.1.21/<OS>/ambari.repo
+
+
+docker run --name some-nginx \
+-p 80:80 \
+-v /opt/local/containers/nginx/wwwfiles:/usr/share/nginx/html:ro -d nginx
+
+
+docker run -dit --name my-apache-app -p 80:80 \
+-v /opt/local/containers/nginx/wwwfiles:/usr/local/apache2/htdocs/ httpd:2.4
+
+/opt/local/containers/nginx/wwwfiles/ambari/centos7/2.7.4.0-118
+
+ambari/centos7/2.7.4.0-118/ambari.repo
+
+HDP/centos7/3.1.4.0-315/hdp.repo
+
+HDP-GPL/centos7/3.1.4.0-315/hdp.gpl.repo
+
+HDP-UTILS/centos7/1.1.0.22/hdp-utils.repo
+
+
+cp * /etc/yum.repos.d/admin
+
+
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/software/mysql-connector-java-5.1.41.jar
+
+ABCabc123456!
+
+
+systemctl disable chronyd.service
+systemctl enable ntpd
+
+
+hostnamectl set-hostname bd-server5
+
+
+192.168.10.81	bd-server1
+192.168.10.82	bd-server2
+192.168.10.83	bd-server3
+192.168.10.84	bd-server4
+192.168.10.85	bd-server5
+
+ssh-keygen -t rsa
+ssh-copy-id bd-server2

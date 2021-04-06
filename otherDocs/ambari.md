@@ -219,4 +219,5 @@ http://shangdixinxi.com/detail-1333021.html
 
 
 
+https://bbs.huaweicloud.com/blogs/226400
 https://docs.cloudera.com/HDPDocuments/Ambari/Ambari-2.7.4.0/index.html

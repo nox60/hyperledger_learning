@@ -108,15 +108,17 @@ ABCabc123456!
 systemctl disable chronyd.service
 systemctl enable ntpd
 
+PS1="[\u@\H \W]\$"
 
-hostnamectl set-hostname bd-server5
+hostnamectl set-hostname server5.feiyuan.hadoop
 
 
-192.168.10.81	bd-server1
-192.168.10.82	bd-server2
-192.168.10.83	bd-server3
-192.168.10.84	bd-server4
-192.168.10.85	bd-server5
+192.168.10.81   server1.feiyuan.hadoop
+192.168.10.82   server2.feiyuan.hadoop
+192.168.10.83   server3.feiyuan.hadoop
+192.168.10.84   server4.feiyuan.hadoop
+192.168.10.85   server5.feiyuan.hadoop
 
 ssh-keygen -t rsa
-ssh-copy-id bd-server2
+ssh-copy-id server1.feiyuan.hadoop
+

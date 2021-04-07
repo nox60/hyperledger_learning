@@ -426,34 +426,3 @@ export PATH=$PATH:/opt/local/bin/yarn-v1.22.10/bin
 yarn config set registry https://registry.npm.taobao.org
 ```
 
-
-### python & pip
-首先删除系统自带的：
-
-```shell
-yum remove python
-```
-下载并解压
-```shell
-wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
-https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz
-tar -xvf Python-3.7.0.tar.xz
-```
-
-进入该目录：
-```shell
-cd 
-
-./configure prefix=/opt/local/bin/python3
-
-make && make install
-
-
-```
-修改
-
-```shell
-[root@bigdata-template bin]# rm -rf /usr/bin/python
-[root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/python2.7 /usr/bin/python
-[root@bigdata-template bin]# ln -s /usr/local/bin/python3/bin/pip3 /usr/bin/pip
-```

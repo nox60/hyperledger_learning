@@ -73,6 +73,29 @@ cp * /etc/yum.repos.d/
 
 
 
+7.关闭THP
+
+cat /sys/kernel/mm/transparent_hugepage/defrag
+cat /sys/kernel/mm/transparent_hugepage/enabled
+得到的结果都是[always] madvise never，需要将其关闭。
+
+vi /etc/rc.d/rc.local
+在末尾追加以下代码
+
+if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+fi
+if test -f /sys/kernel/mm/transparent_hugepage/defrag; then
+echo never > /sys/kernel/mm/transparent_hugepage/defrag
+fi
+并给 该文件赋权
+
+chmod +x /etc/rc.d/rc.local
+reboot之后在执行查看命令，结果变为 always madvise [never]，说明已关闭。
+
+
+
+
 http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.5.0/ambari.repo
 
 https://archive.cloudera.com/p/ambari/2.x/2.6.1.21/<OS>/ambari.repo
@@ -108,7 +131,8 @@ ABCabc123456!
 systemctl disable chronyd.service
 systemctl enable ntpd
 
-PS1="[\u@\H \W]\$"
+PS1="[\u@\H \W]\$ "
+
 
 hostnamectl set-hostname server5.feiyuan.hadoop
 
@@ -122,3 +146,7 @@ hostnamectl set-hostname server5.feiyuan.hadoop
 ssh-keygen -t rsa
 ssh-copy-id server1.feiyuan.hadoop
 
+
+
+
+https://www.tqwba.com/x_d/jishu/265595.html

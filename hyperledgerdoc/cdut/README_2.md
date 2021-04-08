@@ -4,8 +4,8 @@ docker network rm bc-net
 
 docker network create --subnet=172.18.0.0/16 bc-net
 
-# 用docker 启动一个ca server
-```用docker启动一个ca-server
+# docker 启动 root ca server
+```shell
 docker rm -f ca.com
 docker run \
   -it -d \
@@ -20,8 +20,8 @@ docker run \
       --entrypoint="fabric-ca-server" hyperledger/fabric-ca:1.4.3  start  -b admin:adminpw -d
 ```
 
-# 把ca的admin的msp拉出来
-```go
+# 获得 ca 的 admin的msp拉出来
+```shell
 docker run --rm -it \
     --name enroll.test.ca.client \
     --network bc-net \
@@ -59,7 +59,7 @@ EOF
 ```
 
 列出affiliation
-```go
+```shell
 #fabric-ca-client affiliation add org3.department1
 docker run --rm -it \
     --name add-affiliation \
@@ -71,7 +71,7 @@ docker run --rm -it \
 ```
 
 先注册affiliation
-```go
+```shell
 #fabric-ca-client affiliation add org3.department1
 docker run --rm -it \
     --name add-affiliation \
@@ -83,7 +83,7 @@ docker run --rm -it \
 ```
 
 增加org3组织
-```go
+```shell
 #fabric-ca-client affiliation add org3.department1
 docker run --rm -it \
     --name add-affiliation \
@@ -95,7 +95,7 @@ docker run --rm -it \
 ```
 
 增加org3组织的department1
-```go
+```shell
 #fabric-ca-client affiliation add org3.department1
 docker run --rm -it \
     --name add-affiliation \
@@ -106,7 +106,7 @@ docker run --rm -it \
     fabric-ca-client  affiliation add org3.department1
 ```
 
-```go
+```shell
 docker run --rm -it \
     --name add-affiliation \
     --network bc-net \
@@ -117,7 +117,7 @@ docker run --rm -it \
 ```
 
 0. 注册orderer
-```go
+```shell
 rm -rf /root/temp/order-home
 docker run --rm -it \
     --name register.orderer \
@@ -132,7 +132,7 @@ docker run --rm -it \
 ```
 
 拉取orderer的tls
-```go
+```shell
 docker run --rm -it \
   --name enroll.orderer \
       --network bc-net \
@@ -152,7 +152,7 @@ mv /root/temp/orderer-home/tls/msp/tlscacerts/* /root/temp/orderer-home/tls/msp/
 ```
 
 # 拉取order的msp
-```go
+```shell
 docker run --rm -it \
   --name enroll.cec.orderer \
       --network bc-net \
@@ -197,7 +197,7 @@ mkdir -p /root/temp/orderer-home/msp/msp/admincerts
 完成上面的注册peer, 然后把peer的msp拉下来。启动peer
 
 注册org1.peer0
-```go
+```shell
 rm -rf /root/temp/org1/peer0-home
 docker run --rm -it \
     --name register.org1.peer0 \

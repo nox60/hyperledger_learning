@@ -70,7 +70,7 @@ docker run --rm -it \
     fabric-ca-client affiliation list
 ```
 
-先注册affiliation
+先注册 ordererOrg的 affiliation
 ```shell
 #fabric-ca-client affiliation add org3.department1
 docker run --rm -it \
@@ -116,7 +116,7 @@ docker run --rm -it \
     fabric-ca-client affiliation add ordererOrg.ordererMSP
 ```
 
-0. 注册orderer
+# 0. 注册orderer
 ```shell
 rm -rf /root/temp/order-home
 docker run --rm -it \
@@ -131,7 +131,7 @@ docker run --rm -it \
     --id.secret ordererpw 
 ```
 
-拉取orderer的tls
+# 拉取orderer的tls
 ```shell
 docker run --rm -it \
   --name enroll.orderer \
@@ -844,7 +844,7 @@ docker run --rm -it \
     -e CORE_PEER_TLS_ENABLED="true"  \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
     -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -e CORE_PEER_ADDRESS=org2.peer0.com:8051 \
+    -e CORE_PEER_ADDRESS=org2.peer0.com:7051 \
     -v /root/temp/org2-admin-home/msp:/etc/hyperledger/fabric/msp \
     -v /root/temp:/opt/orderer_data \
     hyperledger/fabric-tools:1.4.3 \
@@ -975,7 +975,7 @@ docker run --rm -it \
 
 执行合约
 
-```docker
+```shell
 docker run --rm -it \
     --name apply.chain.code \
     --network bc-net \

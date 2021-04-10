@@ -318,26 +318,3 @@ ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/software/mysql-connector
 
 ABCabc123456!
 
-
-systemctl disable chronyd.service
-systemctl enable ntpd
-
-PS1="[\u@\H \W]\$ "
-
-
-hostnamectl set-hostname server5.feiyuan.hadoop
-
-
-192.168.10.81   server1.feiyuan.hadoop
-192.168.10.82   server2.feiyuan.hadoop
-192.168.10.83   server3.feiyuan.hadoop
-192.168.10.84   server4.feiyuan.hadoop
-192.168.10.85   server5.feiyuan.hadoop
-
-ssh-keygen -t rsa
-ssh-copy-id server1.feiyuan.hadoop
-
-
-
-
-https://www.tqwba.com/x_d/jishu/265595.html

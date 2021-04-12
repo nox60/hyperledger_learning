@@ -981,39 +981,3 @@ docker exec -it \
 cli \
 peer channel join -b mychannel.block
 ```
-
-```d
-# 锚节点
-docker exec -it \
--e CORE_PEER_LOCALMSPID=cecMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer channel update \
--o orderer.dams.com:7050 \
--c mychannel \
--f /opt/channel-artifacts/cecMSPanchors.tx \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```
-
-```2
-docker exec -it \
--e CORE_PEER_LOCALMSPID=ia3MSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151 \
-cli \
-peer channel list
-```
-
-```dd
-docker exec -it \
--e CORE_PEER_LOCALMSPID=ic3MSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ic3.dams.com/users/Admin@ic3.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.ic3.dams.com:7251 \
-cli \
-peer channel list
-```

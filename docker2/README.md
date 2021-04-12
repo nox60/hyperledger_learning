@@ -948,36 +948,3 @@ docker exec -it \
 cli \
 peer channel join -b mychannel.block
 ```
-
-```dd
-# ia3组织加入通道
-docker exec -it \
--e CORE_PEER_LOCALMSPID=ia3MSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ia3.dams.com/peers/peer0.ia3.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ia3.dams.com/users/Admin@ia3.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.ia3.dams.com:7151 \
-cli \
-peer channel join -b mychannel.block
-```
-
-```ss
-# ic3组织加入通道
-docker exec -it \
--e CORE_PEER_LOCALMSPID=ic3MSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/ic3.dams.com/peers/peer0.ic3.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/ic3.dams.com/users/Admin@ic3.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.ic3.dams.com:7251 \
-cli \
-peer channel join -b mychannel.block
-```
-
-```d
-# gov组织加入通道
-docker exec -it \
--e CORE_PEER_LOCALMSPID=govMSP \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/gov.dams.com/peers/peer0.gov.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/gov.dams.com/users/Admin@gov.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.gov.dams.com:7351 \
-cli \
-peer channel join -b mychannel.block
-```

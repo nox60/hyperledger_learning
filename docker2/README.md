@@ -1101,47 +1101,6 @@ peer chaincode list \
 --installed
 ```
 
-```ddkk
-docker exec -it \
--e FABRIC_LOGGING_SPEC="INFO" \
--e CORE_PEER_LOCALMSPID=cecMSP  \
--e CORE_PEER_TLS_ROOTCERT_FILE=/opt/crypto/peerOrganizations/cec.dams.com/peers/peer0.cec.dams.com/tls/ca.crt \
--e CORE_PEER_MSPCONFIGPATH=/opt/crypto/peerOrganizations/cec.dams.com/users/Admin@cec.dams.com/msp \
--e CORE_PEER_ADDRESS=peer0.cec.dams.com:7051 \
-cli \
-peer chaincode invoke \
--o orderer.dams.com:7050 \
--C mychannel \
--n mychaincode \
--c '{"Args":["add","a","10"]}' \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```
-
-```dd
-docker exec -it cli \
-peer chaincode invoke \
--o orderer.dams.com:7050 \
--C mychannel \
--n mychaincode \
--c '{"Args":["query","a"]}' \
---tls true \
---cafile /opt/crypto/ordererOrganizations/dams.com/orderers/orderer.dams.com/msp/tlscacerts/tlsca.dams.com-cert.pem
-```
-
-
-
-npm install --save bulma-stylus@0.8.0 hexo-renderer-inferno@^0.1.3 hexo-component-inferno@^0.10.5 inferno@^7.3.3 inferno-create-element@^7.3.3
-
-
-
-https://bbs.huaweicloud.com/blogs/226400
-
-
-
-
-
-
 
 
 

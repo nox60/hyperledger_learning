@@ -3651,38 +3651,6 @@ docker run --rm -it \
 
 
 
-# 测试用 "hf.Type":"writer" 的用户来执行合约
-
-```docker
-docker run --rm -it \
-    --name apply.chain.code \
-    --network bc-net \
-    -e CORE_PEER_LOCALMSPID=org1MSP \
-    -e CORE_PEER_TLS_ENABLED="true"  \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
-    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -e CORE_PEER_ADDRESS=peer0.com:7051 \
-    -v /root/temp/org1-writer-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode:/opt/gopath/src/mychaincode \
-    hyperledger/fabric-tools:1.4.3 \
-    peer chaincode invoke \
-    -o orderer.com:7050 \
-    -C mychannel \
-    -n mychaincode \
-    -c '{"Args":["add","d","10"]}' \
-    --tls true \
-    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
-```
-
-//Error: error endorsing invoke: rpc error: code = Unknown desc = access denied: channel [mychannel] creator org [org1MSP] - proposal response: <nil>
-
-
-
-
-2. 如果1成立，那么验证一个公钥是否是合法的公钥，就是看该公钥对应的rootca是否合法，这里如果我们手动替换一个rootca，看看能否通过。
-
-
-
 
 
 

@@ -9060,32 +9060,3 @@ EOF
 //-----------------------------------
 
 
-
-# 创建通道
-```go
-docker run --rm -it \
-    --name create.channel.client \
-    --network bc-net \
-    -e CORE_PEER_LOCALMSPID=org1MSP \
-    -e CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/msp/cacerts/ca.pem \
-    -e CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/temp:/opt/orderer_data \
-    hyperledger/fabric-tools:1.4.3 \
-    peer channel create --outputBlock /opt/orderer_data/mychannel.block -o orderer.com:7050 \
-    -c mychannel \
-    -f /opt/orderer_data/channel.tx \
-    --tls true \
-    --cafile /etc/hyperledger/fabric/msp/cacerts/ca.pem
-```
-er0.com:7051 \
-    -v /root/temp/org1-admin-home/msp:/etc/hyperledger/fabric/msp \
-    -v /root/chaincode/vendor:/opt/gopath/src \
-    -v /root/chaincode/chaincode:/opt/gopath/src/mychaincode \
-    chaincode:0.1 \
-    peer chaincode install \
-    -n mychaincode \
-    -v 1.1 \
-    -l golang \
-    -p mychaincode
-```

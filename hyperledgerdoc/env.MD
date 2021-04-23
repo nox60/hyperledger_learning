@@ -924,49 +924,6 @@ TD：解释相关生成的KEY是什么
 2019/07/20 16:12:12 [INFO] Stored Issuer revocation public key at /root/ca-client/clients/peer1/msp/IssuerRevocationPublicKey
 ```
 
-client certificate：  client的公钥
-
-CA certificate:       CA的公钥？
-
-Issuer public key:
-
-Issuer revocation public key:
-
-
-
-TD：此处要尝试使用另外一个账户登录，但是路径一样会发生什么
-
-TD：是否有了各种证书，就不需要密码就可以操作了？
-
-
-- Identity Mixer credential
-
-Identity Mixer (Idemix) 是一种加密协议。。。。
-
-Identity Mixer (Idemix) is a cryptographic protocol suite for privacy-preserving authentication and transfer of certified attributes. Idemix allows clients to authenticate with verifiers without the involvement of the issuer (CA) and selectively disclose only those attributes that are required by the verifier and can do so without being linkable across their transactions.
-
-
-Fabirc CA server 除了可以签发Idemix证书以外还可以签发X509证书。Idemix证书可以从 /api/v1/idemix/credential 接口获取，更多的信息可以查阅相关接口文档。
-
-申请Idemix证书有两个步骤：
-
-1. 首先发一个空的body信息到 /api/v1/idemix/credential 获取一个 nonce 以及 CA 的 Idexmix 公钥。
-2. 用nonce和CA创建一个证书请求，发送到 /api/v1/idemix/credential 来获取 Idemix。同时会拿到(Credential Revocation Information)CRI信息，当前，只支持三种参数：
-
-OU - organization unit of the identity. The value of this attribute is set to identity’s affiliation. For example, if identity’s affiliation is dept1.unit1, then OU attribute is set to dept1.unit1
-
-IsAdmin - if the identity is an admin or not. The value of this attribute is set to the value of isAdmin registration attribute.
-
-EnrollmentID - enrollment ID of the identity
-
-
-TD：CRI的作用？CRI应该是用来终止这个Idemix的。不想用了。。
-
-后面明确一下。
-
-
-
-
 
 
 

@@ -915,34 +915,6 @@ fabric-ca-client enroll -u http://peer1:peer1pw@localhost:7054 -M $FABRIC_CA_CLI
 会看到有以下输出：
 
 
-TD：解释相关生成的KEY是什么
-
-```output
-2019/07/20 16:12:12 [INFO] generating key: &{A:ecdsa S:256}
-2019/07/20 16:12:12 [INFO] encoded CSR
-2019/07/20 16:12:12 [INFO] Stored client certificate at /root/ca-client/clients/peer1/msp/signcerts/cert.pem
-2019/07/20 16:12:12 [INFO] Stored root CA certificate at /root/ca-client/clients/peer1/msp/cacerts/localhost-7054.pem
-2019/07/20 16:12:12 [INFO] Stored Issuer public key at /root/ca-client/clients/peer1/msp/IssuerPublicKey
-2019/07/20 16:12:12 [INFO] Stored Issuer revocation public key at /root/ca-client/clients/peer1/msp/IssuerRevocationPublicKey
-```
-
-client certificate：  client的公钥
-
-CA certificate:       CA的公钥？
-
-Issuer public key:
-
-Issuer revocation public key:
-
-
-
-TD：此处要尝试使用另外一个账户登录，但是路径一样会发生什么
-
-TD：是否有了各种证书，就不需要密码就可以操作了？
-
-
-
-
 
 
 

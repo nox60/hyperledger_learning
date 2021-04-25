@@ -306,60 +306,6 @@ Java(TM) SE Runtime Environment (build 1.8.0_281-b09)
 Java HotSpot(TM) 64-Bit Server VM (build 25.281-b09, mixed mode)
 ```
 
-### MAVEN准备
-
-wget https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
-
-tar xzvf apache-maven-3.8.1-src.tar.gz
-
-增加环境变量
-```shell
-MAVEN_HOME=/opt/local/bin/apache-maven-3.8.1
-export MAVEN_HOME
-export PATH=${PATH}:${MAVEN_HOME}/bin
-```
-
-测试安装是否成功：
-```shell
-[root@bigdata-template software]# mvn -version
-Apache Maven 3.8.1 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
-Maven home: /opt/local/bin/apache-maven-3.8.1
-Java version: 1.8.0_281, vendor: Oracle Corporation, runtime: /opt/local/bin/jdk1.8.0_281/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "3.10.0-1160.21.1.el7.x86_64", arch: "amd64", family: "unix"
-```
-
-
-### git准备
-先卸载系统自带的低版本git
-```shell
-yum remove git
-```
-下载git并解压
-
-```downloadgit
-wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
-tar -xzvf git-2.9.5.tar.gz
-```
-
-```shell
-make prefix=/opt/local/bin/git all
-make prefix=/opt/local/bin/git install
-```
-
-
-### nodejs
-
-到：https://nodejs.org/download/release/ 下载一个稳定版本的nodejs，下面选择的是14.16.0版本
-
-```downloadnodejs
-wget https://npm.taobao.org/mirrors/node/v14.16.0/node-v14.16.0-linux-x64.tar.xz
-```
-
-
-
-
-
 
 
 

@@ -595,41 +595,6 @@ Channel: &ChannelDefaults
   Capabilities:
     <<: *ChannelCapabilities
 
-################################################################################
-#
-#   Profile
-#
-#   - Different configuration profiles may be encoded here to be specified
-#   as parameters to the configtxgen tool
-#
-################################################################################
-Profiles:
-
-  TwoOrgsOrdererGenesis:
-    <<: *ChannelDefaults
-    Orderer:
-      <<: *OrdererDefaults
-      Organizations:
-        - *orderer
-      Capabilities:
-        <<: *OrdererCapabilities
-    Consortiums:
-      SampleConsortium:
-        Organizations:
-          - *cec
-  TwoOrgsChannel:
-    Consortium: SampleConsortium
-    <<: *ChannelDefaults
-    Application:
-      <<: *ApplicationDefaults
-      Organizations:
-        - *cec
-      Capabilities:
-        <<: *ApplicationCapabilities
-
-
-
-
 
 
 

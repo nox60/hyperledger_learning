@@ -957,30 +957,3 @@ http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?keys
 
 
 
-Preparing CouchDB nodes to be joined into a cluster
-Before you can add nodes to form a cluster, you must have them listening on an IP address accessible from the other nodes in the cluster. You should also ensure that a few critical settings are identical across all nodes before joining them.
-
-The settings we recommend you set now, before joining the nodes into a cluster, are:
-
-etc/vm.args settings as described in the previous two sections
-At least one server administrator user (and password)
-Bind the node’s clustered interface (port 5984) to a reachable IP address
-A consistent UUID. The UUID is used in identifying the cluster when replicating. If this value is not consistent across all nodes in the cluster, replications may be forced to rewind the changes feed to zero, leading to excessive memory, CPU and network use.
-A consistent httpd secret. The secret is used in calculating and evaluating cookie and proxy authentication, and should be set consistently to avoid unnecessary repeated session cookie requests.
-
-
-
-
-### couchdb环境准备
-### map-reduce过程分析
-### map-reduce参数分析
-### map-reduce实践（水果店例子）
-### couchdb单主机多节点实贱
-### couchdb分区分片研究
-
-
-
-
-
-
-

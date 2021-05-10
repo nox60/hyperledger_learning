@@ -307,32 +307,3 @@ OS name: "linux", version: "3.10.0-1160.21.1.el7.x86_64", arch: "amd64", family:
 ```
 
 
-### git准备
-先卸载系统自带的低版本git
-```shell
-yum remove git
-```
-下载git并解压
-
-```downloadgit
-wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
-tar -xzvf git-2.9.5.tar.gz
-```
-
-```shell
-make prefix=/opt/local/bin/git all
-make prefix=/opt/local/bin/git install
-```
-
-
-### nodejs
-
-到：https://nodejs.org/download/release/ 下载一个稳定版本的nodejs，下面选择的是14.16.0版本
-
-```downloadnodejs
-wget https://npm.taobao.org/mirrors/node/v14.16.0/node-v14.16.0-linux-x64.tar.xz
-```
-
-解压
-
-

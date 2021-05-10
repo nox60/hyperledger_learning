@@ -335,45 +335,4 @@ wget https://npm.taobao.org/mirrors/node/v14.16.0/node-v14.16.0-linux-x64.tar.xz
 
 解压
 
-```unzip
-tar -xvf node-v14.16.0-linux-x64.tar.xz
-```
-把解压后的目录做一些自己的安排，比如改名，移动到你指定的某个目录下。然后设置环境变量，以保证能够运行node程序。
-
-```setpath
-# ========== Nodejs settings =====================
-export PATH=/opt/local/bin/node-v14.16.0-linux-x64/bin:$PATH
-```
-
-加入环境变量之后，通过下面的命令验证node的安装是否成功
-```nodejs
-[root@core-center software]# node -v
-v14.16.0
-```
-能正确显示版本号，说明node安装成功
-
-另外需要参考下面的帖子对 npm 的全局安装目录进行改动：
-
-https://stackoverflow.com/questions/29468404/gyp-warn-eacces-user-root-does-not-have-permission-to-access-the-dev-dir
-
-设置淘宝源：
-```shell
-npm config set registry https://registry.npm.taobao.org
-```
-
-验证:
-```shell
-npm config get registry
-```
-
-安装Bower
-```shell
-npm -g install bower
-```
-
-安装gulp
-```shell
-npm -g install gulp
-```
-
 

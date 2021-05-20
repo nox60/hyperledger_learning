@@ -227,7 +227,3 @@ https://docs.cloudera.com/HDPDocuments/Ambari/Ambari-2.7.4.0/index.html
 
 
 
-
-
-
-

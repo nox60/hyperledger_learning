@@ -54,7 +54,7 @@ gpgkey=http://master01/HDP-GPL/centos7/2.6.5.0-292/RPM-GPG-KEY/RPM-GPG-KEY-Jenki
 enabled=1
 priority=1
 
-
+     http://192.168.10.140/HDP/centos7/3.1.4.0-315
 
 wget http://192.168.10.140/ambari/centos7/2.7.4.0-118/ambari.repo
 
@@ -125,6 +125,8 @@ cp * /etc/yum.repos.d/admin
 
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/root/software/mysql-connector-java-5.1.41.jar
 
+/root/software
+
 ABCabc123456!
 
 
@@ -137,22 +139,25 @@ PS1="[\u@\H \W]\$ "
 hostnamectl set-hostname server5.feiyuan.hadoop
 
 
-192.168.10.81   server1.feiyuan.hadoop
-192.168.10.82   server2.feiyuan.hadoop
-192.168.10.83   server3.feiyuan.hadoop
-192.168.10.84   server4.feiyuan.hadoop
-192.168.10.85   server5.feiyuan.hadoop
+
+192.168.10.81   server1.feiyuan.bd
+192.168.10.82   server2.feiyuan.bd
+192.168.10.83   server3.feiyuan.bd
+192.168.10.84   server4.feiyuan.bd
+192.168.10.85   server5.feiyuan.bd
 
 ssh-keygen -t rsa
 ssh-copy-id server1.feiyuan.hadoop
 
-
+feiyuan123
 
 
 https://www.tqwba.com/x_d/jishu/265595.html
 
 
 
+
+https://www.cnblogs.com/kxgdby/p/9211512.html
 
 
 

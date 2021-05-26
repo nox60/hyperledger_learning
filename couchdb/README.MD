@@ -695,25 +695,3 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
   }
 }
 ```
-
-提交上述的view
-```json
-curl -X PUT http://admin:password@127.0.0.1:5984/basic/_design/example -d @js_examples/view2.json
-```
-
-
-然后执行下面的命令，调用刚才的view里面的查询函数foo，获取查询出来的数据
-```
-curl http://admin:password@localhost:5984/basic/_design/example/_view/view2
-```
-
-// 在做一个测试，看看是否会带出更多的数据
-执行几次下面的命令，给basic这个仓库增加测试数据
-```shell script
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2019-01-01 14:02:11", "related_value":"Some content", "related_person":"Jimmy wang"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-04-01 08:12:24", "related_value":"Some content2"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2018-08-23 12:49:05", "related_value":"Some content3"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-08-16 04:35:12", "related_value":"Some content4"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2017-01-22 07:29:04", "related_value":"Some content5"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-06-14 01:28:11", "related_value":"Some content6", "related_person":"Kelly Zuo"}'
-```

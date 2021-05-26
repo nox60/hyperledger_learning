@@ -854,53 +854,6 @@ https://www.techfreak.net/2013/11/14/a-couchdb-view-example.html
 https://www.jb51.cc/nosql/203421.html
 
 
-https://docs.couchdb.org/en/stable/ddocs/views/intro.html
-
-
-https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-views
-
-|Argument|Description|Optional|Type|Default|Supported values|Partition query|
-|---|---|---|---|---|---|---|
-|bookmark |	A bookmark to navigate to a specific page.|	Yes|	String|		| | | 	
-|conflicts|	Can be set only if include_docs is true. Adds information about conflicts to each document.|	Yes|	Boolean|	False|	|	No|
-|descending	|Return the documents in "descending by key" order.	|Yes	|Boolean	|False	|	|Yes|
-|endkey	|Stop returning records when the specified key is reached.	|Yes	|String or JSON array|	|		|Yes|
-|endkey_docid	|Stop returning records when the specified document ID is reached.	|Yes|	String	|	|	|Yes|
-|group	|Using the reduce function, group the results to a group or single row.	|Yes|	Boolean|	False	|	|Yes|
-|group_level |	Only applicable if the view uses complex keys: keys that are JSON arrays. Groups reduce results for the specified number of array fields.|	Yes	|Numeric	| | |		Yes|
-|include_docs|	Include the full content of the documents in the response.	|Yes|	Boolean|	False	 | |	Yes|
-|inclusive_end|	Include rows with the specified endkey.|	Yes|	Boolean |	True	| |  Yes |
-|key	| Return only documents that match the specified key. Keys are JSON values, and must be URL encoded.|	Yes|	JSON strings or arrays |	|	| 	Yes|
-| keys |	Return only documents that match the specified keys. Keys are JSON values, and must be URL encoded. |	Yes |	Array of JSON strings or arrays	|	| |	Yes |
-|limit 1|	Limit the number of returned documents to the specified count.	| Yes |	Numeric	|	| |	Yes |
-| page_size | 	Specify the number of returned documents in the result.	| Yes |	Numeric	    |   | |     |
-| reduce |	Use the reduce function.	| Yes |	Boolean |	True	| |	Yes |
-| skip |	Skip this number of rows from the start. |	Yes |	Numeric	| 0	 | | 	Yes |
-| stable |	Prefer view results from a 'stable' set of shards. The results are from a view that is less likely to be updated soon. |	Yes |	Boolean |	False	| |	No |
-| stale |	Allow the results from a stale view to be used. The request returns immediately, even if the view isn't built yet. If this parameter isn't specified, a response is returned only after the view is built. |	Yes |	String |	False	| |	No |
-| startkey | Return records, starting with the specified key. |	Yes |	String or JSON array | | |			Yes |
-| startkey_docid |	Return records, starting with the specified document ID. |	Yes |	String	| |	|	Yes |
-| update |	Ensure that the view is updated before results are returned. | 	Yes |	String |	true |	Yes | |
-
-
-### 参数解析
-
-#### descending
-view的显示结果是默认按照acsii升序进行排序的，如果使用?descending=true关键字，则会按照降序排列。
-
-#### include_docs
-
-请求的响应结果中获取整个文档，例子:
-
-http://admin:password@192.168.16.70:5984/basic/_design/view1/_view/view_all?include_docs=true
-
-在响应的结果中除了有key和value字段以外，还有doc字段，包含了整个doc的信息。
-
-官方文档中这一段需要整理:
-
-Warning
-
-
 
 
 

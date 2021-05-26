@@ -717,36 +717,3 @@ curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2017-01-22 07:29:04", "related_value":"Some content5"}'
 curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_date":"2020-06-14 01:28:11", "related_value":"Some content6", "related_person":"Kelly Zuo"}'
 ```
-
-经过测试证明，view会带出整个文档，只是在reduce过程中会选用指定的值进行reduct
-
-
-用下面的命令可以进行key的范围查询，注意字母大小写敏感，一旦写错会失效
-```shell script
-http://admin:password@192.168.16.70:5984/basic/_design/example/_view/view2?startkey="2018-08-23 12:49:05"&endkey="2022-08-23 12:49:05"
-```
-
-增加测试数据如下：
-
-```shell script
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"a", "sample_value":1, "related_person":"Kelly Zuo"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"a", "sample_value":"6", "related_person":"Tom Jacky"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"b", "sample_value":"55", "related_person":"Naomi Sandy"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"b", "sample_value":189, "related_person":"Naomi Sandy"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"b", "sample_value":67, "related_person":"Naomi Sandy"}'
-curl -H "Content-Type:application/json" -X POST http://admin:password@localhost:5984/basic -d '{"create_key":"c", "sample_value":5, "related_person":"Kelly Zuo"}'
-```
-
-
-
-水果的map函数
-```shell script
-function(doc) {
-    var shop, price;
-    if (doc.item && doc.prices) {
-        doc.prices.forEach(function(i) {
-              emit(doc.item, i);
-        });
-    }
-}
-```

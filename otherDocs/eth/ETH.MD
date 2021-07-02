@@ -6,6 +6,9 @@ https://medium.com/swlh/how-to-set-up-a-private-ethereum-blockchain-c0e74260492c
 
 https://hub.docker.com/r/ethereum/client-go
 
+// Clef tool
+https://docs.goquorum.consensys.net/en/stable/HowTo/ManageKeys/clef/
+
 ```json
 {
   "nonce": "0x0000000000000042",
@@ -25,3 +28,6 @@ https://hub.docker.com/r/ethereum/client-go
   }
 }
 ```
+
+// Ethereum binary files
+https://geth.ethereum.org/downloads/

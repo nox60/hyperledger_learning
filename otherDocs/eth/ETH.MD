@@ -31,3 +31,6 @@ https://docs.goquorum.consensys.net/en/stable/HowTo/ManageKeys/clef/
 
 // Ethereum binary files
 https://geth.ethereum.org/downloads/
+
+// 
+https://medium.com/swlh/how-to-set-up-a-private-ethereum-blockchain-c0e74260492c

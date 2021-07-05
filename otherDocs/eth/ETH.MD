@@ -6,6 +6,8 @@ https://medium.com/swlh/how-to-set-up-a-private-ethereum-blockchain-c0e74260492c
 
 https://hub.docker.com/r/ethereum/client-go
 
+https://ethdocs.org/en/latest/introduction/index.html
+
 // Clef tool
 https://docs.goquorum.consensys.net/en/stable/HowTo/ManageKeys/clef/
 

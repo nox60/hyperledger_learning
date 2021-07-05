@@ -34,3 +34,16 @@ https://geth.ethereum.org/downloads/
 
 // 
 https://medium.com/swlh/how-to-set-up-a-private-ethereum-blockchain-c0e74260492c
+
+
+# 启动节点
+# 增加账户
+# 开始挖矿
+# 加入新节点
+1. You must use the same genesis.json file to initiate the node.
+2. You must use a different data directory folder to the new node.
+3. Make sure to use the same networkid for the new node.
+4. You need to give a port number because the default port is already used by the first node.
+
+https://ethereum.stackexchange.com/questions/28703/full-list-of-geth-terminal-commands/28704
+

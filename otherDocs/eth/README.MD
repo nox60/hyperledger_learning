@@ -71,5 +71,12 @@ GOROOT=go
 }
 ```
 
+名词解释:
+https://gist.github.com/0mkara/b953cc2585b18ee098cd
+生成创世区块的命令如下：
+```shell
+
+```
+
 # 3. 服务启动
 # 4. 操作

@@ -229,7 +229,7 @@ https://gist.github.com/0mkara/b953cc2585b18ee098cd
 }
 ```
 
-## 3.1 为bootstrap node 节点初始化数据
+## 3.1 启动 bootstrap node 节点
 
 ```shell
 geth init --datadir data genesis.json
@@ -248,8 +248,14 @@ geth attach data/geth.ipc --exec admin.nodeInfo.enr
 会得到类似下面的结果：
 
 ```shell
-
+[root@localhost eth]# geth attach data/geth.ipc --exec admin.nodeInfo.enr
+"enr:-KW4QMUQDs_KlUmzbQbUl52IAD7iqgb1a0MyHzIai3S69B3OFwVMcnzV2HMISIMyFzZEnfuRuiETTmFNrEjh9Vktv6gCg2V0aMfGhEQV6vaAgmlkgnY0gmlwhN7T1-KJc2VjcDI1NmsxoQJ1B7CyJvXsWOvL-ioK7hBg9PB_AxUlaccdI47iVyz7z4RzbmFwwIN0Y3CCdl-DdWRwgn-BhHVkcDaCdl8"
 ```
+
+## 3.2 启动成员节点
+
+### 3.2.1 启动 peer1 节点
+
 
 
 # 4. 操作

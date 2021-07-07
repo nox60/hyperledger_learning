@@ -78,6 +78,21 @@ geth  \
 init /root/eth/genesis.json
 ```
 
+会看到类似下面的输出，表示生成成功
+```shell
+INFO [07-07|11:19:37.581] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [07-07|11:19:37.581] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"
+INFO [07-07|11:19:37.582] Set global gas cap                       cap=50,000,000
+INFO [07-07|11:19:37.582] Allocated cache and file handles         database=/root/eth/data1/geth/chaindata cache=16.00MiB handles=16
+INFO [07-07|11:19:37.584] Writing custom genesis block
+INFO [07-07|11:19:37.585] Persisted trie from memory database      nodes=1 size=171.00B time="71.126µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-07|11:19:37.585] Successfully wrote genesis state         database=chaindata                      hash=ebe338..3c33b2
+INFO [07-07|11:19:37.585] Allocated cache and file handles         database=/root/eth/data1/geth/lightchaindata cache=16.00MiB handles=16
+INFO [07-07|11:19:37.587] Writing custom genesis block
+INFO [07-07|11:19:37.587] Persisted trie from memory database      nodes=1 size=171.00B time="25.419µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-07|11:19:37.587] Successfully wrote genesis state         database=lightchaindata                      hash=ebe338..3c33b2
+```
+
 ## 给peer2生成数据目录
 ```shell
 geth  \
@@ -92,7 +107,29 @@ geth  \
 init /root/eth/genesis.json
 ```
 
+## 启动peer1
+```shell
+geth \
+--datadir /root/eth/data1 \
+--networkid 123 --port 30303 --nodiscover &
+```
 
+### 连接peer1
+```shell
+geth attach /root/eth/data1/geth.ipc
+```
+
+## 启动peer2
+```shell
+geth \
+--datadir /root/eth/data2 \
+--networkid 123 --port 30304 --nodiscover &
+```
+
+### 连接peer2
+```shell
+geth attach /root/eth/data2/geth.ipc
+```
 
 名词解释:
 https://gist.github.com/0mkara/b953cc2585b18ee098cd

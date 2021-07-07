@@ -131,6 +131,28 @@ geth \
 geth attach /root/eth/data2/geth.ipc
 ```
 
+## 启动peer3
+```shell
+geth \
+--datadir /root/eth/data3 \
+--networkid 123 --port 30305 --nodiscover &
+```
+
+### 连接peer3
+```shell
+geth attach /root/eth/data3/geth.ipc
+```
+
+创建一个账户，在peer1的控制台里创建，创建的时候输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户的字符串：
+
+```shell
+> personal.newAccount()
+Passphrase:
+Repeat passphrase:
+"0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb"
+```
+
+
 名词解释:
 https://gist.github.com/0mkara/b953cc2585b18ee098cd
 生成创世区块的命令如下：

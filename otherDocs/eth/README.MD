@@ -261,14 +261,23 @@ geth attach data/geth.ipc --exec admin.nodeInfo.enr
 ```shell
 geth --datadir data-x \
 --port portValue \
+--networkid networkIdValue
 --bootnodes bootstrap-node-record
 ```
 
 然后可以通过下面的命令判断成员节点是否加入了区块链网络
 
+```shell
+geth attach data/geth.ipc --exec admin.peers
+```
+
 其中,
 
 data-x 为成员节点的专属目录，每一个成员节点需要有一个自己专属的目录，如果多个成员节点用相同的目录会发生数据错误。
-networkId 必须和bootstrap node 节点启动时候的 networkid值一致。
+networkIdValue 必须和bootstrap node 节点启动时候的 networkid值一致。
+portValue 值是为该节点分配的通信端口
+bootstrap-node-record bootstrap 节点的连接信息编码，在3.1节中有获取
+
+因此，例子
 
 # 4. 操作

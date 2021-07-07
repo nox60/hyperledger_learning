@@ -111,7 +111,7 @@ init /root/eth/genesis.json
 ```shell
 geth \
 --datadir /root/eth/data1 \
---networkid 123 --port 30303 --nodiscover &
+--networkid 123 --port 30303 --nodiscover
 ```
 
 ### 连接peer1
@@ -123,7 +123,7 @@ geth attach /root/eth/data1/geth.ipc
 ```shell
 geth \
 --datadir /root/eth/data2 \
---networkid 123 --port 30304 --nodiscover &
+--networkid 123 --port 30304 --nodiscover
 ```
 
 ### 连接peer2
@@ -135,7 +135,7 @@ geth attach /root/eth/data2/geth.ipc
 ```shell
 geth \
 --datadir /root/eth/data3 \
---networkid 123 --port 30305 --nodiscover &
+--networkid 123 --port 30305 --nodiscover
 ```
 
 ### 连接peer3

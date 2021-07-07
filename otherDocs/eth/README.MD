@@ -324,4 +324,6 @@ geth --datadir data-2 \
 
 https://github.com/ethereum/go-ethereum/issues/18350
 
+https://blog.csdn.net/zhangnero/article/details/96133289
+
 # 4. 操作

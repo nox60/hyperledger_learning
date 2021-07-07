@@ -193,4 +193,63 @@ https://geth.ethereum.org/docs/interface/private-network
 https://gist.github.com/0mkara/b953cc2585b18ee098cd
 
 # 3. 服务启动
+目前计划四个节点, bootstrap node, 三个成员节点： node1, node2, node3
+
+创世区块配置文件
+```json
+{
+  "config": {
+    "chainId": 10,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "ethash": {}
+  },
+  "nonce": "0x0",
+  "timestamp": "0x5e4a53b2",
+  "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "gasLimit": "0x47b760",
+  "difficulty": "0x400000",
+  "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "coinbase": "0x0000000000000000000000000000000000000000",
+  "alloc": {
+    "0000000000000000000000000000000000000088": {
+      "balance": "0x200000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "number": "0x0",
+  "gasUsed": "0x0",
+  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+}
+```
+
+## 3.1 为bootstrap node 节点初始化数据
+
+```shell
+geth init --datadir data genesis.json
+```
+
+启动 bootstrap node 节点
+```shell
+geth --datadir data --networkid 15
+```
+
+执行命令，获得bootstrap节点的连接信息编码，后续会用于其他节点启动的时候加入该私有eth网络
+```shell
+geth attach data/geth.ipc --exec admin.nodeInfo.enr
+```
+
+会得到类似下面的结果：
+
+```shell
+
+```
+
+
 # 4. 操作

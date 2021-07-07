@@ -143,7 +143,7 @@ geth \
 geth attach /root/eth/data3/geth.ipc
 ```
 
-创建一个账户，在peer1的控制台里创建，创建的时候输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户的字符串：
+创建一个账户，在peer1的控制台里创建，创建的时候输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户地址的字符串：
 
 ```shell
 > personal.newAccount()
@@ -152,13 +152,38 @@ Repeat passphrase:
 "0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb"
 ```
 
+通过下面的命令获取账户余额？ eth.getBalance("ENTER_ACCOUNT_ADDRESS_HERE") 
+
+```shell
+eth.getBalance("0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb") 
+```
+
+列处当前节点所有的账户信息
+
+```shell
+> personal.listAccounts
+["0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb"]
+```
+
+### 将节点加入私有网络
+
+在任何一个节点上运行 admin.nodeInfo.enode 可以得到节点的信息
+
+```shell
+> admin.nodeInfo.enode
+"enode://46e832964476876c6c26f34855c500bd98a1e14bb9d9c038cf9b4219893db4c7f561a7103910b5deaab396782d54205e5ea10f82a9a64e8e136f2edb62b04809@127.0.0.1:30305?discport=0"
+```
+
+上述信息在其他节点上执行 ：
+
+```shell
+admin.addPeer("enode://46e832964476876c6c26f34855c500bd98a1e14bb9d9c038cf9b4219893db4c7f561a7103910b5deaab396782d54205e5ea10f82a9a64e8e136f2edb62b04809@127.0.0.1:30305?discport=0")
+
+```
+
 
 名词解释:
 https://gist.github.com/0mkara/b953cc2585b18ee098cd
-生成创世区块的命令如下：
-```shell
-
-```
 
 # 3. 服务启动
 # 4. 操作

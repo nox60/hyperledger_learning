@@ -237,7 +237,7 @@ geth init --datadir data genesis.json
 
 启动 bootstrap node 节点
 ```shell
-geth --datadir data --networkid 15 --port 30303 --http.addr 127.0.0.1 
+geth --datadir data --networkid 15 --port 30303 --http --http.addr 127.0.0.1 
 ```
 
 执行命令，获得bootstrap节点的连接信息编码，后续会用于其他节点启动的时候加入该私有eth网络
@@ -320,5 +320,8 @@ geth --datadir data-2 \
 --networkid 15 \
 --bootnodes "enr:-KW4QMUQDs_KlUmzbQbUl52IAD7iqgb1a0MyHzIai3S69B3OFwVMcnzV2HMISIMyFzZEnfuRuiETTmFNrEjh9Vktv6gCg2V0aMfGhEQV6vaAgmlkgnY0gmlwhN7T1-KJc2VjcDI1NmsxoQJ1B7CyJvXsWOvL-ioK7hBg9PB_AxUlaccdI47iVyz7z4RzbmFwwIN0Y3CCdl-DdWRwgn-BhHVkcDaCdl8"
 ```
+
+
+https://github.com/ethereum/go-ethereum/issues/18350
 
 # 4. 操作

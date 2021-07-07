@@ -35,7 +35,7 @@ GOROOT=go
 # 2. 环境规划与服务启动
 
 # 2.1 节点规划
-目前计划三个节点, peer1, peer2, peer3
+目前计划四个节点, bootstrap node, 三个成员节点： node1, node2, node3
 
 ## 首先创建配置文件：
 ```json
@@ -70,6 +70,9 @@ GOROOT=go
   "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
 }
 ```
+
+
+
 
 ## 给peer1生成数据目录
 ```shell
@@ -180,6 +183,8 @@ eth.getBalance("0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb")
 admin.addPeer("enode://46e832964476876c6c26f34855c500bd98a1e14bb9d9c038cf9b4219893db4c7f561a7103910b5deaab396782d54205e5ea10f82a9a64e8e136f2edb62b04809@127.0.0.1:30305?discport=0")
 
 ```
+
+https://blog.csdn.net/gao131360144/article/details/79611357
 
 
 名词解释:

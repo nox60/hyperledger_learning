@@ -256,6 +256,19 @@ geth attach data/geth.ipc --exec admin.nodeInfo.enr
 
 ### 3.2.1 启动 peer1 节点
 
+首先，启动成员节点的命令如下：
 
+```shell
+geth --datadir data-x \
+--port portValue \
+--bootnodes bootstrap-node-record
+```
+
+然后可以通过下面的命令判断成员节点是否加入了区块链网络
+
+其中,
+
+data-x 为成员节点的专属目录，每一个成员节点需要有一个自己专属的目录，如果多个成员节点用相同的目录会发生数据错误。
+networkId 必须和bootstrap node 节点启动时候的 networkid值一致。
 
 # 4. 操作

@@ -326,4 +326,8 @@ https://github.com/ethereum/go-ethereum/issues/18350
 
 https://blog.csdn.net/zhangnero/article/details/96133289
 
+https://pragmaticdlt.com/insights/setupclique.html
+
+https://medium.com/@gracile/setting-up-an-ethereum-virtual-private-network-462355f1976e
+
 # 4. 操作

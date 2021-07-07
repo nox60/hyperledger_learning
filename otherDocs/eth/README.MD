@@ -186,6 +186,8 @@ admin.addPeer("enode://46e832964476876c6c26f34855c500bd98a1e14bb9d9c038cf9b42198
 
 https://blog.csdn.net/gao131360144/article/details/79611357
 
+https://geth.ethereum.org/docs/interface/private-network
+
 
 名词解释:
 https://gist.github.com/0mkara/b953cc2585b18ee098cd

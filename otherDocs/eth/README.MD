@@ -278,6 +278,35 @@ networkIdValue 必须和bootstrap node 节点启动时候的 networkid值一致�
 portValue 值是为该节点分配的通信端口
 bootstrap-node-record bootstrap 节点的连接信息编码，在3.1节中有获取
 
-因此，例子
+命令例子为：
+```shell
+geth --datadir data-1 \
+--port 30304 \
+--networkid 15 \
+--bootnodes "enr:-KW4QMUQDs_KlUmzbQbUl52IAD7iqgb1a0MyHzIai3S69B3OFwVMcnzV2HMISIMyFzZEnfuRuiETTmFNrEjh9Vktv6gCg2V0aMfGhEQV6vaAgmlkgnY0gmlwhN7T1-KJc2VjcDI1NmsxoQJ1B7CyJvXsWOvL-ioK7hBg9PB_AxUlaccdI47iVyz7z4RzbmFwwIN0Y3CCdl-DdWRwgn-BhHVkcDaCdl8"
+```
+
+通过下面的命令例子可以查询到加入区块链网络中的节点信息：
+
+```shell
+[root@localhost eth]# geth attach data/geth.ipc --exec admin.peers
+[{
+    caps: ["eth/64", "eth/65", "eth/66", "snap/1"],
+    enode: "enode://46f61838e0c0a0b5866c5e1cf7db830ebe464e92d6e543a0af19094655a151a64fda7ec33a158a20b5de5abc9d69db181eeb1ab1949d7dc6e28c9b953080a201@194.233.73.201:30303",
+    id: "a49726efddbb25e3d1e7c17a35583d24afdd92dd5a510c3ff12af6bb36bc7e51",
+    name: "Geth/v1.0.3-stable-8ba9f5de/linux-amd64/go1.16.5",
+    network: {
+      inbound: false,
+      localAddress: "192.168.88.131:60712",
+      remoteAddress: "194.233.73.201:30303",
+      static: false,
+      trusted: false
+    },
+    protocols: {
+      eth: "handshake",
+      snap: "handshake"
+    }
+}]
+```
 
 # 4. 操作

@@ -37,7 +37,7 @@ GOROOT=go
 # 2.1 节点规划
 目前计划三个节点, peer1, peer2, peer3
 
-首先生成创世区块, 配置创世区块的配置文件：
+## 首先创建配置文件：
 ```json
 {
   "config": {
@@ -70,6 +70,29 @@ GOROOT=go
   "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
 }
 ```
+
+## 给peer1生成数据目录
+```shell
+geth  \
+--datadir /root/eth/data1 \
+init /root/eth/genesis.json
+```
+
+## 给peer2生成数据目录
+```shell
+geth  \
+--datadir /root/eth/data2 \
+init /root/eth/genesis.json
+```
+
+## 给peer3生成数据目录
+```shell
+geth  \
+--datadir /root/eth/data3 \
+init /root/eth/genesis.json
+```
+
+
 
 名词解释:
 https://gist.github.com/0mkara/b953cc2585b18ee098cd

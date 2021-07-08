@@ -231,13 +231,14 @@ https://gist.github.com/0mkara/b953cc2585b18ee098cd
 
 ## 3.1 启动 bootstrap node 节点
 
+初始化bootstrap node节点（生成创世区块信息）
 ```shell
 geth init --datadir data genesis.json
 ```
 
 启动 bootstrap node 节点
 ```shell
-geth --datadir data --networkid 15 --port 30303 --http --http.addr 127.0.0.1 
+geth --datadir data --networkid 15897 --port 30303  --nodiscover
 ```
 
 执行命令，获得bootstrap节点的连接信息编码，后续会用于其他节点启动的时候加入该私有eth网络
@@ -260,8 +261,8 @@ geth attach data/geth.ipc --exec admin.nodeInfo.enr
 
 ```shell
 geth --datadir data-x \
---http.addr 127.0.0.1 \
 --port portValue \
+--nodiscover \
 --networkid networkIdValue
 --bootnodes bootstrap-node-record
 ```
@@ -308,6 +309,29 @@ geth --datadir data-1 \
       snap: "handshake"
     }
 }]
+```
+
+
+
+
+成功的代码片段：
+
+```shell
+geth init --datadir data genesis.json
+
+geth --datadir data --networkid 15444 --nat extip:127.0.0.1
+
+
+geth init --datadir data-1 genesis.json
+
+
+geth --datadir data-1 \
+--nat extip:127.0.0.1 \
+--port 30304 \
+--networkid 15444 \
+--bootnodes "enr:-J24QPL68y7B9J-IBOzhQLIT6kh3hpVdVITiKjhzFmv6m61HBdve5qIuUJqvVAKrF4K2SVWp64qxJIlkjHQuEwF2NJABg2V0aMfGhJ2pRlqAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQKM9uWGM-1i-_kFUIOD4iyRLxHg05nC963lAo6ZVZsNgoRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+
+
 ```
 
 ### 3.2.2 启动 peer2 节点

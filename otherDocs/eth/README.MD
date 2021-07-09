@@ -266,10 +266,31 @@ geth attach data/geth.ipc --exec admin.peers
 
 ```
 
+可以看到加入三个成员节点信息
 
+## 创建账户
+新开一个shell窗口，通过下面的命令，登录到peer1的控制台，通过更改数据目录路径，也可以登录到其他peer
 
+```shell
+geth attach data-1/geth.ipc
+```
 
-创建一个账户，在peer1的控制台里创建，创建的时候输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户地址的字符串：
+登录成功会进入到控制台，如下所示：
+
+```shell
+[root@fabric70 eth]# geth attach data-1/geth.ipc
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4
+at block: 0 (Mon Feb 17 2020 16:49:54 GMT+0800 (CST))
+ datadir: /root/eth/data-1
+ modules: admin:1.0 debug:1.0 eth:1.0 ethash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+To exit, press ctrl-d
+>
+```
+
+输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户地址的字符串，代表用户创建成功：
 
 ```shell
 > personal.newAccount()
@@ -432,45 +453,6 @@ geth --datadir data-1 \
       snap: "handshake"
     }
 }]
-```
-
-
-
-
-成功的代码片段：
-
-```shell
-geth init --datadir data genesis.json
-
-geth --datadir data --networkid 15444 --nat extip:127.0.0.1 --netrestrict 127.0.0.1/8
-
-// --nodiscover 参数会造成UDP协议丢失
-// 通过--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
-
-geth init --datadir data-1 genesis.json
-
-geth attach data/geth.ipc --exec admin.nodeInfo.enr
-
-geth --datadir data-1 \
---nat extip:127.0.0.1 \
---port 30304 \
---networkid 15444 \
---netrestrict 127.0.0.1/8 \
---bootnodes "enr:-J24QC0xjDDrHh1oJmSJ3zlPq8tcy0ZPyrhtHhtc6AiDdsoqTja6oVRjY8VONWcboGQPg4vbYM0_Y-R1Pcj6-vWiHg8Bg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQJUcgpx2I6wcuwFEmgivcsHHqPYmureHm2Dwure0quj84RzbmFwwIN0Y3CCdl-DdWRwgnZf"
-
-geth init --datadir data-2 genesis.json
-
-geth --datadir data-2 \
---nat extip:127.0.0.1 \
---port 30305 \
---networkid 15444 \
---netrestrict 127.0.0.1/8 \
---bootnodes "enr:-J24QC0xjDDrHh1oJmSJ3zlPq8tcy0ZPyrhtHhtc6AiDdsoqTja6oVRjY8VONWcboGQPg4vbYM0_Y-R1Pcj6-vWiHg8Bg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQJUcgpx2I6wcuwFEmgivcsHHqPYmureHm2Dwure0quj84RzbmFwwIN0Y3CCdl-DdWRwgnZf"
-
-geth attach data/geth.ipc --exec admin.peers
-
-
-
 ```
 
 ### 3.2.2 启动 peer2 节点

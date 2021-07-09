@@ -322,6 +322,7 @@ geth init --datadir data genesis.json
 geth --datadir data --networkid 15444 --nat extip:127.0.0.1 --netrestrict 127.0.0.1/8
 
 // --nodiscover 参数会造成UDP协议丢失
+// 通过--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
 
 geth init --datadir data-1 genesis.json
 
@@ -331,9 +332,8 @@ geth --datadir data-1 \
 --nat extip:127.0.0.1 \
 --port 30304 \
 --networkid 15444 \
+--netrestrict 127.0.0.1/8 \
 --bootnodes "enr:-J24QC0xjDDrHh1oJmSJ3zlPq8tcy0ZPyrhtHhtc6AiDdsoqTja6oVRjY8VONWcboGQPg4vbYM0_Y-R1Pcj6-vWiHg8Bg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQJUcgpx2I6wcuwFEmgivcsHHqPYmureHm2Dwure0quj84RzbmFwwIN0Y3CCdl-DdWRwgnZf"
-
-
 
 geth init --datadir data-2 genesis.json
 
@@ -341,8 +341,8 @@ geth --datadir data-2 \
 --nat extip:127.0.0.1 \
 --port 30305 \
 --networkid 15444 \
+--netrestrict 127.0.0.1/8 \
 --bootnodes "enr:-J24QC0xjDDrHh1oJmSJ3zlPq8tcy0ZPyrhtHhtc6AiDdsoqTja6oVRjY8VONWcboGQPg4vbYM0_Y-R1Pcj6-vWiHg8Bg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQJUcgpx2I6wcuwFEmgivcsHHqPYmureHm2Dwure0quj84RzbmFwwIN0Y3CCdl-DdWRwgnZf"
-
 
 geth attach data/geth.ipc --exec admin.peers
 

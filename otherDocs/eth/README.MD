@@ -296,13 +296,14 @@ To exit, press ctrl-d
 > personal.newAccount()
 Passphrase:
 Repeat passphrase:
-"0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb"
+"0x6402fd89e87127908b54b7a18e6ac4d251dc0fcd"
 ```
 
 通过下面的命令获取账户余额？ eth.getBalance("ENTER_ACCOUNT_ADDRESS_HERE") 
 
 ```shell
-eth.getBalance("0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb") 
+> eth.getBalance("0x6402fd89e87127908b54b7a18e6ac4d251dc0fcd")
+0
 ```
 
 列处当前节点所有的账户信息
@@ -311,6 +312,24 @@ eth.getBalance("0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb")
 > personal.listAccounts
 ["0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb"]
 ```
+
+列出区块总数：
+
+```shell
+eth.blockNumber
+```
+
+## 现在可以开始挖矿
+执行命令 miner.start() , 则当前账户？会开始挖矿
+
+```shell
+> miner.start()
+null
+```
+
+在执行挖矿之后，执行eth.blockNumber可以看到系统中目前的区块总数在增加，也可以从输出中可以看到成功挖矿的信息
+
+
 
 ### 将节点加入私有网络
 

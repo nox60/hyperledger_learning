@@ -319,17 +319,33 @@ geth --datadir data-1 \
 ```shell
 geth init --datadir data genesis.json
 
-geth --datadir data --networkid 15444 --nat extip:127.0.0.1
+geth --datadir data --networkid 15444 --nat extip:127.0.0.1 --netrestrict 127.0.0.1/8
 
+// --nodiscover 参数会造成UDP协议丢失
 
 geth init --datadir data-1 genesis.json
 
+geth attach data/geth.ipc --exec admin.nodeInfo.enr
 
 geth --datadir data-1 \
 --nat extip:127.0.0.1 \
 --port 30304 \
 --networkid 15444 \
---bootnodes "enr:-J24QPL68y7B9J-IBOzhQLIT6kh3hpVdVITiKjhzFmv6m61HBdve5qIuUJqvVAKrF4K2SVWp64qxJIlkjHQuEwF2NJABg2V0aMfGhJ2pRlqAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQKM9uWGM-1i-_kFUIOD4iyRLxHg05nC963lAo6ZVZsNgoRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+--bootnodes "enr:-J24QC0xjDDrHh1oJmSJ3zlPq8tcy0ZPyrhtHhtc6AiDdsoqTja6oVRjY8VONWcboGQPg4vbYM0_Y-R1Pcj6-vWiHg8Bg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQJUcgpx2I6wcuwFEmgivcsHHqPYmureHm2Dwure0quj84RzbmFwwIN0Y3CCdl-DdWRwgnZf"
+
+
+
+geth init --datadir data-2 genesis.json
+
+geth --datadir data-2 \
+--nat extip:127.0.0.1 \
+--port 30305 \
+--networkid 15444 \
+--bootnodes "enr:-J24QC0xjDDrHh1oJmSJ3zlPq8tcy0ZPyrhtHhtc6AiDdsoqTja6oVRjY8VONWcboGQPg4vbYM0_Y-R1Pcj6-vWiHg8Bg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQJUcgpx2I6wcuwFEmgivcsHHqPYmureHm2Dwure0quj84RzbmFwwIN0Y3CCdl-DdWRwgnZf"
+
+
+geth attach data/geth.ipc --exec admin.peers
+
 
 
 ```

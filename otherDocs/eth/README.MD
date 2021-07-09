@@ -71,37 +71,68 @@ GOROOT=go
 }
 ```
 
+## bootstrap node
 
-
-
-## 给peer1生成数据目录
+给bootstrap node生成数据目录
 ```shell
-geth  \
---datadir /root/eth/data1 \
-init /root/eth/genesis.json
+geth init --datadir data genesis.json
 ```
 
 会看到类似下面的输出，表示生成成功
 ```shell
-INFO [07-07|11:19:37.581] Maximum peer count                       ETH=50 LES=0 total=50
-INFO [07-07|11:19:37.581] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"
-INFO [07-07|11:19:37.582] Set global gas cap                       cap=50,000,000
-INFO [07-07|11:19:37.582] Allocated cache and file handles         database=/root/eth/data1/geth/chaindata cache=16.00MiB handles=16
-INFO [07-07|11:19:37.584] Writing custom genesis block
-INFO [07-07|11:19:37.585] Persisted trie from memory database      nodes=1 size=171.00B time="71.126µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-INFO [07-07|11:19:37.585] Successfully wrote genesis state         database=chaindata                      hash=ebe338..3c33b2
-INFO [07-07|11:19:37.585] Allocated cache and file handles         database=/root/eth/data1/geth/lightchaindata cache=16.00MiB handles=16
-INFO [07-07|11:19:37.587] Writing custom genesis block
-INFO [07-07|11:19:37.587] Persisted trie from memory database      nodes=1 size=171.00B time="25.419µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-INFO [07-07|11:19:37.587] Successfully wrote genesis state         database=lightchaindata                      hash=ebe338..3c33b2
+[root@fabric70 eth]# geth init --datadir data genesis.json
+INFO [07-09|15:24:41.101] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [07-09|15:24:41.101] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"
+INFO [07-09|15:24:41.102] Set global gas cap                       cap=50,000,000
+INFO [07-09|15:24:41.102] Allocated cache and file handles         database=/root/eth/data/geth/chaindata cache=16.00MiB handles=16
+INFO [07-09|15:24:41.105] Writing custom genesis block
+INFO [07-09|15:24:41.107] Persisted trie from memory database      nodes=1 size=171.00B time="58.47µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-09|15:24:41.107] Successfully wrote genesis state         database=chaindata                     hash=ebe338..3c33b2
+INFO [07-09|15:24:41.107] Allocated cache and file handles         database=/root/eth/data/geth/lightchaindata cache=16.00MiB handles=16
+INFO [07-09|15:24:41.108] Writing custom genesis block
+INFO [07-09|15:24:41.109] Persisted trie from memory database      nodes=1 size=171.00B time="29.327µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-09|15:24:41.109] Successfully wrote genesis state         database=lightchaindata                     hash=ebe338..3c33b2
 ```
 
-## 给peer2生成数据目录
+启动 bootstrap node
 ```shell
-geth  \
---datadir /root/eth/data2 \
-init /root/eth/genesis.json
+geth --datadir data --networkid 15444 --nat extip:127.0.0.1 --netrestrict 127.0.0.1/8
 ```
+
+其中--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
+
+
+另外打开一个shell窗口，然后通过命令获取 bootstrap node 的连接信息，用于后续成员节点和bootstrap node建立连接
+
+```shell
+geth attach data/geth.ipc --exec admin.nodeInfo.enr
+```
+
+会有下面的输出：
+```shell
+[root@fabric70 eth]# geth attach data/geth.ipc --exec admin.nodeInfo.enr
+"enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+```
+
+保存输出结果，后续需要使用
+
+## peer1
+
+生成peer1的数据目录：
+
+```shell
+geth init --datadir data-1 genesis.json
+```
+
+```shell
+geth --datadir data-1 \
+--nat extip:127.0.0.1 \
+--port 30304 \
+--networkid 15444 \
+--netrestrict 127.0.0.1/8 \
+--bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+```
+
 
 ## 给peer3生成数据目录
 ```shell

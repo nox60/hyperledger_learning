@@ -145,24 +145,7 @@ geth init --datadir data-2 genesis.json
 ```
 
 ```shell
-geth --datadir data-1 \
---nat extip:127.0.0.1 \
---port 30305 \
---networkid 15444 \
---netrestrict 127.0.0.1/8 \
---bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
-```
-
-## peer2
-
-生成peer2的数据目录：
-
-```shell
-geth init --datadir data-2 genesis.json
-```
-
-```shell
-geth --datadir data-1 \
+geth --datadir data-2 \
 --nat extip:127.0.0.1 \
 --port 30305 \
 --networkid 15444 \
@@ -187,8 +170,29 @@ geth --datadir data-1 \
 --bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
+## peer3
+
+生成peer3的数据目录：
+
+```shell
+geth init --datadir data-3 genesis.json
+```
+
+```shell
+geth --datadir data-1 \
+--nat extip:127.0.0.1 \
+--port 30306 \
+--networkid 15444 \
+--netrestrict 127.0.0.1/8 \
+--bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+```
+
 
 ## 验证
+```shell
+geth attach data/geth.ipc --exec admin.peers
+```
+
 
 
 

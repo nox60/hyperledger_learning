@@ -133,49 +133,65 @@ geth --datadir data-1 \
 --bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
+其中port值需要和bootstrap的port不能一样，避免冲突
 
-## 给peer3生成数据目录
+
+## peer2
+
+生成peer2的数据目录：
+
 ```shell
-geth  \
---datadir /root/eth/data3 \
-init /root/eth/genesis.json
+geth init --datadir data-2 genesis.json
 ```
 
-## 启动peer1
 ```shell
-geth \
---datadir /root/eth/data1 \
---networkid 123 --port 30303 --nodiscover
+geth --datadir data-1 \
+--nat extip:127.0.0.1 \
+--port 30305 \
+--networkid 15444 \
+--netrestrict 127.0.0.1/8 \
+--bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
-### 连接peer1
+## peer2
+
+生成peer2的数据目录：
+
 ```shell
-geth attach /root/eth/data1/geth.ipc
+geth init --datadir data-2 genesis.json
 ```
 
-## 启动peer2
 ```shell
-geth \
---datadir /root/eth/data2 \
---networkid 123 --port 30304 --nodiscover
+geth --datadir data-1 \
+--nat extip:127.0.0.1 \
+--port 30305 \
+--networkid 15444 \
+--netrestrict 127.0.0.1/8 \
+--bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
-### 连接peer2
+## peer3
+
+生成peer3的数据目录：
+
 ```shell
-geth attach /root/eth/data2/geth.ipc
+geth init --datadir data-3 genesis.json
 ```
 
-## 启动peer3
 ```shell
-geth \
---datadir /root/eth/data3 \
---networkid 123 --port 30305 --nodiscover
+geth --datadir data-1 \
+--nat extip:127.0.0.1 \
+--port 30306 \
+--networkid 15444 \
+--netrestrict 127.0.0.1/8 \
+--bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
-### 连接peer3
-```shell
-geth attach /root/eth/data3/geth.ipc
-```
+
+## 验证
+
+
+
 
 创建一个账户，在peer1的控制台里创建，创建的时候输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户地址的字符串：
 

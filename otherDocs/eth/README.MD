@@ -162,7 +162,7 @@ geth init --datadir data-3 genesis.json
 ```
 
 ```shell
-geth --datadir data-1 \
+geth --datadir data-3 \
 --nat extip:127.0.0.1 \
 --port 30306 \
 --networkid 15444 \
@@ -193,6 +193,78 @@ geth --datadir data-1 \
 geth attach data/geth.ipc --exec admin.peers
 ```
 
+会得到下面的输出结果
+```shell
+[root@fabric70 eth]# geth attach data/geth.ipc --exec admin.peers
+[{
+    caps: ["eth/65", "eth/66", "snap/1"],
+    enode: "enode://d102ed4f1cec74f003f48ad7bd378fe5e672a265aa13c52d4b13b53a098104a622dedd8281a733fa2582f7a0e3da9c0279dd81d1bbb53d7756eb15c6598e13ca@127.0.0.1:58450",
+    id: "0cb31f976a96363a148defa961b70c1a2624f91fb3595c24ffcda45c264d31b6",
+    name: "Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4",
+    network: {
+      inbound: true,
+      localAddress: "127.0.0.1:30303",
+      remoteAddress: "127.0.0.1:58450",
+      static: false,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 4194304,
+        head: "0xebe33838a934184e6d3738da1685cc191e399a64b934ee5f349a36f6c13c33b2",
+        version: 66
+      },
+      snap: {
+        version: 1
+      }
+    }
+}, {
+    caps: ["eth/65", "eth/66", "snap/1"],
+    enode: "enode://2af844cebc79149a9dad81a472da6b3826207f8ae43ec45fe64417cb93865c9317ab6c7bb342672951dee6d0b89d3978a14accff9564519927a74bcab34a2814@127.0.0.1:58442",
+    id: "3e87be3acaf1510dec7f0400ba962ab4cc3ad41af96a5a2971a99a14026ecf7c",
+    name: "Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4",
+    network: {
+      inbound: true,
+      localAddress: "127.0.0.1:30303",
+      remoteAddress: "127.0.0.1:58442",
+      static: false,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 4194304,
+        head: "0xebe33838a934184e6d3738da1685cc191e399a64b934ee5f349a36f6c13c33b2",
+        version: 66
+      },
+      snap: {
+        version: 1
+      }
+    }
+}, {
+    caps: ["eth/65", "eth/66", "snap/1"],
+    enode: "enode://47af6f44228cb7b209e457b44c18d14ffcd87cd06f074abe026dc704dbb48ba4c0e6e3b66c63526d7653b6a690ae1a6a9a2dbedf2ca92edf451fa4f86c55fc28@127.0.0.1:58448",
+    id: "5b7c5cdcf5e2a48f9b84e4afbda09f54263ae0de567a17352a6f1a55b8c7a97a",
+    name: "Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4",
+    network: {
+      inbound: true,
+      localAddress: "127.0.0.1:30303",
+      remoteAddress: "127.0.0.1:58448",
+      static: false,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 4194304,
+        head: "0xebe33838a934184e6d3738da1685cc191e399a64b934ee5f349a36f6c13c33b2",
+        version: 66
+      },
+      snap: {
+        version: 1
+      }
+    }
+}]
+
+```
 
 
 

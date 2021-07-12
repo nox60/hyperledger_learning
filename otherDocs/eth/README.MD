@@ -170,23 +170,6 @@ geth --datadir data-3 \
 --bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
-## peer3
-
-生成peer3的数据目录：
-
-```shell
-geth init --datadir data-3 genesis.json
-```
-
-```shell
-geth --datadir data-1 \
---nat extip:127.0.0.1 \
---port 30306 \
---networkid 15444 \
---netrestrict 127.0.0.1/8 \
---bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
-```
-
 
 ## 验证
 ```shell
@@ -266,10 +249,10 @@ geth attach data/geth.ipc --exec admin.peers
 
 ```
 
-可以看到加入三个成员节点信息
+通过上面的输出信息，可以看到加入三个成员节点信息
 
 ## 创建账户
-新开一个shell窗口，通过下面的命令，登录到peer1的控制台，通过更改数据目录路径，也可以登录到其他peer
+新开一个shell窗口，通过下面的命令，可以登录到peer1的控制台，通过更改数据目录路径，也可以登录到其他peer
 
 ```shell
 geth attach data-1/geth.ipc
@@ -327,9 +310,12 @@ eth.blockNumber
 null
 ```
 
-在执行挖矿之后，执行eth.blockNumber可以看到系统中目前的区块总数在增加，也可以从输出中可以看到成功挖矿的信息
+在执行挖矿之后，在任何一个节点的控制台终端执行eth.blockNumber可以看到系统中目前的区块总数在增加，也可以从输出中可以看到成功挖矿的信息
 
-
+```shell
+> eth.blockNumber
+22
+```
 
 ### 将节点加入私有网络
 

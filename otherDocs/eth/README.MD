@@ -167,6 +167,9 @@ geth --datadir data-3 \
 --port 30306 \
 --networkid 15444 \
 --netrestrict 127.0.0.1/8 \
+--http \
+--http.addr 127.0.0.1 \
+--http.port 8545 \
 --bootnodes "enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 

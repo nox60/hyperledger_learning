@@ -15,13 +15,33 @@
 # 2. 参数列表与说明
 
 
-|参数       | 说明      |
-|---------  | --------- | 
+| 命令 |参数       | 说明      |
+|--------- | ---------  | --------- | 
+| web3_clientVersion | 无 | 返回当前客户端版本|
 
 
 
 
 # 3. 调用例子
+
+web3_clientVersion
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
+
+
+
+
 
 # 4. 参考文档
 

@@ -32,12 +32,13 @@ GOROOT=go
 
 从上面看，geth命令已经可以执行。
 
-# 2. 环境规划与服务启动
+# 2. 环境规划与服务启动(二进制方式)
 
 # 2.1 节点规划
 目前计划四个节点, bootstrap node, 三个成员节点： node1, node2, node3
 
-## 首先创建配置文件：
+# 2.2 启动
+## 配置文件：
 ```json
 {
   "config": {
@@ -328,6 +329,95 @@ null
 ```
 
 至此，私有以太坊网络的搭建测试工作结束
+
+
+
+# 3. 环境规划与服务启动(容器方式)
+此处假设容器环境已经安装配置好
+
+# 2.1 节点规划
+目前计划四个节点, bootstrap node, 三个成员节点： node1, node2, node3
+
+# 2.2 启动
+## 配置文件：
+```json
+{
+  "config": {
+    "chainId": 10,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "ethash": {}
+  },
+  "nonce": "0x0",
+  "timestamp": "0x5e4a53b2",
+  "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "gasLimit": "0x47b760",
+  "difficulty": "0x400000",
+  "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "coinbase": "0x0000000000000000000000000000000000000000",
+  "alloc": {
+    "0000000000000000000000000000000000000088": {
+      "balance": "0x200000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "number": "0x0",
+  "gasUsed": "0x0",
+  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+}
+```
+
+## bootstrap node
+
+给bootstrap node生成数据目录
+```shell
+geth init --datadir data genesis.json
+```
+
+会看到类似下面的输出，表示生成成功
+```shell
+[root@fabric70 eth]# geth init --datadir data genesis.json
+INFO [07-09|15:24:41.101] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [07-09|15:24:41.101] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"
+INFO [07-09|15:24:41.102] Set global gas cap                       cap=50,000,000
+INFO [07-09|15:24:41.102] Allocated cache and file handles         database=/root/eth/data/geth/chaindata cache=16.00MiB handles=16
+INFO [07-09|15:24:41.105] Writing custom genesis block
+INFO [07-09|15:24:41.107] Persisted trie from memory database      nodes=1 size=171.00B time="58.47µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-09|15:24:41.107] Successfully wrote genesis state         database=chaindata                     hash=ebe338..3c33b2
+INFO [07-09|15:24:41.107] Allocated cache and file handles         database=/root/eth/data/geth/lightchaindata cache=16.00MiB handles=16
+INFO [07-09|15:24:41.108] Writing custom genesis block
+INFO [07-09|15:24:41.109] Persisted trie from memory database      nodes=1 size=171.00B time="29.327µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-09|15:24:41.109] Successfully wrote genesis state         database=lightchaindata                     hash=ebe338..3c33b2
+```
+
+启动 bootstrap node
+```shell
+geth --datadir data --networkid 15444 --nat extip:127.0.0.1 --netrestrict 127.0.0.1/8
+```
+
+其中--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
+
+
+另外打开一个shell窗口，然后通过命令获取 bootstrap node 的连接信息，用于后续成员节点和bootstrap node建立连接
+
+```shell
+geth attach data/geth.ipc --exec admin.nodeInfo.enr
+```
+
+会有下面的输出：
+```shell
+[root@fabric70 eth]# geth attach data/geth.ipc --exec admin.nodeInfo.enr
+"enr:-J24QBCYNCj7n5y3t2SmlIacNeBlEkpCPvYSq-cmD3NSKax3AKmrmJuY0NW4xARbS09V39tccAYIH4XJbctCpwPOudIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQL67TQygqKRp1u1a5g2d-0otm-095iwRxX5PUdDpfc2OYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+```
+
+保存输出结果，后续需要使用
+
 
 
 

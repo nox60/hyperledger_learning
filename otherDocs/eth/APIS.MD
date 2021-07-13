@@ -19,8 +19,8 @@
 |--------- | ---------  | --------- | 
 | <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
 | <a href="#web3_sha3"> web3_sha3 </a> | 无 | 对给定字符串进行基于sha3算法的散列计算|
-| <a href="#net_version"> net_version </a> | 无 | 返回当前客户端版本|
-| <a href="#net_peerCount"> net_peerCount </a> | 无 | 返回当前客户端版本|
+| <a href="#net_version"> net_version </a> | 无 | 返回当前网络类型|
+| <a href="#net_peerCount"> net_peerCount </a> | 无 | 返回当前网络中的节点数量|
 | <a href="#net_listening"> net_listening </a> | 无 | 返回当前客户端版本|
 | <a href="#eth_protocolVersion"> eth_protocolVersion </a> | 无 | 返回当前客户端版本|
 | <a href="#eth_syncing"> eth_syncing </a> | 无 | 返回当前客户端版本|
@@ -96,7 +96,6 @@ curl -i -H "Content-Type: application/json"  \
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
 --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}'
-
 ```
 
 **结果示例：**
@@ -107,41 +106,45 @@ curl -i -H "Content-Type: application/json"  \
 
 **结果说明：**
 
-返回当前网络的类型，其中
+返回当前网络的类型，说明如下:
+- "1": 以太坊主网
+- "2": Morden测试网络 (废弃)
+- "3": Ropsten测试网络
+- "4": Rinkeby测试网络
+- "42": Kovan测试网络
+- "其他值": 自定义的私有测试网络
 
 
 ### <a name="net_peerCount">net_peerCount</a>
 ***
 
-调用例子：
+**参数说明：**
+
+无
+
+**请求示例：**
+
 ```shell
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+--data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'
 ```
 
-调用结果：
+**结果示例：**
+
 ```json
-{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+{"jsonrpc":"2.0","id":74,"result":"0x3"}
 ```
 
+**结果说明：**
 
+当前网络中的节点数量
 
 
 ### <a name="net_listening">net_listening</a>
 ***
 
-调用例子：
-```shell
-curl -i -H "Content-Type: application/json"  \
--X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
-```
 
-调用结果：
-```json
-{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
-```
 
 
 
@@ -150,17 +153,7 @@ curl -i -H "Content-Type: application/json"  \
 ### <a name="eth_protocolVersion">eth_protocolVersion</a>
 ***
 
-调用例子：
-```shell
-curl -i -H "Content-Type: application/json"  \
--X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
-```
 
-调用结果：
-```json
-{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
-```
 
 
 
@@ -169,17 +162,7 @@ curl -i -H "Content-Type: application/json"  \
 ### <a name="eth_syncing">eth_syncing</a>
 ***
 
-调用例子：
-```shell
-curl -i -H "Content-Type: application/json"  \
--X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
-```
 
-调用结果：
-```json
-{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
-```
 
 
 

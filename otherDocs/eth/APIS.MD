@@ -18,7 +18,7 @@
 | 命令 |参数       | 说明      |
 |--------- | ---------  | --------- | 
 | <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_sha3"> web3_sha3 </a> | 无 | 返回当前客户端版本|
+| <a href="#web3_sha3"> web3_sha3 </a> | 无 | 对给定字符串进行基于sha3算法的散列计算|
 | <a href="#net_version"> net_version </a> | 无 | 返回当前客户端版本|
 | <a href="#net_peerCount"> net_peerCount </a> | 无 | 返回当前客户端版本|
 | <a href="#net_listening"> net_listening </a> | 无 | 返回当前客户端版本|
@@ -33,50 +33,74 @@
 ### <a name="web3_clientVersion">web3_clientVersion</a>
 ***
 
-调用例子：
+参数说明：
+
+无
+
+请求示例：
+
 ```shell
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
 --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
 ```
 
-调用结果：
+结果示例：
+
 ```json
 {"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
 ```
 
+结果说明：
+
+返回结果是当前客户端版本信息。
 
 ### <a name="web3_sha3">web3_sha3</a>
 ***
 
-调用例子：
+参数说明：
+输入参数需要将原参数进行hex编码，然后在编码结果之前加上0x。
+
+请求示例：
 ```shell
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+--data '{"jsonrpc":"2.0","method":"web3_sha3","params":["0x617364667361667361646673616466736661736466736166736164667361646673616466736164666173646673616466736164667361646661736664617364666173646673616466736166736164666173646673616664"],"id":64}'
+
 ```
 
-调用结果：
+结果示例：
 ```json
-{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+{"jsonrpc":"2.0","id":64,"result":"0x799a7a51721fc630d72f08033d5846a8cfeb3b66a7daf1a1e2a7b4fbbae1f480"}
 ```
 
+结果说明：
+输出结果是经过sha3散列计算之后的结果，但是也是hex编码的，结果前面加上了0x。
 
 
 ### <a name="net_version">net_version</a>
 ***
 
-调用例子：
+参数说明：
+
+无
+
+请求示例：
+
 ```shell
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+--data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}'
+
 ```
 
-调用结果：
+结果示例：
 ```json
-{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+{"jsonrpc":"2.0","id":67,"result":"15444"}
 ```
+
+结果说明：
+返回当前网络的类型，其中
 
 
 ### <a name="net_peerCount">net_peerCount</a>
@@ -149,6 +173,7 @@ curl -i -H "Content-Type: application/json"  \
 ```json
 {"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
 ```
+
 
 
 

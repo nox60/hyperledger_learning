@@ -18,12 +18,12 @@
 | 命令 |参数       | 说明      |
 |--------- | ---------  | --------- | 
 | <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
+| <a href="#web3_sha3"> web3_sha3 </a> | 无 | 返回当前客户端版本|
+| <a href="#net_version"> net_version </a> | 无 | 返回当前客户端版本|
+| <a href="#net_peerCount"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
+| <a href="#net_listening"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
+| <a href="#eth_protocolVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
+| <a href="#eth_syncing"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
 
 
 
@@ -46,6 +46,109 @@ curl -i -H "Content-Type: application/json"  \
 ```
 
 
+<a name="web3_sha3">web3_sha3</a>
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
+
+
+
+<a name="net_version">net_version</a>
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
+
+
+<a name="net_peerCount">net_peerCount</a>
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
+
+
+
+
+<a name="net_listening">net_listening</a>
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
+
+
+
+
+
+<a name="eth_protocolVersion">eth_protocolVersion</a>
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
+
+
+
+
+
+<a name="eth_syncing">eth_syncing</a>
+***
+
+调用例子：
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+```
+
+调用结果：
+```json
+{"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
+```
 
 
 

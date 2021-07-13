@@ -33,11 +33,11 @@
 ### <a name="web3_clientVersion">web3_clientVersion</a>
 ***
 
-参数说明：
+**参数说明：**
 
 无
 
-请求示例：
+**请求示例：**
 
 ```shell
 curl -i -H "Content-Type: application/json"  \
@@ -45,23 +45,25 @@ curl -i -H "Content-Type: application/json"  \
 --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
 ```
 
-结果示例：
+**结果示例：**
 
 ```json
 {"jsonrpc":"2.0","id":67,"result":"Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4"}
 ```
 
-结果说明：
+**结果说明：**
 
 返回结果是当前客户端版本信息。
 
 ### <a name="web3_sha3">web3_sha3</a>
 ***
 
-参数说明：
+**参数说明：**
+
 输入参数需要将原参数进行hex编码，然后在编码结果之前加上0x。
 
-请求示例：
+**请求示例：**
+
 ```shell
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
@@ -69,23 +71,25 @@ curl -i -H "Content-Type: application/json"  \
 
 ```
 
-结果示例：
+**结果示例：**
+
 ```json
 {"jsonrpc":"2.0","id":64,"result":"0x799a7a51721fc630d72f08033d5846a8cfeb3b66a7daf1a1e2a7b4fbbae1f480"}
 ```
 
-结果说明：
+**结果说明：**
+
 输出结果是经过sha3散列计算之后的结果，但是也是hex编码的，结果前面加上了0x。
 
 
 ### <a name="net_version">net_version</a>
 ***
 
-参数说明：
+**参数说明：**
 
 无
 
-请求示例：
+**请求示例：**
 
 ```shell
 curl -i -H "Content-Type: application/json"  \
@@ -94,12 +98,14 @@ curl -i -H "Content-Type: application/json"  \
 
 ```
 
-结果示例：
+**结果示例：**
+
 ```json
 {"jsonrpc":"2.0","id":67,"result":"15444"}
 ```
 
-结果说明：
+**结果说明：**
+
 返回当前网络的类型，其中
 
 

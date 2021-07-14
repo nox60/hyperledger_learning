@@ -408,8 +408,8 @@ docker run -it -d --name bootstrap-node \
            ethereum/client-go:stable \
            --datadir /root/eth/data \
            --networkid 15444 \
-           --nat extip:127.0.0.1 \
-           --netrestrict 127.0.0.1/8
+           --nat extip:192.168.16.70 \
+           --netrestrict 192.168.16.1/8 
 ```
 
 其中--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
@@ -428,7 +428,7 @@ docker run --rm -it --name ethereum-info-get \
 >            -v /root/eth/data:/root/eth/data \
 >            ethereum/client-go:stable \
 >            attach /root/eth/data/geth.ipc --exec admin.nodeInfo.enr
-"enr:-J24QO3c3k60bZAA-t4ZYqYRo3QvN0pvg_ml8QRXFCiWOVxDVALmP87FyVX1xHP2zDU7LWTDdxJNKTShDZgu3n68Y2sBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQLbiZVc2OFRfPUfijyaD9iLk8-0FzEnJC_oOySazReWMYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+"enr:-J24QLBrJGyzivSW0LuLFmI3Axd_8F8kn5zUUyFOVn9C0dqtbSmIxUI5tj-gp_O6icDFCrlRrEdeVV6pLlBBUmOueVIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQIoLpuXw16M7cnPdOcVCxhLWKzy4JfTG7OacT-hYJMv9YRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
 保存输出结果，后续需要使用
@@ -449,14 +449,13 @@ docker run --rm -it --name ethereum-temp \
 ```shell
 docker run -it -d --name peer1 \
            -v /root/eth/data-1:/root/eth/data-1 \
-           -p 30304:30304 \
+           -p 30304:30303 \
            ethereum/client-go:stable \
            --datadir /root/eth/data-1 \
-           --port 30304 \
            --networkid 15444 \
-           --nat extip:127.0.0.1 \
-           --netrestrict 127.0.0.1/8 \
-           --bootnodes "enr:-J24QO3c3k60bZAA-t4ZYqYRo3QvN0pvg_ml8QRXFCiWOVxDVALmP87FyVX1xHP2zDU7LWTDdxJNKTShDZgu3n68Y2sBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQLbiZVc2OFRfPUfijyaD9iLk8-0FzEnJC_oOySazReWMYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+           --nat extip:192.168.16.70 \
+           --netrestrict 192.168.16.1/8 \
+           --bootnodes "enr:-J24QLBrJGyzivSW0LuLFmI3Axd_8F8kn5zUUyFOVn9C0dqtbSmIxUI5tj-gp_O6icDFCrlRrEdeVV6pLlBBUmOueVIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQIoLpuXw16M7cnPdOcVCxhLWKzy4JfTG7OacT-hYJMv9YRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
 ## peer2
@@ -474,13 +473,12 @@ docker run --rm -it --name ethereum-temp \
 ```shell
 docker run -it -d --name peer2 \
            -v /root/eth/data-2:/root/eth/data-2 \
-           -p 30305:30305 \
+           -p 30305:30303 \
            ethereum/client-go:stable \
            --datadir /root/eth/data-2 \
-           --port 30305 \
            --networkid 15444 \
-           --nat extip:127.0.0.1 \
-           --netrestrict 127.0.0.1/8 \
+           --nat extip:192.168.16.70 \
+           --netrestrict 192.168.16.1/8 \
            --bootnodes "enr:-J24QO3c3k60bZAA-t4ZYqYRo3QvN0pvg_ml8QRXFCiWOVxDVALmP87FyVX1xHP2zDU7LWTDdxJNKTShDZgu3n68Y2sBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQLbiZVc2OFRfPUfijyaD9iLk8-0FzEnJC_oOySazReWMYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
@@ -499,13 +497,12 @@ docker run --rm -it --name ethereum-temp \
 ```shell
 docker run -it -d --name peer3 \
            -v /root/eth/data-3:/root/eth/data-3 \
-           -p 30306:30306 \
+           -p 30306:30303 \
            ethereum/client-go:stable \
            --datadir /root/eth/data-3 \
-           --port 30306 \
            --networkid 15444 \
-           --nat extip:127.0.0.1 \
-           --netrestrict 127.0.0.1/8 \
+           --nat extip:192.168.16.70 \
+           --netrestrict 192.168.16.1/8 \
            --bootnodes "enr:-J24QO3c3k60bZAA-t4ZYqYRo3QvN0pvg_ml8QRXFCiWOVxDVALmP87FyVX1xHP2zDU7LWTDdxJNKTShDZgu3n68Y2sBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQLbiZVc2OFRfPUfijyaD9iLk8-0FzEnJC_oOySazReWMYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
@@ -697,3 +694,6 @@ https://pragmaticdlt.com/insights/setupclique.html
 
 https://medium.com/@gracile/setting-up-an-ethereum-virtual-private-network-462355f1976e
 
+工具：
+
+https://enr-viewer.com/

@@ -449,9 +449,10 @@ docker run --rm -it --name ethereum-temp \
 ```shell
 docker run -it -d --name peer1 \
            -v /root/eth/data-1:/root/eth/data-1 \
-           -p 30304:30303 \
+           -p 30304:30304 \
            ethereum/client-go:stable \
            --datadir /root/eth/data-1 \
+           --port 30304 \
            --networkid 15444 \
            --nat extip:192.168.16.70 \
            --netrestrict 192.168.16.1/8 \

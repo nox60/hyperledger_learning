@@ -408,8 +408,9 @@ docker run -it -d --name bootstrap-node \
            ethereum/client-go:stable \
            --datadir /root/eth/data \
            --networkid 15444 \
-           --nat extip:192.168.16.70 \
-           --netrestrict 192.168.16.1/8 
+           -verbosity 6 \
+           --nodiscover \
+           --nat extip:192.168.16.70 
 ```
 
 其中--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
@@ -464,9 +465,10 @@ docker run -it -d --name peer1 \
            --datadir /root/eth/data-1 \
            --port 30304 \
            --networkid 15444 \
+           -verbosity 6 \
+           --nodiscover \
            --nat extip:192.168.16.70 \
-           --netrestrict 192.168.16.1/8 \
-           --bootnodes "enr:-J24QMnyMFl2PNEGQcVE7nC16gKW7lLk6GVGXZofmI9ABq3uBkx9TQLtGo3gZ5pafXDnP-wVNIJ4uaz3NSaM0SeaiIsBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQOgCd15sTTJZ994G8zvboX4oM3mKmHnkgSNJ0Aaz02EE4RzbmFwwIN0Y3CCdl-DdWRwgnZf"
+           --bootnodes "enr:-Ja4QC6wBlF48ZtOXXjQ0N5JPo-0hkMgsqlH_9UDrDERtCSdLUSzL6vq9cAMaa6tI-Bo9cxDQHsvq9TJVs646xdrFCMBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQMtxGsuQFqkDRFLW_f0hfMU5Pu_aucDRYLDJyfL7muPSIRzbmFwwIN0Y3CCdl8"
 ```
 
 ## peer2
@@ -685,6 +687,15 @@ null
 
 
 
+admin.addPeer("enode://fe23fd1b7c95f074947271852e1abf095b118d434ac25bf36d59a326a07d248a1aa86fb19a50d52f960d0ece0615d6fc33f831f8965061d644782e15c4daad06@192.168.16.70:30304?discport=0")
+
+
+enode://6c7252bc72a10fd824b280a3d81d988c95d9db046eadb92f085b65133b5ea0cef793e6e0c35fca6c66800f1406cf015281da64f2235dae5f9f1f2c7692b08803@192.168.16.70:30304
+
+
+admin.nodeInfo.enode
+
+"enode://b4233eda453e379a46b8e7e4cd2f6679efadb4f367f2aa388d7a40157810c1e64c2c00647c19ef3ba85e7fdf83796dd8c0ed64dfae20a91a1e3d3cd1746a0bc9@192.168.16.70:30304?discport=0"
 
 
 
@@ -704,6 +715,10 @@ https://gist.github.com/0mkara/b953cc2585b18ee098cd
 https://pragmaticdlt.com/insights/setupclique.html
 
 https://medium.com/@gracile/setting-up-an-ethereum-virtual-private-network-462355f1976e
+
+https://philidor.dev/blog/setup-private-ethereum-network-with-docker/
+
+https://www.coding-bootcamps.com/blog/review-of-ethereum-networking-options.html
 
 工具：
 

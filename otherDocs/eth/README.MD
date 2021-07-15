@@ -486,13 +486,14 @@ docker run --rm -it --name ethereum-temp \
 ```shell
 docker run -it -d --name peer2 \
            -v /root/eth/data-2:/root/eth/data-2 \
-           -p 30305:30303 \
+           -p 30305:30305 \
            ethereum/client-go:stable \
            --datadir /root/eth/data-2 \
+           --port 30305 \
            --networkid 15444 \
+           -verbosity 6 \
            --nat extip:192.168.16.70 \
-           --netrestrict 192.168.16.1/8 \
-           --bootnodes "enr:-J24QO3c3k60bZAA-t4ZYqYRo3QvN0pvg_ml8QRXFCiWOVxDVALmP87FyVX1xHP2zDU7LWTDdxJNKTShDZgu3n68Y2sBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQLbiZVc2OFRfPUfijyaD9iLk8-0FzEnJC_oOySazReWMYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+           --bootnodes "enr:-Ja4QC6wBlF48ZtOXXjQ0N5JPo-0hkMgsqlH_9UDrDERtCSdLUSzL6vq9cAMaa6tI-Bo9cxDQHsvq9TJVs646xdrFCMBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQMtxGsuQFqkDRFLW_f0hfMU5Pu_aucDRYLDJyfL7muPSIRzbmFwwIN0Y3CCdl8"
 ```
 
 ## peer3

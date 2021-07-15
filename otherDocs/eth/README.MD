@@ -428,10 +428,20 @@ docker run --rm -it --name ethereum-info-get \
 >            -v /root/eth/data:/root/eth/data \
 >            ethereum/client-go:stable \
 >            attach /root/eth/data/geth.ipc --exec admin.nodeInfo.enr
-"enr:-J24QLBrJGyzivSW0LuLFmI3Axd_8F8kn5zUUyFOVn9C0dqtbSmIxUI5tj-gp_O6icDFCrlRrEdeVV6pLlBBUmOueVIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQIoLpuXw16M7cnPdOcVCxhLWKzy4JfTG7OacT-hYJMv9YRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+"enr:-J24QMnyMFl2PNEGQcVE7nC16gKW7lLk6GVGXZofmI9ABq3uBkx9TQLtGo3gZ5pafXDnP-wVNIJ4uaz3NSaM0SeaiIsBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQOgCd15sTTJZ994G8zvboX4oM3mKmHnkgSNJ0Aaz02EE4RzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
 保存输出结果，后续需要使用
+
+```shell
+docker run --rm -it --name ethereum-info-get \
+           -v /root/eth/data:/root/eth/data \
+           ethereum/client-go:stable \
+           attach /root/eth/data/geth.ipc 
+```
+
+
+
 
 
 ## peer1
@@ -456,7 +466,7 @@ docker run -it -d --name peer1 \
            --networkid 15444 \
            --nat extip:192.168.16.70 \
            --netrestrict 192.168.16.1/8 \
-           --bootnodes "enr:-J24QLBrJGyzivSW0LuLFmI3Axd_8F8kn5zUUyFOVn9C0dqtbSmIxUI5tj-gp_O6icDFCrlRrEdeVV6pLlBBUmOueVIBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQIoLpuXw16M7cnPdOcVCxhLWKzy4JfTG7OacT-hYJMv9YRzbmFwwIN0Y3CCdl-DdWRwgnZf"
+           --bootnodes "enr:-J24QMnyMFl2PNEGQcVE7nC16gKW7lLk6GVGXZofmI9ABq3uBkx9TQLtGo3gZ5pafXDnP-wVNIJ4uaz3NSaM0SeaiIsBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQOgCd15sTTJZ994G8zvboX4oM3mKmHnkgSNJ0Aaz02EE4RzbmFwwIN0Y3CCdl-DdWRwgnZf"
 ```
 
 ## peer2

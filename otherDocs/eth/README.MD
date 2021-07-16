@@ -409,7 +409,7 @@ docker run -it -d --name bootstrap-node \
            --datadir /root/eth/data \
            --networkid 15444 \
            -verbosity 6 \
-           --nodiscover \
+           --netrestrict 172.17.0.1/8 \
            --nat extip:192.168.16.70 
 ```
 
@@ -443,8 +443,6 @@ docker run --rm -it --name ethereum-info-get \
 
 
 
-
-
 ## peer1
 
 生成peer1的数据目录：
@@ -466,9 +464,10 @@ docker run -it -d --name peer1 \
            --port 30304 \
            --networkid 15444 \
            -verbosity 6 \
-           --nodiscover \
            --nat extip:192.168.16.70 \
-           --bootnodes "enr:-Ja4QC6wBlF48ZtOXXjQ0N5JPo-0hkMgsqlH_9UDrDERtCSdLUSzL6vq9cAMaa6tI-Bo9cxDQHsvq9TJVs646xdrFCMBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQMtxGsuQFqkDRFLW_f0hfMU5Pu_aucDRYLDJyfL7muPSIRzbmFwwIN0Y3CCdl8"
+           --netrestrict 172.17.0.1/8 \
+           --bootnodes "enr:-J24QD7rnoNGaHeSdOcWsNkF_NNxb1Gh-wUcXRipaTDEk3SoU7L2IBcLvwvkJAlWBu3J6rt5ZZwoNddjelVgZJ_7FikBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQI2dXwM2Z2OGsnZKDAzHcTga-31LqlVT2k7siOhumU9I4RzbmFwwIN0Y3CCdl-DdWRwgnZf"
+
 ```
 
 ## peer2
@@ -720,6 +719,8 @@ https://medium.com/@gracile/setting-up-an-ethereum-virtual-private-network-46235
 https://philidor.dev/blog/setup-private-ethereum-network-with-docker/
 
 https://www.coding-bootcamps.com/blog/review-of-ethereum-networking-options.html
+
+https://www.cnblogs.com/wanghui-garcia/p/10256520.html
 
 工具：
 

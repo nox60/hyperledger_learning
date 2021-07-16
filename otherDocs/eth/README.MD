@@ -494,6 +494,39 @@ docker run -it -d --name peer1 \
 
 ```
 
+通过下面的命令获取peer1的相关信息
+```shell
+docker run --rm -it --name ethereum-info-get \
+           -v /root/eth/data-1:/root/eth/data-1 \
+           ethereum/client-go:stable \
+           attach /root/eth/data-1/geth.ipc --exec admin.nodeInfo.enode 
+```
+
+执行结果片段如下：
+
+```json
+"enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0"
+```
+
+然后执行下面的命令，其中addPeer命令括号中的内容来自上面命令执行的结果。
+
+```shell
+docker run --rm -it --name ethereum-add-peer \
+           -v /root/eth/data:/root/eth/data \
+           ethereum/client-go:stable \
+           attach /root/eth/data/geth.ipc
+           
+```
+
+然后执行下面的命令，其中addPeer命令括号中的内容来自上面命令执行的结果
+
+```shell
+
+admin.addPeer("enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0")
+```
+
+```
+
 ## peer2
 
 生成peer2的数据目录：

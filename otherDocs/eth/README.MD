@@ -518,13 +518,20 @@ docker run --rm -it --name ethereum-add-peer \
            
 ```
 
-然后执行下面的命令，其中addPeer命令括号中的内容来自上面命令执行的结果
+然后执行下面的命令，其中addPeer命令括号中的内容来自之前针对peer1节点执行admin.nodeInfo.enode命令执行的结果
 
 ```shell
-
 admin.addPeer("enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0")
 ```
 
+然后执行命令admin.peers则可以看到peer1已经加入到网络中了，所执行的命令和结果片段如下:
+```shell
+> admin.peers
+[{
+    caps: ["eth/65", "eth/66", "snap/1"],
+    enode: "enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0",
+    ...
+}]
 ```
 
 ## peer2

@@ -409,11 +409,17 @@ docker run -it -d --name bootstrap-node \
            --datadir /root/eth/data \
            --networkid 15444 \
            -verbosity 6 \
-           --netrestrict 172.17.0.1/8 \
-           --nat extip:192.168.16.70 
+           --netrestrict 172.17.0.1/8 
 ```
 
 其中--netrestrict参数限制只允许本机的节点添加，避免公网上的其他节点被添加进来
+
+docker网络因为其自身的网络特性，使用--bootnodes的节点注册方式暂时会有一些问题，主要问题记录如下：
+
+1. 如果打开--nodiscover设置，bootstrap node回去自动添加peer，造成大量的外部peer被注册进来；如果关闭该选项，则造成udp端口被关闭，member peer无法注册。
+2. 如果通过--netrestrict来避免大量外部的peer被注册进来是可以的，但是因为--netrestrict参数只能对一个IP段进行限制，而docker的IP地址比较麻烦，同时会会有192.168.X.X和172.17.X.X的存在。这里暂时没有解决的思路。
+
+综上所述，bootnodes对其他节点的注册暂时使用addpeer的API进行添加。后续继续研究。
 
 执行下面的命令获取 bootstrap node 的连接信息，用于后续成员节点和bootstrap node建立连接
 ```shell
@@ -464,7 +470,7 @@ docker run -it -d --name peer1 \
            --port 30304 \
            --networkid 15444 \
            -verbosity 6 \
-           --nat extip:192.168.16.70 \
+           --nat any \
            --netrestrict 172.17.0.1/8 \
            --bootnodes "enr:-J24QD7rnoNGaHeSdOcWsNkF_NNxb1Gh-wUcXRipaTDEk3SoU7L2IBcLvwvkJAlWBu3J6rt5ZZwoNddjelVgZJ_7FikBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQI2dXwM2Z2OGsnZKDAzHcTga-31LqlVT2k7siOhumU9I4RzbmFwwIN0Y3CCdl-DdWRwgnZf"
 
@@ -721,6 +727,8 @@ https://philidor.dev/blog/setup-private-ethereum-network-with-docker/
 https://www.coding-bootcamps.com/blog/review-of-ethereum-networking-options.html
 
 https://www.cnblogs.com/wanghui-garcia/p/10256520.html
+
+http://www.netkiller.cn/blockchain/ethereum/geth/index.html
 
 工具：
 

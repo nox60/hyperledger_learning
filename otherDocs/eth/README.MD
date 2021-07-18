@@ -788,6 +788,8 @@ https://www.cnblogs.com/wanghui-garcia/p/10256520.html
 
 http://www.netkiller.cn/blockchain/ethereum/geth/index.html
 
+https://medium.com/@pradeep_thomas/how-to-setup-your-own-private-ethereum-network-f80bc6aea088
+
 工具：
 
 https://enr-viewer.com/

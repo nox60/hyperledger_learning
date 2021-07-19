@@ -447,14 +447,17 @@ docker run --rm -it --name ethereum-temp \
 docker run -it -d --name peer1 \
            -v /root/eth/data-1:/root/eth/data-1 \
            -p 30304:30304 \
+           -p 8545:8545 \
            ethereum/client-go:stable \
            --datadir /root/eth/data-1 \
            --port 30304 \
            --networkid 15444 \
+           --http \
+           --http.addr 127.0.0.1 \
+           --http.port 8545 \
            -verbosity 6 \
            --nat extip:192.168.16.70 \
            --nodiscover 
-
 ```
 
 通过下面的命令获取peer1的相关信息

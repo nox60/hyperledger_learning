@@ -145,6 +145,23 @@ curl -i -H "Content-Type: application/json"  \
 ***
 
 
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":"0x3"}
+```
 
 
 

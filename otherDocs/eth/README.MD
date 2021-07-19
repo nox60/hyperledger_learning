@@ -434,7 +434,6 @@ docker run --rm -it --name ethereum-info-get \
 ## peer1
 
 生成peer1的数据目录：
-
 ```shell
 docker run --rm -it --name ethereum-temp \
            -v /root/eth:/root/eth \
@@ -443,6 +442,7 @@ docker run --rm -it --name ethereum-temp \
            init --datadir /root/eth/data-1 /root/eth/genesis.json
 ```
 
+启动peer1节点
 ```shell
 docker run -it -d --name peer1 \
            -v /root/eth/data-1:/root/eth/data-1 \
@@ -468,10 +468,10 @@ docker run --rm -it --name ethereum-info-get \
 执行结果片段如下：
 
 ```json
-"enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0"
+"enode://1c694d875090d16b2e33c42332512630f470b541479ee28a4090b57039401c0a3511bb5bb8d205c73948c5b957a0512b60cc378de54914a9504a020f7684a08f@192.168.16.70:30304?discport=0"
 ```
 
-然后执行下面的命令，其中addPeer命令括号中的内容来自上面命令执行的结果。
+然后执行命令进入boot node的控制台，其中addPeer命令中的参数，来自上面命令执行的结果（peer1的连接信息）。
 
 ```shell
 docker run --rm -it --name ethereum-add-peer \
@@ -484,7 +484,7 @@ docker run --rm -it --name ethereum-add-peer \
 然后执行下面的命令，其中addPeer命令括号中的内容来自之前针对peer1节点执行admin.nodeInfo.enode命令执行的结果
 
 ```shell
-admin.addPeer("enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0")
+admin.addPeer("enode://1c694d875090d16b2e33c42332512630f470b541479ee28a4090b57039401c0a3511bb5bb8d205c73948c5b957a0512b60cc378de54914a9504a020f7684a08f@192.168.16.70:30304?discport=0")
 ```
 
 然后执行命令admin.peers则可以看到peer1已经加入到网络中了，所执行的命令和结果片段如下:
@@ -492,12 +492,14 @@ admin.addPeer("enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b
 > admin.peers
 [{
     caps: ["eth/65", "eth/66", "snap/1"],
-    enode: "enode://aede77de8db5dc1d90a9e30fde64b85c00bfca8852f6245a94350861b4de5a0a8d475e4999e5a11806f99d81e45e1c7737ebd74fb91d8263d5f2aae9f46a019e@192.168.16.70:30304?discport=0",
+    enode: "enode://1c694d875090d16b2e33c42332512630f470b541479ee28a4090b57039401c0a3511bb5bb8d205c73948c5b957a0512b60cc378de54914a9504a020f7684a08f@192.168.16.70:30304?discport=0",
     ...
 }]
 ```
 
 ## peer2
+
+peer2节点的启动和加入eth私有网络的操作和peer1类似。
 
 生成peer2的数据目录：
 
@@ -509,6 +511,7 @@ docker run --rm -it --name ethereum-temp \
            init --datadir /root/eth/data-2 /root/eth/genesis.json
 ```
 
+启动peer2节点
 ```shell
 docker run -it -d --name peer2 \
            -v /root/eth/data-2:/root/eth/data-2 \
@@ -519,32 +522,54 @@ docker run -it -d --name peer2 \
            --networkid 15444 \
            -verbosity 6 \
            --nat extip:192.168.16.70 \
-           --bootnodes "enr:-Ja4QC6wBlF48ZtOXXjQ0N5JPo-0hkMgsqlH_9UDrDERtCSdLUSzL6vq9cAMaa6tI-Bo9cxDQHsvq9TJVs646xdrFCMBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQMtxGsuQFqkDRFLW_f0hfMU5Pu_aucDRYLDJyfL7muPSIRzbmFwwIN0Y3CCdl8"
+           --nodiscover 
+
 ```
+
+通过下面的命令获取peer2的相关信息
+```shell
+docker run --rm -it --name ethereum-info-get \
+           -v /root/eth/data-2:/root/eth/data-2 \
+           ethereum/client-go:stable \
+           attach /root/eth/data-2/geth.ipc --exec admin.nodeInfo.enode 
+```
+
+执行结果片段如下：
+
+```json
+"enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82cd8883ef5c0eb8acb4f4ee696626610df76c2d7616cd02a6a1541d63b47d468fc7a763a9@192.168.16.70:30305?discport=0"
+```
+
+然后执行命令进入boot node的控制台
+
+```shell
+docker run --rm -it --name ethereum-add-peer \
+           -v /root/eth/data:/root/eth/data \
+           ethereum/client-go:stable \
+           attach /root/eth/data/geth.ipc
+           
+```
+
+然后执行下面的命令，其中addPeer命令括号中的内容来自之前针对peer2节点执行admin.nodeInfo.enode命令执行的结果
+
+```shell
+admin.addPeer("enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82cd8883ef5c0eb8acb4f4ee696626610df76c2d7616cd02a6a1541d63b47d468fc7a763a9@192.168.16.70:30305?discport=0")
+```
+
+然后执行命令admin.peers则可以看到peer1已经加入到网络中了，所执行的命令和结果片段如下:
+```shell
+> admin.peers
+[{
+    caps: ["eth/65", "eth/66", "snap/1"],
+    enode: "enode://1c694d875090d16b2e33c42332512630f470b541479ee28a4090b57039401c0a3511bb5bb8d205c73948c5b957a0512b60cc378de54914a9504a020f7684a08f@192.168.16.70:30304?discport=0",
+    ...
+},{
+    caps: ["eth/65", "eth/66", "snap/1"],
+    enode: "enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82cd8883ef5c0eb8acb4f4ee696626610df76c2d7616cd02a6a1541d63b47d468fc7a763a9@192.168.16.70:30305?discport=0",
+    ...
+}]
 
 ## peer3
-
-生成peer3的数据目录：
-
-```shell
-docker run --rm -it --name ethereum-temp \
-           -v /root/eth:/root/eth \
-           -v /root/eth/genesis.json:/root/eth/genesis.json \
-           ethereum/client-go:stable \
-           init --datadir /root/eth/data-3 /root/eth/genesis.json
-```
-
-```shell
-docker run -it -d --name peer3 \
-           -v /root/eth/data-3:/root/eth/data-3 \
-           -p 30306:30303 \
-           ethereum/client-go:stable \
-           --datadir /root/eth/data-3 \
-           --networkid 15444 \
-           --nat extip:192.168.16.70 \
-           --netrestrict 192.168.16.1/8 \
-           --bootnodes "enr:-J24QO3c3k60bZAA-t4ZYqYRo3QvN0pvg_ml8QRXFCiWOVxDVALmP87FyVX1xHP2zDU7LWTDdxJNKTShDZgu3n68Y2sBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQLbiZVc2OFRfPUfijyaD9iLk8-0FzEnJC_oOySazReWMYRzbmFwwIN0Y3CCdl-DdWRwgnZf"
-```
 
 
 

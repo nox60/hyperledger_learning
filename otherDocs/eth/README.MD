@@ -680,7 +680,7 @@ Repeat passphrase:
 
 ```shell
 > personal.listAccounts
-["0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb"]
+["0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0"]
 ```
 
 列出区块总数：
@@ -707,7 +707,7 @@ null
 同时，在任何一个节点的控制台终端执行查询账户钱包的命令，也能够查询到相应的记录
 
 ```shell
-> eth.getBalance("0xd716725925b0f8b3c68ccd2fbef924d6d9f47ebb")
+> eth.getBalance("0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0")
 12000000000000000000
 ```
 

@@ -571,115 +571,94 @@ admin.addPeer("enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82c
 
 ## peer3
 
+peer3节点的启动和加入eth私有网络的操作和peer1以及peer2类似。
 
+生成peer3的数据目录：
 
-
-
-
-## 验证
 ```shell
 docker run --rm -it --name ethereum-temp \
+           -v /root/eth:/root/eth \
+           -v /root/eth/genesis.json:/root/eth/genesis.json \
+           ethereum/client-go:stable \
+           init --datadir /root/eth/data-3 /root/eth/genesis.json
+```
+
+启动peer3节点
+```shell
+docker run -it -d --name peer3 \
+           -v /root/eth/data-3:/root/eth/data-3 \
+           -p 30306:30306 \
+           ethereum/client-go:stable \
+           --datadir /root/eth/data-3 \
+           --port 30306 \
+           --networkid 15444 \
+           -verbosity 6 \
+           --nat extip:192.168.16.70 \
+           --nodiscover 
+
+```
+
+通过下面的命令获取peer3的相关信息
+```shell
+docker run --rm -it --name ethereum-info-get \
+           -v /root/eth/data-3:/root/eth/data-3 \
+           ethereum/client-go:stable \
+           attach /root/eth/data-3/geth.ipc --exec admin.nodeInfo.enode 
+```
+
+执行结果片段如下：
+
+```json
+"enode://045854e0cce2e3fa11699c3b0a6567cbc1ae9384073d4f319d6fbb5984f86215a85af3947edba6512d8ea224b12546f667627835374c9d4963577f22c8078fde@192.168.16.70:30306?discport=0"
+```
+
+然后执行命令进入boot node的控制台
+
+```shell
+docker run --rm -it --name ethereum-add-peer \
            -v /root/eth/data:/root/eth/data \
            ethereum/client-go:stable \
-           attach /root/eth/data/geth.ipc --exec admin.peers
+           attach /root/eth/data/geth.ipc
+           
 ```
 
-会得到下面的输出结果
+然后执行下面的命令，其中addPeer命令括号中的内容来自之前针对peer2节点执行admin.nodeInfo.enode命令执行的结果
+
 ```shell
-[root@fabric70 eth]# geth attach data/geth.ipc --exec admin.peers
+admin.addPeer("enode://045854e0cce2e3fa11699c3b0a6567cbc1ae9384073d4f319d6fbb5984f86215a85af3947edba6512d8ea224b12546f667627835374c9d4963577f22c8078fde@192.168.16.70:30306?discport=0")
+```
+
+然后执行命令admin.peers则可以看到peer1已经加入到网络中了，所执行的命令和结果片段如下:
+```shell
+> admin.peers
 [{
     caps: ["eth/65", "eth/66", "snap/1"],
-    enode: "enode://d102ed4f1cec74f003f48ad7bd378fe5e672a265aa13c52d4b13b53a098104a622dedd8281a733fa2582f7a0e3da9c0279dd81d1bbb53d7756eb15c6598e13ca@127.0.0.1:58450",
-    id: "0cb31f976a96363a148defa961b70c1a2624f91fb3595c24ffcda45c264d31b6",
-    name: "Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4",
-    network: {
-      inbound: true,
-      localAddress: "127.0.0.1:30303",
-      remoteAddress: "127.0.0.1:58450",
-      static: false,
-      trusted: false
-    },
-    protocols: {
-      eth: {
-        difficulty: 4194304,
-        head: "0xebe33838a934184e6d3738da1685cc191e399a64b934ee5f349a36f6c13c33b2",
-        version: 66
-      },
-      snap: {
-        version: 1
-      }
-    }
-}, {
+    enode: "enode://1c694d875090d16b2e33c42332512630f470b541479ee28a4090b57039401c0a3511bb5bb8d205c73948c5b957a0512b60cc378de54914a9504a020f7684a08f@192.168.16.70:30304?discport=0",
+    ...
+},{
     caps: ["eth/65", "eth/66", "snap/1"],
-    enode: "enode://2af844cebc79149a9dad81a472da6b3826207f8ae43ec45fe64417cb93865c9317ab6c7bb342672951dee6d0b89d3978a14accff9564519927a74bcab34a2814@127.0.0.1:58442",
-    id: "3e87be3acaf1510dec7f0400ba962ab4cc3ad41af96a5a2971a99a14026ecf7c",
-    name: "Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4",
-    network: {
-      inbound: true,
-      localAddress: "127.0.0.1:30303",
-      remoteAddress: "127.0.0.1:58442",
-      static: false,
-      trusted: false
-    },
-    protocols: {
-      eth: {
-        difficulty: 4194304,
-        head: "0xebe33838a934184e6d3738da1685cc191e399a64b934ee5f349a36f6c13c33b2",
-        version: 66
-      },
-      snap: {
-        version: 1
-      }
-    }
-}, {
+    enode: "enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82cd8883ef5c0eb8acb4f4ee696626610df76c2d7616cd02a6a1541d63b47d468fc7a763a9@192.168.16.70:30305?discport=0",
+    ...
+},{
     caps: ["eth/65", "eth/66", "snap/1"],
-    enode: "enode://47af6f44228cb7b209e457b44c18d14ffcd87cd06f074abe026dc704dbb48ba4c0e6e3b66c63526d7653b6a690ae1a6a9a2dbedf2ca92edf451fa4f86c55fc28@127.0.0.1:58448",
-    id: "5b7c5cdcf5e2a48f9b84e4afbda09f54263ae0de567a17352a6f1a55b8c7a97a",
-    name: "Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4",
-    network: {
-      inbound: true,
-      localAddress: "127.0.0.1:30303",
-      remoteAddress: "127.0.0.1:58448",
-      static: false,
-      trusted: false
-    },
-    protocols: {
-      eth: {
-        difficulty: 4194304,
-        head: "0xebe33838a934184e6d3738da1685cc191e399a64b934ee5f349a36f6c13c33b2",
-        version: 66
-      },
-      snap: {
-        version: 1
-      }
-    }
+    enode: "enode://045854e0cce2e3fa11699c3b0a6567cbc1ae9384073d4f319d6fbb5984f86215a85af3947edba6512d8ea224b12546f667627835374c9d4963577f22c8078fde@192.168.16.70:30306?discport=0",
+    ...
 }]
 
-```
 
-通过上面的输出信息，可以看到加入三个成员节点信息
+## 操作测试
 
-## 创建账户
+### 创建账户
 新开一个shell窗口，通过下面的命令，可以登录到peer1的控制台，通过更改数据目录路径，也可以登录到其他peer
 
 ```shell
-geth attach data-1/geth.ipc
+docker run --rm -it --name ethereum-peer1-console \
+           -v /root/eth/data-1:/root/eth/data-1 \
+           ethereum/client-go:stable \
+           attach /root/eth/data-1/geth.ipc
 ```
 
-登录成功会进入到控制台，如下所示：
-
-```shell
-[root@fabric70 eth]# geth attach data-1/geth.ipc
-Welcome to the Geth JavaScript console!
-
-instance: Geth/v1.10.4-stable-aa637fd3/linux-amd64/go1.16.4
-at block: 0 (Mon Feb 17 2020 16:49:54 GMT+0800 (CST))
- datadir: /root/eth/data-1
- modules: admin:1.0 debug:1.0 eth:1.0 ethash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
-
-To exit, press ctrl-d
->
-```
+登录成功会进入到控制台
 
 输入命令 personal.newAccount() 并执行，会要求输入密码，然后的到一串代表账户地址的字符串，代表用户创建成功：
 
@@ -687,13 +666,13 @@ To exit, press ctrl-d
 > personal.newAccount()
 Passphrase:
 Repeat passphrase:
-"0x6402fd89e87127908b54b7a18e6ac4d251dc0fcd"
+"0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0"
 ```
 
 通过下面的命令获取账户余额？ eth.getBalance("ENTER_ACCOUNT_ADDRESS_HERE")
 
 ```shell
-> eth.getBalance("0x6402fd89e87127908b54b7a18e6ac4d251dc0fcd")
+> eth.getBalance("0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0")
 0
 ```
 
@@ -710,7 +689,7 @@ Repeat passphrase:
 eth.blockNumber
 ```
 
-## 挖矿相关测试
+### 挖矿相关测试
 执行命令 miner.start() , 则当前账户？会开始挖矿
 
 ```shell
@@ -737,28 +716,7 @@ null
 
 
 
-
-
-admin.addPeer("enode://fe23fd1b7c95f074947271852e1abf095b118d434ac25bf36d59a326a07d248a1aa86fb19a50d52f960d0ece0615d6fc33f831f8965061d644782e15c4daad06@192.168.16.70:30304?discport=0")
-
-
-enode://6c7252bc72a10fd824b280a3d81d988c95d9db046eadb92f085b65133b5ea0cef793e6e0c35fca6c66800f1406cf015281da64f2235dae5f9f1f2c7692b08803@192.168.16.70:30304
-
-
-admin.nodeInfo.enode
-
-"enode://b4233eda453e379a46b8e7e4cd2f6679efadb4f367f2aa388d7a40157810c1e64c2c00647c19ef3ba85e7fdf83796dd8c0ed64dfae20a91a1e3d3cd1746a0bc9@192.168.16.70:30304?discport=0"
-
-
-
-
-
-
-
-
-
-
-参考文档：
+## 参考文档：
 
 https://geth.ethereum.org/docs/interface/private-network
 

@@ -13,3 +13,5 @@
 **/vendor/**
 *.exe
 .gitignore
+chaincode1/go.mod
+chaincode1/go.sum

@@ -423,41 +423,6 @@ docker网络因为其自身的网络特性，使用--bootnodes的节点注册方
 综上所述，bootnodes对其他节点的注册暂时使用addpeer的API进行添加。后续继续研究。
 
 
-
-
-
-
-
-
-
-执行下面的命令获取 bootstrap node 的连接信息，用于后续成员节点和bootstrap node建立连接
-```shell
-docker run --rm -it --name ethereum-info-get \
-           -v /root/eth/data:/root/eth/data \
-           ethereum/client-go:stable \
-           attach /root/eth/data/geth.ipc --exec admin.nodeInfo.enr
-```
-
-会有下面的输出：
-```shell
-[root@fabric70 eth]# docker run --rm -it --name ethereum-info-get \
->            -v /root/eth/data:/root/eth/data \
->            ethereum/client-go:stable \
->            attach /root/eth/data/geth.ipc --exec admin.nodeInfo.enr
-"enr:-J24QMnyMFl2PNEGQcVE7nC16gKW7lLk6GVGXZofmI9ABq3uBkx9TQLtGo3gZ5pafXDnP-wVNIJ4uaz3NSaM0SeaiIsBg2V0aMfGhEQV6vaAgmlkgnY0gmlwhMCoEEaJc2VjcDI1NmsxoQOgCd15sTTJZ994G8zvboX4oM3mKmHnkgSNJ0Aaz02EE4RzbmFwwIN0Y3CCdl-DdWRwgnZf"
-```
-
-保存输出结果，后续需要使用
-
-
-
-
-
-
-
-
-
-
 通过下面的命令可以进入节点控制台，进入的时候需要注意data目录名称
 ```shell
 docker run --rm -it --name ethereum-info-get \
@@ -465,8 +430,6 @@ docker run --rm -it --name ethereum-info-get \
            ethereum/client-go:stable \
            attach /root/eth/data/geth.ipc 
 ```
-
-
 
 ## peer1
 

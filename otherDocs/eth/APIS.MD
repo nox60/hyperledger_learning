@@ -24,8 +24,13 @@
 | <a href="#net_listening"> net_listening </a> | 无 | 返回当前客户端是否连接到网络|
 | <a href="#eth_syncing"> eth_syncing </a> | 无 | 返回当前的区块同步状态（需要进一步举例）|
 | <a href="#eth_coinbase"> eth_coinbase </a> | 无 | 返回当前客户端的coinbase地址|
+| <a href="#eth_mining"> eth_mining </a> | 无 | 返回当前客户端是否正在挖矿|
+| <a href="#eth_hashrate"> eth_hashrate </a> | 无 | 返回当前节点每秒钟的hash次数（算力）|
+| <a href="#eth_gasPrice"> eth_gasPrice </a> | 无 | 返回当前单位gas的价格，以16进制的方式展示，单位是wei |
+| <a href="#eth_accounts"> eth_accounts </a> | 无 | 当前用户的地址 |
 
-eth_coinbase
+
+
 
 
 
@@ -240,11 +245,95 @@ curl -i -H "Content-Type: application/json"  \
 **结果示例：**
 
 ```json
-{"jsonrpc":"2.0","id":74,"result":"0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0"}
+{"jsonrpc":"2.0","id":74,"result":true}
 ```
 
 **结果说明：**
-返回当前客户端的coinbase地址
+返回当前客户端是否在进行挖矿，true代表正在挖矿; false则没有。
+
+
+
+### <a name="eth_hashrate">eth_hashrate</a>
+***
+
+
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_hashrate","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":"0x2a8cf"}
+```
+
+**结果说明：**
+返回当前节点每秒钟的hash次数（算力），结果是16进制的
+
+
+
+### <a name="eth_gasPrice">eth_gasPrice</a>
+***
+
+
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_hashrate","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":"0x3b9aca00"}
+```
+
+**结果说明：**
+返回当前单位gas的价格，以16进制的方式展示，单位是wei
+
+比如上例中的0x3b9aca00换算成十进制则是1000000000 wei
+
+
+
+### <a name="eth_accounts">eth_accounts</a>
+***
+
+
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":["0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0"]}
+```
+
+**结果说明：**
+当前用户的地址
+
 
 
 

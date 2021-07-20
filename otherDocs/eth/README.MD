@@ -453,7 +453,7 @@ docker run -it -d --name peer1 \
            --port 30304 \
            --networkid 15444 \
            --http \
-           --http.addr 127.0.0.1 \
+           --http.addr 0.0.0.0 \
            --http.port 8545 \
            -verbosity 6 \
            --nat extip:192.168.16.70 \

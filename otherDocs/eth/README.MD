@@ -571,6 +571,7 @@ admin.addPeer("enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82c
     enode: "enode://110d38fd2194032f1a30b0bf9ab7aaea2f44dda4bf9c8bea1eaa9f82cd8883ef5c0eb8acb4f4ee696626610df76c2d7616cd02a6a1541d63b47d468fc7a763a9@192.168.16.70:30305?discport=0",
     ...
 }]
+```
 
 ## peer3
 

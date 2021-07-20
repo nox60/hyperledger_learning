@@ -21,10 +21,11 @@
 | <a href="#web3_sha3"> web3_sha3 </a> | 无 | 对给定字符串进行基于sha3算法的散列计算|
 | <a href="#net_version"> net_version </a> | 无 | 返回当前网络类型|
 | <a href="#net_peerCount"> net_peerCount </a> | 无 | 返回当前网络中的节点数量|
-| <a href="#net_listening"> net_listening </a> | 无 | 返回当前客户端版本|
-| <a href="#eth_protocolVersion"> eth_protocolVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#eth_syncing"> eth_syncing </a> | 无 | 返回当前客户端版本|
+| <a href="#net_listening"> net_listening </a> | 无 | 返回当前客户端是否连接到网络|
+| <a href="#eth_syncing"> eth_syncing </a> | 无 | 返回当前的区块同步状态（需要进一步举例）|
+| <a href="#eth_coinbase"> eth_coinbase </a> | 无 | 返回当前客户端的coinbase地址|
 
+eth_coinbase
 
 
 
@@ -154,30 +155,98 @@ curl -i -H "Content-Type: application/json"  \
 ```shell
 curl -i -H "Content-Type: application/json"  \
 -X POST http://localhost:8545 \
---data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'
+--data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":74}'
 ```
 
 **结果示例：**
 
 ```json
-{"jsonrpc":"2.0","id":74,"result":"0x3"}
+{"jsonrpc":"2.0","id":74,"result":true}
 ```
 
-
-
-
-
-### <a name="eth_protocolVersion">eth_protocolVersion</a>
-***
-
-
-
-
+**结果说明：**
+返回当前客户端是否连接到网络
 
 
 
 ### <a name="eth_syncing">eth_syncing</a>
 ***
+
+
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":false}
+```
+
+**结果说明：**
+返回正在同步的块，如果没有则返回false
+
+
+### <a name="eth_coinbase">eth_coinbase</a>
+***
+
+
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":"0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0"}
+```
+
+**结果说明：**
+返回当前客户端的coinbase地址
+
+
+### <a name="eth_mining">eth_mining</a>
+***
+
+
+**参数说明：**
+
+无
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_mining","params":[],"id":74}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":74,"result":"0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0"}
+```
+
+**结果说明：**
+返回当前客户端的coinbase地址
+
+
 
 
 
@@ -187,3 +256,5 @@ curl -i -H "Content-Type: application/json"  \
 # 4. 参考文档
 
 https://ethereum.stackexchange.com/questions/28703/full-list-of-geth-terminal-commands/28704
+
+https://infura.io/docs/ethereum#section/Project-Security/User-Agents

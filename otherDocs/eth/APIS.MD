@@ -401,3 +401,8 @@ curl -i -H "Content-Type: application/json"  \
 https://ethereum.stackexchange.com/questions/28703/full-list-of-geth-terminal-commands/28704
 
 https://infura.io/docs/ethereum#section/Project-Security/User-Agents
+
+https://eth.wiki/json-rpc/API
+
+https://medium.com/coinmonks/private-ethereum-by-example-b77063bb634f
+

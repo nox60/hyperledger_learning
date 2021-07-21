@@ -1,7 +1,7 @@
 ## 源码
 
 ```solidity
-pragma solidity ^0.5.0;
+pragma solidity >=0.4.22 <0.7.0;
 contract HelloWorld {
 
     string saySomething;
@@ -24,5 +24,15 @@ contract HelloWorld {
 
 ## 编译
 ```shell
-docker run -v /local/path:/sources ethereum/solc:stable -o /sources/output --abi --bin /sources/Contract.sol
+docker run  --rm -it \
+-v /root/eth/contracts:/opt/contracts ethereum/solc:0.6.6 \
+-o /opt/contracts \
+--abi --bin /opt/contracts/hello.sol 
 ```
+
+## 加载
+
+
+## 参考文档
+
+https://medium.com/datawallet-blog/how-to-deploy-a-local-private-ethereum-blockchain-c2b497f068f4

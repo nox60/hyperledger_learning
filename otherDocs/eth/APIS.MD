@@ -413,4 +413,7 @@ https://www.jianshu.com/p/8b345f22730c
 
 https://www.freecodecamp.org/news/how-to-transfer-funds-on-the-ethereum-network-using-the-geth-cli-b7eac16aa3a9/
 
+!!
+https://kctheservant.medium.com/transactions-in-ethereum-e85a73068f74
+
 

@@ -477,7 +477,7 @@ docker run --rm -it --name ethereum-info-get \
 然后执行命令进入boot node的控制台，其中addPeer命令中的参数，来自上面命令执行的结果（peer1的连接信息）。
 
 ```shell
-docker run --rm -it --name ethereum-add-peer \
+docker run --rm -it --name ethereum-boot-node \
            -v /root/eth/data:/root/eth/data \
            ethereum/client-go:stable \
            attach /root/eth/data/geth.ipc

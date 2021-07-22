@@ -29,7 +29,8 @@
 | <a href="#eth_gasPrice"> eth_gasPrice </a> | 无 | 返回当前单位gas的价格，以16进制的方式返回，单位是wei |
 | <a href="#eth_accounts"> eth_accounts </a> | 无 | 当前用户的地址 |
 | <a href="#eth_blockNumber"> eth_blockNumber </a> | 无 | 返回当前网络中区块高度，以16进制方式返回 |
-| <a href="#eth_blockNumber"> eth_blockNumber </a> | 无 | 返回当前网络中区块高度，以16进制方式返回 |
+| <a href="..."> ... </a> | 无 | 编写中 |
+| <a href="..."> ... </a> | 无 | 编写中 |
 
 
 
@@ -405,4 +406,11 @@ https://infura.io/docs/ethereum#section/Project-Security/User-Agents
 https://eth.wiki/json-rpc/API
 
 https://medium.com/coinmonks/private-ethereum-by-example-b77063bb634f
+
+https://geth.ethereum.org/docs/rpc/ns-admin
+
+https://www.jianshu.com/p/8b345f22730c
+
+https://www.freecodecamp.org/news/how-to-transfer-funds-on-the-ethereum-network-using-the-geth-cli-b7eac16aa3a9/
+
 

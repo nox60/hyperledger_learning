@@ -457,6 +457,7 @@ docker run -it -d --name peer1 \
            --http.port 8545 \
            -verbosity 6 \
            --nat extip:192.168.16.70 \
+           --allow-insecure-unlock \
            --nodiscover 
 ```
 

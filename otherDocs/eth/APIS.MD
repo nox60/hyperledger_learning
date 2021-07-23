@@ -15,22 +15,25 @@
 # 2. 参数列表与说明
 
 
-| 命令 |参数       | 说明      |
+| 命令       | 说明      |
 |--------- | ---------  | --------- | 
-| <a href="#web3_clientVersion"> web3_clientVersion </a> | 无 | 返回当前客户端版本|
-| <a href="#web3_sha3"> web3_sha3 </a> | 无 | 对给定字符串进行基于sha3算法的散列计算|
-| <a href="#net_version"> net_version </a> | 无 | 返回当前网络类型|
-| <a href="#net_peerCount"> net_peerCount </a> | 无 | 返回当前网络中的节点数量|
-| <a href="#net_listening"> net_listening </a> | 无 | 返回当前客户端是否连接到网络|
-| <a href="#eth_syncing"> eth_syncing </a> | 无 | 返回当前的区块同步状态（需要进一步举例）|
-| <a href="#eth_coinbase"> eth_coinbase </a> | 无 | 返回当前客户端的coinbase地址|
-| <a href="#eth_mining"> eth_mining </a> | 无 | 返回当前客户端是否正在挖矿|
-| <a href="#eth_hashrate"> eth_hashrate </a> | 无 | 返回当前节点每秒钟的hash次数（算力）|
-| <a href="#eth_gasPrice"> eth_gasPrice </a> | 无 | 返回当前单位gas的价格，以16进制的方式返回，单位是wei |
-| <a href="#eth_accounts"> eth_accounts </a> | 无 | 当前用户的地址 |
-| <a href="#eth_blockNumber"> eth_blockNumber </a> | 无 | 返回当前网络中区块高度，以16进制方式返回 |
-| <a href="..."> ... </a> | 无 | 编写中 |
-| <a href="..."> ... </a> | 无 | 编写中 |
+| <a href="#web3_clientVersion"> web3_clientVersion </a>  | 返回当前客户端版本|
+| <a href="#web3_sha3"> web3_sha3 </a>  | 对给定字符串进行基于sha3算法的散列计算|
+| <a href="#net_version"> net_version </a>  | 返回当前网络类型|
+| <a href="#net_peerCount"> net_peerCount </a>  | 返回当前网络中的节点数量|
+| <a href="#net_listening"> net_listening </a>  | 返回当前客户端是否连接到网络|
+| <a href="#eth_syncing"> eth_syncing </a>  | 返回当前的区块同步状态（需要进一步举例）|
+| <a href="#eth_coinbase"> eth_coinbase </a>  | 返回当前客户端的coinbase地址|
+| <a href="#eth_mining"> eth_mining </a>  | 返回当前客户端是否正在挖矿|
+| <a href="#eth_hashrate"> eth_hashrate </a>  | 返回当前节点每秒钟的hash次数（算力）|
+| <a href="#eth_gasPrice"> eth_gasPrice </a>  | 返回当前单位gas的价格，以16进制的方式返回，单位是wei |
+| <a href="#eth_accounts"> eth_accounts </a>  | 当前用户的地址 |
+| <a href="#eth_blockNumber"> eth_blockNumber </a>  | 返回当前网络中区块高度，以16进制方式返回 |
+| <a href="..."> ... </a>  | 编写中 |
+| <a href="..."> ... </a>  | 编写中 |
+
+| <a href="#eth_sendTransaction"> eth_sendTransaction </a>  | 转账 |
+
 
 
 
@@ -386,6 +389,41 @@ curl -i -H "Content-Type: application/json"  \
 
 ```json
 {"jsonrpc":"2.0","id":74,"result":"0x64"}
+```
+
+**结果说明：**
+返回当前网络中区块高度，结果以16进制方式表示
+
+
+
+
+
+### <a name="eth_sendTransaction">eth_sendTransaction</a>
+***
+
+
+**参数说明：**
+
+- from: DATA, 20 Bytes - The address the transaction is send from.
+- to: DATA, 20 Bytes - (optional when creating new contract) The address the transaction is directed to.
+- gas: QUANTITY - (optional, default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.
+- gasPrice: QUANTITY - (optional, default: To-Be-Determined) Integer of the gasPrice used for each paid gas
+- value: QUANTITY - (optional) Integer of the value sent with this transaction
+- data: DATA - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see Ethereum Contract ABI
+- nonce: QUANTITY - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
+
+**请求示例：**
+
+```shell
+curl -i -H "Content-Type: application/json"  \
+-X POST http://localhost:8545 \
+--data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":  [{ "from": "0x53293cd5c9f1fdd83adffae0ef00c8900f8b38d0", "to":"0x10c9f4fd140898e3f59e6dd7f3698660c63ff649",  "value": "0x1" }] ,"id":1}'
+```
+
+**结果示例：**
+
+```json
+{"jsonrpc":"2.0","id":1,"result":"0x9a11577265fb006d259a309f1d03d7a2ce75935bb0fe7a248e6542d42c10fde6"}
 ```
 
 **结果说明：**
